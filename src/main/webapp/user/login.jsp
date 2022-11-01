@@ -80,7 +80,7 @@
                             <div class="text-start" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">비밀번호</span>
                             </div>
-                            <input type="password" name="user_pwd" id="login_pwd" placeholder="비밀번호를 입력하세요."
+                            <input type="password" name="user_pw" id="login_pw" placeholder="비밀번호를 입력하세요."
                                 maxlength="20">
                         </div>
                         <div class="col-12 gy-4">
@@ -98,7 +98,7 @@
                         <div class="col-12 gy-1" style="color:#808080; font-size:small">
                             <a onclick="$('#form_login').hide(); $('#form_searchId').show()">아이디 찾기</a>
                             <span>/</span>
-                            <a onclick="$('#form_login').hide(); $('#form_searchPwd').show()">비밀번호 찾기</a>
+                            <a onclick="$('#form_login').hide(); $('#form_searchPw').show()">비밀번호 찾기</a>
                         </div>
                     </div>
                 </form>
@@ -135,7 +135,7 @@
                     </div>
                 </form>
                 <!-- 비밀번호 찾기 폼 -->
-                <form class="search" id="form_searchPwd">
+                <form class="search" id="form_searchPw">
                     <div class="row justify-content-center">
                         <div class="col-12 text-end">
                             <a><i class="fa-solid fa-x" style="color:#808080"></i></a>
@@ -144,19 +144,19 @@
                             <div class="mb-2" style="font-size:large">비밀번호 찾기</div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_email" id="searchPwd_email" placeholder="이메일" maxlength="40">
+                            <input type="text" name="user_email" id="searchPw_email" placeholder="이메일" maxlength="40">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 이메일을 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_phone" id="searchPwd_phone" placeholder="핸드폰 번호" maxlength="14">
+                            <input type="text" name="user_phone" id="searchPw_phone" placeholder="핸드폰 번호" maxlength="14">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 핸드폰 번호를 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <button class="btn_base" type="button" id="btn_searchPwd">찾기</button>
+                            <button class="btn_base" type="button" id="btn_searchPw">찾기</button>
                         </div>
                         <div class="col-12 gy-4">
                             <div class="text-start mt-1" style="width:250px">
@@ -185,7 +185,7 @@
 
                 // 로그인 함수
                 function tryLogin() {
-                    $.post("/login.member", $("#form_login").serialize())
+                    $.post("/login.user", $("#form_login").serialize())
                         .done((res) => {
                             if (res == "true") {
                                 Swal.fire({ title: "Success!", icon: "success", text: "로그인에 성공했습니다." })
@@ -203,30 +203,31 @@
                 }
 
                 // 비밀번호 찾기 함수
-                function trySearchPwd() {
+                function trySearchPw() {
                 }
 
                 // 버튼 이벤트
                 $("#btn_login").on("click", () => {
-                    if (isFilled($("#login_id"), $("#login_pwd"))) { tryLogin(); }
+                    if (isFilled($("#login_id"), $("#login_pw"))) { tryLogin(); }
                 });
 
                 $("#btn_searchId").on("click", () => {
                     if (isFilled($("#searchId_name"), $("#searchId_phone"))) { trySearchId(); }
                 });
 
-                $("#btn_searchPwd").on("click", () => {
-                    if (isFilled($("#searchPwd_email"), $("#searchPwd_phone"))) { trySearchPwd(); }
+                $("#btn_searchPw").on("click", () => {
+                    if (isFilled($("#searchPw_email"), $("#searchPw_phone"))) { trySearchPw(); }
                 });
 
                 // 엔터 = 버튼 클릭
-                $("#login_id, #login_pwd").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_login").click() } });
+                $("#login_id, #login_pw").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_login").click() } });
                 $("#searchId_name, #searchId_phone").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchId").click() } });
-                $("#searchPwd_email, #searchPwd_phone").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchPwd").click() } });
+                $("#searchPw_email, #searchPw_phone").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchPw").click() } });
 
                 // 뒤로가기 처리
                 $(".btn_back").on("click", () => {
                     $(".search").hide();
+                    $("#login_id, #login_pw, #searchId_name, #searchId_phone, searchPw_email, #searchPw_phone").val("");
                     $("#form_login").show();
                 })
             </script>
