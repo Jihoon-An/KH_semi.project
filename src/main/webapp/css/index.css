@@ -2,7 +2,7 @@
 
 /* header */
 
-#jhi_header {
+#header {
 	width: 100%;
 	height: 85px;
 	background: #001A41;
@@ -14,7 +14,7 @@
 	overflow: hidden;
 }
 
-#jhi_header_logo {
+#header_logo {
 	font-family: 'Inter', sans-serif;
 	font-weight: Extra Bold;
 	font-style: italic;
@@ -29,13 +29,13 @@ nav {
 	display: inline;
 }
 
-#jhi_nav_text>ul {
+#header_nav_text>ul {
 	list-style: none;
 	padding: 0;
 	display: inline;
 }
 
-#jhi_nav_text {
+#header_nav_text {
 	width: 100px;
 	height: 100px;
 	color: #FFFFFF;
@@ -43,43 +43,68 @@ nav {
 	line-height: 85px;
 }
 
-#jhi_nav_menu {
+#header_nav_menu {
 	margin: 0;
 }
 
-#jhi_nav_menu>li {
+#header_nav_menu>li {
 	margin-right: 50px;
 }
 
-#jhi_nav_person {
+#header_nav_person {
 	margin: 0;
 	position: relative;
 	left: 300px;
 }
 
-#jhi_nav_person>li {
+#header_nav_person>li {
 	margin-left: 50px;
 }
 
-.a_tag {
+.header_a_tag {
 	text-decoration: none;
 	color: #FFFFFF;
 }
 
-.a_tag:hover {
+.header_a_tag:hover {
 	color: #FFFFFF;
 }
 
-#jhi_nav_text>ul>li>a:hover {
+#header_nav_text>ul>li>a:hover {
 	color: #FFFFFF;
 	font-weight: 600;
 }
 
 
+/* footer */
+
+.footer_line {
+	background-color: #C7D3DC;
+	height: 1px;
+	margin-top: 50px;
+}
+
+#footer ul {
+	list-style: none;
+	padding: 0;
+	display: inline;
+}
+
+#footer li {float: left;}
+
+.footer_a_tag {
+	text-decoration: none;
+	color: #000000;
+}
+
+.footer_a_tag:hover {
+	color: #000000;
+}
+
 
 /* main */
 
-#jhi .mainimg {
+#index .mainimg {
 	width: 100%;
 	height: 950px;
 	background-image: url("/resource/main.jpg");
@@ -87,7 +112,7 @@ nav {
 	background-position: center;
 }
 
-#jhi .search_main{
+#index .search_main{
 	width: 812px;
 	height: 77px;
 	border-radius: 100px;
@@ -98,7 +123,7 @@ nav {
 	background-color: #CF0C00;
 	opacity: 0.9;
 }
-#jhi .search_main > .search_main_span{
+#index .search_main > .search_main_span{
 	width: 40%;
 	height: 100%;
 	text-align: center;
@@ -106,12 +131,12 @@ nav {
 	position: absolute;
 	left: 40px;
 }
-#jhi .search_main > .search_main_span > span{
+#index .search_main > .search_main_span > span{
 	font-size: 1.5em; /* 유어 모시꺵이 */
 	color: white;
 	font-style: oblique;
 }
-#jhi .search_main > .search_main_input{
+#index .search_main > .search_main_input{
 	width: 60%;
 	height: 100%;
 	position: absolute;
@@ -120,7 +145,7 @@ nav {
 	text-align: center;
 	opacity: 0.9;
 }
-#jhi .search_main > .search_main_input > input{
+#index .search_main > .search_main_input > input{
 	width: 404px;
 	height: 45px;
 	font-size: large;
@@ -130,7 +155,7 @@ nav {
 	border: none;
 	box-shadow: 3px 4px 5px rgb(150, 12, 12);
 }
-#jhi .search_main > .search_main_icon{
+#index .search_main > .search_main_icon{
 	width: 30px;
 	height: 100%;
 	font-size: 1.5em;

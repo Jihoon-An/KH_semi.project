@@ -5,10 +5,10 @@
 
 
 
-<%@ include file="/layout/header.jsp"%>
+<%@ include file="/layout/header.jsp"%>	
 
 <!-- Site Main -->
-<main id="jhi">
+<main id="index">
 	<section>
 		<div class="mainimg">
 			<div class="containerbox">
