@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,eclipse,intellij,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,eclipse,intellij,git
 fitneeds.iml
+.idea/
 ### Eclipse ###
 .metadata
 bin/
@@ -96,7 +97,6 @@ build/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
-.idea/*
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -214,7 +214,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
