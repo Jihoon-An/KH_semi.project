@@ -37,34 +37,32 @@
 
 <!-- css -->
 <link rel="stylesheet" href="/css/base.css" type="text/css">
-<link rel="stylesheet" href="/css/jhi.css" type="text/css">
-<link rel="stylesheet" href="/css/kms.css" type="text/css">
-<link rel="stylesheet" href="/css/ykm.css" type="text/css">
-<link rel="stylesheet" href="/css/hjy.css" type="text/css">
-<link rel="stylesheet" href="/css/ajh.css" type="text/css">
-<link rel="stylesheet" href="/css/kij.css" type="text/css">
+<link rel="stylesheet" href="/css/index.css" type="text/css">
+<link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
+
+</head>
 
 <body>
 	<!-- Site header -->
-	<header id="jhi_header">
+	<header id="header">
 		<div class="containerbox">
 
 			<div class="float-start">
-				<h1 id="jhi_header_logo">
-					<a class="a_tag" href="#">Fitneeds</a>
+				<h1 id="header_logo">
+					<a class="header_a_tag" href="#">Fitneeds</a>
 				</h1>
 			</div>
 
 			<div class="float-start">
-				<nav id="jhi_nav_text">
-					<ul id="jhi_nav_menu">
-						<li class="float-start"><a class="a_tag" href="#">헬스장검색</a></li>
-						<li class="float-start"><a class="a_tag" href="#">실시간리뷰</a></li>
-						<li class="float-start"><a class="a_tag" href="#">운동기록</a></li>
+				<nav id="header_nav_text">
+					<ul id="header_nav_menu">
+						<li class="float-start"><a class="header_a_tag" href="#">헬스장검색</a></li>
+						<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
+						<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
 					</ul>
-					<ul id="jhi_nav_person">
-						<li class="float-end"><a class="a_tag" href="#">로그아웃</a></li>
-						<li class="float-end"><a class="a_tag" href="#">회원가입</a></li>
+					<ul id="header_nav_person">
+						<li class="float-end"><a class="header_a_tag" href="#">로그아웃</a></li>
+						<li class="float-end"><a class="header_a_tag" href="#">회원가입</a></li>
 					</ul>
 				</nav>
 			</div>
