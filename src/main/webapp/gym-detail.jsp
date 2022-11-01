@@ -1,165 +1,37 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        div{
-            border: 1px solid black;
-            /* padding :5px; */
-        }
-    
-        .contents {
-            margin: auto;
-            width: 1200px;
-            height: 100%;
-            overflow: hidden;
-        }
-        .lcontents{
-            width: 80%;
-            height: 1000px;
-            float: left;
-        }
-        .rcontents{
-            width: 20%;
-            height: 800px;
-            float: right;
-        }
+<%@ include file="/layout/header.jsp" %>
 
-        .placebox1{
-            height: 50%;
-        }
-        .reviewbox{
-            height: 50%;
-        }
-        .placename{
-            width: 80%;
-            height: 10%;
-            float: left;
-       
-
-        }
-        .icon1{
-            width: 20%;
-            height: 10%;
-            float: left;
-        }
-       
-        .place{
-            width: 100%;
-            height: 10%;
-            float: left;
-        }
-     
-    
-        .placemap{
-            width: 100%;
-            height: 50%;
-            float: left;
-        }
-
-      
-        .machine_info{
-            width: 100%;
-            height: 10%;
-            float: left;
-        }
-        .placeprice{
-            width: 100%;
-            height: 10%;
-             float: left;
-        }
-
-        .reviewn{
-            width: 80%;
-            height: 50px;
-            float: left;
-        }
-        .reviewr{
-            width: 20%;
-            height: 50px;
-            float: left;
-        }
-        .review2{
-            width: 100%;
-     
-        }
-        .authmark{
-            width: 10%;
-            height: 30px;
-            float: left;
-        }
-        .ranwriter{
-            width: 40%;
-            height: 30px;
-             float: left;
-        }
-        .writerd{
-            width: 40%;
-             height: 30px;
-             float: left;
-        }
-        .starc{
-            width: 10%;
-         height: 30px;
-            float: left;
-        }
-        .recontents{
-            width: 100%;
-            height: 50%;
-            float: left;
-        }
-
-        .chart1{
-            width: 100%;
-            height: 30%;
-        }
-        .infotag{
-            width: 100%;
-      
-        }
-
-        .infotag2{
-            width: 100%;
-            height: 30px;
-        }
-        .infopicture{
-            width: 100%;
-            height: 50px;
-        }
-    </style>
-
-</head>
-    
-<body>
-            <div class="contents">
+ <main id="gym-detail">
+            <div class="containerbox">
                 <div class="lcontents"> 
                     <div class="placebox1">
                         <div class="placename">시설명   </div>
-                        <div class="icon1"> 아이콘</div>
-                        <div class="place">위치</div>
-                        <div class="place">연락처</div>
-                        <div class="placemap">지도</div>
+                        <div class="icon1"> 
+                               <i class="fa-solid fa-heart"></i>
+                            <i class="fa-sharp fa-solid fa-share-nodes"></i>
+                        </div>
+                        <div class="place"><dt>위치 : </dt>
+                        <dd>위치내용</dd></div>
+                        <div class="place"><dt>연락처 : </dt>
+                        <dd>010</dd>
+                 
+                        </div>
+                        <div class="placemap" id="map"></div>
+                            <script>
+                                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                                    mapOption = {
+                                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                        level: 3 // 지도의 확대 레벨
+                                    };
+
+                                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+                                var map = new kakao.maps.Map(mapContainer, mapOption); 
+                            </script>
                         <div class="machine_info">기구정보</div>
                         <div class="placeprice">가격정보</div>
                     </div>
@@ -167,7 +39,7 @@
                     <div class="reviewbox">
                         <div class="reviewn">리뷰 
                         </div>
-                        <div class="reviewr"><button type="button" id="addreview">리뷰작성</button></div>
+                        <div class="reviewr"><button type="button" class="btn btn-dark">리뷰작성</button></div>
                         <div class ="review2">
                             <div class="authmark">인증마크</div> 
                             <div class="ranwriter">writer</div>
@@ -178,7 +50,9 @@
                     </div>
                 </div>
                 <div class="rcontents">
-                    <div class="chart1">chartjs</div>
+                    <div class="chart1">
+                        <canvas id="myChart"></canvas>
+                    </div>
                     <div class="infotag"> 
                         <div class="infotag2">운영시간</div>
                         <div class="infotag2">휴무일</div>
@@ -188,5 +62,52 @@
                     <div class="infopicture"> 사진</div>
                 </div>
             </div>
-</body>
-</html>
+
+
+            
+
+            <script>
+                const data = {
+                    labels: [
+                        '친절도',
+                        '청결',
+                        '시설',
+                        '기구',
+                        '편리'
+                    ],
+                    datasets: [{
+                        label: 'My Second Dataset',
+                        data: [50, 30, 55, 50, 50],
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                };
+
+                const config = {
+                    type: 'radar',
+                    data: data,
+                    options: {
+                        elements: {
+                            line: {
+                                borderWidth: 3
+                            }
+                        }
+                    },
+                };
+            </script>
+
+
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+</main>
+
+<%@ include file="/layout/footer.jsp" %>
