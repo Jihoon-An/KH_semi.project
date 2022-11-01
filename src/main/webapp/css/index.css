@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/* header */
+
+#header {
+	width: 100%;
+	height: 85px;
+	background: #001A41;
+	opacity: 0.97;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 10000;
+	overflow: hidden;
+}
+
+#header_logo {
+	font-family: 'Inter', sans-serif;
+	font-weight: Extra Bold;
+	font-style: italic;
+	color: #FFFFFF;
+	font-size: 40px;
+	line-height: 85px;
+	display: inline;
+	margin-right: 80px;
+}
+
+nav {
+	display: inline;
+}
+
+#header_nav_text>ul {
+	list-style: none;
+	padding: 0;
+	display: inline;
+}
+
+#header_nav_text {
+	width: 100px;
+	height: 100px;
+	color: #FFFFFF;
+	font-size: 18px;
+	line-height: 85px;
+}
+
+#header_nav_menu {
+	margin: 0;
+}
+
+#header_nav_menu>li {
+	margin-right: 50px;
+}
+
+#header_nav_person {
+	margin: 0;
+	position: relative;
+	left: 300px;
+}
+
+#header_nav_person>li {
+	margin-left: 50px;
+}
+
+.header_a_tag {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+.header_a_tag:hover {
+	color: #FFFFFF;
+}
+
+#header_nav_text>ul>li>a:hover {
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+
+/* footer */
+
+.footer_line {
+	background-color: #C7D3DC;
+	height: 1px;
+	margin-top: 50px;
+}
+
+#footer ul {
+	list-style: none;
+	padding: 0;
+	display: inline;
+}
+
+#footer li {float: left;}
+
+.footer_a_tag {
+	text-decoration: none;
+	color: #000000;
+}
+
+.footer_a_tag:hover {
+	color: #000000;
+}
+
+
+/* main */
+
+#index .mainimg {
+	width: 100%;
+	height: 950px;
+	background-image: url("/resource/main.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#index .search_main{
+	width: 812px;
+	height: 77px;
+	border-radius: 100px;
+	margin: auto;
+	position: relative;
+	top: 450px;
+	z-index: 1000;
+	background-color: #CF0C00;
+	opacity: 0.9;
+}
+#index .search_main > .search_main_span{
+	width: 40%;
+	height: 100%;
+	text-align: center;
+	line-height: 75px;
+	position: absolute;
+	left: 40px;
+}
+#index .search_main > .search_main_span > span{
+	font-size: 1.5em; /* 유어 모시꺵이 */
+	color: white;
+	font-style: oblique;
+}
+#index .search_main > .search_main_input{
+	width: 60%;
+	height: 100%;
+	position: absolute;
+	right: 0px;
+	top: 15px;
+	text-align: center;
+	opacity: 0.9;
+}
+#index .search_main > .search_main_input > input{
+	width: 404px;
+	height: 45px;
+	font-size: large;
+	text-align: left;
+	position: relative;
+	border-radius: 100px;
+	border: none;
+	box-shadow: 3px 4px 5px rgb(150, 12, 12);
+}
+#index .search_main > .search_main_icon{
+	width: 30px;
+	height: 100%;
+	font-size: 1.5em;
+	color: #CF0C00;
+	position: absolute;
+	top: 22px; /*아이콘위치*/
+	right: 55px;
+}
