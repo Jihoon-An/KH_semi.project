@@ -1,0 +1,146 @@
+@charset "utf-8";
+
+
+#gym-detail * {
+	box-sizing: border-box;
+}
+
+#gym-detail div {
+	border: 1px solid black;
+	/* padding :5px; */
+}
+
+
+#gym-detail .lcontents {
+	width: 80%;
+	height: 1000px;
+	float: left;
+}
+
+#gym-detail .rcontents {
+	width: 20%;
+	height: 800px;
+	float: right;
+}
+
+#gym-detail .placebox1 {
+	height: 50%;
+}
+
+#gym-detail .reviewbox {
+	height: 50%;
+}
+
+#gym-detail .placename {
+	width: 80%;
+	height: 50px;
+	float: left;
+
+
+}
+
+#gym-detail .icon1 {
+	width: 20%;
+	height: 50px;
+	float: left;
+}
+
+#gym-detail .place {
+	width: 100%;
+	height: 50px;
+	float: left;
+}
+
+
+#gym-detail .placemap {
+	width: 100%;
+	height: 50%;
+	float: left;
+}
+
+
+#gym-detail .machine_info {
+	width: 100%;
+	height: 10%;
+	float: left;
+}
+
+#gym-detail .placeprice {
+	width: 100%;
+	height: 10%;
+	float: left;
+}
+
+#gym-detail .reviewn {
+	width: 80%;
+	height: 50px;
+	float: left;
+}
+
+#gym-detail .reviewr {
+	width: 20%;
+	height: 50px;
+	float: left;
+}
+
+#gym-detail .review2 {
+	width: 100%;
+
+}
+
+#gym-detail .authmark {
+	width: 10%;
+	height: 40px;
+	float: left;
+}
+
+#gym-detail .ranwriter {
+	width: 40%;
+	height: 40px;
+	float: left;
+}
+
+#gym-detail .writerd {
+	width: 40%;
+	height: 40px;
+	float: left;
+}
+
+#gym-detail .starc {
+	width: 10%;
+	height: 40px;
+	float: left;
+}
+
+#gym-detail .recontents {
+	width: 100%;
+	height: 50%;
+	float: left;
+}
+
+#gym-detail .chart1 {
+	width: 100%;
+	height: 30%;
+}
+
+#gym-detail .infotag {
+	width: 100%;
+
+}
+
+#gym-detail .infotag2 {
+	width: 100%;
+	height: 30px;
+}
+
+#gym-detail .infopicture {
+	width: 100%;
+	height: 50px;
+}
+
+#gym-detail dt {
+	float: left;
+}
+
+
+/*  */

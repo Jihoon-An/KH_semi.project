@@ -6,6 +6,8 @@
 
 <%@ include file="/layout/header.jsp" %>
 
+
+
  <main id="gym-detail">
             <div class="containerbox">
                 <div class="lcontents"> 
@@ -39,7 +41,7 @@
                     <div class="reviewbox">
                         <div class="reviewn">리뷰 
                         </div>
-                        <div class="reviewr"><button type="button" class="btn btn-dark">리뷰작성</button></div>
+                        <div class="reviewr"><button type="button" class="btn_base">리뷰작성</button></div>
                         <div class ="review2">
                             <div class="authmark">인증마크</div> 
                             <div class="ranwriter">writer</div>
