@@ -1,0 +1,68 @@
+@charset "utf-8";
+
+/* 전 컨텐츠를 감싸는 div */
+.containerbox {
+	width: 1200px;
+	margin: auto;
+}
+
+
+/* 페이지 자체 제목 쓸 때 사용. ex) 자유게시판 */
+h1{ 
+	font-size: 24px;
+	font-weight: 800;
+	margin: 0;
+	margin-bottom: 50px;
+}
+
+
+/* 컨텐츠 제목 */
+.text_title{
+	font-size: 20px;
+	font-weight: 600;
+}
+
+
+/* 컨텐츠 내용 */
+.text_normal{
+	font-size: 16px;
+}
+
+
+/* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
+.text_mini{
+	font-size: 12px;
+}
+
+
+/* 버튼 디자인 */
+.btn_base {
+	margin: 10px;
+	padding: 15px 30px;
+	text-align: center;
+	text-transform: uppercase;
+	transition: 0.5s;
+	background-size: 200% auto;
+	color: white;
+	border-radius: 10px;
+	display: block;
+	border: 0px;
+	font-weight: 700;
+	box-shadow: 0px 0px 14px -7px #013d98;
+	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+.btn_base:hover {
+	background-position: right center;
+	/* change the direction of the change here */
+	color: #fff;
+	text-decoration: none;
+}
+.btn_base:active {
+	transform: scale(0.95);
+}
+
+/*  */
