@@ -34,9 +34,11 @@ public class UserController extends ControllerAbs {
 				}
 				String req_email = request.getParameter("login_id");
 				String req_pw = request.getParameter("login_pw");
+				boolean req_bs = request.getParameter("login_bs").equals("on") ? true : false;
 				System.out.println("입력 ID : " + req_email);
 				System.out.println("입력 패스워드 : " + req_pw);
-				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
+				System.out.println("운영자 로그인 여부 : " + req_bs);
+				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email, req_bs);
 				if (!list.isEmpty()) {
 //					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
 					if (req_pw.equals(list.get(0).getPw())) {
