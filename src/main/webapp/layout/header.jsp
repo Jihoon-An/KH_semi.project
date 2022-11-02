@@ -43,6 +43,11 @@
 <!-- kakaomaps - kms -->  
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12fd95dff1fb7039a62aa4e24d3011f0"></script>
 
+<!-- AOS -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
+
+
 <!-- css -->
 <link rel="stylesheet" href="/css/base.css" type="text/css">
 <link rel="stylesheet" href="/css/index.css" type="text/css">
