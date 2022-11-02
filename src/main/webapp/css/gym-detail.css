@@ -65,10 +65,20 @@
  	float: left;
  }
 
+	
+	.placebox1{
+		overflow:hidden;
+	}
+	.reviewbox{
+		overflow:hidden;
+	}
+	
+
  #gym-detail .reviewn {
  	width: 80%;
  	height: 70px;
  	float: left;
+ 	
  }
 
  #gym-detail .reviewr {
@@ -79,7 +89,10 @@
 
  #gym-detail .review2 {
  	width: 100%;
- 	display: none;
+ 
+ 	display:none;
+ 	overflow :hidden;
+ 		
  }
 
  #gym-detail .authmark {
@@ -128,6 +141,7 @@
  	width: 90%;
  	height: 20%;
  	margin: auto;
+ 	 margin-bottom: 10px;
  }
 
  #gym-detail .gym_info_tagBox {
@@ -136,6 +150,7 @@
  	margin: auto;
  	border: 1px solid pink;
  	overflow: hidden;
+ 	 margin-bottom: 10px;
  }
 
  #gym-detail .gym_info_tagBox>.gym_info_tag {
@@ -165,6 +180,7 @@
 
  #gym-detail .newmore {
  	text-align: center;
+ 	
  }
  
  #gym-detail .shareicon{
