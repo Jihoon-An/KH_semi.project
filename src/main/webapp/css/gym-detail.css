@@ -1,140 +1,170 @@
 @charset "utf-8";
 
-  #gym-detail * {
-  	box-sizing: border-box;
-  }
+ #gym-detail * {
+ 	box-sizing: border-box;
+ }
 
-  #gym-detail div {
-  	/* border: 1px solid black; */
-  	/* padding :5px; */
-  }
+ #gym-detail div {
+ 	/* border: 1px solid black; */
+ 	/* padding :5px; */
+ }
 
-  #gym-detail .lcontents {
-  	width: 830px;
-  	margin-right: 50px;
-  	float: left;
-  }
+ #gym-detail .lcontents {
+ 	width: 830px;
+ 	margin-right: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .rcontents {
-  	width: 320px;
+ #gym-detail .rcontents {
+ 	width: 320px;
 
-  	float: left;
-  }
+ 	float: left;
+ }
 
-  /* #gym-detail .placebox1 {
+ /* #gym-detail .placebox1 {
         height: 50%;
       }
       #gym-detail .reviewbox {
         height: 50%;
       } */
-  #gym-detail .placename {
-  	width: 80%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .placename {
+ 	width: 80%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .icon1 {
-  	width: 20%;
-  	height: 50px;
-  	float: left;
-  	font-size: 30px;
-  	text-align: right;
-  }
+ #gym-detail .icon1 {
+ 	width: 20%;
+ 	height: 50px;
+ 	float: left;
+ 	font-size: 30px;
+ 	text-align: right;
+ }
 
-  #gym-detail .place {
-  	width: 100%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .place {
+ 	width: 100%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .placemap {
-  	width: 100%;
-  	height: 400px;
-  	float: left;
-  }
+ #gym-detail .placemap {
+ 	width: 100%;
+ 	height: 400px;
+ 	float: left;
+ }
 
-  #gym-detail .machine_info {
-  	width: 100%;
+ #gym-detail .machine_info {
+ 	width: 100%;
 
-  	float: left;
-  }
+ 	float: left;
+ }
 
-  #gym-detail .placeprice {
-  	width: 100%;
+ #gym-detail .placeprice {
+ 	width: 100%;
 
-  	float: left;
-  }
+ 	float: left;
+ }
 
-  #gym-detail .reviewn {
-  	width: 80%;
-  	height: 70px;
-  	float: left;
-  }
+ #gym-detail .reviewn {
+ 	width: 80%;
+ 	height: 70px;
+ 	float: left;
+ }
 
-  #gym-detail .reviewr {
-  	width: 20%;
-  	height: 70px;
-  	float: left;
-  }
+ #gym-detail .reviewr {
+ 	width: 20%;
+ 	height: 70px;
+ 	float: left;
+ }
 
-  #gym-detail .review2 {
-  	width: 100%;
-  	display: none;
-  }
+ #gym-detail .review2 {
+ 	width: 100%;
+ 	display: none;
+ }
 
-  #gym-detail .authmark {
-  	width: 10%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .authmark {
+ 	width: 10%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .ranwriter {
-  	width: 40%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .ranwriter {
+ 	width: 40%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .writerd {
-  	width: 40%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .writerd {
+ 	width: 40%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .starc {
-  	width: 10%;
-  	height: 50px;
-  	float: left;
-  }
+ #gym-detail .starc {
+ 	width: 10%;
+ 	height: 50px;
+ 	float: left;
+ }
 
-  #gym-detail .recontents {
-  	width: 100%;
-  	height: 60%;
-  	float: left;
-  }
+ #gym-detail .recontents {
+ 	width: 100%;
+ 	height: 60%;
+ 	float: left;
+ }
 
-  #gym-detail .chart1 {
-  	width: 100%;
-  	height: 30%;
-  }
+ #gym-detail .chart1 {
+ 	width: 100%;
+ 	height: 30%;
+ }
 
-  #gym-detail .infotag {
-  	width: 100%;
-  }
+ #gym-detail .gym_info_open {
+ 	width: 90%;
+ 	height: 20%;
+ 	padding-top: 10px;
+ 	margin: auto;
+ }
 
-  #gym-detail .infotag2 {
-  	width: 100%;
-  }
+ #gym-detail .gym_info_location {
+ 	width: 90%;
+ 	height: 20%;
+ 	margin: auto;
+ }
 
-  #gym-detail .infopicture {
-  	width: 100%;
-  }
+ #gym-detail .gym_info_tagBox {
+ 	width: 90%;
+ 	height: 30%;
+ 	margin: auto;
+ 	border: 1px solid pink;
+ 	overflow: hidden;
+ }
 
-  #gym-detail dt {
-  	float: left;
-  }
+ #gym-detail .gym_info_tagBox>.gym_info_tag {
+ 	border: 1px dashed black;
+ 	border-radius: 100px;
+ 	width: fit-content;
+ 	padding: 3px;
+ 	padding-left: 5px;
+ 	padding-right: 5px;
+ 	font-size: 0.9em;
+ 	float: left;
+ 	margin-top: 2px;
+ 	margin-right: 4px;
+ 	background-color: #001a41;
+ 	color: white;
+ 	opacity: 0.9;
+ }
 
-  #gym-detail .newmore {
-  	text-align: center;
-  }
+ #gym-detail .infopicture {
+ 	width: 100%;
+ }
+
+ #gym-detail dt {
+ 	width: 80px;
+ 	float: left;
+ }
+
+ #gym-detail .newmore {
+ 	text-align: center;
+ }
 
 /*  */
