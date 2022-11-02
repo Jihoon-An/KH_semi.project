@@ -12,6 +12,9 @@
 <title>피트니즈 - Fitneeds</title>
 <link rel="shortcut icon" type="image/x-icon" href="/resource/duck.ico">
 
+<!-- fontawesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" rel="stylesheet">
+
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
