@@ -129,8 +129,8 @@ h1{
 
 .btn_outline:hover,
 .btn_outline:focus {
-	border-color: #013d98(0, 0, 0, 0.15);
-	box-shadow: #013d98(0, 0, 0, 0.1) 0 4px 12px;
+	border-color: #013d98 (0, 0, 0, 0.15);
+	box-shadow: #013d98 (0, 0, 0, 0.1) 0 4px 12px;
 }
 
 .btn_outline:hover {
