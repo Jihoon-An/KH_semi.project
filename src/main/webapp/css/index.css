@@ -186,6 +186,33 @@ nav {
 	background-position: center;
 }
 
+
+
+@-webkit-keyframes zoom-a {
+	0% { background-size: 100% auto; }
+	100% { background-size: 120% auto; }
+}
+@-moz-keyframes zoom-a {
+	0% { background-size: 100% auto; }
+	100% { background-size: 120% auto; }
+}
+@-o-keyframes zoom-a {
+	0% { background-size: 100% auto; }
+	100% { background-size: 120% auto; }
+}
+@keyframes zoom-a {
+	0% { background-size: 100% auto; }
+	100% { background-size: 120% auto; }
+}
+.type-a {
+  -webkit-animation: zoom-a 10s linear infinite alternate; /* Safari 4+ */
+  -moz-animation:    zoom-a 10s linear infinite alternate; /* Fx 5+ */
+  -o-animation:      zoom-a 10s linear infinite alternate; /* Opera 12+ */
+  animation:         zoom-a 10s linear infinite alternate; /* IE 10+, Fx 29+ */
+}
+
+
+
 #index .search_main{
 	width: 812px;
 	height: 77px;
