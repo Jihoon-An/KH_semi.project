@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,12 +15,12 @@ import dao.UserDAO;
 import dto.UserDTO;
 
 @WebServlet("*.user")
-public class UserController extends ControllerAbs {
-	@Override
+public class UserController extends HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		super.doGet(request, response);
+		request.setCharacterEncoding("utf8");
+        response.setContentType("text/html;charset=utf8");
 		String uri = request.getRequestURI();
 		System.out.println("요청 URI : " + uri);
 		System.out.println("요청 메소드 : " + request.getMethod());
@@ -56,7 +57,7 @@ public class UserController extends ControllerAbs {
 				}
 				response.getWriter().append("false");
 			}
-
+			// 아이디 찾기 요청
 			if (uri.equals("/searchId.user")) {
 				String req_name = request.getParameter("name");
 				String req_phone = request.getParameter("phone");
@@ -64,7 +65,7 @@ public class UserController extends ControllerAbs {
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(UserDAO.getInstance().searchId(req_name, req_phone));
 			}
-			
+			// 비밀번호 찾기 요청
 			if (uri.equals("/searchPw.user")) {
 				String req_email = request.getParameter("email");
 				String req_phone = request.getParameter("phone");
@@ -72,19 +73,25 @@ public class UserController extends ControllerAbs {
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(UserDAO.getInstance().searchPw(req_email, req_phone).toString());
 			}
-			
+			// 로그아웃 요청
 			if (uri.equals("/logout.user")) {
 				request.getSession().invalidate();
 				response.sendRedirect("/index.jsp");
+			}
+			
+			if (uri.equals("/sign.user")) {
+			}
+			
+			if (uri.equals("/bsSign.user")) {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		this.doGet(request, response);
+		doGet(request, response);
 	}
 
 	private String getSHA512(String input) {

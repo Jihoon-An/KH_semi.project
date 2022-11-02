@@ -47,10 +47,11 @@
                     width: 250px;
                     border: 0px;
                     border-bottom: 1px solid black;
+                    outline: none;
                 }
 
-                input:focus {
-                    outline: none;
+                input:focus{
+                    box-shadow: 0px 1px 0px 0px black;
                 }
 
                 .btn_base {
