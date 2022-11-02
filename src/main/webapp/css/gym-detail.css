@@ -166,5 +166,16 @@
  #gym-detail .newmore {
  	text-align: center;
  }
+ 
+ #gym-detail .shareicon{
+ 	color:black;
+ }
+ 
+ .ui-tooltip {
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    background:#000;
+}
 
 /*  */
