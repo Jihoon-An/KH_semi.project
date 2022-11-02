@@ -18,7 +18,7 @@
                 crossorigin="anonymous"></script>
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script src="https://kit.fontawesome.com/be3915f36a.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="/resource/base.css" type="text/css">
+            <link rel="stylesheet" href="/css/base.css" type="text/css">
             <style>
                 * {
                     box-sizing: border-box;
@@ -29,8 +29,12 @@
                     padding: 20px;
                     border: 1px solid #808080;
                     width: 350px;
-                    height: 425px;
+                    height: 450px;
                     min-width: 350px;
+                }
+
+                a {
+                    text-decoration: none;
                 }
 
                 a:hover {
@@ -53,10 +57,11 @@
                     width: 120px;
                     height: 50px;
                 }
+
+                .search {
+                    display: none;
+                }
             </style>
-            <script>
-                $(() => { $(".search").hide() });
-            </script>
         </head>
 
         <body>
@@ -74,13 +79,13 @@
                             <div class="text-start" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">이메일</span>
                             </div>
-                            <input type="text" name="user_id" id="login_id" placeholder="이메일을 입력하세요." maxlength="40">
+                            <input type="text" name="login_id" id="login_id" placeholder="이메일을 입력하세요." maxlength="40">
                         </div>
                         <div class="col-12 gy-4">
                             <div class="text-start" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">비밀번호</span>
                             </div>
-                            <input type="password" name="user_pw" id="login_pw" placeholder="비밀번호를 입력하세요."
+                            <input type="password" name="login_pw" id="login_pw" placeholder="비밀번호를 입력하세요."
                                 maxlength="20">
                         </div>
                         <div class="col-12 gy-4">
@@ -96,9 +101,13 @@
                             <a href="signup">회원 가입</a>
                         </div>
                         <div class="col-12 gy-1" style="color:#808080; font-size:small">
-                            <a onclick="$('#form_login').hide(); $('#form_searchId').show()">아이디 찾기</a>
+                            <a
+                                onclick="$('#form_login').attr('style', 'display:none'); $('#form_searchId').attr('style', 'display:inline')">아이디
+                                찾기</a>
                             <span>/</span>
-                            <a onclick="$('#form_login').hide(); $('#form_searchPw').show()">비밀번호 찾기</a>
+                            <a
+                                onclick="$('#form_login').attr('style', 'display:none'); $('#form_searchPw').attr('style', 'display:inline')">비밀번호
+                                찾기</a>
                         </div>
                     </div>
                 </form>
@@ -112,25 +121,23 @@
                             <div class="mb-2" style="font-size:large">아이디 찾기</div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_name" id="searchId_name" placeholder="이름" maxlength="10">
+                            <input type="text" name="name" id="searchId_name" placeholder="이름" maxlength="10">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 이름을 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_phone" id="searchId_phone" placeholder="핸드폰 번호" maxlength="14">
+                            <input type="text" name="phone" id="searchId_phone" placeholder="핸드폰 번호"
+                                maxlength="14">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 핸드폰 번호를 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <button class="btn_base" type="button" id="btn_searchId">찾기</button>
+                            <button class="btn_base mb-3" type="button" id="btn_searchId">찾기</button>
                         </div>
                         <div class="col-12 gy-4">
-                            <div class="text-start mt-1" style="width:250px">
-                                <a class="btn_back" style="color:#808080; font-size:xx-large; font-weight:bold"><i
-                                        class="fa-solid fa-arrow-left"></i></a>
-                            </div>
+                            <a class="btn_back" style="color:#808080">Back</a>
                         </div>
                     </div>
                 </form>
@@ -144,25 +151,23 @@
                             <div class="mb-2" style="font-size:large">비밀번호 찾기</div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_email" id="searchPw_email" placeholder="이메일" maxlength="40">
+                            <input type="text" name="email" id="searchPw_email" placeholder="이메일" maxlength="40">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 이메일을 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <input type="text" name="user_phone" id="searchPw_phone" placeholder="핸드폰 번호" maxlength="14">
+                            <input type="text" name="phone" id="searchPw_phone" placeholder="핸드폰 번호"
+                                maxlength="14">
                             <div class="text-start mt-1 mb-2" style="width:250px">
                                 <span style="color:#808080; font-size:x-small">회원 가입시 사용한 핸드폰 번호를 입력하세요.</span>
                             </div>
                         </div>
                         <div class="col-12 gy-4">
-                            <button class="btn_base" type="button" id="btn_searchPw">찾기</button>
+                            <button class="btn_base mb-3" type="button" id="btn_searchPw">찾기</button>
                         </div>
                         <div class="col-12 gy-4">
-                            <div class="text-start mt-1" style="width:250px">
-                                <a class="btn_back" style="color:#808080; font-size:xx-large; font-weight:bold"><i
-                                        class="fa-solid fa-arrow-left"></i></a>
-                            </div>
+                            <a class="btn_back" style="color:#808080">Back</a>
                         </div>
                     </div>
                 </form>
@@ -200,10 +205,29 @@
 
                 // 아이디 찾기 함수
                 function trySearchId() {
+                    console.log($("#form_searchId").serialize())
+                    $.get("/searchId.user", $("#form_searchId").serialize())
+                    .done((res => {
+                        if(res != "null") {
+                            Swal.fire({ title: "Success!", icon: "success", text: "등록된 아이디는 " + res + " 입니다." });
+                        } else {
+                            Swal.fire({ title: "Error", icon: "error", text: "등록된 가입 정보가 없습니다." });
+                        }
+                    }))
                 }
 
                 // 비밀번호 찾기 함수
                 function trySearchPw() {
+                    console.log($("#form_searchPw").serialize())
+                    $.get("/searchPw.user", $("#form_searchPw").serialize())
+                    .done((res => {
+                        // 비밀번호 찾기 스크립트
+                        if(res == "true") {
+
+                        } else {
+                            
+                        }
+                    }))
                 }
 
                 // 버튼 이벤트
@@ -226,9 +250,9 @@
 
                 // 뒤로가기 처리
                 $(".btn_back").on("click", () => {
-                    $(".search").hide();
+                    $(".search").attr("style", "display:none");
                     $("#login_id, #login_pw, #searchId_name, #searchId_phone, searchPw_email, #searchPw_phone").val("");
-                    $("#form_login").show();
+                    $("#form_login").attr("style", "display:inline");
                 })
             </script>
         </body>

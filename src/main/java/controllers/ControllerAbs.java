@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ControllerAbs extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getRemoteAddr());
         request.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf8");
     }
