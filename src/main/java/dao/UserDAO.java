@@ -35,7 +35,7 @@ public class UserDAO {
 	
 	public List<UserDTO> selectAll() throws Exception {
 		List<UserDTO> result = new ArrayList<>();
-		String sql = "select * from users order by 1";
+		String sql = "select * from users";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			while (rs.next()) {
@@ -66,9 +66,10 @@ public class UserDAO {
 		}
 	}
 	
-	public List<UserDTO> searchAll(String option, String value) throws Exception {
+	public List<UserDTO> searchAll(String option, String value, boolean bs) throws Exception {
 		List<UserDTO> result = new ArrayList<>();
-		String sql = "select * from users where " + option + " = ? order by 1";
+		String type = bs ? "business_user" : "users";
+		String sql = "select * from "+ type +" where " + option + " = ?";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, value);
 			ResultSet rs = pstat.executeQuery();
