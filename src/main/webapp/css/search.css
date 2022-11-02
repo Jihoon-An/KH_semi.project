@@ -1,12 +1,19 @@
-#search .container{}
+#search{}
+#map{
+	border: 1px solid black;
+	width:1200px;
+	height:937px;
+	margin:auto;
+	
+	}
 /* -------------------------- 메인 검색창 -------------------------- */
 #search .search_main{
     width: 812px;
     height: 77px;
     border-radius: 100px;
-    position: absolute;
+    position: relative;
     left: 200px;
-    top: 50px;
+    top: 135px;
     z-index: 1000;
     background-color: #CF0C00;
     opacity: 0.9;
@@ -21,9 +28,11 @@
     left: 40px;
 }
 #search .search_main > .search_main_span > span{
+	font-family: 'Inter', sans-serif;
+   	font-style: italic;
     font-size: 1.6em;
     color: white;
-    font-style: oblique;
+    text-shadow: 2px 2px 5px rgb(55, 55, 55);
 }
 #search .search_main > .search_main_input{
     width: 60%;
@@ -57,10 +66,10 @@
 /* --------- 검색창 --------- */
 #search .searchListNav{
     width: 471px;
-    height: 861px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
+    height: 852px;
+    position: relative;
+    top: 84px;
+    left: 729px;
     z-index: 1000;
     background-color: #C6C6C6;
     opacity: 0.95;
@@ -85,9 +94,8 @@
     height: 70%;
     line-height: 40px;
     margin: auto;
-    position: relative;
-    right: 5.5px;
-    top: 13px;
+    position: relative;  
+    top: 15px;
     
 }
 #search .search_sub > .search_sub_input > input{
@@ -158,7 +166,7 @@
 }
 #search .gym_list > .gym_list_article > .gym_list_title{
     width: 90%;
-    height: 20%;
+    height: 15%;
     line-height: 40px;
     font-size: 1.2em;
     font-weight: bold;
@@ -184,20 +192,29 @@
 }
 #search .gym_list > .gym_list_article > .gym_list_open{
     width: 90%;
-    height: 20%;
+    height: 15%;
     padding-top: 10px;
     margin: auto;
+    font-size: 0.8em;
 }
 #search .gym_list > .gym_list_article > .gym_list_location{
     width: 90%;
-    height: 20%;
+    height: 30%;
     margin: auto;
+    padding-top: 20px;
+    font-size: 0.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+  	-webkit-line-clamp: 2;
+  	-webkit-box-orient: vertical;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox{
     width: 90%;
     height: 30%;
     margin: auto;
-    border: 1px solid pink;
+	position: relative;
+    top: 12px;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox > .gym_list_tag{
     border: 1px dashed black;

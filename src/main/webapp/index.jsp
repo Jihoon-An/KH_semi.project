@@ -51,8 +51,6 @@
 			<link rel="stylesheet" href="/css/index.css" type="text/css">
 			<link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
 			<link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
-
-			
 		</head>
 
 		<%@ include file="/layout/header.jsp" %>
@@ -63,14 +61,13 @@
 					<div class="mainimg">
 						<div class="containerbox">
 							<form action="/search.gym" id="form_search">
-							<div class="search_main">
+							<div class="search_main" data-aos="zoom-out" data-aos-easing="linear" data-aos-duration="1000">
 								<div class="search_main_span">
 									<span style="font-weight: lighter;">Your</span> <span
 										style="font-weight: bold;">Needs</span> <span
 										style="font-weight: lighter;">For</span> <span
 										style="font-weight: bold;">Fitness</span>
 								</div>
-								
 									<div class="search_main_input" name="keyword">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left:20px">
 									</div>
@@ -78,11 +75,8 @@
 										<i class="fa-solid fa-magnifying-glass"></i>
 									</div>
 								</form>
-								
 							</div>
-
 						</div>
-					</div>
 				</section>
 				<div class="containerbox" align="center">
 					<section class="row justify-content-center review">
@@ -158,6 +152,8 @@
 				$("#btn_search").on("click", () => {
 					$("#form_search").submit();
 				})
+				// AOS 스크립트 시작
+		        AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
 			</script>
 
 			<%@ include file="/layout/footer.jsp" %>
