@@ -14,20 +14,20 @@
         <div class="lcontents">
           <div class="placebox1">
             <div>
-              <div class="placename"><p class="fs-2 text_title">시설명</p></div>
+              <div class="placename"><h1>시설명</h1></div>
 
               <div class="icon1">
                 <i class="fa-solid fa-heart"></i>
-                <i class="fa-sharp fa-solid fa-share-nodes"></i>
+          <span class="button gray medium"><a  onclick="clip(); return false;" class="shareicon">  <i class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사" style="cursor:pointer;" aria-hidden="true"></i></a></span>
               </div>
             </div>
             <div class="place">
-              <dt>위치 :</dt>
+              <dt class="text_normal">위치</dt>
               <dd>위치내용</dd>
             </div>
 
             <div class="place">
-              <dt>연락처 :</dt>
+              <dt class="text_normal">연락처</dt>
               <dd>010</dd>
             </div>
 
@@ -44,32 +44,40 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-            <div class="machine_info shadow-none p-3 mb-5 bg-light rounded">
-              <p class="fs-4">기구정보 : asdas</p>
+            <div class="machine_info shadow-none p-2 mb-2 bg-light rounded">
+              <dt><p class="text_normal">기구정보</p></dt>
+              <dd>sd</dd>
             </div>
-            <div class="placeprice shadow-none p-3 mb-5 bg-light rounded">
-              <p class="fs-4">가격정보 :</p>
+            <div class="placeprice shadow-none p-2 mb-2 bg-light rounded">
+              <dt><p class="text_normal">시설가격</p></dt>
+              <dd>sasdasd</dd>
             </div>
           </div>
 
           <div class="reviewbox">
             <div class="reviewn">
-              <p class="fs-2 text_title">리뷰</p>
+              <p class="text_title">리뷰</p>
             </div>
             <div class="reviewr">
-              <button type="button" class="btn btn_base" id="reviewbtn">
-                리뷰작성
+              <button
+                type="button"
+                class="btn btn_base"
+                id="reviewbtn"
+                type="button"
+              >리뷰작성
               </button>
             </div>
             <div class="review2">
-              <div class="shadow-none p-3 mb-5 bg-light rounded">
-                <div class="authmark"><p class="fs-3">인증</p></div>
-                <div class="ranwriter"><p class="fs-3">글작성자</p></div>
-                <div class="writerd"><p class="fs-3">작성날짜</p></div>
-                <div class="starc"><p class="fs-3">star</p></div>
+              <div class="shadow-none p-3 mb-5 bg-light rounded text_normal">
+                <div class="authmark">인증</div>
+                <div class="ranwriter">글작성자</div>
+                <div class="writerd">작성날짜</div>
+                <div class="starc">star</div>
               </div>
-              <div class="recontents shadow p-3 mb-5 bg-body rounded">
-                <p class="fs-4">리뷰내용</p>
+              <div
+                class="recontents shadow p-3 mb-5 bg-body rounded text_normal"
+              >
+                리뷰내용
               </div>
             </div>
 
@@ -89,24 +97,19 @@
           <div class="chart1">
             <canvas id="myChart"></canvas>
           </div>
+          <div class="gym_info_open">
+            <span>OPEN : AM 09:00</span><br />
+            <span>CLOSE : PM 22:30</span>
+          </div>
+          <div class="gym_info_location">
+            <span>서울특별시 서울구 서울동 123-12 3층</span>
+          </div>
 
-          <div class="infotag">
-            <div class="infotag2">
-              <dt>운영시간 :</dt>
-              <dd>08:12</dd>
-            </div>
-            <div class="infotag2">
-              <dt>휴무일 :</dt>
-              <dd>2</dd>
-            </div>
-            <div class="infotag2">
-              <dt>시설정보 :</dt>
-              <dd>3</dd>
-            </div>
-            <div class="infotag2">
-              <dt>시설정보2 :</dt>
-              <dd>4</dd>
-            </div>
+          <div class="gym_info_tagBox">
+            <div class="gym_info_tag open">#24시간</div>
+            <div class="gym_info_tag locker">#라커</div>
+            <div class="gym_info_tag shower">#샤워실</div>
+            <div class="gym_info_tag park">#주차장</div>
           </div>
           <div class="infopicture">
             <figure class="figure">
@@ -128,8 +131,29 @@
           </div>
         </div>
       </div>
+      
+        <script type="text/javascript">
+
+
+          $(".shareicon").on("click", function(){
+            var url = '';
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+           $(".fa-sharp fa-solid fa-share-nodes").tooltip();
+          })
+
+        </script>
 
       <script>
+        $("#reviewbtn").on("click", function () {
+          location.href = "";
+        }); //리뷰작성 이동
+
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
           if ($(".review2").length == 0) {
@@ -138,7 +162,7 @@
           $("#load").click(function (e) {
             // 클릭시 more
             e.preventDefault();
-            $(".review2:hidden").slice(0, 2).show(); // 클릭시 more 갯수 지저정
+            $(".review2:hidden").slice(0, 2).show(); // 클릭시 more 갯수 지정
             // if ($(".review2:hidden").length == 0) {
             //   // 컨텐츠 남아있는지 확인
             //   alert("게시물의 끝입니다."); // 컨텐츠 없을시 alert 창 띄우기
