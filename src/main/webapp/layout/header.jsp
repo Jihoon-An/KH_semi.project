@@ -73,14 +73,14 @@
 
 			<div class="float-start">
 				<h1 id="header_logo">
-					<a class="header_a_tag" href="#">Fitneeds</a>
+					<a class="header_a_tag" href="/index.jsp">Fitneeds</a>
 				</h1>
 			</div>
 
 			<div class="float-start">
 				<nav id="header_nav_text">
 					<ul id="header_nav_menu">
-						<li class="float-start"><a class="header_a_tag" href="#">헬스장검색</a></li>
+						<li class="float-start"><a class="header_a_tag" href="/gym/search.jsp">헬스장검색</a></li>
 						<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
 						<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
 					</ul>
