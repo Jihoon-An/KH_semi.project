@@ -15,7 +15,7 @@ import dto.UserDTO;
 
 @WebServlet("*.user")
 public class UserController extends ControllerAbs {
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -81,7 +81,12 @@ public class UserController extends ControllerAbs {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		this.doGet(request, response);
+	}
+
 	private String getSHA512(String input) {
 		String toReturn = null;
 		try {

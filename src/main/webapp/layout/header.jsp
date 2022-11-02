@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="/css/base.css" type="text/css">
 <link rel="stylesheet" href="/css/index.css" type="text/css">
 <link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
+<link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
 
 </head>
 
