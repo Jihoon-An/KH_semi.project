@@ -15,7 +15,7 @@ import dto.UserDTO;
 
 @WebServlet("*.user")
 public class UserController extends ControllerAbs {
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -25,21 +25,25 @@ public class UserController extends ControllerAbs {
 		System.out.println("요청 메소드 : " + request.getMethod());
 
 		try {
+			// 로그인 요청
 			if (uri.equals("/login.user")) {
+				// GET 요청 시 에러페이지로 넘김
 				if (request.getMethod().equals("GET")) {
 					response.sendRedirect("/error.jsp");
 					return;
 				}
-				String req_email = request.getParameter("user_id");
-				String req_pw = request.getParameter("user_pw");
+				String req_email = request.getParameter("login_id");
+				String req_pw = request.getParameter("login_pw");
 				System.out.println("입력 ID : " + req_email);
 				System.out.println("입력 패스워드 : " + req_pw);
-				List<UserDTO> list = UserDAO.getInstance().searchAll("id", req_email);
+				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 				if (!list.isEmpty()) {
-					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
-						request.getSession().setAttribute("user", UserDAO.getInstance().searchAll("user_email", req_email).get(0));
+//					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
+					if (req_pw.equals(list.get(0).getPw())) {
+						request.getSession().setAttribute("user", list.get(0));
 						System.out.println("로그인 성공");
-						System.out.println("세션 로그인 ID : " + request.getSession().getAttribute("user.email"));
+						System.out.println("세션 dto 주소 : " + request.getSession().getAttribute("user"));
+						System.out.println("세션 로그인 ID : " + list.get(0).getEmail());
 						response.getWriter().append("true");
 						return;
 					} else {
@@ -52,16 +56,16 @@ public class UserController extends ControllerAbs {
 			}
 
 			if (uri.equals("/searchId.user")) {
-				String req_name = request.getParameter("searchId_name");
-				String req_phone = request.getParameter("searchId_phone");
+				String req_name = request.getParameter("name");
+				String req_phone = request.getParameter("phone");
 				System.out.println("입력 이름 : " + req_name);
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(UserDAO.getInstance().searchId(req_name, req_phone));
 			}
 			
 			if (uri.equals("/searchPw.user")) {
-				String req_email = request.getParameter("searchPw_email");
-				String req_phone = request.getParameter("searchPw_phone");
+				String req_email = request.getParameter("email");
+				String req_phone = request.getParameter("phone");
 				System.out.println("입력 이메일 : " + req_email);
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(UserDAO.getInstance().searchPw(req_email, req_phone).toString());
@@ -75,9 +79,13 @@ public class UserController extends ControllerAbs {
 			e.printStackTrace();
 		}
 	}
-	
-	private String getSHA512(String input) {
 
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		this.doGet(request, response);
+	}
+
+	private String getSHA512(String input) {
 		String toReturn = null;
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-512");
