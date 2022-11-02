@@ -262,6 +262,87 @@ nav {
 	font-size: 1.5em;
 	color: #CF0C00;
 	position: absolute;
-	top: 22px; /*아이콘위치*/
+	top: 25px; /*아이콘위치*/
 	right: 55px;
+	cursor: pointer;
+}
+
+#index .review {
+	position: relative;
+}
+
+#index .carousel {
+	filter: drop-shadow(0px 0px 100px rgba(0, 0, 0, 0.07000000029802322));
+}
+
+#index .owl-stage {
+	height: 320px;
+}
+
+#index .item {
+	position: relative;
+	top: 10px;
+	width: 300px;
+	height: 300px;
+	-webkit-box-shadow: 1x 1px 5px 1px #C8C8C8;
+	box-shadow: 1px 1px 5px 1px #C8C8C8;
+	border-radius: 6px;
+}
+
+#index .prevBox,
+#index .nextBox {
+	position: absolute;
+	width: 100px;
+	height: 300px;
+	top: 50%;
+	transform: translate(0, -50%);
+	z-index: 3;
+}
+
+#index .prevBox {
+	left: 63px;
+}
+
+#index .nextBox {
+	left: 1063px;
+}
+
+#index .prev,
+#index .next {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	border-radius: 50px;
+	transition: 0.5s;
+	transform: translate(0, -50%);
+	font-size: x-large;
+	background-size: 200% auto;
+	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
+	box-shadow: 0px 0px 14px -7px #013d98;
+	color: white;
+	cursor: pointer;
+}
+
+#index .prev::before,
+#index .next::before {
+	line-height: 50px;
+}
+
+#index .prev:hover,
+#index .next:hover {
+	background-position: right center;
+}
+
+#index .prev:active,
+#index .next:active {
+	scale: 0.95;
+	transform: translate(0, -50%);
+}
+
+#index .ads>.banner {
+	height: 200px;
+	-webkit-box-shadow: 1x 1px 5px 1px #C8C8C8;
+	box-shadow: 1px 1px 5px 1px #C8C8C8;
+	border-radius: 6px;
 }
