@@ -35,6 +35,14 @@
 <!-- fontawesome - icon -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" rel="stylesheet">
 
+<!-- Radar Chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+<!-- kakaomaps - ykm -->   
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b70a07e8ebffe5918d15f49ba310485f"></script>
+<!-- kakaomaps - kms -->  
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12fd95dff1fb7039a62aa4e24d3011f0"></script>
+
 <!-- css -->
 <link rel="stylesheet" href="/css/base.css" type="text/css">
 <link rel="stylesheet" href="/css/index.css" type="text/css">
