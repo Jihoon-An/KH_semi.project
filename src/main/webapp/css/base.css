@@ -47,7 +47,6 @@ h1{
 
 /* 버튼 디자인 - 일반 주요 버튼 */
 .btn_base {
-	width: 120px;
 	height: 50px;
 	margin: 10px;
 	padding: 15px 30px;
@@ -82,7 +81,6 @@ h1{
 
 /* 버튼 디자인 - 아웃라인버튼 */
 .btn_outline {
-	width: 118px;
 	height: 48px;
 	align-items: center;
 	background-color: #fff;
