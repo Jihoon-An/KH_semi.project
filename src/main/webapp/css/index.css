@@ -78,28 +78,102 @@ nav {
 
 /* footer */
 
-.footer_line {
-	background-color: #C7D3DC;
-	height: 1px;
-	margin-top: 50px;
-}
+        #footer { background-color: #f5f5f7; 
+            height: 270px;
+        }
 
-#footer ul {
-	list-style: none;
-	padding: 0;
-	display: inline;
-}
+        #footer .footer_line {
+            background-color: #C7D3DC;
+            height: 1px;
+            margin-top: 50px;
+        }
 
-#footer li {float: left;}
+        #footer ul {
+            list-style: none;
+            padding: 0;
+        }
 
-.footer_a_tag {
-	text-decoration: none;
-	color: #000000;
-}
+        #footer .footer_a_tag {
+            text-decoration: none;
+            color: #000000;
+        }
 
-.footer_a_tag:hover {
-	color: #000000;
-}
+        #footer .footer_a_tag:hover {
+            color: #003584;
+        }
+
+        #footer .leftbox{ 
+            width: 400px; 
+            height: 200px;
+            padding-top: 20px;
+            padding-left: 20px;
+            text-align: center;
+        }
+
+        #footer #footer_logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: Extra Bold;
+            font-style: italic;
+            color: #C7D3DC;
+            font-size: 40px;
+            line-height: 85px;
+            display: inline;
+            margin-left: 10px;
+        }
+
+        #footer #footer_contact {
+            margin-left: 10px;
+        }
+        
+        #footer #footer_call {
+            font-family: 'Inter', sans-serif;
+            font-weight: Extra Bold;
+            font-style: italic;
+            color: #001A41;
+            font-size: 40px;
+            display: inline;
+            letter-spacing: -3px;
+        }
+        
+
+
+        #footer .rightbox{ 
+            width: 800px; 
+            height: 200px;
+            padding-top: 30px;
+            padding-left: 70px;
+        }
+
+        #footer .footer_list>li{
+            margin-right: 10px;
+            z-index: 1000;
+        }
+
+        #footer .footer_sns {
+            position: relative;
+            top:-39px;
+            z-index: 100;
+        }
+
+        #footer .footer_sns>li>a{
+            margin-right: 20px;
+            color: #8f959a;
+        }
+        #footer .linetext {
+            vertical-align: 3px;
+            font-size: 12px;
+            color: #5e646c;
+            margin-left: 11px;
+        }
+
+        #footer .footer_infotext {
+            margin-top: -30px;
+        }
+
+        #footer .copyright-text {
+            color: #5e646c;
+            margin-top: 35px;
+        }
 
 
 /* main */
