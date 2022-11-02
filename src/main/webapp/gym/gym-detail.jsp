@@ -18,7 +18,7 @@
 
               <div class="icon1">
                 <i class="fa-solid fa-heart"></i>
-                <i class="fa-sharp fa-solid fa-share-nodes"></i>
+          <span class="button gray medium"><a  onclick="clip(); return false;" class="shareicon">  <i class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사" style="cursor:pointer;" aria-hidden="true"></i></a></span>
               </div>
             </div>
             <div class="place">
@@ -131,6 +131,23 @@
           </div>
         </div>
       </div>
+      
+        <script type="text/javascript">
+
+
+          $(".shareicon").on("click", function(){
+            var url = '';
+            var textarea = document.createElement("textarea");
+            document.body.appendChild(textarea);
+            url = window.document.location.href;
+            textarea.value = url;
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+           $(".fa-sharp fa-solid fa-share-nodes").tooltip();
+          })
+
+        </script>
 
       <script>
         $("#reviewbtn").on("click", function () {
