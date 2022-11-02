@@ -47,10 +47,11 @@
                     width: 250px;
                     border: 0px;
                     border-bottom: 1px solid black;
+                    outline: none;
                 }
 
-                input:focus {
-                    outline: none;
+                input:focus{
+                    box-shadow: 0px 1px 0px 0px black;
                 }
 
                 .btn_base {
@@ -92,7 +93,7 @@
                             <button type="button" class="btn_base" id="btn_login">로그인</button>
                         </div>
                         <div class="col-12 gy-1">
-                            <input class="form-check-input" type="checkbox" name="bs_login" id="bs_login">
+                            <input class="form-check-input" type="checkbox" name="login_bs" id="login_bs">
                             <label class="form-check-label" for="bs_login" style="color:#404040; font-size:14px">운영자
                                 로그인</label>
                         </div>
@@ -209,7 +210,7 @@
                     $.get("/searchId.user", $("#form_searchId").serialize())
                     .done((res => {
                         if(res != "null") {
-                            Swal.fire({ title: "Success!", icon: "success", text: "등록된 아이디는 " + res + " 입니다." });
+                            Swal.fire({ title: "Success!", icon: "success", html: "등록된 아이디는<br><Strong>\'" + res + "\'</Strong><br>입니다." });
                         } else {
                             Swal.fire({ title: "Error", icon: "error", text: "등록된 가입 정보가 없습니다." });
                         }
@@ -221,11 +222,11 @@
                     console.log($("#form_searchPw").serialize())
                     $.get("/searchPw.user", $("#form_searchPw").serialize())
                     .done((res => {
-                        // 비밀번호 찾기 스크립트
                         if(res == "true") {
-
+                            // Fake Alert
+                            Swal.fire({ title: "Success!", icon: "success", html: "등록된 이메일 주소로<br>비밀번호 설정 링크가 발송되었습니다.<br>" })
                         } else {
-                            
+                            Swal.fire({ title: "Error", icon: "error", text: "등록된 가입 정보가 없습니다." });
                         }
                     }))
                 }
