@@ -7,11 +7,6 @@
 		<%@ include file="/layout/header.jsp" %>
 
 			<style>
-				#users-mypage{
-					border: 1px solid black;
-					width: 1200px;
-					padding: 0;
-				}
 				#users-mypage div{
 					box-sizing: border-box;
 					border: 1px solid black;
@@ -20,8 +15,6 @@
 				#users-mypage .header{
 					height: 200px;
 					padding-top: 80px;
-					font-size: 32px;
-					font-weight:600;
 				}
 
 				#users-mypage #user-img{
@@ -32,8 +25,8 @@
 			</style>
 			<div class=""></div>
 			<!-- Site Main -->
-			<main class="container" id="users-mypage">
-				<div class="row text-center header">
+			<main class="container containerbox" id="users-mypage">
+				<div class="row text-center header text_title">
 					<span>마이페이지</span>
 				</div>
 				<div class="row" id="user-info">
