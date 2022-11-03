@@ -26,7 +26,7 @@
 							</div>
 							<input type="file" name="user_img_in" id="user_img_in" hidden>
 						</div>
-						
+
 					</div>
 					<script>
 						let profile_upload = $("#profile_upload");
@@ -69,7 +69,8 @@
 						<div class="profile_input_group pt-2" style="height:50px;">
 							<div class="profile_title">관심사</div>
 							<div style="display:inline-table; width:300px; padding:0; margin:0;">
-								<input id="interest_input" class="form-control modify_input" type="text" maxlength="10" placeholder="최대4개, 10글자">
+								<input id="interest_input" class="form-control modify_input" type="text" maxlength="10"
+									placeholder="최대4개, 10글자">
 							</div>
 							<div style="display:inline-table; padding:0; margin:0; transform:translate(0, -3px);">
 								<button class="btn btn-outline-secondary modify_btn" type="button"
@@ -90,7 +91,7 @@
 
 				<script>
 					function addInterest() {
-						if($(".interesting").length >= 4){
+						if ($(".interesting").length >= 4) {
 							return false;
 						}
 						let interest_input = $("#interest_input").val();
@@ -147,9 +148,9 @@
 						modifyBtn.on("click", modifyProfile);
 					};
 				</script>
-				
+
 				<hr>
-				
+
 				<!-- 즐겨찾기 시설 -->
 				<div class="row pt-4 pb-3">
 					<span class="text_title">My 즐겨찾기</span>
@@ -268,9 +269,74 @@
 					</script>
 				</div>
 
-				<div id="private">
-					text
-				</div>
+				<!-- 개인정보 수정 테이블 -->
+				<span style="color:#808080; font-size:x-small">이메일</span>
+				<button type="button" class="btn_base" id="btn_login">로그인</button>
+
+				<form id="form_pw" class="modal-overlay">
+					<div id="private_table">
+						<!-- X icon -->
+						<i class="fa-solid fa-x" id="close_private"></i>
+						<script>
+							$("#close_private").click(() => {
+								$("#form_pw").css("display", "none");
+							});
+						</script>
+
+						<!-- title -->
+						<span id="private_title">
+							개인정보 수정
+						</span>
+					</div>
+					<div id="pw">
+						<!-- 1차 비밀번호 입력 -->
+						<div class="input_pw">
+							<span>새 비밀번호</span>
+							<input type="text">
+						</div>
+						<!-- 2차 비밀번호 입력 -->
+						<div class="input_pw">
+							<span>새 비밀번호 확인</span>
+							<input type="text">
+						</div>
+
+						<button class="btn_base" style="margin: auto; margin-top:40px;">변경하기</button>
+					</div>
+					<!-- 회원탈퇴 -->
+					<div id="sign_down">
+						<div class="sign_down_area" id="sign_down_btn_area">
+							<a onclick="signDown()" id="sign_down_btn">회원탈퇴</a>
+						</div>
+						<div class="sign_down_area" id="sign_down_confirm">
+							<div>정말 탈퇴하시겠습니까?</div>
+							<button type="button" class="sign_down_confirm_btn" id="confirm_y">예</button>
+							<button type="button" class="sign_down_confirm_btn" id="confirm_n">아니오</button>
+						</div>
+					</div>
+				</form>
+				<script>
+					$("#sign_down_confirm").css("display", "none");
+					$("#form_pw").css("display", "none");
+
+					//회원 탈퇴
+					function signDown() {
+						$("#sign_down_btn_area").css("display", "none");
+						$("#sign_down_confirm").css("display", "block");
+					};
+
+					$("#confirm_n").click(function () {
+						$("#sign_down_btn_area").css("display", "block");
+						$("#sign_down_confirm").css("display", "none");
+					});
+					$("#confirm_y").click(function () {
+
+					});
+
+					// 개인 정보 수정 버튼 동작
+					$("#modifyPrivate").click(function(){
+						$("#form_pw").css("display", "");
+					});
+				</script>
 			</main>
 
 			<%@ include file="/layout/footer.jsp" %>

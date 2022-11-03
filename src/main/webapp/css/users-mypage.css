@@ -173,10 +173,113 @@
 
 #users-mypage #private {
     position: fixed;
-    top:85px;
-    left:0;
-    width:100%;
+    top: 85px;
+    left: 0;
+    width: 100%;
     height: 100%;
     background-color: rgba(179, 179, 179, 0.227);
     z-index: 1001;
+}
+
+
+#users-mypage .modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(255, 255, 255, 0.25); */
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 6px;
+    border: 1px solid #808080;
+    z-index: 1002;
+}
+
+#users-mypage #private_table {
+    border: 1px solid black;
+    position: relative;
+    width: 400px;
+    height: 500px;
+    top: 100px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+#users-mypage #close_private {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #808080;
+    cursor: pointer;
+}
+
+#users-mypage #close_private:hover {
+    filter: blur(0.5px);
+    -webkit-filter: blur(0.5px);
+    color: rgb(209, 50, 50);
+    transition: 0.2s;
+}
+
+#users-mypage #private_title{
+    display: block;
+    text-shadow: 1px 1px 2px grey;
+    text-align: center;
+    color: var(--bs-body-color);
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: calc(1.325rem + .9vw);
+    left: auto;
+    margin-top: 60px;
+}
+
+#users-mypage #pw{
+    position:relative;
+    top:-250px;
+}
+
+#users-mypage .input_pw {
+    width:250px;
+}
+
+#users-mypage .input_pw input {
+    padding: 5px 0;
+    width: 250px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+#users-mypage .input_pw span{
+    color: #808080;
+    font-size: x-small;
+}
+
+#users-mypage #sign_down{
+    position: relative;
+    top:-200px;
+    cursor: pointer;
+    color: blue;
+    text-align: center;
+}
+
+#users-mypage .sign_down_area{
+    height: 40px;
+    text-align: center;
+}
+
+#users-mypage .sign_down_confirm_btn{
+    width: 80px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+
+#users-mypage .sign_down_confirm_btn:hover{
+    color: #808080;
+    transition:0.3s;
 }
