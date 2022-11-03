@@ -147,7 +147,7 @@
 							modifyBtn.off("click");
 							modifyBtn.on("click", modifyProfile);
 
-							/*<!-- submit -->  */
+							/*<!-- submit -->   */
 							$.ajax({
 
 							});
@@ -160,42 +160,13 @@
 					<span class="text_title">좋아요 한 시설</span>
 				</div>
 				<!-- 시설 카드 -->
-				<div class="gym_cards_box">
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
-					</div>
-					<div class="gym_card">
-						<img class="gym_img" src="/resource/duck.ico" alt="">
+				<div class="gym_area">
+					<div class="gym_cards_box">
+						<div class="gym_card">
+							<img class="gym_img" src="/resource/duck.ico" alt="">
+							<span class="gym_text">testtext1</span>
+						</div>
+						
 					</div>
 				</div>
 				<script>

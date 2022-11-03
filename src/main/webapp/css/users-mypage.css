@@ -48,30 +48,41 @@
     display: inline-table;
 }
 
-#users-mypage .gym_cards_box {
-    overflow-x: scroll;
-    -ms-overflow-style: none;
+#users-mypage .gym_area{
+    width:1200px;
+    height:280px;
+    border: 1px solid black;
     padding-left: 12px;
-    width:100%;
-    height: max-content;
-    white-space: nowrap;
+}
+
+#users-mypage .gym_cards_box {
+    overflow-y: scroll;
+    overflow-x:hidden;
+    -ms-overflow-style: none;
+    width:280px;
+    height: 1200px;
+    transform: rotate(-90deg);
+    position: relative;
+    left: 446px;
+    top: -480px;
 }
 #users-mypage .gym_cards_box::-webkit-scrollbar{
     display:none;
   }
 
 #users-mypage .gym_card {
-    display: inline-block;
-    width: 18rem;
-    height:max-content;
-}
-
-#users-mypage .gym_img {
-    width: 262px;
-    height: 280px;
+    width: 200px;
+    height:280px;
+    transform: rotate(90deg);
     background-color: blue;
 }
 
-#users-mypage .gym_textBox {
+#users-mypage .gym_img {
+    width: 50px;
+    height:60px;
+    
+}
+
+#users-mypage .gym_text {
     background-color: rgb(27, 209, 79);
 }
