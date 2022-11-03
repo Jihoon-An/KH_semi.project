@@ -93,8 +93,9 @@
                             <button type="button" class="btn_base" id="btn_login">로그인</button>
                         </div>
                         <div class="col-12 gy-1">
-                            <input class="form-check-input" type="checkbox" name="login_bs" id="login_bs">
-                            <label class="form-check-label" for="bs_login" style="color:#404040; font-size:14px">운영자
+                            <input type="hidden" name="login_bs" id="login_bs" value="false">
+                            <input class="form-check-input" type="checkbox" id="chk_bs">
+                            <label class="form-check-label" for="login_bs" style="color:#404040; font-size:14px">운영자
                                 로그인</label>
                         </div>
                         <div class="col-12 gy-3">
@@ -242,6 +243,11 @@
 
                 $("#btn_searchPw").on("click", () => {
                     if (isFilled($("#searchPw_email"), $("#searchPw_phone"))) { trySearchPw(); }
+                });
+
+                // 체크박스 이벤트
+                $("#chk_bs").on("change", (e) => {
+                    $("#login_bs")[0].value = $(e.target).is(":checked") ? "true" : "false";
                 });
 
                 // 엔터 = 버튼 클릭
