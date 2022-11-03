@@ -186,8 +186,10 @@
  #gym-detail .shareicon{
  	color:black;
  }
+ .shareicon:hover{
+ }
  
- .ui-tooltip {
+ #gym-detail .ui-tooltip {
     padding: 10px 20px;
     color: #fff;
     border-radius: 5px;

@@ -147,10 +147,9 @@
             textarea.select();
             document.execCommand("copy");
             document.body.removeChild(textarea);
-           $(".fa-sharp fa-solid fa-share-nodes").tooltip();
-          })
-
-        </script>
+           $(".fa-sharp fa-solid fa-share-nodes").tooltip();  //URL 주소 복사 가능 TOOLTIP
+          })//아이콘 클릭시 주소복사 버튼
+        </script>  
 
 	<script>
         $("#reviewbtn").on("click", function () {
@@ -159,19 +158,17 @@
 
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
-          if ($(".review2").length == 0) {
-            $("#review2").html("입력된 댓글이 없습니다");
-          }
+         
           $("#load").click(function (e) {
             // 클릭시 more
             e.preventDefault();
-            $(".review2:hidden").slice(0, 2).show(); // 클릭시 more 갯수 지정
+            $(".review2:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
             // if ($(".review2:hidden").length == 0) {
             //   // 컨텐츠 남아있는지 확인
             //   alert("게시물의 끝입니다."); // 컨텐츠 없을시 alert 창 띄우기
             // }
           });
-        });
+        });  //게시글 더 보기 기능
       </script>
 
 	<script>
@@ -202,7 +199,8 @@
               },
             },
           },
-        };
+        };   
+        	//chart.js
       </script>
 
 	<script>
