@@ -34,14 +34,14 @@ public class FavoritesDAO {
 		      
 		      return ds.getConnection();
 		   }
-	   public int Favoriteadd(FavoritesDTO dto) throws Exception{
+	   public int Favoriteadd(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){   
 				//seq를 직접 넣는 이유는 파일 때문에
-				pstat.setInt(1, dto.getFav_seq());
-				pstat.setInt(2, dto.getUser_seq());
-				pstat.setInt(3, dto.getGym_seq());
+	
+				pstat.setInt(1, dto.getUser_seq());
+				pstat.setInt(2, dto.getGym_seq());
 		
 				
 				
@@ -51,7 +51,7 @@ public class FavoritesDAO {
 			}
 		}
 	   
-		public int favoriteremove(int gym_seq) throws Exception{  //byseq
+		public int favoriteremove(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){

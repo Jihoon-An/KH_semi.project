@@ -141,26 +141,30 @@
 		</div>
 	</div>
 	
-
+	<script>
+	$("#heart").on("click", function(){
+		
+		if($("#heart").css("color")=="rgb(143, 149, 154)"){
+			$("#heart").css("color", "#CF0C00");
+			console.log("즐찾추가")
+			$.ajax({
+				url:"/favoriteadd.gym?gym_seq="+${list.gym_seq},
+				type:"get"
+			})
+		} else {
+			$("#heart").css("color", "#8f959a")
+			console.log("즐찾삭제")
+			$.ajax({
+				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
+				type:"get"
+			})
+		}
+	})
+	
+	</script>
 	<script type="text/javascript">
 
-			$("#heart").on("click", function(){
-				
-				if($("#heart").css("color")=="rgb(143, 149, 154)"){
-					$("#heart").css("color", "#CF0C00");
-					
-					$.ajax({
-						url:"/favoriteadd.gym?gym_seq="+{list.gym_seq}
-						
-					})
-				} else {
-					$("#heart").css("color", "#8f959a")
-					$.ajax({
-						url:"/favoriteremove.gym?gym_seq="+{list.gym_seq}
-						
-					})
-				}
-			})
+			
 
           $(".shareicon").on("click", function(){
             var url = '';

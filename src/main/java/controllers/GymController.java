@@ -42,7 +42,7 @@ public class GymController extends HttpServlet {
 			request.setAttribute("list2", dto);
 			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
 
-	}if(uri.equals("/favoriteadd.gym")){
+	}else if(uri.equals("/favoriteadd.gym")){  //즐겨찾기 추가
 		
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 		System.out.println(gym_seq);
@@ -54,7 +54,7 @@ public class GymController extends HttpServlet {
 		
 		
 		
-	}if(uri.equals("/favoriteremove.gym")){
+	}else if(uri.equals("/favoriteremove.gym")){  //즐겨찾기 삭제
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 		
 		FavoritesDAO dao = FavoritesDAO.getInstance();
