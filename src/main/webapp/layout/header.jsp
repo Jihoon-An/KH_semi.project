@@ -49,9 +49,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- kakaomaps - ykm -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b70a07e8ebffe5918d15f49ba310485f"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b70a07e8ebffe5918d15f49ba310485f&libaries=services,clusterer,drawing,places"></script>
 <!-- kakaomaps - kms -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12fd95dff1fb7039a62aa4e24d3011f0"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=12fd95dff1fb7039a62aa4e24d3011f0&libaries=services,clusterer,drawing,places"></script>
 
 <!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
