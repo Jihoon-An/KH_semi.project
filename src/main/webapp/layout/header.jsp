@@ -71,12 +71,10 @@
 					position: fixed;
 					left: 0;
 					top: 0;
-					display: inline-flex;
+					display: none;
 					flex-direction: column;
 					align-items: center;
 					justify-content: center;
-					/* background: rgba(255, 255, 255, 0.25); */
-					/* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
 					backdrop-filter: blur(1.5px);
 					-webkit-backdrop-filter: blur(1.5px);
 					border-radius: 6px;
@@ -84,29 +82,25 @@
 					z-index: 5;
 				}
 				#modal .modal-window {
-					/* background: rgba( 69, 139, 197, 0.70 ); */
-					/* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
 					background-color: white;
 					backdrop-filter: blur( 13.5px );
 					-webkit-backdrop-filter: blur( 13.5px );
 					border-radius: 10px;
 					border: 1px solid rgba( 255, 255, 255, 0.18 );
+					box-shadow: 1px 1px 5px 1px #808080;
 					position: relative;
 					top: -100px;
 					padding: 20px;
+					padding-bottom: 50px;
                     width: 350px;
                     height: 450px;
                     min-width: 350px;
 				}
 				#modal .title {
-					padding-left: 10px;
 					display: inline;
 					text-shadow: 1px 1px 2px gray;
-					text-align: center;
 				}
-				#modal .title h2 {
-					display: inline;
-				}
+
 				#modal .close-area {
 					display: inline;
 					float: right;
@@ -117,10 +111,10 @@
 				}
 				
 				#modal .content {
-					margin-top: 30px;
+					margin-top: 50px;
 				}
 
-				#modal input {
+				#modal input:not([type="checkbox"]) {
                     padding-left: 5px;
                     padding-right: 5px;
                     width: 250px;
@@ -129,7 +123,7 @@
                     outline: none;
                 }
 
-                #modal input:focus{
+                #modal input:not([type="checkbox"]):focus{
                     box-shadow: 0px 1px 0px 0px black;
                 }
 
@@ -193,9 +187,7 @@
 			</header>
 			<div id="modal" class="modal-overlay" align="center">
 				<div class="modal-window">
-					<div class="title">
-						<h2>회원 로그인</h2>
-					</div>
+					<div class="text_title title">회원 로그인</div>
 					<div class="close-area">
 						<i class="fa-solid fa-x" id="btn_close" style="color:#808080"></i>
 					</div>
@@ -304,14 +296,12 @@
 			</div>
 
 			<script>
-				const loremIpsum = document.getElementById("lorem-ipsum")
-
 				const modal = document.getElementById("modal")
 				function showLogin() {
-					modal.style.display = "flex"
+					modal.style.display = "inline-flex"
 				}
 				function isModalOn() {
-					return modal.style.display === "flex"
+					return modal.style.display === "inline-flex"
 				}
 				function modalOff() {
 					modal.style.display = "none"
