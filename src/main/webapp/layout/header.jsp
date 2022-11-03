@@ -89,8 +89,21 @@
 						<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
 					</ul>
 					<ul id="header_nav_person">
-						<li class="float-end"><a class="header_a_tag" href="#">로그아웃</a></li>
-						<li class="float-end"><a class="header_a_tag" href="#">회원가입</a></li>
+						<c:choose>
+							<c:when test="${userId == null}">
+								<li class="float-end"><a class="header_a_tag" href="#">로그인</a></li>
+								<li class="float-end"><a class="header_a_tag" href="#">회원가입</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="float-end"><a class="header_a_tag" onclick="tryLogout()">로그아웃</a></li>
+								<li class="float-end"><a class="header_a_tag" href="#">마이페이지</a></li>
+								<script>
+									function tryLogout() {
+										$.get("/logout.user").done(() => { location.reload() });
+									}
+								</script>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</nav>
 			</div>
