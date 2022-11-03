@@ -33,7 +33,7 @@
     color: white;
     text-shadow: 2px 2px 5px rgb(55, 55, 55);
 }
-#search .search_main > .search_main_input{
+#search .search_main > form > .search_main_input{
     width: 60%;
     height: 100%;
     position: absolute;
@@ -42,7 +42,7 @@
     text-align: center;
     opacity: 1;
 }
-#search .search_main > .search_main_input > input{
+#search .search_main > form > .search_main_input > input{
     width: 404px;
     height: 45px;
     font-size: large;
@@ -52,7 +52,7 @@
     border: none;
     box-shadow: 3px 4px 5px rgb(150, 12, 12);
 }
-#search .search_main > .search_main_icon{
+#search .search_main > form > .search_main_icon{
     width: 30px;
     height: 100%;
     font-size: 1.5em;
