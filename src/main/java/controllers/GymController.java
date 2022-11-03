@@ -26,28 +26,21 @@ public class GymController extends HttpServlet {
 		
 		
 		try {
-			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+
+	
+		if(uri.equals("/detail.gym")) {    //헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
+			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 			ReviewDAO dao = ReviewDAO.getInstance();
 			GymDAO dao2 = GymDAO.getInstance();
-		//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 			List<ReviewDTO> dto = dao.printReivew(1);
 			GymDTO dto2 = dao2.printGym(1);
 			
 			request.setAttribute("list", dto2);
 			request.setAttribute("list2", dto);
 			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
-			
-			System.out.println(dto);
-			System.out.println(dto2);
-//		if(uri.equals("detail.gym")) {
-////			ReviewDAO dao = ReviewDAO.getInstance();
-////			GymDAO dao2 = GymDAO.getInstance();
-////			List<ReviewDTO> dto = dao.printReivew();
-////			GymDTO dto2 = dao2.printGym(1);
-			//	request.setAttribute("list", dto2);
-////			request.setAttribute("list2", dto);
-////			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
-//		}
+
+	}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
