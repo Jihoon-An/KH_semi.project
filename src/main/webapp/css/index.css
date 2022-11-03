@@ -258,15 +258,19 @@ nav {
 	border: none;
 	box-shadow: 3px 4px 5px rgb(150, 12, 12);
 }
-#index .search_main > .search_main_icon{
-	width: 30px;
-	height: 100%;
+
+#index .search_main > #btn_search {
+	position: relative;
+	float:right;
+	right:60px;
+	line-height: 77px;
 	font-size: 1.5em;
 	color: #CF0C00;
-	position: absolute;
-	top: 25px; /*아이콘위치*/
-	right: 55px;
 	cursor: pointer;
+}
+
+#index hr {
+	color: #C8C8C8
 }
 
 #index .review {
@@ -283,6 +287,7 @@ nav {
 
 #index .item {
 	position: relative;
+	padding: 10px;
 	top: 50px;
 	width: 300px;
 	height: 300px;
@@ -292,7 +297,7 @@ nav {
 }
 
 #index .item:hover{
-	transform: scale(1.1);
+	transform: scale(1.15);
 }
 
 #index .prevBox,
@@ -306,26 +311,28 @@ nav {
 }
 
 #index .prevBox {
-	left: 63px;
+	left: 13px;
 }
 
 #index .nextBox {
-	left: 1063px;
+	left: 1113px;
+}
+
+#index .prev {
+	rotate: 180deg;
 }
 
 #index .prev,
 #index .next {
 	position: relative;
+	padding-left: 3px;
 	width: 50px;
 	height: 50px;
-	top: 50%;
+	top: 45%;
 	border-radius: 50px;
 	transition: 0.5s;
-	transform: translate(0, -50%);
+	background-color: #C8C8C8;
 	font-size: x-large;
-	background-size: 200% auto;
-	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
-	box-shadow: 0px 0px 14px -7px #013d98;
 	color: white;
 	cursor: pointer;
 }
@@ -337,13 +344,12 @@ nav {
 
 #index .prev:hover,
 #index .next:hover {
-	background-position: right center;
+	scale: 1.15;
 }
 
 #index .prev:active,
 #index .next:active {
 	scale: 0.95;
-	transform: translate(0, -50%);
 }
 
 #index .ads>.banner {
