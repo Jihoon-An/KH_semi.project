@@ -34,7 +34,10 @@
                 </div>
 
                 <div class="search_sub_filter">
-                    <div class="search_tag" style="margin-left: 14px;">
+                	<div class="search_tag_icon" style="margin-left: 37px;">
+                		<img src="/resource/filter.png" alt="">
+                	</div>
+                    <div class="search_tag" style="margin-left: 5px;">
                         <label for="" class="filter_open filter">#24시간</label>
                     </div>
                     <div class="search_tag" style="margin-left: 5px;">
@@ -57,12 +60,14 @@
                         <div class="gym_list_title">
                             <a href="">에이블짐</a>
                         </div>
-                        <div class="gym_list_open">
-                            <span>OPEN : AM 09:00</span><br>
-                            <span>CLOSE : PM 22:30</span>
-                        </div>
                         <div class="gym_list_location">
-                            <span>서울특별시 서울구 서울동 123-12 3층</span>
+                            <span>서울 중구 서소문로 124 지하2층</span>
+                        </div>
+                        <div class="gym_list_phone">
+                            <span>02-6250-5273</span>
+                        </div>
+                        <div class="gym_list_open">
+                            <span>월-금 00:00 - 24:00 CLOSE : PM 22:30</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag open">#24시간</div>
@@ -80,12 +85,15 @@
                         <div class="gym_list_title">
                             <a href="">스포애니</a>
                         </div>
+                        <div class="gym_list_location">
+                            <span>서울특별시 서울구 서울동 123-123 지하1층</span>
+                        </div>
+                        <div class="gym_list_phone">
+                            <span>02-353-1234</span>
+                        </div>
                         <div class="gym_list_open">
                             <span>24 HOURS</span><br>
                             <span>CLOSE : PM 22:30</span>
-                        </div>
-                        <div class="gym_list_location">
-                            <span>서울특별시 서울구 서울동 123-123 지하1층</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag open">#24시간</div>
@@ -101,12 +109,15 @@
                         <div class="gym_list_title">
                             <a href="">원숭이나무에올라가짐</a>
                         </div>
+                        <div class="gym_list_location">
+                            <span>서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층</span>
+                        </div>
+                        <div class="gym_list_phone">
+                            <span>02-353-1234</span>
+                        </div>
                         <div class="gym_list_open">
                             <span>24 HOURS</span><br>
                             <span></span>
-                        </div>
-                        <div class="gym_list_location">
-                            <span>서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag locker">#라커</div>
@@ -122,15 +133,18 @@
                         <div class="gym_list_title">
                             <a href="">원숭이나무에올라가짐살라짐</a>
                         </div>
-                        <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
-                            <span>월요잉휴무지롱</span>
-                        </div>
                         <div class="gym_list_location">
                             <span>
                             서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층
                             서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층
                             </span>
+                        </div>
+                        <div class="gym_list_phone">
+                            <span>02-353-1234</span>
+                        </div>
+                        <div class="gym_list_open">
+                            <span>24 HOURS</span><br>
+                            <span>월요잉휴무지롱</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag locker">#라커</div>
@@ -147,22 +161,24 @@
                         <div class="gym_list_title">
                             <a href="">바디와이짐&라필라테스 용현동헬스</a>
                         </div>
-                        <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
-                            <span></span>
-                        </div>
                         <div class="gym_list_location">
                             <span>
                             서울특별시 종로구 을지로입구 3번출구 나와서 직진 겁나하면
                             우리은행 옆에 빌딩들어가서 3층 들어가서 E강의장까지오면됨
                             </span>
                         </div>
+                        <div class="gym_list_phone">
+                            <span>02-353-1234</span>
+                        </div>
+                        <div class="gym_list_open">
+                            <span>24 HOURS</span><br>
+                            <span></span>
+                        </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag open">#24시간</div>
                             <div class="gym_list_tag locker">#라커</div>
                             <div class="gym_list_tag shower">#샤워실</div>
                             <div class="gym_list_tag park">#주차장</div>
-                            <div class="gym_list_tag">#아개졸리네;;</div>
                         </div>
                     </div>
                 </div>
