@@ -146,48 +146,61 @@
 							$("#user_img_in").attr("disabled", "true");
 							modifyBtn.off("click");
 							modifyBtn.on("click", modifyProfile);
-
-							/*<!-- submit -->   */
-							$.ajax({
-
-							});
 						};
 					</script>
 				</div>
 
 				<!-- 좋아요 한 시설 -->
-				<div class="row">
+				<div class="row pt-5 pb-3">
 					<span class="text_title">좋아요 한 시설</span>
 				</div>
 				<!-- 시설 카드 -->
 				<div class="gym_area">
-					<div class="gym_cards_box">
-						<div class="gym_card">
-							<img class="gym_img" src="/resource/duck.ico" alt="">
-							<span class="gym_text">testtext1</span>
-						</div>
-						
-					</div>
+					<div class="gym_cards_box" id="gym_cards_box"></div>
 				</div>
+				<!-- 카드 생성 -->
 				<script>
-					$(window).scroll(function () {
-						let scrollTop = $(window).scrollTop();
-						let offset = scrollTop - $(".gym_cards_box").offset().top;
-						if (scrollTop > $(".gym_cards_box").offset().top) {
-							$("gym_card").css("left", -offset);
-						} else {
-							$(".gym_card").css("left", -offset);
-						}
-					});
+					createGymCard();
+
+					function createGymCard() {
+						let a_img = $("<a>").attr("href", "#");
+						let a_text = $("<a>").attr("href", "#");
+
+						let gym_card = $("<div>");
+						gym_card.addClass("gym_card");
+
+
+						let gym_img = $("<img>");
+						let gym_text = $("<span>");
+						let heart = $("<i>");
+
+
+						gym_img.addClass("gym_img").attr("src", "/resource/main.jpg");
+						a_img.append(gym_img);
+						gym_text.addClass("gym_text").text("testtesttest");
+						a_img.append(gym_text);
+						heart.addClass("fa-solid fa-heart fa-xl heart");
+
+						heart.on("click", function () {
+							if ($(this).css("color") == "rgb(143, 149, 154)") {
+								$(this).css("color", "#CF0C00");
+							} else {
+								$(this).css("color", "#8f959a")
+							}
+						})
+
+						gym_card.append(a_img).append(a_text).append(heart);
+						$("#gym_cards_box").append(gym_card);
+					};
 				</script>
 
 				<!-- 내가 쓴 리뷰 -->
-				<div class="row">
+				<div class="row pt-5 pb-3">
 					<span class="text_title">내가 쓴 리뷰</span>
 				</div>
 				<!-- 리뷰 카드 -->
 				<div class="row">
-
+					
 				</div>
 			</main>
 
