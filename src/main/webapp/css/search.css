@@ -1,4 +1,4 @@
-#search{}
+#search * { }
 #map{
 	border: 1px solid black;
 	width:1200px;
@@ -91,7 +91,7 @@
 }
 #search .search_sub > .search_sub_input{
     width: 98%;
-    height: 94%;
+    height: 93.5%;
     line-height: 40px;
     margin: auto;
     position: relative;
@@ -142,7 +142,7 @@
     padding-left: 15px;
     padding-right: 15px;
     border: 1px dashed black;
-    border-radius: 100px;
+    border-radius: 50px;
     text-align: center;
     line-height: 28px;
     float: left;
@@ -178,7 +178,7 @@
     width: 60%;
     height: 100%;
     float: left;
-    border: 1px solid dodgerblue;
+    letter-spacing :-1px;
 }
 #search .gym_list > .gym_list_article > .gym_list_title{
     width: 95%;
