@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FavoritesDAO;
 import dao.GymDAO;
 import dao.ReviewDAO;
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
@@ -40,7 +42,28 @@ public class GymController extends HttpServlet {
 			request.setAttribute("list2", dto);
 			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
 
+	}if(uri.equals("/favoriteadd.gym")){
+		
+		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+		System.out.println(gym_seq);
+		FavoritesDAO dao = FavoritesDAO.getInstance();
+		
+		//사용자 id필요 임시로 1
+		int result = dao.Favoriteadd(new FavoritesDTO(0, 1, gym_seq));
+		System.out.println(result+"즐겨찾기 추가 성공");
+		
+		
+		
+	}if(uri.equals("/favoriteremove.gym")){
+		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+		
+		FavoritesDAO dao = FavoritesDAO.getInstance();
+		int result=dao.favoriteremove(gym_seq);
+		System.out.println(result+"즐겨찾기 삭제 성공");
 	}
+			
+		
+		
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

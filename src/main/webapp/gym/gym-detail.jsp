@@ -107,6 +107,7 @@
 
 			</div>
 		</div>
+		
 
 		<div class="rcontents">
 			<div class="chart1">
@@ -139,6 +140,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 	<script type="text/javascript">
 
@@ -146,8 +148,17 @@
 				
 				if($("#heart").css("color")=="rgb(143, 149, 154)"){
 					$("#heart").css("color", "#CF0C00");
+					
+					$.ajax({
+						url:"/favoriteadd.gym?gym_seq="+{list.gym_seq}
+						
+					})
 				} else {
 					$("#heart").css("color", "#8f959a")
+					$.ajax({
+						url:"/favoriteremove.gym?gym_seq="+{list.gym_seq}
+						
+					})
 				}
 			})
 
@@ -224,6 +235,8 @@
           location.href = "";
         }); //리뷰작성 이동
       </script>
+      
+   
 </main>
 
 <%@ include file="/layout/footer.jsp"%>
