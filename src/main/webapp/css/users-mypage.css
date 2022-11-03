@@ -1,3 +1,77 @@
 @charset "utf-8";
 
 
+#users-mypage div {
+    box-sizing: border-box;
+}
+
+#users-mypage #user_img {
+    width: 159px;
+    height: 159px;
+    border-radius: 100%;
+}
+
+#users-mypage #profile_upload {
+    cursor: pointer;
+    width: max-content;
+}
+
+#users-mypage .profile_title {
+    width: 100px;
+    display: inline-table;
+
+}
+
+#users-mypage #interest_out {
+    width: 480px;
+    overflow: scroll;
+    display: inline-table;
+}
+
+#users-mypage .interesting {
+    border: 1px solid rgb(204, 204, 204);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 30px;
+    width: max-content;
+    display: inline-table;
+}
+
+#users-mypage .modifyBtn {
+    transform: translate(0, -2px);
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 5px;
+    display: inline-table;
+}
+
+#users-mypage .gym_cards_box {
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    padding-left: 12px;
+    width:100%;
+    height: max-content;
+    white-space: nowrap;
+}
+#users-mypage .gym_cards_box::-webkit-scrollbar{
+    display:none;
+  }
+
+#users-mypage .gym_card {
+    display: inline-block;
+    width: 18rem;
+    height:max-content;
+}
+
+#users-mypage .gym_img {
+    width: 262px;
+    height: 280px;
+    background-color: blue;
+}
+
+#users-mypage .gym_textBox {
+    background-color: rgb(27, 209, 79);
+}
