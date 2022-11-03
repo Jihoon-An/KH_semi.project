@@ -67,7 +67,7 @@
                             <span>02-6250-5273</span>
                         </div>
                         <div class="gym_list_open">
-                            <span>월-금 00:00 - 24:00 CLOSE : PM 22:30</span>
+                            <span>영업중 / CLOSE PM 24:00</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag open">#24시간</div>
@@ -92,8 +92,7 @@
                             <span>02-353-1234</span>
                         </div>
                         <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
-                            <span>CLOSE : PM 22:30</span>
+                            <span>영업종료 / CLOSE PM 21:00</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag open">#24시간</div>
@@ -116,8 +115,7 @@
                             <span>02-353-1234</span>
                         </div>
                         <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
-                            <span></span>
+                            <span>영업중 / CLOSE PM 23:00</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag locker">#라커</div>
@@ -143,8 +141,7 @@
                             <span>02-353-1234</span>
                         </div>
                         <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
-                            <span>월요잉휴무지롱</span>
+                            <span>24 HOURS</span>
                         </div>
                         <div class="gym_list_tagBox">
                             <div class="gym_list_tag locker">#라커</div>
@@ -171,7 +168,7 @@
                             <span>02-353-1234</span>
                         </div>
                         <div class="gym_list_open">
-                            <span>24 HOURS</span><br>
+                            <span>영업중 / CLOSE PM 24:00</span><br>
                             <span></span>
                         </div>
                         <div class="gym_list_tagBox">

@@ -166,16 +166,16 @@
 }
 #search .searchListNav > .gym_list:hover{scale: 1.01;}
 #search .gym_list > .gym_list_logo{
-    width: 40%;
+    width: 159px;
     height: 100%;
     float: left;
+    overflow: hidden;
 }
 #search .gym_list > .gym_list_logo > img{
-    width: 100%;
     height: 100%;
 }
 #search .gym_list > .gym_list_article{
-    width: 60%;
+    width: 268.5px;
     height: 100%;
     float: left;
     letter-spacing :-1px;
@@ -208,13 +208,11 @@
 }
 #search .gym_list > .gym_list_article > .gym_list_open{
     width: 95%;
-    padding-top: 2px;
     padding-left: 15px;
     font-size: 12px;
 }
 #search .gym_list > .gym_list_article > .gym_list_location{
     width: 95%;
-    height: 15%;
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
@@ -231,25 +229,26 @@
 	font-size:14px;
 	padding-left: 15px;
 	color: green;
+	line-height: 25px;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox{
-    width: 95%;
-    margin-top: 5px;
+    width: 100%;
+    margin-top: 12px;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox > .gym_list_tag:nth-child(1){
-	margin-left: 12px;
+	margin-left: 15px;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox > .gym_list_tag{
     border: 1px dashed black;
     border-radius: 100px;
     width: fit-content;
     padding: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
     float: left;
-    margin-top: 2px;
-    margin-right: 4px;
+    margin-top: 3px;
+    margin-right: 3px;
     background-color: #001A41;
     color: white;
     opacity: 0.9;
