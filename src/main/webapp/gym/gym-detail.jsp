@@ -15,7 +15,7 @@
 			<div class="placebox1">
 				<div>
 					<div class="placename">
-						<h1>시설명</h1>
+						<h1>${list.gym_name}</h1>
 					</div>
 
 					<div class="icon1">
@@ -29,12 +29,12 @@
 				</div>
 				<div class="place">
 					<dt class="text_normal">위치</dt>
-					<dd>위치내용</dd>
+					<dd>${list.gym_location}</dd>
 				</div>
 
 				<div class="place">
 					<dt class="text_normal">연락처</dt>
-					<dd>010</dd>
+					<dd>${list.gym_phone}</dd>
 				</div>
 
 				<div class="placemap" id="map"></div>
@@ -60,7 +60,7 @@
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>sasdasd</dd>
+					<dd>${list.gym_price }원</dd>
 				</div>
 			</div>
 
@@ -72,35 +72,38 @@
 					<button type="button" class="btn btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
-				<div class="review2">
-					<c:choose>
+				
+				<c:choose>
 						<c:when test="${not empty list2 }">
 							<!-- 리스트가 비어있지않다면 -->
 							<c:forEach var="r" items="${list2 }">
-								<div class="shadow-none p-3 mb-5 bg-light rounded text_normal">
-									<div class="authmark">인증</div>
-									<div class="ranwriter">글작성자</div>
-									<div class="writerd">작성날짜</div>
-									<div class="starc">star</div>
-								</div>
-								<div
-									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-									리뷰내용</div>
-							</c:forEach>
+				<div class="review2">
+					
 							
-							<div class="newmore">
-								<a href="#" class="btn btn_outline" data-bs-toggle="button"
-									id="load">NEW MORE</a>
-							</div>
-
+								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
+									
+										<div class="authmark">인증</div>
+									<div class="ranwriter">${r.review_writer}</div>
+									<div class="writerd">${r.review_writer_date}</div>
+									<div class="starc">star</div>
+									${r.review_contents }
+									</div>
+						
+						</div>
+				
+							</c:forEach>
+								<div class="newmore">
+							<a href="#" class="btn btn_outline" data-bs-toggle="button" id="load">NEW MORE</a>
+						</div>
 						</c:when>
 						<c:otherwise>
 							<div class="other">작성된 리뷰가 없습니다</div>
 						</c:otherwise>
 					</c:choose>
-				</div>
-
-
+				
+		
+	
+							
 
 			</div>
 		</div>
@@ -112,9 +115,8 @@
 			<div class="gym_info_open">
 				<span>OPEN : AM 09:00</span><br /> <span>CLOSE : PM 22:30</span>
 			</div>
-			<div class="gym_info_location">
-				<span>서울특별시 서울구 서울동 123-12 3층</span>
-			</div>
+			
+
 
 			<div class="gym_info_tagBox">
 				<div class="gym_info_tag open">#24시간</div>
@@ -122,14 +124,15 @@
 				<div class="gym_info_tag shower">#샤워실</div>
 				<div class="gym_info_tag park">#주차장</div>
 			</div>
+		
 			<div class="infopicture">
 				<figure class="figure">
-					<img src="health.png" class="figure-img img-fluid rounded"
+					<img src="" class="figure-img img-fluid rounded"
 						alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 				<figure class="figure">
-					<img src="health.png" class="figure-img img-fluid rounded"
+					<img src="" class="figure-img img-fluid rounded"
 						alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
@@ -140,9 +143,12 @@
 	<script type="text/javascript">
 
 			$("#heart").on("click", function(){
-				$("#heart").css("color", "#CF0C00")
-				$(this).
 				
+				if($("#heart").css("color")=="rgb(143, 149, 154)"){
+					$("#heart").css("color", "#CF0C00");
+				} else {
+					$("#heart").css("color", "#8f959a")
+				}
 			})
 
           $(".shareicon").on("click", function(){
@@ -159,9 +165,7 @@
         </script>  
 
 	<script>
-        $("#reviewbtn").on("click", function () {
-          location.href = "";
-        }); //리뷰작성 이동
+       
 
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
@@ -170,12 +174,12 @@
             // 클릭시 more
             e.preventDefault();
             $(".review2:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
-            // if ($(".review2:hidden").length == 0) {
-            //   // 컨텐츠 남아있는지 확인
-            //   alert("게시물의 끝입니다."); // 컨텐츠 없을시 alert 창 띄우기
-            // }
+          if ($(".review2:hidden").length == 0) {
+              // 컨텐츠 남아있는지 확인
+        		$("#load").css("display","none")
+           }
           });
-        });  //게시글 더 보기 기능
+        });  //게시글 더 보기 기능  
       </script>
 
 	<script>
@@ -212,6 +216,13 @@
 
 	<script>
         const myChart = new Chart(document.getElementById("myChart"), config);
+      </script>
+      
+      <script>
+      
+      $("#reviewbtn").on("click", function () {
+          location.href = "";
+        }); //리뷰작성 이동
       </script>
 </main>
 
