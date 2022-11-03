@@ -19,10 +19,12 @@
 					</div>
 
 					<div class="icon1">
-						<i class="fa-solid fa-heart"></i> <span class="button gray medium"><a
-							onclick="clip(); return false;" class="shareicon"> <i
-								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-								style="cursor: pointer;" aria-hidden="true"></i></a></span>
+						<i class="fa-solid fa-heart" id="heart"></i> 
+						
+						<span class="button gray medium">
+						<a onclick="clip(); return false;" class="shareicon"> 
+						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
+						style="cursor: pointer;" aria-hidden="true"></i></a></span>
 					</div>
 				</div>
 				<div class="place">
@@ -48,13 +50,13 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-				<div class="machine_info shadow-none p-2 mb-2 bg-light rounded">
+				<div class="machine_info shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">기구정보</p>
 					</dt>
 					<dd>sd</dd>
 				</div>
-				<div class="placeprice shadow-none p-2 mb-2 bg-light rounded">
+				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
@@ -137,6 +139,11 @@
 
 	<script type="text/javascript">
 
+			$("#heart").on("click", function(){
+				$("#heart").css("color", "#CF0C00")
+				$(this).
+				
+			})
 
           $(".shareicon").on("click", function(){
             var url = '';
