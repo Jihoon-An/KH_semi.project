@@ -1,3 +1,120 @@
 @charset "utf-8";
 
 
+#users-mypage div {
+    box-sizing: border-box;
+}
+
+#users-mypage #user_img {
+    width: 159px;
+    height: 159px;
+    border-radius: 100%;
+}
+
+#users-mypage #profile_upload {
+    cursor: pointer;
+    width: max-content;
+}
+
+#users-mypage .profile_title {
+    width: 100px;
+    display: inline-table;
+
+}
+
+#users-mypage #interest_out {
+    width: 480px;
+    overflow: scroll;
+    display: inline-table;
+}
+
+#users-mypage .interesting {
+    border: 1px solid rgb(204, 204, 204);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 30px;
+    width: max-content;
+    display: inline-table;
+}
+
+#users-mypage .modifyBtn {
+    transform: translate(0, -2px);
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 5px;
+    display: inline-table;
+}
+
+#users-mypage .gym_area {
+    width: 1200px;
+    height: 280px;
+    padding-left: 12px;
+}
+
+#users-mypage .gym_cards_box {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    width: 280px;
+    height: 1200px;
+    transform: rotate(-90deg);
+    position: relative;
+    left: 446px;
+    top: -460px;
+    overflow: visible;
+}
+
+#users-mypage .gym_cards_box::-webkit-scrollbar {
+    display: none;
+}
+
+#users-mypage .gym_card {
+    width: 280px;
+    height: 280px;
+    margin-bottom: 30px;
+    transform: rotate(90deg);
+    overflow: visible;
+    z-index: 1;
+}
+
+#users-mypage .gym_img {
+    width: 280px;
+    height: 280px;
+    cursor: default;
+}
+
+
+#users-mypage .gym_text {
+    background-color: rgba(221, 221, 221, 0.71);
+    color: rgb(36, 36, 40);
+    position: absolute;
+    width: 100%;
+    height: 140px;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#users-mypage .gym_card:hover .gym_text {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+#users-mypage .heart {
+    cursor: pointer;
+    color: #CF0C00;
+    position: absolute;
+    right: 8px;
+    top: 16px;
+    z-index: 2;
+}
+
+#users-mypage .heart:hover {
+    filter: blur(0px);
+    -webkit-filter: blur(1px);
+    transition: 0.2s;
+}
