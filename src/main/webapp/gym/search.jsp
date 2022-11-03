@@ -16,7 +16,7 @@
                     <span style="font-weight:700;">Fitness</span>
                 </div>
                 <div class="search_main_input">
-                    <input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요.">
+                    <input type="text" id="gymSearch" placeholder="지역명 또는 헬스장명을 검색해보세요.">
                 </div>
                 <div class="search_main_icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -70,10 +70,10 @@
                             <span>영업중 / CLOSE PM 24:00</span>
                         </div>
                         <div class="gym_list_tagBox">
-                            <div class="gym_list_tag open">#24시간</div>
-                            <div class="gym_list_tag locker">#라커</div>
-                            <div class="gym_list_tag shower">#샤워실</div>
-                            <div class="gym_list_tag park">#주차장</div>
+                            <div class="gym_list_tag open btn_base">#24시간</div>
+                            <div class="gym_list_tag locker btn_base">#라커</div>
+                            <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            <div class="gym_list_tag park btn_base">#주차장</div>
                         </div>
                     </div>
                 </div>
@@ -95,8 +95,8 @@
                             <span>영업종료 / CLOSE PM 21:00</span>
                         </div>
                         <div class="gym_list_tagBox">
-                            <div class="gym_list_tag open">#24시간</div>
-                            <div class="gym_list_tag park">#주차장</div>
+                            <div class="gym_list_tag open btn_base">#24시간</div>
+                            <div class="gym_list_tag park btn_base">#주차장</div>
                         </div>
                     </div>
                 </div>
@@ -118,8 +118,8 @@
                             <span>영업중 / CLOSE PM 23:00</span>
                         </div>
                         <div class="gym_list_tagBox">
-                            <div class="gym_list_tag locker">#라커</div>
-                            <div class="gym_list_tag shower">#샤워실</div>
+                            <div class="gym_list_tag locker btn_base">#라커</div>
+                            <div class="gym_list_tag shower btn_base">#샤워실</div>
                         </div>
                     </div>
                 </div>
@@ -144,9 +144,9 @@
                             <span>24 HOURS</span>
                         </div>
                         <div class="gym_list_tagBox">
-                            <div class="gym_list_tag locker">#라커</div>
-                            <div class="gym_list_tag shower">#샤워실</div>
-                            <div class="gym_list_tag park">#주차장</div>
+                            <div class="gym_list_tag locker btn_base">#라커</div>
+                            <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            <div class="gym_list_tag park btn_base">#주차장</div>
                         </div>
                     </div>
                 </div>
@@ -172,10 +172,10 @@
                             <span></span>
                         </div>
                         <div class="gym_list_tagBox">
-                            <div class="gym_list_tag open">#24시간</div>
-                            <div class="gym_list_tag locker">#라커</div>
-                            <div class="gym_list_tag shower">#샤워실</div>
-                            <div class="gym_list_tag park">#주차장</div>
+                            <div class="gym_list_tag open btn_base">#24시간</div>
+                            <div class="gym_list_tag locker btn_base">#라커</div>
+                            <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            <div class="gym_list_tag park btn_base">#주차장</div>
                         </div>
                     </div>
                 </div>
@@ -187,12 +187,76 @@
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(37.56793539931502, 126.98309190765903), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
-
+	
+        ////////////////지도
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-        var map = new kakao.maps.Map(mapContainer, mapOption); 
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        
+     	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+        var mapTypeControl = new kakao.maps.MapTypeControl();
+
+        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMLEFT);
+        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+        // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMLEFT);
+
+        
+        /////////////검색
+        // 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places(); 
+        
+        var gymSearch = document.getElementById('gymSearch');
+        
+		// 키워드로 장소를 검색합니다
+		$("#gymSearch").on("keyup", function (e) {
+            if (e.keyCode == 13) {
+				consol.log($(this).val());
+				ps.keywordSearch($(this).val(), placesSearchCB); 
+             };
+          });
+
+		// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+		function placesSearchCB (data, status, pagination) {
+		    if (status === kakao.maps.services.Status.OK) {
+
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+		        // LatLngBounds 객체에 좌표를 추가합니다
+		        var bounds = new kakao.maps.LatLngBounds();
+
+		        for (var i=0; i<data.length; i++) {
+		            displayMarker(data[i]);    
+		            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+		        }       
+
+		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+		        map.setBounds(bounds);
+		    } 
+		}
+
+
+        /////////////마커
+        var imageSrc = '/resource/ping.png', // 마커이미지의 주소입니다    
+            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+            markerPosition = new kakao.maps.LatLng(37.56793539931502, 126.98309190765903); // 마커가 표시될 위치입니다
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            position: markerPosition, 
+            image: markerImage, // 마커이미지 설정
+            clickable: true
+        });
+
+        // 마커가 지도 위에 표시되도록 설정합니다
+        marker.setMap(map);  
     </script>
         
 
