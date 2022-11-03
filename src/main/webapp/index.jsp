@@ -61,31 +61,32 @@
 					<div class="mainimg">
 						<div class="containerbox">
 							<form action="/search.gym" id="form_search">
-							<div class="search_main" data-aos="zoom-out" data-aos-easing="linear" data-aos-duration="1000">
-								<div class="search_main_span">
-									<span style="font-weight: lighter;">Your</span> <span
-										style="font-weight: bold;">Needs</span> <span
-										style="font-weight: lighter;">For</span> <span
-										style="font-weight: bold;">Fitness</span>
-								</div>
+								<div class="search_main" data-aos="zoom-out" data-aos-easing="linear"
+									data-aos-duration="1000">
+									<div class="search_main_span">
+										<span style="font-weight: lighter;">Your</span> <span
+											style="font-weight: bold;">Needs</span> <span
+											style="font-weight: lighter;">For</span> <span
+											style="font-weight: bold;">Fitness</span>
+									</div>
 									<div class="search_main_input" name="keyword">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left:20px">
 									</div>
 									<div class="search_main_icon" id="btn_search">
 										<i class="fa-solid fa-magnifying-glass"></i>
 									</div>
-								</form>
-							</div>
+							</form>
 						</div>
+					</div>
 				</section>
 				<div class="containerbox" align="center">
 					<section class="row justify-content-center review">
 						<div class="text_title col-12 gy-5">베스트 리뷰</div>
-						<div class="col-12 gy-4 carousel">
+						<div class="col-12 gy-3 carousel">
 							<div class="prevBox">
 								<i class="fa-solid fa-angles-left prev"></i>
 							</div>
-							<div class="owl-carousel text-center gy-3" style="width:1000px; height:320px">
+							<div class="owl-carousel text-center gy-3" style="width:1000px; height:400px">
 								<div class="item">
 									<h4>1</h4>
 								</div>
@@ -120,7 +121,7 @@
 							<div class="nextBox"><i class="fa-solid fa-angles-right next"></i></div>
 						</div>
 					</section>
-					<hr class="col-12 mt-4">
+					<hr class="col-12 mt-3">
 					<section class="row justify-content-evenly ads">
 						<div class="text_title col-12 gy-3">헬스용품 배너</div>
 						<div class="col-5 banner gy-4">배너</div>
@@ -131,6 +132,10 @@
 				</div>
 			</main>
 			<script>
+				// AOS 스크립트 시작
+				AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
+
+				// Carousel
 				$(() => { $('.owl-carousel').trigger('next.owl.carousel', [10000]) });
 				let owl = $('.owl-carousel');
 				owl.owlCarousel({
@@ -149,11 +154,31 @@
 				$(".next").on("click", () => {
 					owl.trigger('next.owl.carousel', [2000]);
 				})
+				$(".item").on("click", (e) => {
+					console.log($(".item"));
+					console.log($(e.target));
+					alert($(e.target).text() + "번 item")
+				})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				$("#btn_search").on("click", () => {
 					$("#form_search").submit();
 				})
-				// AOS 스크립트 시작
-		        AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
 			</script>
 
 			<%@ include file="/layout/footer.jsp" %>

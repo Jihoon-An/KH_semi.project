@@ -278,17 +278,21 @@ nav {
 }
 
 #index .owl-stage {
-	height: 320px;
+	height: 400px;
 }
 
 #index .item {
 	position: relative;
-	top: 10px;
+	top: 50px;
 	width: 300px;
 	height: 300px;
-	-webkit-box-shadow: 1x 1px 5px 1px #C8C8C8;
 	box-shadow: 1px 1px 5px 1px #C8C8C8;
 	border-radius: 6px;
+	transition: 0.5s
+}
+
+#index .item:hover{
+	transform: scale(1.1);
 }
 
 #index .prevBox,
