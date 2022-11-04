@@ -17,7 +17,7 @@ public class Common {
      * @param password
      * @return %0128x 로 변환
      */
-    public static String getSHA512(String password) {
+    public static String getSHA128(String password) {
         String toReturn = null;
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
