@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,11 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BsUsersDAO;
 import dao.UserDAO;
 import dto.BsUsersDTO;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.UserDAO;
+
 import dto.UserDTO;
 
 
 @WebServlet("*.host")
 public class HostUserController extends ControllerAbs {
+
 	
 
 	@Override
@@ -61,5 +69,5 @@ public class HostUserController extends ControllerAbs {
 	
 		this.doGet(request, response);
 	}
-
 }
+

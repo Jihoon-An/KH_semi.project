@@ -2,6 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,20 +16,16 @@ import dto.FavoritesDTO;
 
 public class FavoritesDAO extends Dao {
 
-	
-	private static FavoritesDAO instance;
-	
-	synchronized public static FavoritesDAO getInstance() {
-		if (instance == null) {
-			instance = new FavoritesDAO();
-		}
-		return instance;
-	}
 
-	private  FavoritesDAO() {} 
+    private static FavoritesDAO instance;
 
-	
-	
+    synchronized public static FavoritesDAO getInstance() {
+        if (instance == null) {
+            instance = new FavoritesDAO();
+        }
+        return instance;
+    }
+
 
 	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
@@ -63,4 +62,30 @@ public class FavoritesDAO extends Dao {
 		}
 	   
 	   
+
+
+    /**
+     * user sequence가 일치하는 모든 favorite을 list로 불러옴.
+     * @param userSeq
+     * @return
+     * @throws Exception
+     */
+    public List<Integer> getGymListByUser(int userSeq) throws Exception {
+        String sql = "select gym_seq from favorites where user_seq = ?";
+        List<Integer> gymsSeq = new ArrayList<>();
+        try (
+                Connection connection = this.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, userSeq);
+            try (
+                    ResultSet resultSet = statement.executeQuery();
+            ) {
+                while (resultSet.next()) {
+                    gymsSeq.add(resultSet.getInt("gym_seq"));
+                }
+                return gymsSeq;
+            }
+        }
+    }
 }
