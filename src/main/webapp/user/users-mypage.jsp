@@ -288,8 +288,6 @@
 				</div>
 
 				<!-- 개인정보 수정 테이블 -->
-				<span style="color:#808080; font-size:x-small">이메일</span>
-				<button type="button" class="btn_base" id="btn_login">로그인</button>
 
 				<form id="form_pw" class="modal-overlay">
 					<div id="private_table">
