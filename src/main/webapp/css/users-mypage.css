@@ -23,19 +23,19 @@
 }
 
 #users-mypage #interest_out {
-    width: 320px;
+    width: 420px;
     overflow: scroll;
     display: inline-table;
-    height: 100px;
-    position: absolute;
-    right: 360px;
+    height: 120px;
+    position: relative;
+    transform: translate(100px,0px);
 }
 
 #users-mypage .interesting {
     border: 1px solid rgb(204, 204, 204);
     padding-left: 10px;
     padding-right: 10px;
-    margin: 5px;
+    margin: 3px 5px;
     text-align: center;
     border-radius: 30px;
     width: max-content;
@@ -280,6 +280,21 @@
 }
 
 #users-mypage .sign_down_confirm_btn:hover{
-    color: #808080;
+    color: #3e225f;
     transition:0.3s;
+}
+
+#users-mypage .sex_btn{
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #fff;
+	border: 1px solid #cbcbcb;
+    
+	box-sizing: border-box;
+	color: #cbcbcb;
+}
+
+#users-mypage .sex_btn_hover:hover{
+    background-color:#939196;
+    color: #cecaca;
 }

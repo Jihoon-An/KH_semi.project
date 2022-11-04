@@ -36,33 +36,36 @@
 					</script>
 
 					<!-- input info -->
-					<div class="col-5">
+					<div class="col-5" style="height:318px;">
 						<!-- name -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">이름</div>
-							<div style="display:inline-table;"><input class="form-control modify_input" type="text">
+							<div style="display:inline-table;"><input class="form-control modify_input" type="text" name="user_name">
 							</div>
 						</div>
 						<!-- select sex -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">성별</div>
-							<button id="select_sex" class="btn btn-outline-secondary dropdown-toggle modify_input"
-								type="button" data-bs-toggle="dropdown" aria-expanded="false"
-								style="--bs-btn-border-color: rgb(206,212,218);">선택</button>
-							<ul class="dropdown-menu dropdown-menu-start">
-								<li><a class="select_sex dropdown-item" href="#">남자</a></li>
-								<li><a class="select_sex dropdown-item" href="#">여자</a></li>
-							</ul>
+							<button type="button" class="modify_input sex_btn" id="manBtn">남자</button>
+							<button type="button" class="modify_input sex_btn" id="womanBtn">여자</button>
+							<input type="hidden" name="sex" id="sex">
 							<script>
-								$(".select_sex").on("click", function () {
-									$("#select_sex").html($(this).html());
-								});
+								$("#manBtn").on("click", function(){
+									$("#sex").val("man");
+									$("#manBtn").css("border","1px solid #001A41").css("color","#001A41");
+									$("#womanBtn").css("border","1px solid #cbcbcb").css("color","#cbcbcb");
+								})
+								$("#womanBtn").on("click", function(){
+									$("#sex").val("woman");
+									$("#womanBtn").css("border","1px solid #001A41").css("color","#001A41");
+									$("#manBtn").css("border","1px solid #cbcbcb").css("color","#cbcbcb");
+								})
 							</script>
 						</div>
 						<!-- birthday -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">생년월일</div>
-							<div style="display:inline-table;"><input class="form-control modify_input" type="date">
+							<div style="display:inline-table;"><input class="form-control modify_input" type="date" name="user_birthday">
 							</div>
 						</div>
 						<!-- interesting -->
@@ -83,18 +86,26 @@
 				</div>
 				<div class="row justify-content-center mb-5">
 					<!-- modify button -->
-					<div style="display:inline-table; padding:0; margin-top:80px; width:max-content;">
+					<div style="display:inline-table; padding:0; margin-top:0; width:max-content;">
 						<button class="btn_base modifyBtn" type="button" id="modifyProfile">내 프로필 수정</button>
 						<button class="btn_base modifyBtn" type="button" id="modifyPrivate">개인 정보 수정</button>
 					</div>
 				</div>
 
 				<script>
-					function addInterest() {
+					// 떨림 애니메이션
+					function wobble(element) {
+						let order = [0, -8, 8, -4, 4, -2, 2, -1, 1, 0];
+						let seq = [];
+						order.forEach(function (y) { seq.push({ transform: "translate(0," + y + "px)" }); });
+						element.animate(seq, { duration: 300 });
+					}
+
+					function addInterest(interest_input) {
 						if ($(".interesting").length >= 4) {
+							wobble(document.getElementById("interest_input"));
 							return false;
 						}
-						let interest_input = $("#interest_input").val();
 						if (interest_input != "") {
 							console.log(interest_input);
 							let interest_out = $("#interest_out");
@@ -118,7 +129,7 @@
 					}
 					$("#interest_input").on("keyup", function (e) {
 						if (e.keyCode == 13) {
-							addInterest();
+							addInterest($("#interest_input").val());
 						};
 					});
 
@@ -129,21 +140,28 @@
 
 					$("#modifyProfile").on("click", modifyProfile);
 					let modifyBtn = $("#modifyProfile");
+					// 프로필 수정버튼 누를 때
 					function modifyProfile() {
 						modifyBtn.html("변경 저장");
 						$(".modify_input").removeAttr("disabled");
 						$("#user_img_in").removeAttr("disabled");
 						$(".modify_btn").css("display", "inline-table");
 						$("#profile_upload").css("cursor", "pointer");
+						$("#manBtn").addClass("sex_btn_hover");
+						$("#womanBtn").addClass("sex_btn_hover");
 						modifyBtn.off("click");
 						modifyBtn.on("click", submitProfile);
 					};
+					// 저장버튼 누를 때
 					function submitProfile() {
 						modifyBtn.html("프로필 수정");
 						$(".modify_input").attr("disabled", "true");
 						$(".modify_btn").css("display", "none");
 						$("#profile_upload").css("cursor", "default");
 						$("#user_img_in").attr("disabled", "true");
+						$("#interest_input").val("");
+						$("#manBtn").removeClass("sex_btn_hover");
+						$("#womanBtn").removeClass("sex_btn_hover");
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
 					};
@@ -270,8 +288,6 @@
 				</div>
 
 				<!-- 개인정보 수정 테이블 -->
-				<span style="color:#808080; font-size:x-small">이메일</span>
-				<button type="button" class="btn_base" id="btn_login">로그인</button>
 
 				<form id="form_pw" class="modal-overlay">
 					<div id="private_table">
@@ -292,15 +308,18 @@
 						<!-- 1차 비밀번호 입력 -->
 						<div class="input_pw">
 							<span>새 비밀번호</span>
-							<input type="text">
+							<input id="pw1" name="pw" type="password" placeholder="8~16자, 영어,숫자,특수문자" maxlength="16">
 						</div>
 						<!-- 2차 비밀번호 입력 -->
 						<div class="input_pw">
 							<span>새 비밀번호 확인</span>
-							<input type="text">
+							<input id="pw2" type="password" placeholder="비밀번호 확인" maxlength="16">
 						</div>
 
-						<button class="btn_base" style="margin: auto; margin-top:40px;">변경하기</button>
+						<div id="pw_confirm" style="height: 30px;color:red;"></div>
+
+						<button type="button" id="pw_save_btn" class="btn_base"
+							style="margin: auto; margin-top:40px;">저장하기</button>
 					</div>
 					<!-- 회원탈퇴 -->
 					<div id="sign_down">
@@ -315,8 +334,7 @@
 					</div>
 				</form>
 				<script>
-					$("#sign_down_confirm").css("display", "none");
-					$("#form_pw").css("display", "none");
+
 
 					//회원 탈퇴
 					function signDown() {
@@ -333,9 +351,50 @@
 					});
 
 					// 개인 정보 수정 버튼 동작
-					$("#modifyPrivate").click(function(){
+					$("#modifyPrivate").click(function () {
 						$("#form_pw").css("display", "");
 					});
+
+					// password confirm
+					$("#pw1").on("keydown", () => {
+						$("#pw_confirm").html("");
+					});
+					$("#pw2").on("keydown", () => {
+						$("#pw_confirm").html("");
+					});
+
+					let pwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
+					// 비밀번호 저장 버튼 이벤트
+					$("#pw_save_btn").on("click", () => {
+						// regex Exception
+						if ($("#pw1").val() == "") {
+							wobble(document.getElementById("pw1"));
+							$("#pw_confirm").html("비밀번호를 입력하세요.");
+							$("#pw1").val("").focus();
+							return false;
+						}
+						if (!pwRegex.test($("#pw1").val())) {
+							wobble(document.getElementById("pw1"));
+							$("#pw_confirm").html("입력이 옳바르지 않습니다.");
+							$("#pw1").val("").focus();
+							$("#pw2").val("");
+							return false;
+						}
+						// same pw Exception
+						if ($("#pw1").val("") != $("#pw2").val("")) {
+							wobble(document.getElementById("pw2"));
+							$("#pw_confirm").html("비밀번호가 일치하지 않습니다.");
+							$("#pw2").focus();
+							return false;
+						}
+
+						//submit
+
+						$("#form_pw").submit();
+					});
+
+					$("#sign_down_confirm").css("display", "none");
+					$("#form_pw").css("display", "none");
 				</script>
 			</main>
 
