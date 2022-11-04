@@ -329,7 +329,7 @@
 						$("#sign_down_confirm").css("display", "none");
 					});
 					$("#confirm_y").click(function () {
-
+						///////
 					});
 
 					// 개인 정보 수정 버튼 동작

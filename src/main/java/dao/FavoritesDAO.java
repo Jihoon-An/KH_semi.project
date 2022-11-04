@@ -16,7 +16,6 @@ public class FavoritesDAO {
 	
 	private static FavoritesDAO instance;
 	
-	
 	public static FavoritesDAO getInstance() throws Exception{
 		if(instance == null) {
 			instance = new FavoritesDAO();
