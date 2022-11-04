@@ -35,18 +35,20 @@ public class UserController extends HttpServlet {
 				}
 				String req_email = request.getParameter("login_id");
 				String req_pw = request.getParameter("login_pw");
-				boolean req_bs = request.getParameter("login_bs").equals("on") ? true : false;
+				boolean req_bs = request.getParameter("login_bs").equals("true") ? true : false;
+				System.out.println(req_bs);
 				System.out.println("입력 ID : " + req_email);
 				System.out.println("입력 패스워드 : " + req_pw);
 				System.out.println("운영자 로그인 여부 : " + req_bs);
-				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email, req_bs);
+				List<UserDTO> list = UserDAO.getInstance().searchAll("user_email", req_email);
 				if (!list.isEmpty()) {
 //					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
 					if (req_pw.equals(list.get(0).getPw())) {
-						request.getSession().setAttribute("user", list.get(0));
+//						request.getSession().setAttribute("user", list.get(0));
+//						System.out.println("세션 dto 주소 : " + request.getSession().getAttribute("user"));
+						request.getSession().setAttribute("userId", list.get(0).getEmail());
 						System.out.println("로그인 성공");
-						System.out.println("세션 dto 주소 : " + request.getSession().getAttribute("user"));
-						System.out.println("세션 로그인 ID : " + list.get(0).getEmail());
+						System.out.println("세션 로그인 ID : " + request.getSession().getAttribute("userId"));
 						response.getWriter().append("true");
 						return;
 					} else {
@@ -76,12 +78,13 @@ public class UserController extends HttpServlet {
 			// 로그아웃 요청
 			if (uri.equals("/logout.user")) {
 				request.getSession().invalidate();
-				response.sendRedirect("/index.jsp");
 			}
 			
+			// 일반 회원가입 요청
 			if (uri.equals("/sign.user")) {
 			}
 			
+			// 사업자 회원가입 요청
 			if (uri.equals("/bsSign.user")) {
 			}
 		} catch (Exception e) {
