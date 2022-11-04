@@ -87,6 +87,9 @@
 				</div>
 			</main>
 			<script>
+				$(() => {
+					$.getJSON("/review.index", res => {console.log(res)});
+				})
 				// AOS 스크립트 시작
 				AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
 				$(() => { $('.owl-carousel').trigger('next.owl.carousel', [10000]) });
