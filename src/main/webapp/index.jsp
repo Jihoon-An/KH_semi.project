@@ -39,34 +39,24 @@
 							</div>
 							<div class="owl-carousel text-center" style="width: 1000px; height: 400px">
 								<div class="item">
-									<h4>리뷰1</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰2</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰3</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰4</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰5</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰6</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰7</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰8</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰9</h4>
 								</div>
 								<div class="item">
-									<h4>리뷰10</h4>
 								</div>
 							</div>
 							<div class="nextBox">
@@ -87,6 +77,18 @@
 				</div>
 			</main>
 			<script>
+				$(() => {
+					$.getJSON("/review.index", res => {
+						console.log(res);
+						console.log(res.list[0]);
+						let item_list = document.querySelectorAll(".item");
+						for (i = 0; i < item_list.length; i++) {
+							let item = res.list[i];
+							item_list[i].innerHTML = "<strong>" + item.review_writer + "</strong><br><br>" + item.review_contents + "<br><br>" + item.review_writer_date;
+							item_list[i + 10].innerHTML = "<strong>" + item.review_writer + "</strong><br><br>" + item.review_contents + "<br><br>" + item.review_writer_date;
+						}
+					});
+				})
 				// AOS 스크립트 시작
 				AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
 				$(() => { $('.owl-carousel').trigger('next.owl.carousel', [10000]) });

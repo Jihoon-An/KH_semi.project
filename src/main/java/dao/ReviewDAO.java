@@ -15,9 +15,10 @@ import javax.sql.DataSource;
 
 import dto.GymDTO;
 import dto.ReviewDTO;
+import dto.UserDTO;
 import oracle.net.aso.f;
 
-public class ReviewDAO {
+public class ReviewDAO extends Dao{
 
 
 	private ReviewDAO() {
@@ -32,14 +33,7 @@ public class ReviewDAO {
 		return instance;
 	}
 
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-
-		return ds.getConnection();
-
-
-	}
+	
 
 	public List<ReviewDTO> printReivew(int gym_seq) throws Exception{
 
@@ -114,5 +108,31 @@ public class ReviewDAO {
 //		}
 //	}
 
+	
+	public List<ReviewDTO> selectAllSortByLikes() throws Exception{
+		List<ReviewDTO> result = new ArrayList<>();
+		String sql="select * from (select * from review order by review_like desc) where rownum <= 10";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			ResultSet rs = pstat.executeQuery();
+			while(rs.next()) {
+				ReviewDTO dto = new ReviewDTO();
+				dto.setReview_seq(rs.getInt("review_seq"));
+				dto.setUser_seq(rs.getInt("user_seq"));
+				dto.setGym_seq(rs.getInt("gym_seq"));
+				dto.setBs_seq(rs.getInt("bs_seq"));
+				dto.setReview_writer(rs.getString("review_writer"));
+				dto.setReview_contents(rs.getString("review_contents"));
+				dto.setReveiw_like(rs.getInt("review_like"));
+				dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
+				dto.setReivew_check1(rs.getString("review_check1"));
+				dto.setReview_check2(rs.getString("review_check2"));
+				dto.setReview_check3(rs.getString("review_check3"));
+				dto.setReview_check4(rs.getString("review_check4"));
+				dto.setReview_check5(rs.getString("review_check5"));
+				result.add(dto);
+			}
+		}
+		return result;
+	}
 }
 
