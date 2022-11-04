@@ -92,6 +92,13 @@ public class UserController extends HttpServlet {
 			// 사업자 회원가입 요청
 			case "/bsSign.user":
 				break;
+
+			// 아이디 중복체크 요청
+			case "/duplCheck.user":
+				req_email = request.getParameter("user_email");
+				response.getWriter().append(String.valueOf(UserDAO.getInstance().isUserEmailCheck(req_email)));
+				
+				break;
 			}
 			
 			if(uri.equals("/search.user")) {
