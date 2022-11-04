@@ -100,6 +100,10 @@ public class UserController extends HttpServlet {
 				
 				break;
 			}
+			
+			if(uri.equals("/search.user")) {
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
