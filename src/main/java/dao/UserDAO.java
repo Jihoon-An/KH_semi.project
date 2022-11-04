@@ -45,7 +45,20 @@ public class UserDAO {
 			return result;
 		}
 	}
-	
+
+	public UserDTO selectSeq(int seq) throws Exception{
+		String sql = "select * from users where users_seq = ?";
+		try (
+				Connection con = getConnection();
+				PreparedStatement prepareStatement = con.prepareStatement(sql);
+		){
+			prepareStatement.setInt(1, seq);
+			try (ResultSet resultSet = prepareStatement.executeQuery();){
+
+			}
+		}
+	}
+
 	public String searchId(String name, String phone) throws Exception {
 		String sql = "select user_email from users where user_name = ? and user_phone = ?";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
