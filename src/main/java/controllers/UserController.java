@@ -44,7 +44,7 @@ public class UserController extends HttpServlet {
 				System.out.println("입력 ID : " + req_email);
 				System.out.println("입력 패스워드 : " + req_pw);
 				System.out.println("운영자 로그인 여부 : " + req_bs);
-				List<UserDTO> list = UserDAO.getInstance().searchAll("user_email", req_email);
+				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 				if (!list.isEmpty()) {
 //					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
 					if (req_pw.equals(list.get(0).getPw())) {
