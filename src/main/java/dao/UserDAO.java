@@ -35,9 +35,9 @@ public class UserDAO extends Dao {
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			while (rs.next()) {
-				result.add(new UserDTO(rs.getInt("user_seq"), rs.getString("user_email"), rs.getString("user_pw"),
-						rs.getString("user_name"), rs.getString("user_phone"), rs.getString("user_birthday"),
-						rs.getTimestamp("user_signup")));
+				result.add(new UserDTO(rs.getInt("users_seq"), rs.getString("users_email"), rs.getString("users_pw"),
+						rs.getString("users_name"), rs.getString("users_phone"), rs.getString("users_birthday"),
+						rs.getTimestamp("users_signup")));
 
 			}
 			return result;

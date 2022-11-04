@@ -33,7 +33,8 @@ public class HostUserController extends ControllerAbs {
         		List<UserDTO> dto = dao.selectAll();
         		BsUsersDAO dao2 = BsUsersDAO.getInstance();
         		List<BsUsersDTO> dto2 = dao2.selectAll();
-        		
+        		System.out.println(dto);
+        		System.out.println(dto2);
         		request.setAttribute("list", dto);
     			request.setAttribute("list2", dto2);
     			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);

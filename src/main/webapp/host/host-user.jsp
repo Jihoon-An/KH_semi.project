@@ -27,7 +27,7 @@
 				<c:forEach  var="u2" items="${list2}" >
         <div class="title"> 
             <div class="selectuser text_normal"> <input type="checkbox" name="user" checked>선택 </div>
-            <div class="userdivision text_normal"> %{u2.bs_username}</div>
+            <div class="userdivision text_normal"> ${u2.bs_name}</div>
             <div class="user-email text_normal">회원 이메일</div>
             <div class="user-name text_normal">이름</div>
             <div class="user-phone text_normal">연락처</div>
