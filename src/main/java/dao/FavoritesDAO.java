@@ -28,7 +28,7 @@ public class FavoritesDAO extends Dao {
 	
 	
 
-	   public int FavoriteAdd(FavoritesDTO dto) throws Exception{ //즐찾 추가
+	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){   
@@ -51,7 +51,7 @@ public class FavoritesDAO extends Dao {
 	    * @return
 	    * @throws Exception
 	    */
-		public int favoriteRemove(int gym_seq) throws Exception{  // 즐찾 삭제
+		public int remove(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){

@@ -71,6 +71,23 @@ public class ReviewDAO extends Dao{
 		}
 
 	}
+	
+	/*
+	 * "select count(*) from review group by "+ review_check1 +" having" + review_check1 +"='Y'";
+이런식으로 문자열로 만들어서 넣으면 되요
+review_check1대신 변수가 들어가고 그걸 for문 돌리면 될듯
+
+	for문으로 해야해요
+ㄴㄴㄴㄴㄴㄴㄴㄴ
+데이터베이스를 간섭하는 Method들이 모인것 뿐이지
+그런거 없을껄요
+근데 그렇다고 sql을 5개 만들지 마시고
+그 컬럼명 들어가는 부분을 변수로 비워두고
+컬럼명들을 list로 만들어서
+for each문 돌려서
+5번 실행하면서 숫자5개 있는 lIst를 반환하면 될듯
+그렇게 하면 나중에 컬럼이 추가되도 list에 추가만 하면 되서 편할것같아요
+	 * */
 //	public List<ReviewDTO> printReivew2() throws Exception{  //test
 //
 //		String sql="select * from review;";

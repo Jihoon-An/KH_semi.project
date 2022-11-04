@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.BsUsersDAO;
 import dao.UserDAO;
+import dto.BsUsersDTO;
 import dto.UserDTO;
 
 
 @WebServlet("*.host")
-public class HostuserController extends ControllerAbs {
+public class HostUserController extends ControllerAbs {
 	
 
 	@Override
@@ -22,13 +24,19 @@ public class HostuserController extends ControllerAbs {
 		 super.doGet(request, response);
         String uri = request.getRequestURI();
 
-        
+        try {
         switch (uri) {
 		
         //관리자 페이지 회원목록 출려
-        case "userslist/.host":{
+        case "/userslist.host":{
         		UserDAO dao = UserDAO.getInstance();
-        		List<UserDTO> dtos = dao.selectAll();
+        		List<UserDTO> dto = dao.selectAll();
+        		BsUsersDAO dao2 = BsUsersDAO.getInstance();
+        		List<BsUsersDTO> dto2 = dao2.selectAll();
+        		
+        		request.setAttribute("list", dto);
+    			request.setAttribute("list2", dto2);
+    			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
         	break;
         }
         
@@ -42,6 +50,10 @@ public class HostuserController extends ControllerAbs {
 		default:
 			break;
 		}
+        }catch (Exception e) {
+			e.printStackTrace();
+		}
+        
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
