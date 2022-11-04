@@ -48,9 +48,9 @@ public class UserController extends HttpServlet {
 				if (!list.isEmpty()) {
 //					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
 					if (req_pw.equals(list.get(0).getPw())) {
-						request.getSession().setAttribute("userId", list.get(0).getEmail());
+						request.getSession().setAttribute("userSeq", list.get(0).getSeq());
 						System.out.println("로그인 성공");
-						System.out.println("세션 로그인 ID : " + request.getSession().getAttribute("userId"));
+						System.out.println("세션 로그인 seq : " + request.getSession().getAttribute("userSeq"));
 						response.getWriter().append("true");
 						return;
 					} else {
