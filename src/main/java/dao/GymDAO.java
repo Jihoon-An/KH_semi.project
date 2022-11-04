@@ -34,14 +34,14 @@ public class GymDAO {
 		
 		
 	}
-	
-  /**
-   * yq
-   * @param seq
-   * @return
-   * @throws Exception
-   */
-	public GymDTO printGym(int seq) throws Exception{
+
+	/**
+	 * 헬스장 정보 출력
+	 * @param gym_seq   헬스장 gym_seq 를 기준으로 출력
+ 	 * @return
+	 * @throws Exception
+	 */
+	public GymDTO printGym(int gym_seq) throws Exception{
 		
 		String sql="select * from gym where gym_seq =? ";
 		  try(Connection con = this.getConnection();
@@ -49,7 +49,7 @@ public class GymDAO {
 
 				){
 			  
-			  pstat.setInt(1, seq);
+			  pstat.setInt(1, gym_seq);
 			  try(ResultSet rs = pstat.executeQuery();){
 				  
 				  GymDTO dto = new GymDTO();

@@ -59,6 +59,9 @@
 				rel="stylesheet">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
+			<!-- sweetalert -->
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 			<!-- css -->
 			<link rel="stylesheet" href="/css/base.css" type="text/css">
 			<link rel="stylesheet" href="/css/index.css" type="text/css">
@@ -298,6 +301,9 @@
 			</div>
 
 			<script>
+				$("#modal").css("display","none");
+				const loremIpsum = document.getElementById("lorem-ipsum")
+
 				const modal = document.getElementById("modal")
 				function showLogin() {
 					modal.style.display = "inline-flex"

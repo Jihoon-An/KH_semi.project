@@ -16,7 +16,6 @@ public class FavoritesDAO {
 	
 	private static FavoritesDAO instance;
 	
-	
 	public static FavoritesDAO getInstance() throws Exception{
 		if(instance == null) {
 			instance = new FavoritesDAO();
@@ -51,6 +50,12 @@ public class FavoritesDAO {
 			}
 		}
 	   
+	   /**
+	    *  즐겨찾기 삭제
+	    * @param gym_seq  gym_seq 기준으로 , user 기능도 추
+	    * @return
+	    * @throws Exception
+	    */
 		public int favoriteRemove(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();

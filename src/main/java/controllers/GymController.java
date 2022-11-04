@@ -33,6 +33,9 @@ public class GymController extends HttpServlet {
 		if(uri.equals("/detail.gym")) {    //헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
 			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
+
+			//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
+			
 			ReviewDAO dao = ReviewDAO.getInstance();
 			GymDAO dao2 = GymDAO.getInstance();
 			List<ReviewDTO> dto = dao.printReivew(1);
@@ -44,8 +47,9 @@ public class GymController extends HttpServlet {
 
 	}else if(uri.equals("/favoriteadd.gym")){  //즐겨찾기 추가
 		
+		//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
-		System.out.println(gym_seq);
+		
 		FavoritesDAO dao = FavoritesDAO.getInstance();
 		
 		//사용자 id필요 임시로 1
