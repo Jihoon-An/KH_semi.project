@@ -18,19 +18,23 @@ import dto.ReviewDTO;
 
 
 @WebServlet("*.gym")
-public class GymController extends HttpServlet {
+public class GymController extends ControllerAbs {
 
 
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
+		  super.doGet(request, response);
 		String uri	= request.getRequestURI();
 	
 		
 		
 		try {
 
-		if(uri.equals("/detail.gym")) {    //헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
+		switch (uri) {
+		
+		case "/detail.gym":{
+			//헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
 			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 
@@ -44,42 +48,47 @@ public class GymController extends HttpServlet {
 			request.setAttribute("list", dto2);
 			request.setAttribute("list2", dto);
 			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
-
-	}else if(uri.equals("/favoriteadd.gym")){  //즐겨찾기 추가
-		
-		//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
-		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
-		
-		FavoritesDAO dao = FavoritesDAO.getInstance();
-		
-		//사용자 id필요 임시로 1
-		int result = dao.FavoriteAdd(new FavoritesDTO(0, 1, gym_seq));
-		System.out.println(result+"즐겨찾기 추가 성공");
-		
-		
-		
-	}else if(uri.equals("/favoriteremove.gym")){  //즐겨찾기 삭제
-		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
-		
-		FavoritesDAO dao = FavoritesDAO.getInstance();
-		int result=dao.favoriteRemove(gym_seq);
-		System.out.println(result+"즐겨찾기 삭제 성공");
-	}
 			
+			break;
+		}
+		case "/favoriteadd.gym":{
+			//즐겨찾기 추가
 		
+			//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
+			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+			
+			FavoritesDAO dao = FavoritesDAO.getInstance();
+			
+			//사용자 id필요 임시로 1
+			int result = dao.FavoriteAdd(new FavoritesDTO(0, 1, gym_seq));
+			System.out.println(result+"즐겨찾기 추가 성공");
+			
+			break;
+		}
 		
+		case "/favoriteremove.gym":{
+			//즐겨찾기 삭제
+			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+			
+			FavoritesDAO dao = FavoritesDAO.getInstance();
+			int result=dao.favoriteRemove(gym_seq);
+			System.out.println(result+"즐겨찾기 삭제 성공");
+			break;
+
+		}
+		}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-	
-	}
+			
+		}
 
-	
+
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		doGet(request, response);
+		this.doGet(request, response);
 	}
 
 }

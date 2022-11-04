@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import dto.GymDTO;
 
 
-public class GymDAO {
+public class GymDAO extends Dao {
 	private GymDAO() {
 	}
 
@@ -26,14 +26,7 @@ public class GymDAO {
 		return instance;
 	}
 
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
 
-		return ds.getConnection();
-		
-		
-	}
 
 	/**
 	 * 헬스장 정보 출력
