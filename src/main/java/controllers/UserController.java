@@ -93,6 +93,10 @@ public class UserController extends HttpServlet {
 			case "/bsSign.user":
 				break;
 			}
+			
+			if(uri.equals("/search.user")) {
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
