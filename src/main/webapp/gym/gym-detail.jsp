@@ -19,6 +19,7 @@
 					</div>
 
 					<div class="icon1">
+					
 						<i class="fa-solid fa-heart" id="heart"></i> 
 						
 						<span class="button gray medium">
@@ -82,14 +83,14 @@
 							
 								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
 									
-										<div class="authmark">인증</div>
+									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
-									<div class="writerd">${r.review_writer_date}</div>
+									<div class="writerd">${r.formDate}</div>
 									<div class="starc">star</div>
 									${r.review_contents }
 									</div>
 						
-						</div>
+								</div>
 				
 							</c:forEach>
 								<div class="newmore">
@@ -199,7 +200,7 @@
 
 	<script>
         const data = {
-          labels: ["친절도", "청결", "시설", "기구", "편리"],
+          labels: ["친절", "청결", "시설", "기구", "편리"],
           datasets: [
             {
               label: "My Second Dataset",

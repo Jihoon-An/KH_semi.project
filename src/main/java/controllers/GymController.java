@@ -25,11 +25,11 @@ public class GymController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
 		String uri	= request.getRequestURI();
+	
 		
 		
 		try {
 
-	
 		if(uri.equals("/detail.gym")) {    //헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
 			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
@@ -49,7 +49,7 @@ public class GymController extends HttpServlet {
 		FavoritesDAO dao = FavoritesDAO.getInstance();
 		
 		//사용자 id필요 임시로 1
-		int result = dao.Favoriteadd(new FavoritesDTO(0, 1, gym_seq));
+		int result = dao.FavoriteAdd(new FavoritesDTO(0, 1, gym_seq));
 		System.out.println(result+"즐겨찾기 추가 성공");
 		
 		
@@ -58,7 +58,7 @@ public class GymController extends HttpServlet {
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 		
 		FavoritesDAO dao = FavoritesDAO.getInstance();
-		int result=dao.favoriteremove(gym_seq);
+		int result=dao.favoriteRemove(gym_seq);
 		System.out.println(result+"즐겨찾기 삭제 성공");
 	}
 			
