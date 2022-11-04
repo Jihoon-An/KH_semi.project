@@ -19,6 +19,7 @@
 /* 페이지 자체 제목 쓸 때 사용. ex) 자유게시판 */
 h1{ 
 	font-size: 24px;
+	letter-spacing :1px;
 	font-weight: 800;
 	margin: 0;
 	margin-bottom: 50px;
@@ -28,6 +29,7 @@ h1{
 /* 컨텐츠 제목 */
 .text_title{
 	font-size: 20px;
+	letter-spacing :1px;
 	font-weight: 600;
 }
 
@@ -35,12 +37,14 @@ h1{
 /* 컨텐츠 내용 */
 .text_normal{
 	font-size: 16px;
+	letter-spacing :1px;
 }
 
 
 /* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
 .text_mini{
 	font-size: 12px;
+	letter-spacing :1px;
 }
 
 
