@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<%@ include file="/layout/header.jsp"%>	
+<%@ include file="/layout/header.jsp"%>
 <!-- Search main -->
 <main id="search">
     <div class="container">
