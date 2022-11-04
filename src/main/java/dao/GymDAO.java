@@ -35,12 +35,6 @@ public class GymDAO {
 		
 	}
 
-	/**
-	 *
-	 * @param seq
-	 * @return
-	 * @throws Exception
-	 */
 	public GymDTO printGym(int seq) throws Exception{
 		
 		String sql="select * from gym where gym_seq =? ";
