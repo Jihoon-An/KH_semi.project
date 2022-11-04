@@ -19,9 +19,10 @@ public class CalController extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		if(command.equals("calendar")) {
-			response.sendRedirect("calendar.html");
+			response.sendRedirect("calendar.jsp");
 		}
 	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
