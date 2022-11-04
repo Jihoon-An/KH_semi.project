@@ -1,7 +1,10 @@
 package controllers;
 
+import dao.FavoritesDAO;
+import dao.GymDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
+import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
 
@@ -10,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * developer : Jihoon
@@ -27,15 +32,7 @@ public class UserMyPageController extends ControllerAbs {
             switch (uri) {
                 // 페이지 띄우기
                 case "/page.userMyPage":
-                    //페이지에서 데이터 불러오기
-                    int userId = (Integer) request.getSession().getAttribute("userId");
-                    // user 데이터 불러오기
-                    UserDTO userDTO = UserDAO.getInstance().selectSeq(userId);
-                    // reivew 데이터 불러오기
-//                    ReviewDTO reviewDTO = ReviewDAO.getInstance().printReivew();
-
-                    //userdata 담기
-                    //보내기
+                    this.getPage(request, response);
                     break;
                 // 프로필 수정
                 case "/fixProfile.userMyPage":
@@ -66,5 +63,33 @@ public class UserMyPageController extends ControllerAbs {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         this.doGet(request, response);
+    }
+
+    /**
+     * 페이지를 띄우는 기본 메서드
+     */
+    protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
+        // user 데이터 불러오기
+        UserDTO user = UserDAO.getInstance().selectSeq(userSeq);
+
+        List<Integer> gymsSeq = FavoritesDAO.getInstance().getGymListByUser(userSeq);
+        // 즐겨찾기 한 데이터
+        List<GymDTO> gyms = new ArrayList<>();
+        GymDAO gymDAO = GymDAO.getInstance();
+
+        for (int gymSeq : gymsSeq) {
+            gyms.add(gymDAO.printGym(gymSeq));
+        }
+        // reivew 데이터 불러오기
+        List<ReviewDTO> reviews = ReviewDAO.getInstance().selectByUser(userSeq);
+
+        //data 담기
+        request.setAttribute("user", user);
+        request.setAttribute("gyms", gyms);
+        request.setAttribute("reviews", reviews);
+        //보내기
+        request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
     }
 }

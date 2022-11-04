@@ -49,22 +49,7 @@ public class ReviewDAO extends Dao{
 			try( ResultSet rs = pstat.executeQuery()){
 
 				while(rs.next()) {
-					ReviewDTO dto = new ReviewDTO();
-					dto.setReview_seq(rs.getInt("review_seq"));
-					dto.setUser_seq(rs.getInt("user_seq"));
-					dto.setGym_seq(rs.getInt("gym_seq"));
-					dto.setBs_seq(rs.getInt("bs_seq"));
-					dto.setReview_writer(rs.getString("review_writer"));
-					dto.setReview_contents(rs.getString("review_contents"));
-					dto.setReveiw_like(rs.getInt("review_like"));
-					dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
-					dto.setReivew_check1(rs.getString("review_check1"));
-					dto.setReview_check2(rs.getString("review_check2"));
-					dto.setReview_check3(rs.getString("review_check3"));
-					dto.setReview_check4(rs.getString("review_check4"));
-					dto.setReview_check5(rs.getString("review_check5"));
-					list.add(dto);
-
+					list.add(new ReviewDTO(rs));
 				}
 				return list;
 
@@ -115,24 +100,30 @@ public class ReviewDAO extends Dao{
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			while(rs.next()) {
-				ReviewDTO dto = new ReviewDTO();
-				dto.setReview_seq(rs.getInt("review_seq"));
-				dto.setUser_seq(rs.getInt("user_seq"));
-				dto.setGym_seq(rs.getInt("gym_seq"));
-				dto.setBs_seq(rs.getInt("bs_seq"));
-				dto.setReview_writer(rs.getString("review_writer"));
-				dto.setReview_contents(rs.getString("review_contents"));
-				dto.setReveiw_like(rs.getInt("review_like"));
-				dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
-				dto.setReivew_check1(rs.getString("review_check1"));
-				dto.setReview_check2(rs.getString("review_check2"));
-				dto.setReview_check3(rs.getString("review_check3"));
-				dto.setReview_check4(rs.getString("review_check4"));
-				dto.setReview_check5(rs.getString("review_check5"));
-				result.add(dto);
+				result.add(new ReviewDTO(rs));
 			}
+			rs.close();
 		}
 		return result;
+	}
+
+	public List<ReviewDTO> selectByUser(int userSeq) throws Exception{
+		List<ReviewDTO> reviews = new ArrayList<>();
+		String sql = "select * from review where user_seq = ?";
+		try (
+				Connection connection = this.getConnection();
+				PreparedStatement statement = connection.prepareStatement(sql);
+		) {
+			statement.setInt(1, userSeq);
+			ResultSet rs = statement.executeQuery();
+
+			while(rs.next()) {
+				reviews.add(new ReviewDTO(rs));
+			}
+			rs.close();
+
+			return reviews;
+		}
 	}
 }
 
