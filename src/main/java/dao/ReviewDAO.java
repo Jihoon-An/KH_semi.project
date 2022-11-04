@@ -18,7 +18,7 @@ import dto.ReviewDTO;
 import dto.UserDTO;
 import oracle.net.aso.f;
 
-public class ReviewDAO {
+public class ReviewDAO extends Dao{
 
 
 	private ReviewDAO() {
@@ -33,14 +33,7 @@ public class ReviewDAO {
 		return instance;
 	}
 
-	private Connection getConnection() throws Exception {
-		Context ctx = new InitialContext();
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-
-		return ds.getConnection();
-
-
-	}
+	
 
 	public List<ReviewDTO> printReivew(int gym_seq) throws Exception{
 

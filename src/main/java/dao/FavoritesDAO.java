@@ -11,13 +11,13 @@ import javax.sql.DataSource;
 import dto.FavoritesDTO;
 
 
-public class FavoritesDAO {
+public class FavoritesDAO extends Dao {
 
 	
 	private static FavoritesDAO instance;
 	
-	public static FavoritesDAO getInstance() throws Exception{
-		if(instance == null) {
+	synchronized public static FavoritesDAO getInstance() {
+		if (instance == null) {
 			instance = new FavoritesDAO();
 		}
 		return instance;
@@ -27,13 +27,8 @@ public class FavoritesDAO {
 
 	
 	
-	   private Connection getConnection() throws Exception {
-		      Context ctx = new InitialContext(); // tomcat 환경 찾아서 요구하는 코드, //우클릭 했을때 메뉴 상황에 따라 다르게 나오는걸 컨텍스트메뉴
-		      DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/oracle"); // java:comp/env/ 고정값,  jdbc 찾아달라고 요청
-		      
-		      return ds.getConnection();
-		   }
-	   public int Favoriteadd(FavoritesDTO dto) throws Exception{ //즐찾 추가
+
+	   public int FavoriteAdd(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){   
@@ -50,7 +45,13 @@ public class FavoritesDAO {
 			}
 		}
 	   
-		public int favoriteremove(int gym_seq) throws Exception{  // 즐찾 삭제
+	   /**
+	    *  즐겨찾기 삭제
+	    * @param gym_seq  gym_seq 기준으로 , user 기능도 추
+	    * @return
+	    * @throws Exception
+	    */
+		public int favoriteRemove(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
