@@ -45,6 +45,31 @@ public class UserDAO extends Dao {
 	}
 
 	/**
+	 * 일반 user의 seq로 해당 user의 모든 데이터를 불러옵니다.
+	 * 데이터가 null exception이 나오면 문의해주세요
+	 * - 지훈 -
+	 * @param seq users_seq
+	 * @return
+	 * @throws Exception
+	 */
+	public UserDTO selectSeq(int seq) throws Exception{
+		String sql = "select * from users where users_seq = ?";
+		try (
+				Connection con = getConnection();
+				PreparedStatement prepareStatement = con.prepareStatement(sql);
+		){
+			prepareStatement.setInt(1, seq);
+			try (ResultSet resultSet = prepareStatement.executeQuery();){
+				if(resultSet.next()) {
+					return new UserDTO(resultSet);
+				}else {
+					return null;
+				}
+			}
+		}
+	}
+
+	/**
 	 * users 테이블에서 입력받은 name과 phone이 일치하는 row 조회
 	 * 
 	 * @param name

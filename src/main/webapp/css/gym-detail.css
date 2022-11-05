@@ -88,6 +88,7 @@
 	width: 10%;
 	height: 50px;
 	float: left;
+	font-size:25px;
 }
 
 #gym-detail .ranwriter {
@@ -206,6 +207,10 @@
   transform: scale(1.1,1.1);
   -ms-transform: scale(1.1,1.1);
   -webkit-transform: scale(1.1,1.1);
+}
+
+#gym-detail .fa-user-shield{
+
 }
 
 

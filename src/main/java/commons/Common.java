@@ -39,4 +39,5 @@ public class Common {
         request.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf8");
     }
+
 }

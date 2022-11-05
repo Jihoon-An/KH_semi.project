@@ -1,8 +1,19 @@
 package dto;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class UserDTO {
+	public UserDTO(ResultSet resultSet) throws Exception {
+		this.seq = resultSet.getInt("users_seq");
+		this.email = resultSet.getString("users_email");
+		this.pw = resultSet.getString("users_pw");
+		this.name = resultSet.getString("users_name");
+		this.phone = resultSet.getString("users_phone");
+		this.birthday = resultSet.getString("users_birthday");
+		this.signup = resultSet.getTimestamp("users_signup");
+	}
+
 	public UserDTO() {
 	}
 	

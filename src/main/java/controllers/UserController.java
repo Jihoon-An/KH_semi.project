@@ -44,13 +44,13 @@ public class UserController extends HttpServlet {
 				System.out.println("입력 ID : " + req_email);
 				System.out.println("입력 패스워드 : " + req_pw);
 				System.out.println("운영자 로그인 여부 : " + req_bs);
-				List<UserDTO> list = UserDAO.getInstance().searchAll("user_email", req_email);
+				List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 				if (!list.isEmpty()) {
 //					if (getSHA512(req_pw).equals(list.get(0).getPw())) {
 					if (req_pw.equals(list.get(0).getPw())) {
-						request.getSession().setAttribute("userId", list.get(0).getEmail());
+						request.getSession().setAttribute("userSeq", list.get(0).getSeq());
 						System.out.println("로그인 성공");
-						System.out.println("세션 로그인 ID : " + request.getSession().getAttribute("userId"));
+						System.out.println("세션 로그인 seq : " + request.getSession().getAttribute("userSeq"));
 						response.getWriter().append("true");
 						return;
 					} else {
