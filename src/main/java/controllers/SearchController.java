@@ -1,11 +1,16 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.GymDAO;
+import dto.GymDTO;
 
 /**
  * developer : Minseop
@@ -21,23 +26,23 @@ public class SearchController extends HttpServlet {
 		try {
 			switch (uri) {
 			// 헬스장 검색 전 초기 헬스장 리스트
-			case "main.search":
+			case "/main.search":
+				this.getMainList(request, response);
+				break;
+			//
+			case "/b.search":
 				
 				break;
 			//
-			case "b.search":
+			case "/c.search":
 				
 				break;
 			//
-			case "c.search":
+			case "/d.search":
 				
 				break;
 			//
-			case "d.search":
-				
-				break;
-			//
-			case "e.search":
+			case "/e.search":
 				
 				break;
 			}
@@ -51,9 +56,19 @@ public class SearchController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	protected void getList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	/**
+	 * 헬스장 검색 전 초기 헬스장 리스트 메서드
+	 */
+	protected void getMainList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// gym 데이터 불러오기
+		List<GymDTO> gymList = GymDAO.getInstance().selectAll();
 		
+		// gym data 담기
+		request.setAttribute("gymList", gymList);
 		
+		// 보내기
+		request.getRequestDispatcher("/gym/search.jsp").forward(request,response);
 	}
 
 }

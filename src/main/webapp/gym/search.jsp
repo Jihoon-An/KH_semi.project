@@ -76,7 +76,35 @@
 
 
 
-
+				<c:forEach var="gymList" items="${gymList}">
+					<div class="gym_list">
+						<div class="gym_list_logo">
+							<img
+								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
+						</div>
+						<div class="gym_list_article">
+							<div class="gym_list_title">
+								<a href="">${gymList.gym_name }</a>
+							</div>
+							<div class="gym_list_location">
+								<span>${gymList.gym_location }</span>
+							</div>
+							<div class="gym_list_phone">
+								<span>${gymList.gym_phone }</span>
+							</div>
+							<div class="gym_list_open">
+								<span>${gymList.gym_open } / ${gymList.gym_close }</span>
+							</div>
+							<div class="gym_list_tagBox">
+								<div class="gym_list_tag open btn_base">#24시간</div>
+								<div class="gym_list_tag locker btn_base">#라커</div>
+								<div class="gym_list_tag shower btn_base">#샤워실</div>
+								<div class="gym_list_tag park btn_base">#주차장</div>
+							</div>
+						</div>
+					</div>				
+				</c:forEach>
+				
 				<div class="gym_list">
 					<div class="gym_list_logo">
 						<img
