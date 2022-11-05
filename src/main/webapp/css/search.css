@@ -1,7 +1,7 @@
 #search * { }
 #map{
 	width:1200px;
-	height:913px;
+	height:100%;
 	margin:auto;
 	
 	}
@@ -67,7 +67,6 @@
     width: 471px;
     height: 853px;
     position: relative;
-    top: 61px;
     left: 729px;
     z-index: 2;
     background-color: #f5f5f7;

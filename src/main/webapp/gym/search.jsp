@@ -6,16 +6,17 @@
 <%@ include file="/layout/header.jsp"%>
 <!-- Search main -->
 <main id="search">
+	<div class="main_margin_85"></div>
 	<div class="container">
 		<div id="map">
 			<!-- 메인 검색창 -->
 			<form onsubmit="searchPlaces(); return false;" id="mainForm">
 				<div class="search_main">
 					<div class="search_main_span">
-						<span style="font-weight: 100;">Your</span> <span
-							style="font-weight: 700;">Needs</span> <span
-							style="font-weight: 100;">For</span> <span
-							style="font-weight: 700;">Fitness</span>
+						<span style="font-weight: 100;">Your</span> 
+						<span style="font-weight: 700;">Needs</span>
+						<span style="font-weight: 100;">For</span> 
+						<span style="font-weight: 700;">Fitness</span>
 					</div>
 						<div class="search_main_input">
 							<input type="text" id="keyword"
@@ -227,7 +228,7 @@
                 latlng: new kakao.maps.LatLng(37.567705541547866, 126.98238168043521)
             } 
         ];
-
+		
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "/resource/ping.png"; 
             
