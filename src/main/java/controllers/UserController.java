@@ -23,8 +23,10 @@ public class UserController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		Common.setUtf8(request, response);
 		String uri = request.getRequestURI();
+		
 		try {
 			switch (uri) {
 
@@ -55,6 +57,7 @@ public class UserController extends HttpServlet {
 
 			// 회원가입 요청
 			case "/sign.user":
+				
 				break;
 
 			// 사업자 회원가입 요청
