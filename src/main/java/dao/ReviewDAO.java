@@ -135,7 +135,10 @@ for each문 돌려서
 			ResultSet rs = statement.executeQuery();
 
 			while(rs.next()) {
-				reviews.add(new ReviewDTO(rs));
+				ReviewDTO review = new ReviewDTO(rs);
+				String gymName = GymDAO.getInstance().printGym(review.getGym_seq()).getGym_name();
+				review.setGym_name(gymName);
+				reviews.add(review);
 			}
 			rs.close();
 

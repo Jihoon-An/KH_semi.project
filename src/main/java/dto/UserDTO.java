@@ -4,6 +4,12 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class UserDTO {
+	/**
+	 * resultSet째로 넣으면 데이터 넣어줌.
+	 * -지훈-
+	 * @param resultSet
+	 * @throws Exception
+	 */
 	public UserDTO(ResultSet resultSet) throws Exception {
 		this.seq = resultSet.getInt("users_seq");
 		this.email = resultSet.getString("users_email");
