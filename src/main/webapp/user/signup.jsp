@@ -1,137 +1,145 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sign</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/resource/duck.ico">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Sign</title>
+<link rel="shortcut icon" type="image/x-icon" href="/resource/duck.ico">
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous">
         </script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://kit.fontawesome.com/be3915f36a.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/base.css" type="text/css">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+	crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kit.fontawesome.com/be3915f36a.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/base.css" type="text/css">
+<style>
+* {
+	box-sizing: border-box;
+}
 
-        .container {
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #808080;
-            width: 350px;
-            height: 565px;
-            min-width: 350px;
-        }
+.container {
+	margin-top: 20px;
+	padding: 20px;
+	border: 1px solid #808080;
+	width: 350px;
+	height: 565px;
+	min-width: 350px;
+}
 
-        a {
-            text-decoration: none;
-        }
+a {
+	text-decoration: none;
+}
 
-        a:hover {
-            cursor: pointer
-        }
+a:hover {
+	cursor: pointer
+}
 
-        input {
-            padding-left: 5px;
-            padding-right: 5px;
-            width: 250px;
-            border: 0px;
-            border-bottom: 1px solid black;
-        }
+input {
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 250px;
+	border: 0px;
+	border-bottom: 1px solid black;
+}
 
-        input:focus {
-            outline: none;
-            box-shadow: 0px 1px 0px 0px black;
-        }
+input:focus {
+	outline: none;
+	box-shadow: 0px 1px 0px 0px black;
+}
 
-        .error_msg {
-            height: 12px;
-        }
+.error_msg {
+	height: 12px;
+}
 
-        #user_email_msg,
-        #user_pw_re_msg,
-        #user_phone_msg {
-            color: #001A41;
-            display: none;
-			letter-spacing : -1px;
-        }
-    </style>
+#user_email_msg, #user_pw_re_msg, #user_phone_msg {
+	color: #001A41;
+	display: none;
+	letter-spacing: -1px;
+}
+</style>
 </head>
 
 <body>
-    <main>
-        <div class="container" align="center">
-            <!-- 회원가입 폼 -->
-            <form id="form_sign">
-                <div class="row justify-content-center">
-                    <div class="col-12 text-end">
-                        <a><i class="fa-solid fa-x" style="color:#808080"></i></a>
-                    </div>
-                    <div class="col-12 gy-4">
-                        <div class="text_title">일반 회원가입</div>
-                    </div>
-                    <div class="col-12 gy-3">
-                        <div class="text-start" style="width:250px">
-                            <span style="color:#808080; font-size:x-small">이메일</span>
-                        </div>
-                        <input type="text" name="user_email" id="user_email" placeholder="이메일을 입력하세요." maxlength="40">
-                    </div>
+	<main>
+		<div class="container" align="center">
+			<!-- 회원가입 폼 -->
+			<form id="form_sign">
+				<div class="row justify-content-center">
+					<div class="col-12 text-end">
+						<a><i class="fa-solid fa-x" style="color: #808080"></i></a>
+					</div>
+					<div class="col-12 gy-4">
+						<div class="text_title">일반 회원가입</div>
+					</div>
+					<div class="col-12 gy-3">
+						<div class="text-start" style="width: 250px">
+							<span style="color: #808080; font-size: x-small">이메일</span>
+						</div>
+						<input type="text" name="user_email" id="user_email"
+							placeholder="이메일을 입력하세요." maxlength="40">
+					</div>
 
-                    <div class="col-12 gy-2">
-                        <div class="error_msg text_mini text-start" style="width:250px">
-                            <span class="error_msg_display" id="user_email_msg"></span>
-                        </div>
-                    </div>
+					<div class="col-12 gy-2">
+						<div class="error_msg text_mini text-start" style="width: 250px">
+							<span class="error_msg_display" id="user_email_msg"></span>
+						</div>
+					</div>
 
 
-                    <div class="col-12 gy-4">
-                        <div class="text-start" style="width:250px">
-                            <span style="color:#808080; font-size:x-small">비밀번호</span>
-                        </div>
-                        <input type="password" name="user_pw" id="user_pw" placeholder="비밀번호를 입력하세요." maxlength="20">
-                        <div class="text-start" style="width:250px">
-                            <span style="color:#808080; font-size:x-small">비밀번호 확인</span>
-                        </div>
-                        <input type="password" name="user_pw_re" id="user_pw_re" placeholder="동일 비밀번호를 입력하세요."
-                            maxlength="16">
-                    </div>
+					<div class="col-12 gy-4">
+						<div class="text-start" style="width: 250px">
+							<span style="color: #808080; font-size: x-small">비밀번호</span>
+						</div>
+						<input type="password" name="user_pw" id="user_pw"
+							placeholder="비밀번호를 입력하세요." maxlength="20">
+						<div class="text-start" style="width: 250px">
+							<span style="color: #808080; font-size: x-small">비밀번호 확인</span>
+						</div>
+						<input type="password" name="user_pw_re" id="user_pw_re"
+							placeholder="동일 비밀번호를 입력하세요." maxlength="16">
+					</div>
 
-                    <div class="col-12 gy-2">
-                        <div class="error_msg text_mini text-start" style="width:250px">
-                            <span class="error_msg_display" id="user_pw_re_msg"></span>
-                        </div>
-                    </div>
+					<div class="col-12 gy-2">
+						<div class="error_msg text_mini text-start" style="width: 250px">
+							<span class="error_msg_display" id="user_pw_re_msg"></span>
+						</div>
+					</div>
 
-                    <div class="col-12 gy-4">
-                        <div class="text-start" style="width:250px">
-                            <span style="color:#808080; font-size:x-small">연락처</span>
-                        </div>
-                        <input type="text" name="user_phone" id="user_phone" placeholder="연락처를 입력하세요." maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    </div>
+					<div class="col-12 gy-4">
+						<div class="text-start" style="width: 250px">
+							<span style="color: #808080; font-size: x-small">연락처</span>
+						</div>
+						<input type="text" name="user_phone" id="user_phone"
+							placeholder="연락처를 입력하세요." maxlength="11"
+							oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+					</div>
 
-                    <div class="col-12 gy-2">
-                        <div class="error_msg text_mini text-start" style="width:250px">
-                            <span class="error_msg_display" id="user_phone_msg"></span>
-                        </div>
-                    </div>
+					<div class="col-12 gy-2">
+						<div class="error_msg text_mini text-start" style="width: 250px">
+							<span class="error_msg_display" id="user_phone_msg"></span>
+						</div>
+					</div>
 
-                    <div class="col-12 gy-4">
-                        <button type="button" class="btn_base" id="btn_sign">회원가입</button>
-                    </div>
-                </div>
-            </form>
+					<div class="col-12 gy-4">
+						<button type="button" class="btn_base" id="btn_sign">회원가입</button>
+					</div>
+				</div>
+			</form>
 
-        </div>
-        <script>
+		</div>
+		<script>
             // 떨림 애니메이션
             function wobble(element) {
                 let order = [0, -8, 8, -4, 4, -2, 2, -1, 1, 0];
@@ -328,7 +336,7 @@
             $("#user_email, #user_pw, #user_pw_re, #user_phone").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_sign").click() } });
 
         </script>
-    </main>
+	</main>
 </body>
 
 </html>
