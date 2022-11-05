@@ -23,16 +23,6 @@ public class UserDTO {
 	public UserDTO() {
 	}
 	
-	public UserDTO(int seq, String email, String pw, String name, String phone, String birthday, Timestamp signup) {
-		this.seq = seq;
-		this.email = email;
-		this.pw = pw;
-		this.name = name;
-		this.phone = phone;
-		this.birthday = birthday;
-		this.signup = signup;
-	}
-	
 	private int seq;
 	private String email;
 	private String pw;

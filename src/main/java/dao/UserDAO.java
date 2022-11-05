@@ -35,10 +35,7 @@ public class UserDAO extends Dao {
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			while (rs.next()) {
-				result.add(new UserDTO(rs.getInt("users_seq"), rs.getString("users_email"), rs.getString("users_pw"),
-						rs.getString("users_name"), rs.getString("users_phone"), rs.getString("users_birthday"),
-						rs.getTimestamp("users_signup")));
-
+				result.add(new UserDTO(rs));
 			}
 			return result;
 		}
@@ -84,7 +81,7 @@ public class UserDAO extends Dao {
 			pstat.setString(1, name);
 			pstat.setString(2, phone);
 			ResultSet rs = pstat.executeQuery();
-			return rs.next() ? rs.getString("user_email") : null;
+			return rs.next() ? rs.getString("users_email") : null;
 		}
 	}
 
@@ -97,7 +94,7 @@ public class UserDAO extends Dao {
 	 * @throws Exception
 	 */
 	public boolean searchPw(String email, String phone) throws Exception {
-		String sql = "select user_email from users where user_email = ? and user_phone = ?";
+		String sql = "select users_email from users where users_email = ? and users_phone = ?";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setString(1, email);
 			pstat.setString(2, phone);
@@ -121,9 +118,7 @@ public class UserDAO extends Dao {
 			pstat.setString(1, value);
 			ResultSet rs = pstat.executeQuery();
 			while (rs.next()) {
-				result.add(new UserDTO(rs.getInt("user_seq"), rs.getString("user_email"), rs.getString("user_pw"),
-						rs.getString("user_name"), rs.getString("user_phone"), rs.getString("user_birthday"),
-						rs.getTimestamp("user_signup")));
+				result.add(new UserDTO(rs));
 			}
 			return result;
 		}

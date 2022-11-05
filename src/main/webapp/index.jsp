@@ -82,10 +82,11 @@
 						console.log(res);
 						console.log(res.list[0]);
 						let item_list = document.querySelectorAll(".item");
-						for (i = 0; i < item_list.length; i++) {
+						for (i = 0; i < item_list.length / 2; i++) {
 							let item = res.list[i];
-							item_list[i].innerHTML = "<strong>" + item.review_writer + "</strong><br><br>" + item.review_contents + "<br><br>" + item.review_writer_date;
-							item_list[i + 10].innerHTML = "<strong>" + item.review_writer + "</strong><br><br>" + item.review_contents + "<br><br>" + item.review_writer_date;
+							let review = "<strong>" + item.review_writer + "</strong><br><br>" + item.review_contents + "<br><br>" + item.review_writer_date;
+							item_list[i].innerHTML = review;
+							item_list[i + 10].innerHTML = review;
 						}
 					});
 				})
