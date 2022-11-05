@@ -74,7 +74,7 @@ public class BsUsersDAO extends Dao {
 		}
 	}
 	/**
-	 * 삭제 기능
+	 * 삭제 기능 미완성
 	 * @param seq
 	 * @return
 	 * @throws Exception

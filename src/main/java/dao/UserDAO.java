@@ -169,7 +169,12 @@ public class UserDAO extends Dao {
             return result;
            }
        }
-
+    /**
+     * 관리자 페이지 회원검색
+     * @param name
+     * @return
+     * @throws Exception
+     */
 	public List<UserDTO> searchUser(String name) throws Exception{
 		String sql = "select * from users where users_name like ?";
 		try(Connection con = this.getConnection();
