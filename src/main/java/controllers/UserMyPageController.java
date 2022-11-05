@@ -57,6 +57,7 @@ public class UserMyPageController extends ControllerAbs {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("/");
         }
     }
 
@@ -69,10 +70,10 @@ public class UserMyPageController extends ControllerAbs {
      * 페이지를 띄우는 기본 메서드
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        request.getSession().setAttribute("userSeq", 1);
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
-        UserDTO user = UserDAO.getInstance().selectSeq(userSeq);
+        UserDTO user = UserDAO.getInstance().selectBySeq(userSeq);
 
         List<Integer> gymsSeq = FavoritesDAO.getInstance().getGymListByUser(userSeq);
         // 즐겨찾기 한 데이터
@@ -82,7 +83,7 @@ public class UserMyPageController extends ControllerAbs {
         for (int gymSeq : gymsSeq) {
             gyms.add(gymDAO.printGym(gymSeq));
         }
-        // reivew 데이터 불러오기
+        // reivew 데이터
         List<ReviewDTO> reviews = ReviewDAO.getInstance().selectByUser(userSeq);
 
         //data 담기

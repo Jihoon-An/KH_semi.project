@@ -46,21 +46,19 @@ public class GymDAO extends Dao {
 			  try(ResultSet rs = pstat.executeQuery();){
 				  
 				  GymDTO dto = new GymDTO();
-				  rs.next(); 
-					
-					   dto.setGym_seq(rs.getInt("gym_seq"));
-					   dto.setBs_seq(rs.getInt("bs_seq"));
-					   dto.setGym_name(rs.getString("gym_name"));
-					   dto.setGym_phone(rs.getString("gym_phone"));
-					   dto.setGym_location(rs.getString("gym_location"));
-					   dto.setGym_price(rs.getString("gym_price"));
-					   dto.setManager_name(rs.getString("manager_name"));
-					   dto.setManager_phone(rs.getString("manager_phone"));
-					   dto.setManager_email(rs.getString("manager_email")); 
-				  
-			   
-					return dto;
-			
+
+				  if(rs.next()) {
+					  dto.setGym_seq(rs.getInt("gym_seq"));
+					  dto.setBs_seq(rs.getInt("bs_seq"));
+					  dto.setGym_name(rs.getString("gym_name"));
+					  dto.setGym_phone(rs.getString("gym_phone"));
+					  dto.setGym_location(rs.getString("gym_location"));
+					  dto.setGym_price(rs.getString("gym_price"));
+
+					  return dto;
+				  }else{
+					  return null;
+				  }
 			   }
 			  
 			  }

@@ -52,7 +52,7 @@ public class UserDAO extends Dao {
 	 * @return
 	 * @throws Exception
 	 */
-	public UserDTO selectSeq(int seq) throws Exception{
+	public UserDTO selectBySeq(int seq) throws Exception{
 		String sql = "select * from users where users_seq = ?";
 		try (
 				Connection con = getConnection();
@@ -61,7 +61,8 @@ public class UserDAO extends Dao {
 			prepareStatement.setInt(1, seq);
 			try (ResultSet resultSet = prepareStatement.executeQuery();){
 				if(resultSet.next()) {
-					return new UserDTO(resultSet);
+					UserDTO result = new UserDTO(resultSet);
+					return result;
 				}else {
 					return null;
 				}
