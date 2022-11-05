@@ -4,6 +4,17 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class UserDTO {
+
+    private int seq;
+    private String email;
+    private String pw;
+    private String name;
+    private String phone;
+    private String birthday;
+    private Timestamp signup;
+    private String sex;
+    private String interest;
+
     /**
      * resultSet째로 넣으면 데이터 넣어줌.
      * -지훈-
@@ -19,18 +30,28 @@ public class UserDTO {
         this.phone = resultSet.getString("users_phone");
         this.birthday = resultSet.getString("users_birthday");
         this.signup = resultSet.getTimestamp("users_signup");
+        this.sex = resultSet.getString("sex");
+        this.interest = resultSet.getString("interest");
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
     }
 
     public UserDTO() {
     }
-
-    private int seq;
-    private String email;
-    private String pw;
-    private String name;
-    private String phone;
-    private String birthday;
-    private Timestamp signup;
 
     public int getSeq() {
         return seq;

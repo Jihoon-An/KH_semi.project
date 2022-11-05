@@ -268,67 +268,74 @@ nav {
 
 /* main */
 
+#index .wrap {
+	 width: 100%;
+	 height: 950px;
+	 overflow: hidden;
+	 position: relative;
+}
+
+
 #index .mainimg {
-	width: 100%;
-	height: 950px;
 	background-image: url("/resource/main.jpg");
-	background-repeat: no-repeat;
-	background-position: center;
+	background-size: cover;
+  	background-position: center;
 }
 
-
-
-@-webkit-keyframes zoom-a {
-	0% {
-		background-size: 100% auto;
-	}
-
-	100% {
-		background-size: 120% auto;
-	}
+#index .bg{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
 }
 
-@-moz-keyframes zoom-a {
-	0% {
-		background-size: 100% auto;
-	}
-
-	100% {
-		background-size: 120% auto;
-	}
+@-webkit-keyframes zoom-b {
+  0% {
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1) translateZ(1px);
+  }
+  100% {
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2) translateZ(1px);
+  }
 }
-
-@-o-keyframes zoom-a {
-	0% {
-		background-size: 100% auto;
-	}
-
-	100% {
-		background-size: 120% auto;
-	}
+@-moz-keyframes zoom-b {
+  0% {
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1) translateZ(1px);
+  }
+  100% {
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2) translateZ(1px);
+  }
 }
-
-@keyframes zoom-a {
-	0% {
-		background-size: 100% auto;
-	}
-
-	100% {
-		background-size: 120% auto;
-	}
+@-o-keyframes zoom-b {
+  0% {
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1) translateZ(1px);
+  }
+  100% {
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2) translateZ(1px);
+  }
 }
-
-.type-a {
-	-webkit-animation: zoom-a 10s linear infinite alternate;
-	/* Safari 4+ */
-	-moz-animation: zoom-a 10s linear infinite alternate;
-	/* Fx 5+ */
-	-o-animation: zoom-a 10s linear infinite alternate;
-	/* Opera 12+ */
-	animation: zoom-a 10s linear infinite alternate;
-	/* IE 10+, Fx 29+ */
+@keyframes zoom-b {
+  0% {
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1) translateZ(1px);
+  }
+  100% {
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2) translateZ(1px);
+  }
 }
-
+.type-b {
+  -webkit-animation: zoom-b 10s linear infinite alternate; /* Safari 4+ */
+  -moz-animation:    zoom-b 10s linear infinite alternate; /* Fx 5+ */
+  -o-animation:      zoom-b 10s linear infinite alternate; /* Opera 12+ */
+  animation:         zoom-b 10s linear infinite alternate; /* IE 10+, Fx 29+ */
+}
 
 
 #index .search_main {
@@ -354,7 +361,6 @@ nav {
 
 #index .search_main>.search_main_span>span {
 	font-size: 1.5em;
-	/* 유어 모시꺵이 */
 	color: white;
 	font-style: oblique;
 }
@@ -396,6 +402,7 @@ nav {
 
 #index .review {
 	position: relative;
+	margin: 120px 0px;
 }
 
 #index .carousel {
@@ -471,6 +478,10 @@ nav {
 #index .prev:active,
 #index .next:active {
 	scale: 0.95;
+}
+
+#index .ads{
+	margin: 120px 0px;
 }
 
 #index .ads>.banner {

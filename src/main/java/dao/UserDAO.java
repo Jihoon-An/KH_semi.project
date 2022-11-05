@@ -42,25 +42,21 @@ public class UserDAO extends Dao {
 	}
 
 	/**
-	 * 일반 user의 seq로 해당 user의 모든 데이터를 불러옵니다.
-	 * 데이터가 null exception이 나오면 문의해주세요
-	 * - 지훈 -
+	 * 일반 user의 seq로 해당 user의 모든 데이터를 불러옵니다. 데이터가 null exception이 나오면 문의해주세요 - 지훈 -
+	 * 
 	 * @param seq users_seq
 	 * @return
 	 * @throws Exception
 	 */
-	public UserDTO selectBySeq(int seq) throws Exception{
+	public UserDTO selectBySeq(int seq) throws Exception {
 		String sql = "select * from users where users_seq = ?";
-		try (
-				Connection con = getConnection();
-				PreparedStatement prepareStatement = con.prepareStatement(sql);
-		){
+		try (Connection con = getConnection(); PreparedStatement prepareStatement = con.prepareStatement(sql);) {
 			prepareStatement.setInt(1, seq);
-			try (ResultSet resultSet = prepareStatement.executeQuery();){
-				if(resultSet.next()) {
+			try (ResultSet resultSet = prepareStatement.executeQuery();) {
+				if (resultSet.next()) {
 					UserDTO result = new UserDTO(resultSet);
 					return result;
-				}else {
+				} else {
 					return null;
 				}
 			}
@@ -123,29 +119,57 @@ public class UserDAO extends Dao {
 			return result;
 		}
 	}
-	
-	
-/**
- * 
- * 유저 회원가입 아이디 중복 확인
- * 
- * @param email
- * @return
- * @throws Exception
- */
+
+	/**
+	 * 
+	 * 유저 회원가입 아이디 중복 확인
+	 * 
+	 * @param email
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean isUserEmailCheck(String email) throws Exception {
 		String sql = "select * from users where users_email = ?";
 
-		try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);) { 
-			
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
 			pstat.setString(1, email);
-			
-			try(ResultSet rs = pstat.executeQuery();){
+
+			try (ResultSet rs = pstat.executeQuery();) {
 				return rs.next();
 			}
-			
+
 		}
 	}
+
+	
+	/**
+	 * 
+	 * 유저 회원가입
+	 * 
+	 * @param email
+	 * @param pw
+	 * @param phone
+	 * @return
+	 * @throws Exception
+	 */
+	public int isUserSignUp(String email, String pw, String phone) throws Exception {
+
+		String sql = "insert into users values(users_seq.nextval,?,?,?,sysdate)";
+
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+			pstat.setString(1, email);
+			pstat.setString(2, pw);
+			pstat.setString(3, phone);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+
+			return result;
+		}
+	}
+
+	
 	
 }
