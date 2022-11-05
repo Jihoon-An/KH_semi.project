@@ -19,18 +19,18 @@ import dto.UserDTO;
  */
 @WebServlet("*.user")
 public class UserController extends HttpServlet {
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf8");
-        response.setContentType("text/html;charset=utf8");
+		response.setContentType("text/html;charset=utf8");
 		String uri = request.getRequestURI();
 		System.out.println("요청 URI : " + uri);
 		System.out.println("요청 메소드 : " + request.getMethod());
 
 		try {
-			switch(uri) {
-			
+			switch (uri) {
+
 			// 로그인 요청
 			case "/login.user":
 				// GET 요청 시 에러페이지로 넘김
@@ -61,7 +61,7 @@ public class UserController extends HttpServlet {
 				}
 				response.getWriter().append("false");
 				break;
-				
+
 			// 아이디 찾기 요청
 			case "/searchId.user":
 				String req_name = request.getParameter("name");
@@ -70,7 +70,7 @@ public class UserController extends HttpServlet {
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(UserDAO.getInstance().searchId(req_name, req_phone));
 				break;
-				
+
 			// 비밀번호 찾기 요청
 			case "/searchPw.user":
 				req_email = request.getParameter("email");
@@ -79,16 +79,12 @@ public class UserController extends HttpServlet {
 				System.out.println("입력 폰번호 : " + req_phone);
 				response.getWriter().append(String.valueOf(UserDAO.getInstance().searchPw(req_email, req_phone)));
 				break;
-			
+
 			// 로그아웃 요청
 			case "/logout.user":
 				request.getSession().invalidate();
 				break;
-			
-			// 회원가입 요청
-			case "/sign.user":
-				break;
-			
+
 			// 사업자 회원가입 요청
 			case "/bsSign.user":
 				break;
@@ -97,19 +93,32 @@ public class UserController extends HttpServlet {
 			case "/duplCheck.user":
 				req_email = request.getParameter("user_email");
 				response.getWriter().append(String.valueOf(UserDAO.getInstance().isUserEmailCheck(req_email)));
-				
+
+				break;
+
+			// 회원가입 요청
+			case "/sign.user":
+				req_email = request.getParameter("user_email");
+				req_email = request.getParameter("user_email");
+				req_email = request.getParameter("user_email");
+				req_email = request.getParameter("user_email");
+				req_email = request.getParameter("user_email");
+				req_email = request.getParameter("user_email");
+				response.getWriter().append(String.valueOf(UserDAO.getInstance().isUserEmailCheck(req_email)));
+
 				break;
 			}
-			
-			if(uri.equals("/search.user")) {
-				
+
+			if (uri.equals("/search.user")) {
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		doGet(request, response);
 	}
 
