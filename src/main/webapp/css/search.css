@@ -1,9 +1,8 @@
-#search * { }
-#map{
+
+#search #map{
 	width:1200px;
 	height:100%;
 	margin:auto;
-	
 	}
 /* -------------------------- 메인 검색창 -------------------------- */
 #search .search_main{
