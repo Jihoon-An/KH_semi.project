@@ -1,5 +1,7 @@
 package dto;
 
+import com.google.gson.Gson;
+
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
@@ -23,6 +25,7 @@ public class UserDTO {
      * @throws Exception
      */
     public UserDTO(ResultSet resultSet) throws Exception {
+        Gson gson = new Gson();
         this.seq = resultSet.getInt("users_seq");
         this.email = resultSet.getString("users_email");
         this.pw = resultSet.getString("users_pw");

@@ -1,5 +1,7 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dao.FavoritesDAO;
 import dao.GymDAO;
 import dao.ReviewDAO;
@@ -13,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 // 프로필 수정
                 case "/fixProfile.userMyPage":
-
+                    this.fixProfile(request, response);
                     break;
                 //비밀번호 변경
                 case "/pw.userMyPage":
@@ -48,6 +51,10 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //즐겨찾기 삭제
                 case "/delHeart.userMyPage":
+
+                    break;
+                //즐겨찾기 다시 추가
+                case "/addHeart.userMyPage":
 
                     break;
                 //리뷰 삭제
@@ -95,5 +102,26 @@ public class UserMyPageController extends ControllerAbs {
         request.setAttribute("reviews", reviews);
         //보내기
         request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
+    }
+
+    /**
+     *  프로필 수정,
+     *  사진은 제외,
+     *  전화번호는 추가예정.
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    protected void fixProfile(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        UserDTO user = new UserDTO();
+        Gson gson = new Gson();
+        user.setSeq(Integer.parseInt(request.getParameter("userSeq")));
+        user.setName(request.getParameter("name"));
+        user.setSex(request.getParameter("sex"));
+        user.setPhone(request.getParameter("phone"));
+        user.setBirthday(request.getParameter("birthday"));
+        user.setInterest(gson.toJson(request.getParameter("interest")));
+
+        UserDAO.getInstance().fixProfileInfo(user);
     }
 }
