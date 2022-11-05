@@ -155,7 +155,7 @@ public class UserDAO extends Dao {
 	 */
 	public int isUserSignUp(String email, String pw, String phone) throws Exception {
 
-		String sql = "insert into users values(users_seq.nextval,?,?,?,sysdate)";
+		String sql = "insert into users values(users_seq.nextval,?,?,null,?,null,sysdate,null,null)";
 
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
