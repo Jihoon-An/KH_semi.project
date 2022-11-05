@@ -170,7 +170,7 @@
 					<div class="float-start">
 						<nav id="header_nav_text">
 							<ul id="header_nav_menu">
-								<li class="float-start"><a class="header_a_tag" href="/gym/search.jsp">헬스장검색</a></li>
+								<li class="float-start"><a class="header_a_tag" href="/main.search">헬스장검색</a></li>
 								<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
 								<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
 							</ul>
