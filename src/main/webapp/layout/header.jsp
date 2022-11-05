@@ -71,7 +71,8 @@
 			<link rel="stylesheet" href="/css/search.css" type="text/css">
 			<link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
 			<link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
-
+    		<link rel="stylesheet" href="/css/bs.css" type="text/css">
+    		
 			<style>
 				.swal2-shown {
 					overflow-y: scroll;
@@ -198,6 +199,11 @@
 
 				</div>
 			</header>
+			
+			<!-- 회원가입 모달 -->
+			<%@ include file="/user/signup.jsp" %>
+			
+			<!-- 로그인 모달 -->
 			<div id="loginModal" class="loginModal-overlay" align="center">
 				<div class="window">
 					<div class="text_title title">회원 로그인</div>
@@ -288,7 +294,6 @@
 						</div>
 					</form>
 				</div>
-			</div>
 			</div>
 
 			<script>
