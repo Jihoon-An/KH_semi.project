@@ -60,8 +60,8 @@ public class GymController extends ControllerAbs {
 			FavoritesDAO dao = FavoritesDAO.getInstance();
 			
 			//사용자 id필요 임시로 1
-			int result = dao.FavoriteAdd(new FavoritesDTO(0, 1, gym_seq));
-			System.out.println(result+"즐겨찾기 추가 성공");
+			int result = dao.add(new FavoritesDTO(0, 1, gym_seq));
+
 			
 			break;
 		}
@@ -71,8 +71,8 @@ public class GymController extends ControllerAbs {
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
-			int result=dao.favoriteRemove(gym_seq);
-			System.out.println(result+"즐겨찾기 삭제 성공");
+			int result=dao.remove(gym_seq);
+		
 			break;
 
 		}

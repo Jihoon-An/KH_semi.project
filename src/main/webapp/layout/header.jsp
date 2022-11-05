@@ -176,7 +176,7 @@
 							</ul>
 							<ul id="header_nav_person">
 								<c:choose>
-									<c:when test="${userId == null}">
+									<c:when test="${userSeq == null}">
 										<li class="float-end"><a class="header_a_tag" onclick="showLoginModal()">로그인</a>
 										</li>
 										<li class="float-end"><a class="header_a_tag"
@@ -185,7 +185,7 @@
 									<c:otherwise>
 										<li class="float-end"><a class="header_a_tag" onclick="tryLogout()">로그아웃</a>
 										</li>
-										<li class="float-end"><a class="header_a_tag" href="/mypage.user">마이페이지</a></li>
+										<li class="float-end"><a class="header_a_tag" href="/page.userMyPage">마이페이지</a></li>
 										<script>
 											function tryLogout() {
 												$.get("/logout.user").done(() => { location.reload() });
@@ -203,6 +203,7 @@
 			<!-- 회원가입 모달 -->
 			<%@ include file="/user/signup.jsp" %>
 			
+			<!-- 로그인 모달 -->
 			<div id="loginModal" class="loginModal-overlay" align="center">
 				<div class="window">
 					<div class="text_title title">회원 로그인</div>
@@ -358,7 +359,7 @@
                     $.get("/searchId.user", $("#form_searchId").serialize())
                     .done((res => {
                         if(res != "null") {
-                            Swal.fire({ title: "Success!", icon: "success", html: "등록된 아이디는<br><Strong>\'" + res + "\'</Strong><br>입니다." });
+                            Swal.fire({ title: "Success!", icon: "success", html: "회원님의 아이디는 다음과 같습니다.<br><Strong>\'" + res + "\'</Strong>" });
                         } else {
                             Swal.fire({ title: "Error", icon: "error", text: "등록된 가입 정보가 없습니다." });
                         }
