@@ -70,7 +70,10 @@ public class UserMyPageController extends ControllerAbs {
      * 페이지를 띄우는 기본 메서드
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //test용 login seq 발행
         request.getSession().setAttribute("userSeq", 1);
+        
+        
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
         UserDTO user = UserDAO.getInstance().selectBySeq(userSeq);

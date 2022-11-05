@@ -34,7 +34,7 @@
 						<!-- name -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">이름</div>
-							<div style="display:inline-table;"><input class="form-control modify_input" type="text"
+							<div style="display:inline-table;"><input class="form-control modify_input" type="text" value="${user.pw}"
 									name="user_name">
 							</div>
 						</div>
@@ -86,8 +86,13 @@
 				<!-- 시설 카드 -->
 				<div class="gym_area mb-5">
 					<div class="gym_cards_box" id="gym_cards_box">
-
-
+						<div class="gym_card">
+							<a href="">
+								<img class="gym_img" src="/resource/main.jpg">
+								<span class="gym_text">testeset</span>
+							</a>
+							<i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
+						</div>
 					</div>
 				</div>
 
@@ -97,32 +102,34 @@
 				<div class="row pt-4 pb-3">
 					<span class="text_title">My 리뷰</span>
 				</div>
+
 				<!-- 리뷰 카드 영역 -->
 				<div class="row review_cards_area" id="review_cards_area">
 					<!-- review card -->
 					<c:forEach var="review" items="${reviews}">
-						<input type="hidden" value="${review.review_seq}">
 						<div class="col-6 review_card p-1">
+							<form action="" class="review_detail">
+								<input type="hidden" name="review_seq" value="${review.review_seq}">
+								<!-- review_seq 저장 -->
+							</form>
 							<div class="border p-1">
 								<div class="row">
-									<div class="col-10 review_gymName">review.gym_name</div>
+									<div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
 									<div class="col-1">
 										<a href="" class="modify_review_btn">
-											<i class="fa-regular fa-pen-ro-square"></i>
+											<i class="fa-regular fa-pen-to-square"></i>
 										</a>
 									</div>
 									<div class="col-1 text-start">
-										<i class="fa-solie fa-x del_review_btn"></i>
+										<i class="fa-solid fa-x del_review_btn"></i>
 									</div>
 								</div>
 								<hr>
-								<div class="review_text">${review.review_contents}</div>
+								<div class="review_text review_detail_starter">${review.review_contents}</div>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
-
-
 
 
 				<!-- 개인정보 수정 테이블 -->
@@ -185,15 +192,13 @@
 
 
 				<script>
+					///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 					let profile_upload = $("#profile_upload");
 					profile_upload.on("click", function () {
 
 					});
 
-					$("#close_private").click(() => {
-						$("#form_pw").css("display", "none");
-					});
-
+					// 성별 고르는 이벤트
 					$("#manBtn").on("click", function () {
 						$("#sex").val("man");
 						$("#manBtn").css("border", "1px solid #001A41").css("color", "#001A41");
@@ -213,6 +218,7 @@
 						element.animate(seq, { duration: 300 });
 					}
 
+					//관심사 추가하기
 					function addInterest(interest_input) {
 						if ($(".interesting").length >= 4) {
 							wobble(document.getElementById("interest_input"));
@@ -239,19 +245,25 @@
 							$("#interest_input").val("");
 						}
 					}
+
+
+					// 관심사 입력에 엔터로 이벤트 발생
 					$("#interest_input").on("keyup", function (e) {
 						if (e.keyCode == 13) {
 							addInterest($("#interest_input").val());
 						};
 					});
 
+					// 프로필 영역 기본값
 					$(".modify_input").attr("disabled", "true");
 					$(".modify_btn").css("display", "none");
 					$("#profile_upload").css("cursor", "default");
 					$("#user_img_in").attr("disabled", "true");
-
+					$("sex_btn").css("cursor", "default");
+					// 프로필 수정하기 버튼 클릭 이벤트
 					$("#modifyProfile").on("click", modifyProfile);
 					let modifyBtn = $("#modifyProfile");
+
 					// 프로필 수정버튼 누를 때
 					function modifyProfile() {
 						modifyBtn.html("변경 저장");
@@ -261,6 +273,7 @@
 						$("#profile_upload").css("cursor", "pointer");
 						$("#manBtn").addClass("sex_btn_hover");
 						$("#womanBtn").addClass("sex_btn_hover");
+						$("sex_btn").css("cursor", "pointer");
 						modifyBtn.off("click");
 						modifyBtn.on("click", submitProfile);
 					};
@@ -274,14 +287,27 @@
 						$("#interest_input").val("");
 						$("#manBtn").removeClass("sex_btn_hover");
 						$("#womanBtn").removeClass("sex_btn_hover");
+						$("sex_btn").css("cursor", "default");
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
 					};
 
-					// 시설
-					createGymCard();
+					///////////////////////////////////// My 시설 ////////////////////////////////////////////////////
+
+					// 시설카드
+					//createGymCard();
 
 
+					$(".heart").on("click",function(){
+						if ($(this).css("color") == "rgb(143, 149, 154)") {
+							// 다시 즐겨찾기
+							$(this).css("color", "#CF0C00");
+						} else {
+							//즐겨찾기 취소
+							$(this).css("color", "#8f959a")
+						}
+					});
+					/* test code
 					function createGymCard() {
 						let a_img = $("<a>").attr("href", "#");
 						let a_text = $("<a>").attr("href", "#");
@@ -312,18 +338,38 @@
 						gym_card.append(a_img).append(a_text).append(heart);
 						$("#gym_cards_box").append(gym_card);
 					};
+					*/
 
+					/////////////////////////////////////// My 리뷰 ///////////////////////////////////////////////////////////////////
+					
+					//리뷰박스 테스트 생성
+					//createReviewCard();
+					// 리뷰 X 버튼 이벤트
+					$(".del_review_btn").on("click", function () {
+						$.ajax({
+							//del Controller
+						}).done(
+							function (response) {
+								$(this).closest(".review_card").remove();
+							}
+						);
+						$(this).closest(".review_card").remove();
+					});
 
-					// 리뷰
-					$(".del_review_btn").on("click")
-					function createReviewCard(review) {
+					//리뷰 상세페이지로 이동
+					$(".review_detail_starter").on("click", function () {
+						$(this).closest(".review_card").find("form").submit();
+					});
+					
+
+					/* test code
+					function createReviewCard() {
 						let review_card = $("<div>").addClass("col-6 review_card p-1");
 						let border = $("<div>").addClass("border p-1");
 						let row = $("<div>").addClass("row");
 						let review_gymName = $("<div>").addClass("col-10 review_gymName");
 						let modify_col = $("<div>").addClass("col-1");
 
-						/*modify link*/
 						let modify_a = $("<a>").addClass("modify_review_btn").attr("href", "#");
 
 						let modify_icon = $("<i>").addClass("fa-regular fa-pen-to-square");
@@ -340,7 +386,7 @@
 						let hr = $("<hr>");
 						let review_text = $("<div>").addClass("review_text");
 						let span = $("<span>");
-
+						
 
 						$("#review_cards_area").append(review_card.append(
 							border.append(
@@ -365,9 +411,16 @@
 						)
 						)
 					};
+					*/
 
-
-
+					// 개인정보 수정 폼 닫기
+					$("#close_private").click(() => {
+						$("#form_pw").css("display", "none");
+						$("#pw1").val("");
+						$("#pw2").val("");
+						$("#sign_down_btn_area").css("display", "block");
+						$("#sign_down_confirm").css("display", "none");
+					});
 
 					//회원 탈퇴
 					function signDown() {
@@ -396,7 +449,7 @@
 						$("#pw_confirm").html("");
 					});
 
-					let pwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
+					let pwRegex_mypage = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 					// 비밀번호 저장 버튼 이벤트
 					$("#pw_save_btn").on("click", () => {
 						// regex Exception
@@ -406,7 +459,7 @@
 							$("#pw1").val("").focus();
 							return false;
 						}
-						if (!pwRegex.test($("#pw1").val())) {
+						if (!pwRegex_mypage.test($("#pw1").val())) {
 							wobble(document.getElementById("pw1"));
 							$("#pw_confirm").html("입력이 옳바르지 않습니다.");
 							$("#pw1").val("").focus();
@@ -421,7 +474,6 @@
 							return false;
 						}
 						//submit
-
 						$("#form_pw").submit();
 					});
 
