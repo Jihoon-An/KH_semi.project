@@ -8,7 +8,7 @@ public class GymDTO {
     private String gym_name;
     private String gym_phone;
     private String gym_location;
-    private int gym_price;
+    private String gym_price;
     private String gym_main_sysImg;
     private String gym_main_oriImg;
     private String gym_open;
@@ -16,7 +16,7 @@ public class GymDTO {
     private String gym_x;
     private String gym_y;
 
-    public GymDTO(int gym_seq, int bs_seq, String gym_name, String gym_phone, String gym_location, int gym_price, String gym_main_sysImg, String gym_main_oriImg, String gym_open, String gym_close, String gym_x, String gym_y) {
+    public GymDTO(int gym_seq, int bs_seq, String gym_name, String gym_phone, String gym_location, String gym_price, String gym_main_sysImg, String gym_main_oriImg, String gym_open, String gym_close, String gym_x, String gym_y) {
         this.gym_seq = gym_seq;
         this.bs_seq = bs_seq;
         this.gym_name = gym_name;
@@ -45,7 +45,7 @@ public class GymDTO {
         this.gym_name = resultSet.getString("gym_name");
         this.gym_phone = resultSet.getString("gym_phone");
         this.gym_location = resultSet.getString("gym_location");
-        this.gym_price = resultSet.getInt("gym_price");
+        this.gym_price = resultSet.getString("gym_price");
         this.gym_main_sysImg = resultSet.getString("gym_main_sysImg");
         this.gym_main_oriImg = resultSet.getString("gym_main_oriImg");
         this.gym_open = resultSet.getString("gym_open");
@@ -94,11 +94,11 @@ public class GymDTO {
         this.gym_location = gym_location;
     }
 
-    public int getGym_price() {
+    public String getGym_price() {
         return gym_price;
     }
 
-    public void setGym_price(int gym_price) {
+    public void setGym_price(String gym_price) {
         this.gym_price = gym_price;
     }
 
