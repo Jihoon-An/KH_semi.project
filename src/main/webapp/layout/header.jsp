@@ -289,8 +289,7 @@
 					</form>
 				</div>
 			</div>
-			</div>
-
+			
 			<script>
 				// 로그인 loginModal 열기
 				function showLoginModal() {
