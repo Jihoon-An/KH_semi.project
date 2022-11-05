@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.BsUsersDAO;
+import dao.FavoritesDAO;
 import dao.UserDAO;
 import dto.BsUsersDTO;
 
@@ -36,21 +37,14 @@ public class HostUserController extends ControllerAbs {
         switch (uri) {
 		
         //관리자 페이지 회원목록 출려
-        case "/userslist.host":{
-        		UserDAO dao = UserDAO.getInstance();
-        		List<UserDTO> dto = dao.selectAll();
-        		BsUsersDAO dao2 = BsUsersDAO.getInstance();
-        		List<BsUsersDTO> dto2 = dao2.selectAll();
-        		System.out.println(dto);
-        		System.out.println(dto2);
-        		request.setAttribute("list", dto);
-    			request.setAttribute("list2", dto2);
-    			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+        case "/userslist.host":
+        	
+        	this.getUserList(request, response);
         	break;
-        }
+        
         
         //관리자 페이지 회원 삭제
-        case "usersDel/.host":{
+        case "/usersDel/.host":{
         	break;
         }
 			
@@ -69,5 +63,19 @@ public class HostUserController extends ControllerAbs {
 	
 		this.doGet(request, response);
 	}
+	
+	 protected void getUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+			UserDAO dao = UserDAO.getInstance();
+    		List<UserDTO> dto = dao.selectAll();
+    		BsUsersDAO dao2 = BsUsersDAO.getInstance();
+    		List<BsUsersDTO> dto2 = dao2.selectAll();
+    		System.out.println(dto);
+    		System.out.println(dto2);
+    		request.setAttribute("list", dto); //user
+			request.setAttribute("list2", dto2); //bsuser
+			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+	 
+	 }
 }
 
