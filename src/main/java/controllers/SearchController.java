@@ -20,8 +20,8 @@ public class SearchController extends HttpServlet {
 		String uri = request.getRequestURI();
 		try {
 			switch (uri) {
-			//
-			case "gym.search":
+			// 헬스장 검색 전 초기 헬스장 리스트
+			case "main.search":
 				
 				break;
 			//
