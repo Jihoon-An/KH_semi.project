@@ -58,6 +58,8 @@ public class ReviewDAO extends Dao{
 
 	}
 	
+	
+	
 	/*
 	 * "select count(*) from review group by "+ review_check1 +" having" + review_check1 +"='Y'";
 이런식으로 문자열로 만들어서 넣으면 되요

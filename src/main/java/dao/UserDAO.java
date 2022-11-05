@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.BsUsersDTO;
 import dto.UserDTO;
 
 public class UserDAO extends Dao {
@@ -170,6 +171,21 @@ public class UserDAO extends Dao {
 		}
 	}
 
-	
+
+	public List<UserDTO> searchUser(String name) throws Exception{
+		String sql = "select * from users where users_name like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, "%"+name+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				List<UserDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(new UserDTO(rs));
+				}
+				return list;
+			}
+		}
+	}
 	
 }

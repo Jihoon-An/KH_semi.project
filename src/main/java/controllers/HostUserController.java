@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import dao.BsUsersDAO;
 
 import dao.UserDAO;
@@ -37,16 +38,23 @@ public class HostUserController extends ControllerAbs {
         switch (uri) {
 		
         //관리자 페이지 일반회원목록 출력
-        case "/usersList.host":
+        case "/userslist.host":
         	
         	this.getUserList(request, response);
         	break;
         
+        case "/userSearch.host":
+        	this.getUserSearch(request, response);
+        	break;
         case "/bsUserList.host" :
         	this.getBsUserList(request, response);
         	break;
         	
-        
+       	
+        //관리자 사업자 회원 페이지 검색
+        case "/bsUserSearch.host":
+        	this.getBsSearch(request,response);
+        	break;
         //관리자 페이지 회원 삭제
         case "/usersDel.host":
         	break;
@@ -61,6 +69,7 @@ public class HostUserController extends ControllerAbs {
 			break;
 		}
         }catch (Exception e) {
+       
 			e.printStackTrace();
 		}
         
@@ -90,17 +99,51 @@ public class HostUserController extends ControllerAbs {
 	 protected void getBsUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
 		// int capge = Integer.parseInt(request.getParameter("cpage")); //네비바 
-		 //String navi=dao.getPageNavi(capge); //네비바 dao 인자
+		
 	
-	
+		 int cpage=1; //임시
+		 
     		BsUsersDAO dao2 = BsUsersDAO.getInstance();
-    		List<BsUsersDTO> dto2 = dao2.selectAll();
+    		 String navi=dao2.getPageNavi(cpage); //네비바 dao 인자 cpage
+    		//List<BsUsersDTO> dto2 = dao2.selectAll();
     		
-    		System.out.println(dto2);
+    		List<BsUsersDTO> list = BsUsersDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+    		System.out.println(list);
    
-			request.setAttribute("list2", dto2); //bsuser
+			request.setAttribute("list", list); //bsuser  //네비바
+			request.setAttribute("navi", navi);
 			request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 	 
 	 }
+	 
+	 protected void getBsSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		 	
+		 	String text= request.getParameter("inputT");
+			 BsUsersDAO dao = BsUsersDAO.getInstance();
+	    		List<BsUsersDTO> dto = dao.search(text);
+	    	
+	    		System.out.println(dto);
+	    	
+	    		request.setAttribute("list", dto); //user
+			
+				request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
+		 
+		 }
+	 
+	 protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		 	
+		 	String text= request.getParameter("inputT");
+			 UserDAO dao = UserDAO.getInstance();
+	    		List<UserDTO> dto = dao.searchUser(text);
+	    	
+	    		System.out.println(dto);
+	    	
+	    		request.setAttribute("list", dto); //user
+			
+				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+		 
+		 }
 }
 
