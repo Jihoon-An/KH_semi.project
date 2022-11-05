@@ -34,9 +34,6 @@ public class IndexController extends HttpServlet {
 				List<ReviewDTO> list = ReviewDAO.getInstance().selectAllSortByLikes();
 				Gson g = new Gson();
 				HashMap<String, Object> data = new HashMap<>();
-//				for (ReviewDTO review : list) {
-//					data.put("review", review);
-//				}
 				data.put("list", list);
 				response.getWriter().append(g.toJson(data));
 				break;
