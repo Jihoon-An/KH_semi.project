@@ -10,6 +10,9 @@ public class ReviewDTO {
     private int review_seq;
     private int user_seq;
     private int gym_seq;
+    private String gym_name;
+
+
     private int bs_seq;
     private String review_writer;
     private String review_contents;
@@ -20,6 +23,15 @@ public class ReviewDTO {
     private String review_check3;
     private String review_check4;
     private String review_check5;
+
+
+    public String getGym_name() {
+        return gym_name;
+    }
+
+    public void setGym_name(String gym_name) {
+        this.gym_name = gym_name;
+    }
 
     public int getReview_seq() {
         return review_seq;
