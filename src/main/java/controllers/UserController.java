@@ -57,7 +57,7 @@ public class UserController extends HttpServlet {
 
 			// 회원가입 요청
 			case "/sign.user":
-				
+				response.getWriter().append(String.valueOf(this.isUserSignUp(request, response)));
 				break;
 
 			// 사업자 회원가입 요청
@@ -89,8 +89,7 @@ public class UserController extends HttpServlet {
 //		boolean req_bs = request.getParameter("login_bs").equals("true") ? true : false;
 		List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 		if (!list.isEmpty()) {
-//			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
-			if (req_pw.equals(list.get(0).getPw())) {
+			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
 				// 로그인 성공
 				request.getSession().setAttribute("userSeq", list.get(0).getSeq());
 				return true;
@@ -102,6 +101,9 @@ public class UserController extends HttpServlet {
 		}
 		return false;
 	}
+	
+	
+
 
 	protected String getSearchId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_name = request.getParameter("name");
@@ -116,7 +118,17 @@ public class UserController extends HttpServlet {
 	}
 	
 	protected boolean isDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String req_email = request.getParameter("user_email");
+		String req_email = request.getParameter("users_email");
 		return UserDAO.getInstance().isUserEmailCheck(req_email);
 	}
+	
+	protected int isUserSignUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("users_email");
+		String req_pw = request.getParameter("users_pw_re");
+		String req_phone = request.getParameter("users_phone");
+		return UserDAO.getInstance().isUserSignUp(req_email, Common.getSHA512(req_pw), req_phone);
+	}
+	
+	
+	
 }
