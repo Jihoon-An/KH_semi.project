@@ -71,6 +71,7 @@
 			<link rel="stylesheet" href="/css/search.css" type="text/css">
 			<link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
 			<link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
+    		<link rel="stylesheet" href="/css/users.css" type="text/css">
     		<link rel="stylesheet" href="/css/bs.css" type="text/css">
     		
 			<style>
