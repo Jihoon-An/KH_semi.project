@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,7 +24,6 @@ public class UserController extends HttpServlet {
 
 		Common.setUtf8(request, response);
 		String uri = request.getRequestURI();
-		
 		try {
 			switch (uri) {
 
@@ -102,9 +99,6 @@ public class UserController extends HttpServlet {
 		return false;
 	}
 	
-	
-
-
 	protected String getSearchId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_name = request.getParameter("name");
 		String req_phone = request.getParameter("phone");
@@ -128,7 +122,4 @@ public class UserController extends HttpServlet {
 		String req_phone = request.getParameter("users_phone");
 		return UserDAO.getInstance().isUserSignUp(req_email, Common.getSHA512(req_pw), req_phone);
 	}
-	
-	
-	
 }

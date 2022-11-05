@@ -101,22 +101,19 @@
 								<ul id="header_nav_person">
 									<c:choose>
 										<c:when test="${userSeq == null}">
-											<li class="float-end"><a class="header_a_tag"
-													onclick="showLoginModal()">로그인</a>
+											<li class="float-end">
+												<a class="header_a_tag" onclick="showLoginModal()">로그인</a>
 											</li>
-											<li class="float-end"><a class="header_a_tag"
-													onclick="showSignupModal()">회원가입</a></li>
+											<li class="float-end">
+												<a class="header_a_tag" onclick="showSignupModal()">회원가입</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="float-end"><a class="header_a_tag" onclick="tryLogout()">로그아웃</a>
+											<li class="float-end">
+												<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 											</li>
-											<li class="float-end"><a class="header_a_tag"
-													href="/page.userMyPage">마이페이지</a></li>
-											<script>
-												function tryLogout() {
-													$.get("/logout.user").done(() => { location.reload() });
-												}
-											</script>
+											<li class="float-end">
+												<a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
+											</li>
 										</c:otherwise>
 									</c:choose>
 								</ul>

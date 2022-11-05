@@ -33,8 +33,8 @@
 								로그인</label>
 						</div>
 						<div class="col-12 gy-4">
-							<span style="color: #404040">계정이 없으신가요?</span> <a class="header_a_tag"
-								onclick="showSignupModal()">회원 가입</a>
+							<span style="color: #404040">계정이 없으신가요?</span> 
+							<a href="#" onclick="showSignupModal(); return false;">회원 가입</a>
 						</div>
 						<div class="col-12 gy-1" style="color: #808080; font-size: small">
 							<a onclick="showSearch()">아이디 찾기</a> <span>/</span> <a onclick="showSearch()">비밀번호 찾기</a>
@@ -129,10 +129,15 @@
 			}
 
 			// 유효성 검사 (공백 확인)
-			function isFilled(element1, element2) {
-				if (element1.val() == "") { wobble((element1)[0]); }
-				else if (element2.val() == "") { wobble((element2)[0]); }
-				else { return true; }
+			function isFilled(elements) {
+				for (i = 0; i < elements.length; i++) {
+					if(elements[i].value == "") { 
+						wobble(elements[i]);
+						elements[i].focus();
+						return false; 
+					}
+				}
+				return true;
 			}
 
 			// 로그인 함수
@@ -147,7 +152,7 @@
 						} else {
 							Swal.fire({ title: "Error", icon: "error", text: "ID가 등록되지 않았거나 비밀번호가 올바르지 않습니다." });
 						}
-					});
+					}).fail(alert(""));
 			}
 
 			// 아이디 찾기 함수
@@ -189,15 +194,15 @@
 
 			// 버튼 이벤트
 			$("#btn_login").on("click", () => {
-				if (isFilled($("#login_id"), $("#login_pw"))) { tryLogin(); }
+				if (isFilled($("#login_id, #login_pw"))) { tryLogin(); }
 			});
 
 			$("#btn_searchId").on("click", () => {
-				if (isFilled($("#searchId_name"), $("#searchId_phone"))) { trySearchId(); }
+				if (isFilled($("#searchId_name, #searchId_phone"))) { trySearchId(); }
 			});
 
 			$("#btn_searchPw").on("click", () => {
-				if (isFilled($("#searchPw_email"), $("#searchPw_phone"))) { trySearchPw(); }
+				if (isFilled($("#searchPw_email, #searchPw_phone"))) { trySearchPw(); }
 			});
 
 			// 체크박스 이벤트
