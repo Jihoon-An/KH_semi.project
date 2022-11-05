@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class BsUsersDTO {
 	
 	private int bs_seq;
-	private int bs_number;
+	private String bs_number;
 	private String bs_email;
 	private String bs_pw;
 	private String bs_name;
@@ -17,10 +17,10 @@ public class BsUsersDTO {
 	public void setBs_seq(int bs_seq) {
 		this.bs_seq = bs_seq;
 	}
-	public int getBs_number() {
+	public String getBs_number() {
 		return bs_number;
 	}
-	public void setBs_number(int bs_number) {
+	public void setBs_number(String bs_number) {
 		this.bs_number = bs_number;
 	}
 	public String getBs_email() {
@@ -53,7 +53,7 @@ public class BsUsersDTO {
 	public void setBs_signup(Timestamp bs_signup) {
 		this.bs_signup = bs_signup;
 	}
-	public BsUsersDTO(int bs_seq, int bs_number, String bs_email, String bs_pw, String bs_name, String bs_phone,
+	public BsUsersDTO(int bs_seq, String bs_number, String bs_email, String bs_pw, String bs_name, String bs_phone,
 			Timestamp bs_signup) {
 		super();
 		this.bs_seq = bs_seq;

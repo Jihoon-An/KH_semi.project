@@ -40,7 +40,7 @@ public class BsUsersDAO extends Dao {
 				   while(rs.next()) {
 					   BsUsersDTO dto = new BsUsersDTO();
 					   dto.setBs_seq(rs.getInt("bs_seq"));
-					   dto.setBs_number(rs.getInt("bs_number"));
+					   dto.setBs_number(rs.getString("bs_number"));
 					   dto.setBs_email(rs.getString("bs_email"));
 					   dto.setBs_pw(rs.getString("bs_pw"));
 					   dto.setBs_phone(rs.getString("bs_phone"));

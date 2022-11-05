@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.BsUsersDAO;
-import dao.FavoritesDAO;
+
 import dao.UserDAO;
 import dto.BsUsersDTO;
 
@@ -36,17 +36,24 @@ public class HostUserController extends ControllerAbs {
         try {
         switch (uri) {
 		
-        //관리자 페이지 회원목록 출려
-        case "/userslist.host":
+        //관리자 페이지 일반회원목록 출력
+        case "/usersList.host":
         	
         	this.getUserList(request, response);
         	break;
         
+        case "/bsUserList.host" :
+        	this.getBsUserList(request, response);
+        	break;
+        	
         
         //관리자 페이지 회원 삭제
-        case "/usersDel/.host":{
+        case "/usersDel.host":
         	break;
-        }
+        	
+        case "/bsUsersDel.host":
+        	break;
+        
 			
 		
 
@@ -66,15 +73,33 @@ public class HostUserController extends ControllerAbs {
 	
 	 protected void getUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-			UserDAO dao = UserDAO.getInstance();
+		// int capge = Integer.parseInt(request.getParameter("cpage")); //네비바 
+		 //String navi=dao.getPageNavi(capge); //네비바 dao 인자
+
+		 UserDAO dao = UserDAO.getInstance();
     		List<UserDTO> dto = dao.selectAll();
+    	
+    		System.out.println(dto);
+    	
+    		request.setAttribute("list", dto); //user
+		
+			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+	 
+	 }
+	 
+	 protected void getBsUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		// int capge = Integer.parseInt(request.getParameter("cpage")); //네비바 
+		 //String navi=dao.getPageNavi(capge); //네비바 dao 인자
+	
+	
     		BsUsersDAO dao2 = BsUsersDAO.getInstance();
     		List<BsUsersDTO> dto2 = dao2.selectAll();
-    		System.out.println(dto);
+    		
     		System.out.println(dto2);
-    		request.setAttribute("list", dto); //user
+   
 			request.setAttribute("list2", dto2); //bsuser
-			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+			request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 	 
 	 }
 }

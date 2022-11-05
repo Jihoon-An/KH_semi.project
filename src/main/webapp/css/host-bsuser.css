@@ -1,81 +1,78 @@
 @charset "utf-8";
 
- #host-user * {
+  #host-bsuser * {
     box-sizing: border-box;
  }
 
- #host-user div:not(.btn_div, .containerbox) {
+ #host-bsuser div:not(.btn_div, .containerbox) {
     border: 1px solid black;
 
  }
 
- #host-user .board {
+ #host-bsuser .board {
     width: 1200px;
     margin: auto;
     overflow: hidden;
  }
 
- #host-user .title>div {
+ #host-bsuser .title>div {
   
     text-align: center;
  }
 
- .title>div{
+ #host-bsuser .title>div{
     
     height: 30px;
  }
 
-  #host-user .userm{
+  #host-bsuser .userm{
    width: 100%;
  }
 
- #host-user .selectuser {
+ #host-bsuser .selectuser {
     float: left;
     width: 5%;
     
     
  }
-#host-user .user-seq {
+#host-bsuser .user-seq {
    float: left;
     width: 10%;
  }
 
- #host-user .user-email {
+ #host-bsuser .user-email {
    float: left;
     width: 20%;
  }
 
- #host-user .user-name {
+ #host-bsuser .user-name {
     float: left;
+    width: 15%;
+ }
+
+#host-bsuser .user-phone {
+    float: left;
+    width: 15%;
+ }
+
+ #host-bsuser .gym-count {
+   float: left;
     width: 10%;
  }
 
- #host-user .user-phone {
-    float: left;
-    width: 15%;
- }
 
- #host-user .user-birth {
-   float: left;
-    width: 15%;
- }
-
-
- #host-user .sign-date {
-    float: left;
-    width: 20%;
- }
-
- #host-user .user-gender {
+ #host-bsuser .sign-date {
     overflow: hidden;
-    width: 5%;
+    width: 25%;
  }
 
- #host-user .btn_div {
+
+
+ #host-bsuser .btn_div {
     float: right;
  }
 
-  #host-user .other{
+  #host-bsuser .other{
     width: 100%;
     height: 30px;
  }
