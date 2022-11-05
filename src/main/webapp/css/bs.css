@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* 일반 회원가입 */
+#signup a {
+            text-decoration: none;
+        }
+
+        #signup a:hover {
+            cursor: pointer
+        }
+
+        #signup input {
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 250px;
+            border: 0px;
+            border-bottom: 1px solid black;
+        }
+
+        #signup input:focus {
+            outline: none;
+            box-shadow: 0px 1px 0px 0px black;
+        }
+
+        #signup .error_msg {
+            height: 12px;
+        }
+
+        #signup #user_email_msg,
+        #signup #user_pw_re_msg,
+        #signup #user_phone_msg {
+            display: none;
+            letter-spacing: -1px;
+        }
+
+
+        #signupModal .signupModal-overlay {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 6px;
+            border: 1px solid #808080;
+            z-index: 5;
+        }
+
+        #signupModal .window {
+            background-color: white;
+            backdrop-filter: blur(13.5px);
+            -webkit-backdrop-filter: blur(13.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 1px 1px 5px 1px #808080;
+            position: relative;
+            padding: 20px;
+            padding-top: 15px;
+            width: 350px;
+            height: 575px;
+            min-width: 350px;
+        }
+
+        #signupModal .title {
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+        }
+
+        #signupModal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 15px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+
+        #signupModal .content {
+            margin-top: 20px;
+        }
+
+        #signupModal input:not([type="checkbox"]) {
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 250px;
+            border: 0px;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        #signupModal input:not([type="checkbox"]):focus {
+            box-shadow: 0px 1px 0px 0px black;
+        }
+
+        #signupModal a:hover {
+            cursor: pointer;
+        }
+
+        #signupModal .search {
+            display: none;
+        }
+        
+/* 사업자 회원가입 */
+

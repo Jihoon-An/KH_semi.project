@@ -28,19 +28,14 @@
 						</div>
 
 					</div>
-					<script>
-						let profile_upload = $("#profile_upload");
-						profile_upload.on("click", function () {
-
-						});
-					</script>
 
 					<!-- input info -->
 					<div class="col-5" style="height:318px;">
 						<!-- name -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">이름</div>
-							<div style="display:inline-table;"><input class="form-control modify_input" type="text" name="user_name">
+							<div style="display:inline-table;"><input class="form-control modify_input" type="text"
+									name="user_name">
 							</div>
 						</div>
 						<!-- select sex -->
@@ -49,23 +44,13 @@
 							<button type="button" class="modify_input sex_btn" id="manBtn">남자</button>
 							<button type="button" class="modify_input sex_btn" id="womanBtn">여자</button>
 							<input type="hidden" name="sex" id="sex">
-							<script>
-								$("#manBtn").on("click", function(){
-									$("#sex").val("man");
-									$("#manBtn").css("border","1px solid #001A41").css("color","#001A41");
-									$("#womanBtn").css("border","1px solid #cbcbcb").css("color","#cbcbcb");
-								})
-								$("#womanBtn").on("click", function(){
-									$("#sex").val("woman");
-									$("#womanBtn").css("border","1px solid #001A41").css("color","#001A41");
-									$("#manBtn").css("border","1px solid #cbcbcb").css("color","#cbcbcb");
-								})
-							</script>
+
 						</div>
 						<!-- birthday -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">생년월일</div>
-							<div style="display:inline-table;"><input class="form-control modify_input" type="date" name="user_birthday">
+							<div style="display:inline-table;"><input class="form-control modify_input" type="date"
+									name="user_birthday">
 							</div>
 						</div>
 						<!-- interesting -->
@@ -92,7 +77,134 @@
 					</div>
 				</div>
 
+				<hr>
+
+				<!-- 즐겨찾기 시설 -->
+				<div class="row pt-4 pb-3">
+					<span class="text_title">My 즐겨찾기</span>
+				</div>
+				<!-- 시설 카드 -->
+				<div class="gym_area mb-5">
+					<div class="gym_cards_box" id="gym_cards_box">
+
+
+					</div>
+				</div>
+
+				<hr>
+
+				<!-- 내가 쓴 리뷰 -->
+				<div class="row pt-4 pb-3">
+					<span class="text_title">My 리뷰</span>
+				</div>
+				<!-- 리뷰 카드 영역 -->
+				<div class="row review_cards_area" id="review_cards_area">
+					<!-- review card -->
+					<c:forEach var="review" items="${reviews}">
+						<input type="hidden" value="${review.review_seq}">
+						<div class="col-6 review_card p-1">
+							<div class="border p-1">
+								<div class="row">
+									<div class="col-10 review_gymName">review.gym_name</div>
+									<div class="col-1">
+										<a href="" class="modify_review_btn">
+											<i class="fa-regular fa-pen-ro-square"></i>
+										</a>
+									</div>
+									<div class="col-1 text-start">
+										<i class="fa-solie fa-x del_review_btn"></i>
+									</div>
+								</div>
+								<hr>
+								<div class="review_text">${review.review_contents}</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+
+
+
+
+				<!-- 개인정보 수정 테이블 -->
+
+				<form id="form_pw" class="modal-overlay">
+					<div id="private_table">
+						<!-- X icon -->
+						<i class="fa-solid fa-x" id="close_private"></i>
+
+
+						<!-- title -->
+						<span id="private_title">
+							개인정보 수정
+						</span>
+					</div>
+					<div id="pw">
+						<!-- 1차 비밀번호 입력 -->
+						<div class="input_pw">
+							<span>새 비밀번호</span>
+							<input id="pw1" name="pw" type="password" placeholder="8~16자, 영어,숫자,특수문자" maxlength="16">
+						</div>
+						<!-- 2차 비밀번호 입력 -->
+						<div class="input_pw">
+							<span>새 비밀번호 확인</span>
+							<input id="pw2" type="password" placeholder="비밀번호 확인" maxlength="16">
+						</div>
+
+						<div id="pw_confirm" style="height: 30px;color:red;"></div>
+
+						<button type="button" id="pw_save_btn" class="btn_base"
+							style="margin: auto; margin-top:40px;">저장하기</button>
+					</div>
+					<!-- 회원탈퇴 -->
+					<div id="sign_down">
+						<div class="sign_down_area" id="sign_down_btn_area">
+							<a onclick="signDown()" id="sign_down_btn">회원탈퇴</a>
+						</div>
+						<div class="sign_down_area" id="sign_down_confirm">
+							<div>정말 탈퇴하시겠습니까?</div>
+							<button type="button" class="sign_down_confirm_btn" id="confirm_y">예</button>
+							<button type="button" class="sign_down_confirm_btn" id="confirm_n">아니오</button>
+						</div>
+					</div>
+				</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<script>
+					let profile_upload = $("#profile_upload");
+					profile_upload.on("click", function () {
+
+					});
+
+					$("#close_private").click(() => {
+						$("#form_pw").css("display", "none");
+					});
+
+					$("#manBtn").on("click", function () {
+						$("#sex").val("man");
+						$("#manBtn").css("border", "1px solid #001A41").css("color", "#001A41");
+						$("#womanBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
+					})
+					$("#womanBtn").on("click", function () {
+						$("#sex").val("woman");
+						$("#womanBtn").css("border", "1px solid #001A41").css("color", "#001A41");
+						$("#manBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
+					})
+
 					// 떨림 애니메이션
 					function wobble(element) {
 						let order = [0, -8, 8, -4, 4, -2, 2, -1, 1, 0];
@@ -165,27 +277,10 @@
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
 					};
-				</script>
 
-				<hr>
+					// 시설
+					createGymCard();
 
-				<!-- 즐겨찾기 시설 -->
-				<div class="row pt-4 pb-3">
-					<span class="text_title">My 즐겨찾기</span>
-				</div>
-				<!-- 시설 카드 -->
-				<div class="gym_area mb-5">
-					<div class="gym_cards_box" id="gym_cards_box"></div>
-				</div>
-				<!-- 카드 생성 -->
-				<script>
-					createGymCard();
-					createGymCard();
-					createGymCard();
-					createGymCard();
-					createGymCard();
-					createGymCard();
-					createGymCard();
 
 					function createGymCard() {
 						let a_img = $("<a>").attr("href", "#");
@@ -212,128 +307,66 @@
 							} else {
 								$(this).css("color", "#8f959a")
 							}
-						})
+						});
 
 						gym_card.append(a_img).append(a_text).append(heart);
 						$("#gym_cards_box").append(gym_card);
 					};
-				</script>
-
-				<hr>
-
-				<!-- 내가 쓴 리뷰 -->
-				<div class="row pt-4 pb-3">
-					<span class="text_title">My 리뷰</span>
-				</div>
-				<!-- 리뷰 카드 영역 -->
-				<div class="row review_cards_area" id="review_cards_area">
-					<!-- review card -->
-
-					<script>
-						createReviewCard();
-						createReviewCard();
-						createReviewCard();
-						createReviewCard();
-
-						function createReviewCard() {
-							let review_card = $("<div>").addClass("col-6 review_card p-1");
-							let border = $("<div>").addClass("border p-1");
-							let row = $("<div>").addClass("row");
-							let review_gymName = $("<div>").addClass("col-10 review_gymName");
-							let modify_col = $("<div>").addClass("col-1");
-
-							/*modify link*/
-							let modify_a = $("<a>").addClass("modify_review_btn").attr("href", "#");
-
-							let modify_icon = $("<i>").addClass("fa-regular fa-pen-to-square");
-							let del_col = $("<div>").addClass("col-1 text-start");
-							let del_icon = $("<i>").addClass("fa-solid fa-x del_review_btn").on("click", function () {
-								$.ajax({
-									//del Controller
-								}).done(
-									function (response) {
-										$(this).closest(".review_card").remove();
-									}
-								);
-							});
-							let hr = $("<hr>");
-							let review_text = $("<div>").addClass("review_text");
-							let span = $("<span>");
 
 
-							$("#review_cards_area").append(review_card.append(
-								border.append(
-									row.append(
-										review_gymName.append("매장명")
-									).append(
-										modify_col.append(
-											modify_a.append(
-												modify_icon
-											)
-										)
-									).append(
-										del_col.append(
-											del_icon
+					// 리뷰
+					$(".del_review_btn").on("click")
+					function createReviewCard(review) {
+						let review_card = $("<div>").addClass("col-6 review_card p-1");
+						let border = $("<div>").addClass("border p-1");
+						let row = $("<div>").addClass("row");
+						let review_gymName = $("<div>").addClass("col-10 review_gymName");
+						let modify_col = $("<div>").addClass("col-1");
+
+						/*modify link*/
+						let modify_a = $("<a>").addClass("modify_review_btn").attr("href", "#");
+
+						let modify_icon = $("<i>").addClass("fa-regular fa-pen-to-square");
+						let del_col = $("<div>").addClass("col-1 text-start");
+						let del_icon = $("<i>").addClass("fa-solid fa-x del_review_btn").on("click", function () {
+							$.ajax({
+								//del Controller
+							}).done(
+								function (response) {
+									$(this).closest(".review_card").remove();
+								}
+							);
+						});
+						let hr = $("<hr>");
+						let review_text = $("<div>").addClass("review_text");
+						let span = $("<span>");
+
+
+						$("#review_cards_area").append(review_card.append(
+							border.append(
+								row.append(
+									review_gymName.append("매장명")
+								).append(
+									modify_col.append(
+										modify_a.append(
+											modify_icon
 										)
 									)
 								).append(
-									hr
-								).append(
-									review_text.append("일부 내용")
+									del_col.append(
+										del_icon
+									)
 								)
+							).append(
+								hr
+							).append(
+								review_text.append("일부 내용")
 							)
-							)
-						};
-					</script>
-				</div>
+						)
+						)
+					};
 
-				<!-- 개인정보 수정 테이블 -->
 
-				<form id="form_pw" class="modal-overlay">
-					<div id="private_table">
-						<!-- X icon -->
-						<i class="fa-solid fa-x" id="close_private"></i>
-						<script>
-							$("#close_private").click(() => {
-								$("#form_pw").css("display", "none");
-							});
-						</script>
-
-						<!-- title -->
-						<span id="private_title">
-							개인정보 수정
-						</span>
-					</div>
-					<div id="pw">
-						<!-- 1차 비밀번호 입력 -->
-						<div class="input_pw">
-							<span>새 비밀번호</span>
-							<input id="pw1" name="pw" type="password" placeholder="8~16자, 영어,숫자,특수문자" maxlength="16">
-						</div>
-						<!-- 2차 비밀번호 입력 -->
-						<div class="input_pw">
-							<span>새 비밀번호 확인</span>
-							<input id="pw2" type="password" placeholder="비밀번호 확인" maxlength="16">
-						</div>
-
-						<div id="pw_confirm" style="height: 30px;color:red;"></div>
-
-						<button type="button" id="pw_save_btn" class="btn_base"
-							style="margin: auto; margin-top:40px;">저장하기</button>
-					</div>
-					<!-- 회원탈퇴 -->
-					<div id="sign_down">
-						<div class="sign_down_area" id="sign_down_btn_area">
-							<a onclick="signDown()" id="sign_down_btn">회원탈퇴</a>
-						</div>
-						<div class="sign_down_area" id="sign_down_confirm">
-							<div>정말 탈퇴하시겠습니까?</div>
-							<button type="button" class="sign_down_confirm_btn" id="confirm_y">예</button>
-							<button type="button" class="sign_down_confirm_btn" id="confirm_n">아니오</button>
-						</div>
-					</div>
-				</form>
-				<script>
 
 
 					//회원 탈퇴
@@ -381,13 +414,12 @@
 							return false;
 						}
 						// same pw Exception
-						if ($("#pw1").val("") != $("#pw2").val("")) {
+						if ($("#pw1").val() != $("#pw2").val()) {
 							wobble(document.getElementById("pw2"));
 							$("#pw_confirm").html("비밀번호가 일치하지 않습니다.");
 							$("#pw2").focus();
 							return false;
 						}
-
 						//submit
 
 						$("#form_pw").submit();
