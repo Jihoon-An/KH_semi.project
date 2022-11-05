@@ -201,6 +201,8 @@
 				</div>
 			</header>
 			
+			<!-- 회원가입 모달 -->
+			<%@ include file="/user/signup.jsp" %>
 			
 			<!-- 로그인 모달 -->
 			<div id="loginModal" class="loginModal-overlay" align="center">

@@ -57,22 +57,20 @@ public class UserController extends HttpServlet {
 
 			// 회원가입 요청
 			case "/sign.user":
+				// GET 요청 시 에러페이지로 넘김
+				if (request.getMethod().equals("GET")) {
+					response.sendRedirect("/error.jsp");
+					return;
+				}
 				response.getWriter().append(String.valueOf(this.isUserSignUp(request, response)));
-				break;
-
-			// 사업자 회원가입 요청
-			case "/bsSign.user":
 				break;
 
 			// 아이디 중복체크 요청
 			case "/duplCheck.user":
-				response.getWriter().append(String.valueOf(this.isDuplCheck(request, response)));
+				response.getWriter().append(String.valueOf(this.isUserDuplCheck(request, response)));
 				break;
 			}
 
-			if (uri.equals("/search.user")) {
-
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,7 +115,7 @@ public class UserController extends HttpServlet {
 		return UserDAO.getInstance().searchPw(req_email, req_phone);
 	}
 	
-	protected boolean isDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected boolean isUserDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("users_email");
 		return UserDAO.getInstance().isUserEmailCheck(req_email);
 	}

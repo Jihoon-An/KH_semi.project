@@ -14,7 +14,7 @@
 
 
 		<!-- 회원가입 폼 -->
-		<form id="form_sign">
+		<form id="form_sign" method="post">
 			<div class="row justify-content-center">
 
 				<div class="col-12 gy-3">

@@ -1,2 +1,102 @@
 @charset "utf-8";
 /* 사업자 회원가입 */
+#bs_sign a {
+	text-decoration: none;
+}
+
+#bs_sign a:hover {
+	cursor: pointer
+}
+
+#bs_sign input {
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 250px;
+	border: 0px;
+	border-bottom: 1px solid black;
+}
+
+#bs_sign input:focus {
+	outline: none;
+	box-shadow: 0px 1px 0px 0px black;
+}
+
+#bs_sign .error_msg {
+	height: 12px;
+}
+
+#bs_sign #bs_email_msg, #bs_sign #bs_pw_re_msg, #bs_sign #bs_phone_msg {
+	color: #001A41;
+	display: none;
+}
+
+#bs_sign label {
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 250px;
+	border: 0px;
+	border-bottom: 1px solid black;
+	color: #757575;
+}
+
+#bs_sign label:active {
+	outline: none;
+	box-shadow: 0px 1px 0px 0px black;
+}
+
+#bs_sign #btn_gym_add {
+	height: 30px;
+	margin-top: 20px;
+}
+
+#bs_sign .bs_sign_box {
+	width: 400px;
+	margin: 10px;
+	padding: 40px 0px 60px 0px;
+	overflow: hidden;
+	border: 1px #C7D3DC solid;
+	border-radius: 6px;
+	box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1);
+}
+
+#bs_sign .gym_add_box {
+	width: 400px;
+	margin: 10px;
+	padding: 40px 0px 60px 0px;
+	overflow: hidden;
+	border: 1px #C7D3DC solid;
+	border-radius: 6px;
+	box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1);
+	position: relative;
+}
+
+#bs_sign .del {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	width: 50px;
+}
+
+#bs_sign .del:focus {
+	color: #171e29;
+}
+
+#bs_sign .del:hover {
+	border-color: #003584;
+	color: #003584;
+	fill: #003584;
+}
+
+#bs_sign .del:active {
+	border-color: #003584;
+	color: #003584;
+	fill: #003584;
+}
+
+#bs_sign h1 {
+	margin-bottom: 40px;
+}
+
+#bs_sign .container {
+	margin-bottom: 100px;
+}
