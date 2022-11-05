@@ -37,6 +37,7 @@ public class GymDTO {
     /**
      * ResultSet -> GymDTO
      * -지훈-
+     *
      * @param resultSet
      */
     public GymDTO(ResultSet resultSet) throws Exception {
@@ -149,7 +150,6 @@ public class GymDTO {
     public void setGym_y(String gym_y) {
         this.gym_y = gym_y;
     }
-
 
 
 }
