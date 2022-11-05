@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<main id="signup">
 	<div id="signupModal" class="signupModal-overlay" align="center">
 		<div class="window">
 
@@ -84,7 +83,7 @@
 
 		</div>
 	</div>
-</main>
+
 
 
 <script>
