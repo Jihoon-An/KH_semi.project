@@ -14,57 +14,48 @@ import dto.GymDTO;
 
 
 public class GymDAO extends Dao {
-	private GymDAO() {
-	}
+    private GymDAO() {
+    }
 
-	private static GymDAO instance;
+    private static GymDAO instance;
 
-	synchronized public static GymDAO getInstance() {
-		if (instance == null) {
-			instance = new GymDAO();
-		}
-		return instance;
-	}
+    synchronized public static GymDAO getInstance() {
+        if (instance == null) {
+            instance = new GymDAO();
+        }
+        return instance;
+    }
 
 
+    /**
+     * 헬스장 정보 출력
+     *
+     * @param gym_seq 헬스장 gym_seq 를 기준으로 출력
+     * @return
+     * @throws Exception
+     */
+    public GymDTO printGym(int gym_seq) throws Exception {
 
-	/**
-	 * 헬스장 정보 출력
-	 * @param gym_seq   헬스장 gym_seq 를 기준으로 출력
- 	 * @return
-	 * @throws Exception
-	 */
-	public GymDTO printGym(int gym_seq) throws Exception{
-		
-		String sql="select * from gym where gym_seq =? ";
-		  try(Connection con = this.getConnection();
-				   PreparedStatement pstat = con.prepareStatement(sql);
+        String sql = "select * from gym where gym_seq =? ";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
 
-				){
-			  
-			  pstat.setInt(1, gym_seq);
-			  try(ResultSet rs = pstat.executeQuery();){
-				  
-				  GymDTO dto = new GymDTO();
+        ) {
 
-				  if(rs.next()) {
-					  dto.setGym_seq(rs.getInt("gym_seq"));
-					  dto.setBs_seq(rs.getInt("bs_seq"));
-					  dto.setGym_name(rs.getString("gym_name"));
-					  dto.setGym_phone(rs.getString("gym_phone"));
-					  dto.setGym_location(rs.getString("gym_location"));
-					  dto.setGym_price(rs.getString("gym_price"));
+            pstat.setInt(1, gym_seq);
+            try (ResultSet rs = pstat.executeQuery();) {
 
-					  return dto;
-				  }else{
-					  return null;
-				  }
-			   }
-			  
-			  }
-		  }
-		 
-		 
+                if (rs.next()) {
+                    GymDTO dto = new GymDTO(rs);
+
+                    return dto;
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
 
 //public List<GymDTO> printGym2() throws Exception{   //test
 //	
@@ -97,6 +88,6 @@ public class GymDAO extends Dao {
 //	   }
 //	  }
 
-		
-	}
+
+}
 
