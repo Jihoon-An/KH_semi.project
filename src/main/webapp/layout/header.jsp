@@ -180,7 +180,7 @@
 										<li class="float-end"><a class="header_a_tag" onclick="showLoginModal()">로그인</a>
 										</li>
 										<li class="float-end"><a class="header_a_tag"
-												onclick="showSignuploginModal()">회원가입</a></li>
+												onclick="showSignupModal()">회원가입</a></li>
 									</c:when>
 									<c:otherwise>
 										<li class="float-end"><a class="header_a_tag" onclick="tryLogout()">로그아웃</a>
@@ -200,8 +200,6 @@
 				</div>
 			</header>
 			
-			<!-- 회원가입 모달 -->
-			<%@ include file="/user/signup.jsp" %>
 			
 			<!-- 로그인 모달 -->
 			<div id="loginModal" class="loginModal-overlay" align="center">
@@ -238,7 +236,7 @@
 							</div>
 							<div class="col-12 gy-4">
 								<span style="color:#404040">계정이 없으신가요?</span>
-								<a href="signup">회원 가입</a>
+								<a class="header_a_tag" onclick="showSignupModal()">회원 가입</a>
 							</div>
 							<div class="col-12 gy-1" style="color:#808080; font-size:small">
 								<a onclick="showSearch()">아이디 찾기</a>

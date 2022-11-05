@@ -3,6 +3,9 @@
 
 		<%@ include file="/layout/header.jsp" %>
 
+			<!-- 회원가입 모달 -->
+			<%@ include file="/user/signup.jsp" %>
+			
 			<!-- Site Main -->
 			<main id="index">
 				<section>
