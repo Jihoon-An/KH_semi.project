@@ -71,16 +71,17 @@
 			<link rel="stylesheet" href="/css/search.css" type="text/css">
 			<link rel="stylesheet" href="/css/gym-detail.css" type="text/css">
 			<link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
-    		<link rel="stylesheet" href="/css/users.css" type="text/css">
-    		<link rel="stylesheet" href="/css/bs.css" type="text/css">
-    		<link rel="stylesheet" href="/css/host-user.css" type="text/css">
-    		<link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
-    		
+			<link rel="stylesheet" href="/css/users.css" type="text/css">
+			<link rel="stylesheet" href="/css/bs.css" type="text/css">
+			<link rel="stylesheet" href="/css/host-user.css" type="text/css">
+			<link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
+
 			<style>
 				.swal2-shown {
 					overflow-y: scroll;
 					padding: 0px !important;
 				}
+
 				#loginModal.loginModal-overlay {
 					width: 100%;
 					height: 100%;
@@ -173,36 +174,88 @@
 								<a class="header_a_tag" href="/index.jsp">Fitneeds</a>
 							</h1>
 						</div>
-
-						<div class="float-start">
-							<nav id="header_nav_text">
-								<ul id="header_nav_menu">
-									<li class="float-start"><a class="header_a_tag" href="/gym/search.jsp">헬스장검색</a>
-									</li>
-									<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
-									<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
-								</ul>
-								<ul id="header_nav_person">
-									<c:choose>
-										<c:when test="${userSeq == null}">
-											<li class="float-end">
-												<a class="header_a_tag" onclick="showLoginModal()">로그인</a>
-											</li>
-											<li class="float-end">
-												<a class="header_a_tag" onclick="showSignupModal()">회원가입</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="float-end">
-												<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
-											</li>
-											<li class="float-end">
-												<a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
-											</li>
-										</c:otherwise>
-									</c:choose>
-								</ul>
-							</nav>
-						</div>
-
-					</div>
 				</header>
+
+				<!-- 회원가입 모달 -->
+				<%@ include file="/user/signup.jsp" %>
+
+					<!-- 로그인 모달 -->
+					<div id="loginModal" class="loginModal-overlay" align="center">
+						<div class="window">
+							<div class="text_title title">회원 로그인</div>
+							<div class="close-area" onclick="hideLoginModal()">
+								<i class="fa-solid fa-x" style="color:#808080"></i>
+							</div>
+							<!-- 로그인 폼 -->
+							<form id="form_login">
+								<div class="row justify-content-center mt-3">
+									<div class="col-12 gy-3">
+										<div class="text-start" style="width:250px">
+											<span style="color:#808080; font-size:x-small">이메일</span>
+										</div>
+										<input type="text" name="login_id" id="login_id" placeholder="이메일을 입력하세요."
+											maxlength="40">
+									</div>
+									<div class="col-12 gy-4">
+										<div class="text-start" style="width:250px">
+											<span style="color:#808080; font-size:x-small">비밀번호</span>
+										</div>
+										<input type="password" name="login_pw" id="login_pw" placeholder="비밀번호를 입력하세요."
+											maxlength="20">
+									</div>
+									<div class="col-12 gy-4">
+										<button type="button" class="btn_base" id="btn_login">로그인</button>
+									</div>
+									<div class="col-12 gy-1">
+										<input type="hidden" name="login_bs" id="login_bs" value="false">
+										<input class="form-check-input" type="checkbox" id="chk_bs">
+										<label class="form-check-label" for="login_bs"
+											style="color:#404040; font-size:14px">운영자
+											로그인</label>
+									</div>
+									<div class="col-12 gy-4">
+										<span style="color:#404040">계정이 없으신가요?</span>
+										<a class="header_a_tag" onclick="showSignupModal()">회원 가입</a>
+									</div>
+									<div class="col-12 gy-1" style="color:#808080; font-size:small">
+										<a onclick="showSearch()">아이디 찾기</a>
+										<span>/</span>
+										<a onclick="showSearch()">비밀번호 찾기</a>
+									</div>
+								</div>
+
+								<div class="float-start">
+									<nav id="header_nav_text">
+										<ul id="header_nav_menu">
+											<li class="float-start"><a class="header_a_tag"
+													href="/gym/search.jsp">헬스장검색</a>
+											</li>
+											<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
+											<li class="float-start"><a class="header_a_tag" href="#">운동기록</a></li>
+										</ul>
+										<ul id="header_nav_person">
+											<c:choose>
+												<c:when test="${userSeq == null}">
+													<li class="float-end">
+														<a class="header_a_tag" onclick="showLoginModal()">로그인</a>
+													</li>
+													<li class="float-end">
+														<a class="header_a_tag" onclick="showSignupModal()">회원가입</a>
+													</li>
+												</c:when>
+												<c:otherwise>
+													<li class="float-end">
+														<a class="header_a_tag"
+															onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+													</li>
+													<li class="float-end">
+														<a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
+													</li>
+												</c:otherwise>
+											</c:choose>
+										</ul>
+									</nav>
+								</div>
+							</form>
+						</div>
+					</div>

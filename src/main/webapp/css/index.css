@@ -7,9 +7,8 @@
 	height: 85px;
 	background: #001A41;
 	opacity: 0.97;
-	position: fixed;
+	position: sticky;
 	top: 0px;
-	left: 0px;
 	z-index: 3;
 	overflow: hidden;
 }

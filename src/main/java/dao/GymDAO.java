@@ -10,6 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import dto.BsUsersDTO;
 import dto.GymDTO;
 
 
@@ -56,7 +57,7 @@ public class GymDAO extends Dao {
         }
     }
     
-    /**
+    /*
      * 관리자 페이지 시설 갯수 // 반복문써야될거 같은데..
      * @param bs_seq
      * @return
@@ -78,8 +79,36 @@ public class GymDAO extends Dao {
 //    	 }
 //    			
 //    }
+    
+    /**
+     * 
+     * 사업자 회원가입시 시설 추가
+     * 
+     * @param dto
+     * @return
+     * @throws Exception
+     */
+	public int addGYM(GymDTO dto) throws Exception {
 
+		String sql = "insert into gym values(gym_seq.nextval,?,?,?,?,null,null,null,null,null,?,?)";
 
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+			pstat.setInt(1, dto.getBs_seq());
+			pstat.setString(2, dto.getGym_name());
+			pstat.setString(3, dto.getGym_phone());
+			pstat.setString(4, dto.getGym_location());
+			pstat.setString(5, dto.getGym_x());
+			pstat.setString(6, dto.getGym_y());
+			
+			con.commit();
+			
+			return pstat.executeUpdate();
+		}
+	}
+    
+    
+    
 //public List<GymDTO> printGym2() throws Exception{   //test
 //	
 //	String sql="select * from gym ";

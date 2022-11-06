@@ -122,15 +122,16 @@ public class UserDAO extends Dao {
         }
     }
 
-    /**
-     * 유저 회원가입 아이디 중복 확인
-     *
-     * @param email
-     * @return
-     * @throws Exception
-     */
-    public boolean isUserEmailCheck(String email) throws Exception {
-        String sql = "select * from users where users_email = ?";
+	/**
+	 * 
+	 * 유저 회원가입 이메일 중복 확인
+	 * 
+	 * @param email
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean isUserEmailCheck(String email) throws Exception {
+		String sql = "select * from users where users_email = ?";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
@@ -142,7 +143,7 @@ public class UserDAO extends Dao {
 
         }
     }
-
+	
 
     /**
      * 유저 회원가입
