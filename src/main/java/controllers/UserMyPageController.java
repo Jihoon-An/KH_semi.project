@@ -139,8 +139,9 @@ public class UserMyPageController extends ControllerAbs {
         // 헬스장 회원 테이블 삭제
         MembershipDAO.getInstance().deleteByUserSeq(userSeq);
         // 캘린더 테이블 삭제
-        
+        CalendarDAO.getInstance().deleteByUserSeq(userSeq);
         // 운동기록 테이블 삭제
+
         //
     }
 }
