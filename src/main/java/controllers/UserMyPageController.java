@@ -1,7 +1,6 @@
 package controllers;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dao.FavoritesDAO;
 import dao.GymDAO;
 import dao.ReviewDAO;
@@ -15,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +34,18 @@ public class UserMyPageController extends ControllerAbs {
                 // 페이지 띄우기
                 case "/page.userMyPage":
                     this.getPage(request, response);
+                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
                     break;
                 // 프로필 수정
                 case "/fixProfile.userMyPage":
-                    this.fixProfile(request, response);
+                    //ajax
+                    this.updateProfile(request, response);
                     break;
                 //비밀번호 변경
                 case "/pw.userMyPage":
-
+                    this.updatePw(request, response);
+                    this.getPage(request,response);
+                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
                     break;
                 //회원 탈퇴
                 case "/signDown.userMyPage":
@@ -80,7 +82,6 @@ public class UserMyPageController extends ControllerAbs {
         //test용 login seq 발행
         request.getSession().setAttribute("userSeq", 1);
         
-        
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
         UserDTO user = UserDAO.getInstance().selectBySeq(userSeq);
@@ -100,19 +101,14 @@ public class UserMyPageController extends ControllerAbs {
         request.setAttribute("user", user);
         request.setAttribute("gyms", gyms);
         request.setAttribute("reviews", reviews);
-        //보내기
-        request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
+
     }
 
     /**
      *  프로필 수정,
-     *  사진은 제외,
-     *  전화번호는 추가예정.
-     * @param request
-     * @param response
-     * @throws Exception
+     *  사진은 제외
      */
-    protected void fixProfile(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws Exception{
         UserDTO user = new UserDTO();
         Gson gson = new Gson();
         user.setSeq(Integer.parseInt(request.getParameter("userSeq")));
@@ -122,6 +118,15 @@ public class UserMyPageController extends ControllerAbs {
         user.setBirthday(request.getParameter("birthday"));
         user.setInterest(gson.toJson(request.getParameter("interest")));
 
-        UserDAO.getInstance().fixProfileInfo(user);
+        UserDAO.getInstance().updateProfileInfo(user);
+    }
+
+    /**
+     * 비밀번호 변경
+     */
+    protected void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        String pw = request.getParameter("pw");
+        int userSeq = Integer.parseInt(request.getParameter("userSeq"));
+        UserDAO.getInstance().updatePw(userSeq, pw);
     }
 }
