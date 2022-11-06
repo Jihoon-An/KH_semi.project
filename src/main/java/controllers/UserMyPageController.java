@@ -137,6 +137,13 @@ public class UserMyPageController extends ControllerAbs {
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // 로그아웃
         request.getSession().removeAttribute("userSeq");
+        // 프사지우기
+        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
+        String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+        File beforeFile = new File(savePath + "/" + beforePiName);
+        if (beforeFile.exists()) {
+            beforeFile.delete();
+        }
         // 유저 테이블 삭제
         UserDAO.getInstance().deleteByUserSeq(userSeq);
         // 즐겨찾기 테이블 삭제
@@ -169,8 +176,8 @@ public class UserMyPageController extends ControllerAbs {
 
         // 기존 파일 지우기
         String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
-        File beforeFile = new File(savePath+"/"+beforePiName);
-        if(beforeFile.exists()){
+        File beforeFile = new File(savePath + "/" + beforePiName);
+        if (beforeFile.exists()) {
             beforeFile.delete();
         }
         // 새로 생성한 파일 커밋
