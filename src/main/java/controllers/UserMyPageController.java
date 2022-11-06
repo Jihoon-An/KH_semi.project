@@ -82,7 +82,7 @@ public class UserMyPageController extends ControllerAbs {
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //test용 login seq 발행
-        request.getSession().setAttribute("userSeq", 1);
+//        request.getSession().setAttribute("userSeq", 1);
 
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
