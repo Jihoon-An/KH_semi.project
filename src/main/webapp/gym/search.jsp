@@ -256,40 +256,43 @@
         // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
         // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMLEFT);
+        
 		
-	
-        var positions = [
-            {
-                title: '산골헬스장', 
-                latlng: new kakao.maps.LatLng(37.56793539931502, 126.98309190765903)
-            },
-            {
-                title: 'MX피트니스', 
-                latlng: new kakao.maps.LatLng(37.567705541547866, 126.98238168043521)
-            } 
-        ];
-		
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "/resource/ping.png"; 
-            
-        for (var i = 0; i < positions.length; i ++) {
-            
-            // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new kakao.maps.Size(64, 69);
-            
-            // 마커 이미지를 생성합니다    
-            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-            
-            // 마커를 생성합니다
-            var marker = new kakao.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: positions[i].latlng, // 마커를 표시할 위치
-                title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                image : markerImage // 마커 이미지 
-            });
-        }
-	</script>
 
+  
+		
+		function createMarker(name, x, y){
+			var positions =
+				{
+					title: name, 
+					latlng: new kakao.maps.LatLng(x, y)
+				}
+			
+			// 마커 이미지의 이미지 주소입니다
+			var imageSrc = "/resource/ping.png"; 
+				
+				
+				// 마커 이미지의 이미지 크기 입니다
+				var imageSize = new kakao.maps.Size(64, 69);
+				
+				// 마커 이미지를 생성합니다    
+				var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+				
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+					map: map, // 마커를 표시할 지도
+					position: positions.latlng, // 마커를 표시할 위치
+					title : positions.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					image : markerImage // 마커 이미지 
+				});
+		};
+
+	</script>
+	<c:forEach var="gymList" items="${gymList}">
+		<script>
+			createMarker("${gymList.gym_name}","${gymList.gym_y}","${gymList.gym_x}");
+		</script>
+	</c:forEach>
 
 </main>
 

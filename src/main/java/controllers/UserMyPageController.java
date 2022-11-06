@@ -82,7 +82,7 @@ public class UserMyPageController extends ControllerAbs {
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //test용 login seq 발행
-        request.getSession().setAttribute("userSeq", 1);
+//        request.getSession().setAttribute("userSeq", 1);
 
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
@@ -134,7 +134,7 @@ public class UserMyPageController extends ControllerAbs {
 
     protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
-        int userSeq = (int) request.getSession().getAttribute("userSeq");
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // 로그아웃
         request.getSession().removeAttribute("userSeq");
         // 유저 테이블 삭제
@@ -165,8 +165,15 @@ public class UserMyPageController extends ControllerAbs {
         MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
         String sysName = multi.getFilesystemName("user_img_in");
 
-        int userSeq = (int)request.getSession().getAttribute("userSeq");
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
 
-//        UserDAO.getInstance().insertPi(userSeq, sysName);
+        // 기존 파일 지우기
+        String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+        File beforeFile = new File(savePath+"/"+beforePiName);
+        if(beforeFile.exists()){
+            beforeFile.delete();
+        }
+        // 새로 생성한 파일 커밋
+        UserDAO.getInstance().insertPi(userSeq, sysName);
     }
 }
