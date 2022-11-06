@@ -88,6 +88,7 @@
 
 
 <script>
+
         // 회원가입 signupModal 열기
         function showSignupModal() {
             $("#signupModal").attr("style", "display:inline-flex");
@@ -116,9 +117,8 @@
         //  회원가입 함수
         function trySign() {
         	$.post("/sign.user", $("#form_sign").serialize())
-                .done((res) => {
-                	console.log(res);
-                	if (res == "1") {
+                .done((resp) => {
+                	if (resp == "1") {
                         Swal.fire({ title: "Success!", icon: "success", text: "회원가입이 되었습니다."})
                             .then((result) => {
                                 if (result.isConfirmed) { location.reload(); }

@@ -144,11 +144,11 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, dto.getBs_seq());
-            pstat.setString(2, dto.getBs_email());
-            pstat.setString(3, dto.getBs_pw());
-            pstat.setString(4, dto.getBs_name());
-            pstat.setString(5, dto.getBs_phone());
-            pstat.setString(6, dto.getBs_number());
+            pstat.setString(2, dto.getBs_number());
+            pstat.setString(3, dto.getBs_email());
+            pstat.setString(4, dto.getBs_pw());
+            pstat.setString(5, dto.getBs_name());
+            pstat.setString(6, dto.getBs_phone());
 
             con.commit();
 
