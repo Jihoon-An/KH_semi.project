@@ -1,56 +1,82 @@
 @charset "utf-8";
 
-   #host-user * {
-   	box-sizing: boder-box;
-   }
+ #host-user * {
+    box-sizing: border-box;
+ }
 
-   #host-user div:not(.btn_div) {
-   	border: 1px solid black;
+ #host-user div:not(.btn_div, .containerbox) {
+    border: 1px solid black;
+
+ }
+
+ #host-user .board {
+    width: 1200px;
+    margin: auto;
+    overflow: hidden;
+ }
+
+ #host-user .title>div {
+  
+    text-align: center;
+ }
+
+ .title>div{
+    
+    height: 30px;
+ }
+
+  #host-user .userm{
+   width: 100%;
+ }
+
+ #host-user .selectuser {
+    float: left;
+    width: 5%;
+    
+    
+ }
+#host-user .user-seq {
+   float: left;
+    width: 10%;
+ }
+
+ #host-user .user-email {
+   float: left;
+    width: 20%;
+ }
+
+ #host-user .user-name {
+    float: left;
+    width: 10%;
+ }
+
+ #host-user .user-phone {
+    float: left;
+    width: 15%;
+ }
+
+ #host-user .user-birth {
+   float: left;
+    width: 15%;
+ }
 
 
-   }
-/*
-   #host-user .containerbox {
-   	width: 1200px;
-   	margin: auto;
-   	overflow: hidden;
-   }
-   */
+ #host-user .sign-date {
+    float: left;
+    width: 20%;
+ }
 
-   #host-user .title>div {
-   	float: left;
-   	text-align: center;
-   }
+ #host-user .user-gender {
+    overflow: hidden;
+    width: 5%;
+ }
 
-   #host-user .selectuser {
-   	width: 5%;
-   }
+ #host-user .btn_div {
+    float: right;
+ }
 
-   #host-user .userdivision {
-   	width: 15%;
-   }
-
-   #host-user .user-email {
-   	width: 15%;
-   }
-
-   #host-user .user-name {
-   	width: 15%;
-   }
-
-   #host-user .user-phone {
-   	width: 20%;
-   }
-
-   #host-user .gym-number {
-   	width: 10%;
-   }
-
-   #host-user .sign-date {
-   	width: 20%;
-   }
-
-   #host-user .btn_div {
-   	float: right;
-   }
+  #host-user .other{
+    width: 100%;
+    height: 30px;
+ }
 /*  */

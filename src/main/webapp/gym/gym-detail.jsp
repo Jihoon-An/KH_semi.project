@@ -19,9 +19,9 @@
 					</div>
 
 					<div class="icon1">
-					 <c:if test="${loginID==list2.user_seq}"> 
+				
 						<i class="fa-solid fa-heart" id="heart"></i> 
-					</c:if>
+					
 						<span class="button gray medium">
 						<a onclick="clip(); return false;" class="shareicon"> 
 						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
