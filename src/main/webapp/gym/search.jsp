@@ -6,7 +6,6 @@
 <%@ include file="/layout/header.jsp"%>
 <!-- Search main -->
 <main id="search">
-	<div class="main_margin_85"></div>
 	<div class="container">
 		<div id="map">
 			<!-- 메인 검색창 -->

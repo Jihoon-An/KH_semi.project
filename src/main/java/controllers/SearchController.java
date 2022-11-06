@@ -9,25 +9,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import commons.Common;
 import dao.GymDAO;
 import dto.GymDTO;
 
 /**
- * developer : Minseop
+ * Servlet implementation class SearchController
  */
-
 @WebServlet("*.search")
 public class SearchController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		super.doGet(request, response);
-	
+		request.setCharacterEncoding("utf8");
+        response.setContentType("text/html;charset=utf8");
+		
 		String uri = request.getRequestURI();
+		System.out.println(uri);
 		try {
 			switch (uri) {
 			// 헬스장 검색 전 초기 헬스장 리스트
 			case "/main.search":
 				this.getMainList(request, response);
+				request.getRequestDispatcher("/gym/search.jsp").forward(request,response);
 				break;
 			//
 			case "/b.search":
@@ -49,11 +52,10 @@ public class SearchController extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		this.doGet(request, response);
 	}
 	
 	
@@ -67,8 +69,6 @@ public class SearchController extends HttpServlet {
 		// gym data 담기
 		request.setAttribute("gymList", gymList);
 		
-		// 보내기
-		request.getRequestDispatcher("/gym/search.jsp").forward(request,response);
 	}
 
 }
