@@ -163,7 +163,7 @@
 						} else {
 							Swal.fire({ title: "Error", icon: "error", text: "ID가 등록되지 않았거나 비밀번호가 올바르지 않습니다." });
 						}
-					}).fail(alert(""));
+					});
 			}
 
 			// 아이디 찾기 함수

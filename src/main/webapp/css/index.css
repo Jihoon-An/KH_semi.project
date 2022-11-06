@@ -336,6 +336,7 @@ nav {
 #index .item td {
 	padding-left: 10px;
 	padding-right: 10px;
+	overflow: hidden;
 }
 
 #index .item:hover {
