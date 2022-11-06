@@ -5,7 +5,7 @@
 
 <main id="bs_sign">
 	<form id="form_bs_sign" method="post" enctype="multipart/form-data">
-		
+
 		<div class="container" align="center">
 			<!-- 사업자 회원가입 폼 -->
 
@@ -88,7 +88,7 @@
 
 
 							<div class="filebox text-start" style="width: 350px">
-								<label for="file" class="bs_regl_name"> 이미지를 업로드하세요 </label> <input
+								<label for="file" class="bs_regl_name">이미지를 업로드하세요</label> <input
 									type="file" name="file" id="file" style="display: none"
 									class="bs_regl_hidden" multiple>
 							</div>
@@ -100,8 +100,8 @@
 							</div>
 						</div>
 
-						
-						
+
+
 						<div class="col-12 gy-5 gymtitle">
 							<div class="text-start" style="width: 350px">
 								<p class="text_title">시설정보</p>
@@ -128,11 +128,10 @@
 							<div class="zipcodebox text-start" class="text-start"
 								style="width: 350px">
 								<label className="gym_address1-button" for="gym_address1"
-									class="lb_gym_address1"> 우편번호를 검색하세요 </label> <input
-									type="text" name="gym_address1" class="gym_address1"
-									style="display: none"> <input type="text" name="gym_x"
-									style="display: none"><input type="text" name="gym_y"
-									style="display: none">
+									class="lb_gym_address1">우편번호를 검색하세요</label> <input type="text"
+									name="gym_address1" class="gym_address1" style="display: none">
+								<input type="text" name="gym_x" style="display: none"><input
+									type="text" name="gym_y" style="display: none">
 
 							</div>
 
@@ -332,10 +331,10 @@
                 }
                 return true;
             }
-            
-            function isBsFilledLb(elements) {
+    		
+            function isBsFilledFile(elements) {
                 for (i = 0; i < elements.length; i++) {
-                    if (elements[i].html == "") {
+                    if (elements[i].innerhtml == "이미지를 업로드하세요") {
                         wobble(elements[i]);
                         elements[i].focus();
                         return false;
@@ -343,7 +342,18 @@
                 }
                 return true;
             }
-
+            
+            function isBsFilledZip(elements) {
+                for (i = 0; i < elements.length; i++) {
+                    if (elements[i].innerhtml == "우편번호를 검색하세요") {
+                        wobble(elements[i]);
+                        elements[i].focus();
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
             // 회원가입 함수
             function tryBsSign() {
             	
@@ -372,28 +382,30 @@
                     
             }
 
+
             // 버튼 이벤트
             $("#btn_bs_sign").on("click", () => {
-
-                if ($("#bs_email_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_email")[0]); $("#bs_email").focus(); }
+            	
+            	if ($("#bs_email_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_email")[0]); $("#bs_email").focus(); }
                 else if ($("#bs_pw_re_msg").css("color") == "rgb(255, 0, 0)") {
                     if ($("#bs_pw_re_msg").html() == "특수문자를 포함한 8~16자리 입력해주세요") { wobble($("#bs_pw")[0]); $("#bs_pw").focus(); }
                     else if ($("#bs_pw_re_msg").html() == "동일한 비밀번호를 입력해주세요") { wobble($("#bs_pw_re")[0]); $("#bs_pw_re").focus(); }
                 }
                 else if ($("#bs_phone_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_phone")[0]); $("#bs_phone").focus(); }
                 else if ($("#bs_number_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_number")[0]); $("#bs_number").focus(); }
-				
+
+
+                // else if ($(".bs_regl_name").html() == "이미지를 업로드하세요") { isBsFilledZip(this) }
+                // else if ($(".lb_gym_address1").html() == "우편번호를 검색하세요") { isBsFilledFile(this) }
+            	
                 else {
-                	isBsFilledLb($(".bs_regl_name"));
-                	
-                	
-            //        if (isBsFilled($("#bs_email, #bs_pw, #bs_pw_re, #bs_name, #bs_phone, #bs_number")) && isBsFilledLb($(".bs_regl_name"))
-            //        		&& isBsFilled($(".gym_name, .gym_phone")) 
-            //        		&& isBsFilledLb($(".lb_gym_address1"))
-            //        		&& isBsFilled($(".gym_address2")) 
-            //        ) { tryBsSign(); }
+                    if (isBsFilled($("#bs_email, #bs_pw, #bs_pw_re, #bs_name, #bs_phone, #bs_number, .gym_name, .gym_phone, .gym_address2")))
+                    { tryBsSign(); }
                 }
+               
             });
+
+            
 
 
             // 유효성 검사 Regex
