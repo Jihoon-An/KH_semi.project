@@ -423,6 +423,11 @@ nav {
 	transition: 0.5s
 }
 
+#index .item td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 #index .item:hover {
 	transform: scale(1.15);
 }

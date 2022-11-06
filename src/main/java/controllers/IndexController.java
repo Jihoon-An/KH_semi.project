@@ -31,7 +31,7 @@ public class IndexController extends HttpServlet {
 			
 			// 리뷰 정보 요청
 			case "/review.index":
-				List<ReviewDTO> list = ReviewDAO.getInstance().selectAllSortByLikes();
+				List<HashMap<String, Object>> list = ReviewDAO.getInstance().selectAllSortByLikes();
 				Gson g = new Gson();
 				HashMap<String, Object> data = new HashMap<>();
 				data.put("list", list);

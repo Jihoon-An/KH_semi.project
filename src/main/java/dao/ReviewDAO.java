@@ -1,22 +1,16 @@
 package dao;
 
-import java.nio.channels.SelectableChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.print.attribute.standard.JobMessageFromOperator;
-import javax.sql.DataSource;
+import com.google.gson.Gson;
 
 import dto.GymDTO;
 import dto.ReviewDTO;
-import dto.UserDTO;
-import oracle.net.aso.f;
 
 public class ReviewDAO extends Dao{
 
@@ -113,13 +107,16 @@ for each문 돌려서
 //	}
 
 	
-	public List<ReviewDTO> selectAllSortByLikes() throws Exception{
-		List<ReviewDTO> result = new ArrayList<>();
-		String sql="select * from (select * from review order by review_like desc) where rownum <= 10";
+	public List<HashMap<String, Object>> selectAllSortByLikes() throws Exception{
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		String sql= "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
 		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			ResultSet rs = pstat.executeQuery();
 			while(rs.next()) {
-				result.add(new ReviewDTO(rs));
+				HashMap<String, Object> data = new HashMap<>();
+				data.put("review", new ReviewDTO(rs));
+				data.put("gym", new GymDTO(rs));
+				result.add(data);
 			}
 			rs.close();
 		}
