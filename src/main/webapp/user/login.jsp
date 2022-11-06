@@ -1,99 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-		<div id="loginModal" class="loginModal-overlay" align="center">
-			<div class="window">
-				<div class="text_title title">회원 로그인</div>
-				<div class="close-area" onclick="hideLoginModal()">
-					<i class="fa-solid fa-x" style="color: #808080"></i>
-				</div>
-				<!-- 로그인 폼 -->
-				<form id="form_login">
-					<div class="row justify-content-center mt-3">
-						<div class="col-12 gy-3">
-							<div class="text-start" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">이메일</span>
-							</div>
-							<input type="text" name="login_id" id="login_id" placeholder="이메일을 입력하세요." maxlength="40">
-						</div>
-						<div class="col-12 gy-4">
-							<div class="text-start" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">비밀번호</span>
-							</div>
-							<input type="password" name="login_pw" id="login_pw" placeholder="비밀번호를 입력하세요."
-								maxlength="20">
-						</div>
-						<div class="col-12 gy-4">
-							<button type="button" class="btn_base" id="btn_login">로그인</button>
-						</div>
-						<div class="col-12 gy-1">
-							<input type="hidden" name="login_bs" id="login_bs" value="false">
-							<input class="form-check-input" type="checkbox" id="chk_bs">
-							<label class="form-check-label" for="login_bs" style="color: #404040; font-size: 14px">운영자
-								로그인</label>
-						</div>
-						<div class="col-12 gy-4">
-							<span style="color: #404040">계정이 없으신가요?</span> 
-							<a href="#" onclick="showSignupModal(); return false;">회원 가입</a>
-						</div>
-						<div class="col-12 gy-1" style="color: #808080; font-size: small">
-							<a onclick="showSearch()">아이디 찾기</a> <span>/</span> <a onclick="showSearch()">비밀번호 찾기</a>
-						</div>
-					</div>
-				</form>
-				<!-- 아이디 찾기 폼 -->
-				<form class="search" id="form_searchId">
-					<div class="row justify-content-center mt-4">
-						<div class="col-12 gy-4">
-							<input type="text" name="name" id="searchId_name" placeholder="이름" maxlength="10">
-							<div class="text-start mt-1 mb-2" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">회원 가입시 사용한
-									이름을 입력하세요.</span>
-							</div>
-						</div>
-						<div class="col-12 gy-4">
-							<input type="text" name="phone" id="searchId_phone" placeholder="핸드폰 번호" maxlength="14">
-							<div class="text-start mt-1 mb-2" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">회원 가입시 사용한
-									핸드폰 번호를 입력하세요.</span>
-							</div>
-						</div>
-						<div class="col-12 gy-4">
-							<button class="btn_base mb-3" type="button" id="btn_searchId">찾기</button>
-						</div>
-						<div class="col-12" style="margin-top: 30px">
-							<a style="color: #808080" onclick="toBackward()">Back</a>
-						</div>
-					</div>
-				</form>
-				<!-- 비밀번호 찾기 폼 -->
-				<form class="search" id="form_searchPw">
-					<div class="row justify-content-center mt-4">
-						<div class="col-12 gy-4">
-							<input type="text" name="email" id="searchPw_email" placeholder="이메일" maxlength="40">
-							<div class="text-start mt-1 mb-2" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">회원 가입시 사용한
-									이메일을 입력하세요.</span>
-							</div>
-						</div>
-						<div class="col-12 gy-4">
-							<input type="text" name="phone" id="searchPw_phone" placeholder="핸드폰 번호" maxlength="14">
-							<div class="text-start mt-1 mb-2" style="width: 250px">
-								<span style="color: #808080; font-size: x-small">회원 가입시 사용한
-									핸드폰 번호를 입력하세요.</span>
-							</div>
-						</div>
-						<div class="col-12 gy-4">
-							<button class="btn_base mb-3" type="button" id="btn_searchPw">찾기</button>
-						</div>
-						<div class="col-12" style="margin-top: 30px">
-							<a style="color: #808080" onclick="toBackward()">Back</a>
-						</div>
-					</div>
-				</form>
-			</div>
+
+<div id="loginModal" class="loginModal-overlay" align="center">
+	<div class="window">
+
+		<div class="col-12 text-end close-area" onclick=hideLoginModal()>
+			<a><i class="fa-solid fa-x" style="color: #808080"></i></a>
 		</div>
-		<script>
+
+		<div class="text_title title">회원 로그인</div>
+
+		<!-- 로그인 폼 -->
+		<form id="form_login">
+			<div class="row justify-content-center mt-3">
+				<div class="col-12 gy-3">
+					<div class="text-start" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">이메일</span>
+					</div>
+					<input type="text" name="login_id" id="login_id"
+						placeholder="이메일을 입력하세요." maxlength="40">
+				</div>
+				<div class="col-12 gy-4">
+					<div class="text-start" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">비밀번호</span>
+					</div>
+					<input type="password" name="login_pw" id="login_pw"
+						placeholder="비밀번호를 입력하세요." maxlength="20">
+				</div>
+				<div class="col-12 gy-4">
+					<button type="button" class="btn_base" id="btn_login">로그인</button>
+				</div>
+				<div class="col-12 gy-1">
+					<input type="hidden" name="login_bs" id="login_bs" value="false">
+					<input class="form-check-input" type="checkbox" id="chk_bs">
+					<label class="form-check-label" for="login_bs"
+						style="color: #404040; font-size: 14px; letter-spacing: -1px;">운영자 로그인</label>
+				</div>
+				<div class="col-12 gy-4" style="letter-spacing: -1px;">
+					<span style="color: #404040;">계정이 없으신가요?</span> <a href="#"
+						onclick="showSignupModal(); return false;">회원가입</a>
+				</div>
+				<div class="col-12 gy-1" style="color: #808080; font-size: small; letter-spacing: -1px;">
+					<a onclick="showSearch()">아이디 찾기</a> <span>/</span> <a
+						onclick="showSearch()">비밀번호 찾기</a>
+				</div>
+			</div>
+		</form>
+		<!-- 아이디 찾기 폼 -->
+		<form class="search" id="form_searchId">
+			<div class="row justify-content-center mt-4">
+				<div class="col-12 gy-4">
+					<input type="text" name="name" id="searchId_name" placeholder="이름"
+						maxlength="10">
+					<div class="text-start mt-1 mb-2" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
+							이름을 입력하세요.</span>
+					</div>
+				</div>
+				<div class="col-12 gy-4">
+					<input type="text" name="phone" id="searchId_phone"
+						placeholder="핸드폰 번호" maxlength="14">
+					<div class="text-start mt-1 mb-2" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
+							핸드폰 번호를 입력하세요.</span>
+					</div>
+				</div>
+				<div class="col-12 gy-4">
+					<button class="btn_base mb-3" type="button" id="btn_searchId">찾기</button>
+				</div>
+				<div class="col-12" style="margin-top: 30px">
+					<a style="color: #808080" onclick="toBackward()">Back</a>
+				</div>
+			</div>
+		</form>
+		<!-- 비밀번호 찾기 폼 -->
+		<form class="search" id="form_searchPw">
+			<div class="row justify-content-center mt-4">
+				<div class="col-12 gy-4">
+					<input type="text" name="email" id="searchPw_email"
+						placeholder="이메일" maxlength="40">
+					<div class="text-start mt-1 mb-2" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
+							이메일을 입력하세요.</span>
+					</div>
+				</div>
+				<div class="col-12 gy-4">
+					<input type="text" name="phone" id="searchPw_phone"
+						placeholder="핸드폰 번호" maxlength="14">
+					<div class="text-start mt-1 mb-2" style="width: 250px">
+						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
+							핸드폰 번호를 입력하세요.</span>
+					</div>
+				</div>
+				<div class="col-12 gy-4">
+					<button class="btn_base mb-3" type="button" id="btn_searchPw">찾기</button>
+				</div>
+				<div class="col-12" style="margin-top: 30px">
+					<a style="color: #808080" onclick="toBackward()">Back</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
 			// 로그인 loginModal 열기
 			function showLoginModal() {
 				$("#loginModal").attr("style", "display:inline-flex");
