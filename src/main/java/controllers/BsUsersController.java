@@ -118,7 +118,7 @@ public class BsUsersController extends HttpServlet {
 			String oriName = multi.getOriginalFileName(name);
 			String sysName = multi.getFilesystemName(name);
 
-			if (name != null) { // 널값을 만나면 컨티뉴 되게 하기 // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
+			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
 				if (oriName == null) {
 					continue;
 				}
