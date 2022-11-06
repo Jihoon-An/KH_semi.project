@@ -3,7 +3,7 @@
 		<%@ include file="/layout/header.jsp" %>
 
 
-			<div class="main_margin_155 containerbox"></div>
+			<div class="main_margin_155 containerbox" style="height: 80px;"></div>
 			<!-- Site Main -->
 			<main class="containerbox" id="users-mypage">
 				<div class="row text-center">
@@ -35,7 +35,7 @@
 						<div class="profile_input_group py-2">
 							<div class="profile_title">이름</div>
 							<div style="display:inline-table;"><input class="form-control modify_input" type="text"
-									name="user_name">
+									value="${user.name}" name="user_name" id="user_name" maxlength="10">
 							</div>
 						</div>
 						<!-- select sex -->
@@ -43,16 +43,31 @@
 							<div class="profile_title">성별</div>
 							<button type="button" class="modify_input sex_btn" id="manBtn">남자</button>
 							<button type="button" class="modify_input sex_btn" id="womanBtn">여자</button>
-							<input type="hidden" name="sex" id="sex">
+							<input type="hidden" name="sex" id="sex" value="${user.sex}">
 
 						</div>
 						<!-- birthday -->
 						<div class="profile_input_group py-2">
 							<div class="profile_title">생년월일</div>
 							<div style="display:inline-table;"><input class="form-control modify_input" type="date"
-									name="user_birthday">
+									id="user_birthday" name="user_birthday" value="${user.birthday}">
 							</div>
 						</div>
+						<!-- phone -->
+						<div class="profile_input_group py-2">
+							<div class="profile_title">전화번호</div>
+							<div style="display:inline-table;"><input class="form-control modify_input" type="text"
+									value="${user.phone}" name="user_phone" id="user_phone" maxlength="11" placeholder='"-"를 제외하고 입력하세요.'>
+							</div>
+						</div>
+						<!-- 전화번호 유효성 검사 및 포맷 -->
+						<script>
+							$("#user_phone").on("keydown",function()  {
+								$(this).val($(this).val().replace(/[^0-9]/ig, ''));
+							  }).on("keyup",function()  {
+								$(this).val($(this).val().replace(/[^0-9]/ig, ''));
+							  });
+						</script>
 						<!-- interesting -->
 						<div class="profile_input_group pt-2" style="height:50px;">
 							<div class="profile_title">관심사</div>
@@ -86,8 +101,13 @@
 				<!-- 시설 카드 -->
 				<div class="gym_area mb-5">
 					<div class="gym_cards_box" id="gym_cards_box">
-
-
+						<div class="gym_card">
+							<a href="">
+								<img class="gym_img" src="/resource/main.jpg">
+								<span class="gym_text">testeset</span>
+							</a>
+							<i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
+						</div>
 					</div>
 				</div>
 
@@ -97,37 +117,40 @@
 				<div class="row pt-4 pb-3">
 					<span class="text_title">My 리뷰</span>
 				</div>
+
 				<!-- 리뷰 카드 영역 -->
 				<div class="row review_cards_area" id="review_cards_area">
 					<!-- review card -->
 					<c:forEach var="review" items="${reviews}">
-						<input type="hidden" value="${review.review_seq}">
 						<div class="col-6 review_card p-1">
+							<form action="" class="review_detail">
+								<input type="hidden" name="review_seq" class="review_seq" value="${review.review_seq}">
+								<!-- review_seq 저장 -->
+							</form>
 							<div class="border p-1">
 								<div class="row">
-									<div class="col-10 review_gymName">review.gym_name</div>
+									<div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
 									<div class="col-1">
 										<a href="" class="modify_review_btn">
-											<i class="fa-regular fa-pen-ro-square"></i>
+											<i class="fa-regular fa-pen-to-square"></i>
 										</a>
 									</div>
 									<div class="col-1 text-start">
-										<i class="fa-solie fa-x del_review_btn"></i>
+										<i class="fa-solid fa-x del_review_btn"></i>
 									</div>
 								</div>
 								<hr>
-								<div class="review_text">${review.review_contents}</div>
+								<div class="review_text review_detail_starter">${review.review_contents}</div>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 
 
-
-
 				<!-- 개인정보 수정 테이블 -->
 
-				<form id="form_pw" class="modal-overlay">
+				<form id="form_pw" class="modal-overlay" action="/pw.userMyPage">
+					<input type="hidden" name="userSeq" value="${userSeq}">
 					<div id="private_table">
 						<!-- X icon -->
 						<i class="fa-solid fa-x" id="close_private"></i>
@@ -164,6 +187,9 @@
 							<div>정말 탈퇴하시겠습니까?</div>
 							<button type="button" class="sign_down_confirm_btn" id="confirm_y">예</button>
 							<button type="button" class="sign_down_confirm_btn" id="confirm_n">아니오</button>
+							<form action="/signDown.userMyPage" id="sign_down_form">
+								<input type="hidden" value="${userSeq}">
+							</form>
 						</div>
 					</div>
 				</form>
@@ -185,22 +211,29 @@
 
 
 				<script>
+					///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 					let profile_upload = $("#profile_upload");
 					profile_upload.on("click", function () {
 
 					});
 
-					$("#close_private").click(() => {
-						$("#form_pw").css("display", "none");
-					});
+					//성별 기존 설정
+					if ($("#sex").val() == "M") {
+						$("#manBtn").css("border", "1px solid #001A41").css("color", "#001A41");
+						$("#womanBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
+					} else if ($("#sex").val() == "W") {
+						$("#womanBtn").css("border", "1px solid #001A41").css("color", "#001A41");
+						$("#manBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
+					}
 
+					// 성별 고르는 이벤트
 					$("#manBtn").on("click", function () {
-						$("#sex").val("man");
+						$("#sex").val("M");
 						$("#manBtn").css("border", "1px solid #001A41").css("color", "#001A41");
 						$("#womanBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
 					})
 					$("#womanBtn").on("click", function () {
-						$("#sex").val("woman");
+						$("#sex").val("W");
 						$("#womanBtn").css("border", "1px solid #001A41").css("color", "#001A41");
 						$("#manBtn").css("border", "1px solid #cbcbcb").css("color", "#cbcbcb");
 					})
@@ -213,18 +246,19 @@
 						element.animate(seq, { duration: 300 });
 					}
 
-					function addInterest(interest_input) {
+					//관심사 추가하기
+					function addInterest() {
+						let interest_input = $("#interest_input").val();
 						if ($(".interesting").length >= 4) {
 							wobble(document.getElementById("interest_input"));
 							return false;
 						}
 						if (interest_input != "") {
-							console.log(interest_input);
 							let interest_out = $("#interest_out");
 
 							let interesting = $("<div>");
 							interesting.addClass("interesting");
-							interesting.html(interest_input);
+							interesting.html($("<span>").addClass("user_interest").html(interest_input));
 
 							let del_interest = $("<a>").on("click", function () {
 								$(this).parent().remove();
@@ -239,19 +273,58 @@
 							$("#interest_input").val("");
 						}
 					}
+					// 관심사 입력에 엔터로 이벤트 발생
 					$("#interest_input").on("keyup", function (e) {
 						if (e.keyCode == 13) {
-							addInterest($("#interest_input").val());
+							addInterest();
 						};
 					});
 
+					// 관심사 초기 생성을 위한 함수.
+					function interestBase(interest_input) {
+						if ($(".interesting").length >= 4) {
+							wobble(document.getElementById("interest_input"));
+							return false;
+						}
+						if (interest_input != "") {
+							let interest_out = $("#interest_out");
+
+							let interesting = $("<div>");
+							interesting.addClass("interesting");
+							interesting.html($("<span>").addClass("user_interest").html(interest_input));
+
+							let del_interest = $("<a>").on("click", function () {
+								$(this).parent().remove();
+							});
+							del_interest.html(" X");
+							del_interest.addClass("modify_btn");
+							del_interest.attr("style", "cursor:pointer; color:rgb(104, 104, 204); text-decoration: none;");
+
+							interesting.append(del_interest);
+
+							interest_out.append(interesting);
+							$("#interest_input").val("");
+						}
+					}
+
+					//초기 관심사 생성
+					//let interests = JSON.parse("${user.interest}");
+					let interests = JSON.parse(${ user.interest });
+					interests.forEach(inter => interestBase(inter));
+
+
+
+
+					// 프로필 영역 기본값
 					$(".modify_input").attr("disabled", "true");
 					$(".modify_btn").css("display", "none");
 					$("#profile_upload").css("cursor", "default");
 					$("#user_img_in").attr("disabled", "true");
-
+					$("sex_btn").css("cursor", "default");
+					// 프로필 수정하기 버튼 클릭 이벤트
 					$("#modifyProfile").on("click", modifyProfile);
 					let modifyBtn = $("#modifyProfile");
+
 					// 프로필 수정버튼 누를 때
 					function modifyProfile() {
 						modifyBtn.html("변경 저장");
@@ -261,11 +334,47 @@
 						$("#profile_upload").css("cursor", "pointer");
 						$("#manBtn").addClass("sex_btn_hover");
 						$("#womanBtn").addClass("sex_btn_hover");
+						$("sex_btn").css("cursor", "pointer");
 						modifyBtn.off("click");
 						modifyBtn.on("click", submitProfile);
 					};
+
 					// 저장버튼 누를 때
 					function submitProfile() {
+						let fix_name = $("#user_name").val();
+						let fix_sex = $("#sex").val();
+						let fix_birthday = $("#user_birthday").val();
+						let fix_phone = $("#user_phone").val();
+						let fix_interests = document.querySelectorAll(".user_interest");
+						//let fix_interests = $(".user_interest");
+
+						console.log(fix_phone);
+
+						let interest_list = [];
+						fix_interests.forEach(item => {
+							interest_list.push(item.innerHTML);
+						});
+						/*	
+						console.log(fix_name);
+						console.log(fix_sex);
+						console.log(fix_birthday);
+						console.log(JSON.stringify(interest_list));
+						*/
+						$.ajax({
+							url: "/fixProfile.userMyPage",
+							data: {
+								name: fix_name,
+								sex: fix_sex,
+								birthday: fix_birthday,
+								phone : fix_phone,
+								interest: JSON.stringify(interest_list),
+								userSeq: "${userSeq}"
+							},
+							type: "post",
+							success:function(){
+								console.log("success!!");
+							}
+						});
 						modifyBtn.html("프로필 수정");
 						$(".modify_input").attr("disabled", "true");
 						$(".modify_btn").css("display", "none");
@@ -274,100 +383,59 @@
 						$("#interest_input").val("");
 						$("#manBtn").removeClass("sex_btn_hover");
 						$("#womanBtn").removeClass("sex_btn_hover");
+						$("sex_btn").css("cursor", "default");
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
 					};
 
-					// 시설
-					createGymCard();
+					///////////////////////////////////// My 시설 ////////////////////////////////////////////////////
+
+					// 시설카드
+					//createGymCard();
 
 
-					function createGymCard() {
-						let a_img = $("<a>").attr("href", "#");
-						let a_text = $("<a>").attr("href", "#");
+					$(".heart").on("click", function () {
+						if ($(this).css("color") == "rgb(143, 149, 154)") {
+							$.ajax({
+								url: "/delReview.userMyPage",
+								data: { gym_seq: $(this).closest(".review_card").find(".review_seq").val() },
+								type: "POST",
+							});
+							$(this).css("color", "#CF0C00");
+						} else {
+							//즐겨찾기 취소
+							$(this).css("color", "#8f959a")
+						}
+					});
 
-						let gym_card = $("<div>");
-						gym_card.addClass("gym_card");
+					/////////////////////////////////////// My 리뷰 ///////////////////////////////////////////////////////////////////
 
 
-						let gym_img = $("<img>");
-						let gym_text = $("<span>");
-						let heart = $("<i>");
-
-
-						gym_img.addClass("gym_img").attr("src", "/resource/main.jpg");
-						a_img.append(gym_img);
-						gym_text.addClass("gym_text").text("testtesttest");
-						a_img.append(gym_text);
-						heart.addClass("fa-solid fa-heart fa-xl heart");
-
-						heart.on("click", function () {
-							if ($(this).css("color") == "rgb(143, 149, 154)") {
-								$(this).css("color", "#CF0C00");
-							} else {
-								$(this).css("color", "#8f959a")
+					// 리뷰 X 버튼 이벤트
+					$(".del_review_btn").on("click", function () {
+						$.ajax({
+							url: "/delReview.userMyPage",
+							data: { review_seq : $(this).closest(".review_card").find(".review_seq").val() },
+							type: "POST",
+							success:function () {
+								$(this).closest(".review_card").remove();
 							}
 						});
+					});
 
-						gym_card.append(a_img).append(a_text).append(heart);
-						$("#gym_cards_box").append(gym_card);
-					};
+					//리뷰 상세페이지로 이동
+					$(".review_detail_starter").on("click", function () {
+						$(this).closest(".review_card").find("form").submit();
+					});
 
-
-					// 리뷰
-					$(".del_review_btn").on("click")
-					function createReviewCard(review) {
-						let review_card = $("<div>").addClass("col-6 review_card p-1");
-						let border = $("<div>").addClass("border p-1");
-						let row = $("<div>").addClass("row");
-						let review_gymName = $("<div>").addClass("col-10 review_gymName");
-						let modify_col = $("<div>").addClass("col-1");
-
-						/*modify link*/
-						let modify_a = $("<a>").addClass("modify_review_btn").attr("href", "#");
-
-						let modify_icon = $("<i>").addClass("fa-regular fa-pen-to-square");
-						let del_col = $("<div>").addClass("col-1 text-start");
-						let del_icon = $("<i>").addClass("fa-solid fa-x del_review_btn").on("click", function () {
-							$.ajax({
-								//del Controller
-							}).done(
-								function (response) {
-									$(this).closest(".review_card").remove();
-								}
-							);
-						});
-						let hr = $("<hr>");
-						let review_text = $("<div>").addClass("review_text");
-						let span = $("<span>");
-
-
-						$("#review_cards_area").append(review_card.append(
-							border.append(
-								row.append(
-									review_gymName.append("매장명")
-								).append(
-									modify_col.append(
-										modify_a.append(
-											modify_icon
-										)
-									)
-								).append(
-									del_col.append(
-										del_icon
-									)
-								)
-							).append(
-								hr
-							).append(
-								review_text.append("일부 내용")
-							)
-						)
-						)
-					};
-
-
-
+					// 개인정보 수정 폼 닫기
+					$("#close_private").click(() => {
+						$("#form_pw").css("display", "none");
+						$("#pw1").val("");
+						$("#pw2").val("");
+						$("#sign_down_btn_area").css("display", "block");
+						$("#sign_down_confirm").css("display", "none");
+					});
 
 					//회원 탈퇴
 					function signDown() {
@@ -380,7 +448,7 @@
 						$("#sign_down_confirm").css("display", "none");
 					});
 					$("#confirm_y").click(function () {
-						///////
+						$("#sugn_down_form").submit();
 					});
 
 					// 개인 정보 수정 버튼 동작
@@ -396,7 +464,7 @@
 						$("#pw_confirm").html("");
 					});
 
-					let pwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
+					let pwRegex_mypage = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 					// 비밀번호 저장 버튼 이벤트
 					$("#pw_save_btn").on("click", () => {
 						// regex Exception
@@ -406,7 +474,7 @@
 							$("#pw1").val("").focus();
 							return false;
 						}
-						if (!pwRegex.test($("#pw1").val())) {
+						if (!pwRegex_mypage.test($("#pw1").val())) {
 							wobble(document.getElementById("pw1"));
 							$("#pw_confirm").html("입력이 옳바르지 않습니다.");
 							$("#pw1").val("").focus();
@@ -421,7 +489,6 @@
 							return false;
 						}
 						//submit
-
 						$("#form_pw").submit();
 					});
 

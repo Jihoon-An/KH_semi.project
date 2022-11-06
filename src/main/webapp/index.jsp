@@ -3,39 +3,40 @@
 
 		<%@ include file="/layout/header.jsp" %>
 
-			<!-- 회원가입 모달 -->
-			<%@ include file="/user/signup.jsp" %>
 			
 			<!-- Site Main -->
 			<main id="index">
 				<section>
 					<form action="/search.gym" id="form_search">
-						<div class="mainimg zoom-a type-a mb-5">
+					
+						<div class="wrap">
+							<div class="mainimg bg type-b"></div>
 							<div class="containerbox">
-								<div class="search_main" data-aos="zoom-out" data-aos-easing="linear"
-									data-aos-duration="1000">
-									<div class="search_main_span">
-										<span style="font-weight: lighter;">Your</span> <span
-											style="font-weight: bold;">Needs</span> <span
-											style="font-weight: lighter;">For</span> <span
-											style="font-weight: bold;">Fitness</span>
+									<div class="search_main" data-aos="zoom-out" data-aos-easing="linear"
+										data-aos-duration="1000">
+										<div class="search_main_span">
+											<span style="font-weight: lighter;">Your</span> <span
+												style="font-weight: bold;">Needs</span> <span
+												style="font-weight: lighter;">For</span> <span
+												style="font-weight: bold;">Fitness</span>
+										</div>
+										<div class="search_main_input">
+											<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
+												name="keyword">
+										</div>
+										<i class="fa-solid fa-magnifying-glass" id="btn_search"></i>
 									</div>
-									<div class="search_main_input">
-										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
-											name="keyword">
-									</div>
-									<i class="fa-solid fa-magnifying-glass" id="btn_search"></i>
 								</div>
-							</div>
 						</div>
+						
 					</form>
 				</section>
 
 
 				<div class="containerbox" align="center">
 					<section class="row justify-content-center review">
-						<div class="text_title col-12 mt-5 mb-5">베스트 리뷰</div>
-						<hr>
+						<h1 class="text_title col-12 mt-5 mb-5">베스트 리뷰</h1>
+						
 						<div class="col-12 carousel">
 							<div class="prevBox">
 								<i class="fa-solid fa-play prev"></i>
@@ -66,16 +67,16 @@
 								<i class="fa-solid fa-play next"></i>
 							</div>
 						</div>
-						<hr>
+						
 					</section>
 					<section class="row justify-content-evenly ads mb-5">
-						<div class="text_title col-12 mt-5 mb-5">헬스용품 배너</div>
-						<hr>
+						<h1 class="text_title col-12 mt-5 mb-5">헬스용품 배너</h1>
+						
 						<div class="col-5 banner gy-5">배너</div>
 						<div class="col-5 banner gy-5">배너</div>
 						<div class="col-5 banner gy-5">배너</div>
 						<div class="col-5 banner gy-5">배너</div>
-						<hr class="mt-5">
+						
 					</section>
 				</div>
 			</main>

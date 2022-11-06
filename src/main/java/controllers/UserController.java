@@ -1,8 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,7 +24,6 @@ public class UserController extends HttpServlet {
 
 		Common.setUtf8(request, response);
 		String uri = request.getRequestURI();
-		
 		try {
 			switch (uri) {
 
@@ -57,22 +54,20 @@ public class UserController extends HttpServlet {
 
 			// 회원가입 요청
 			case "/sign.user":
-				
-				break;
-
-			// 사업자 회원가입 요청
-			case "/bsSign.user":
+				// GET 요청 시 에러페이지로 넘김
+				if (request.getMethod().equals("GET")) {
+					response.sendRedirect("/error.jsp");
+					return;
+				}
+				response.getWriter().append(String.valueOf(this.isUserSignUp(request, response)));
 				break;
 
 			// 아이디 중복체크 요청
 			case "/duplCheck.user":
-				response.getWriter().append(String.valueOf(this.isDuplCheck(request, response)));
+				response.getWriter().append(String.valueOf(this.isUserDuplCheck(request, response)));
 				break;
 			}
 
-			if (uri.equals("/search.user")) {
-
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -89,8 +84,7 @@ public class UserController extends HttpServlet {
 //		boolean req_bs = request.getParameter("login_bs").equals("true") ? true : false;
 		List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 		if (!list.isEmpty()) {
-//			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
-			if (req_pw.equals(list.get(0).getPw())) {
+			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
 				// 로그인 성공
 				request.getSession().setAttribute("userSeq", list.get(0).getSeq());
 				return true;
@@ -102,7 +96,7 @@ public class UserController extends HttpServlet {
 		}
 		return false;
 	}
-
+	
 	protected String getSearchId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_name = request.getParameter("name");
 		String req_phone = request.getParameter("phone");
@@ -115,8 +109,15 @@ public class UserController extends HttpServlet {
 		return UserDAO.getInstance().searchPw(req_email, req_phone);
 	}
 	
-	protected boolean isDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String req_email = request.getParameter("user_email");
+	protected boolean isUserDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("users_email");
 		return UserDAO.getInstance().isUserEmailCheck(req_email);
+	}
+	
+	protected int isUserSignUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("users_email");
+		String req_pw = request.getParameter("users_pw_re");
+		String req_phone = request.getParameter("users_phone");
+		return UserDAO.getInstance().isUserSignUp(req_email, Common.getSHA512(req_pw), req_phone);
 	}
 }

@@ -11,11 +11,7 @@ public class Dao {
 
     private static Dao instance;
 
-    synchronized public static
-
-
-
-    Dao getInstance() {
+    synchronized public static Dao getInstance() {
         if (instance == null) {
             instance = new Dao();
         }

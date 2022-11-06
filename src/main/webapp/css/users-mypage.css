@@ -85,7 +85,7 @@
 #users-mypage .gym_img {
     width: 260px;
     height: 260px;
-    cursor: default;
+    cursor: pointer;
 }
 
 
@@ -151,6 +151,7 @@
     padding-left: 30px;
     padding-bottom: 5px;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 #users-mypage .review_text {
@@ -164,6 +165,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
 }
 
 #users-mypage hr {
