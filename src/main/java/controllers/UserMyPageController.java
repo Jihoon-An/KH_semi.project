@@ -1,10 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
-import dao.FavoritesDAO;
-import dao.GymDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
+import dao.*;
 import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
@@ -140,8 +137,9 @@ public class UserMyPageController extends ControllerAbs {
         // 즐겨찾기 테이블 삭제
         FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
         // 헬스장 회원 테이블 삭제
-
+        MembershipDAO.getInstance().deleteByUserSeq(userSeq);
         // 캘린더 테이블 삭제
+        
         // 운동기록 테이블 삭제
         //
     }
