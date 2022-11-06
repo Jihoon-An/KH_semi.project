@@ -3,139 +3,140 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/layout/header.jsp"%>
 
-    <main id="bs_sign">
-    <form id="form_bs_sign" method="post" enctype="multipart/form-data">
-        <div class="main_margin_85"></div>
-        <div class="container" align="center">
-            <!-- 사업자 회원가입 폼 -->
-            
-                <div class="row justify-content-center">
+<main id="bs_sign">
+	<form id="form_bs_sign" method="post" enctype="multipart/form-data">
+		
+		<div class="container" align="center">
+			<!-- 사업자 회원가입 폼 -->
 
-                    <div class="col-12">
-                        <h1>사업자 회원가입</h1>
-                    </div>
+			<div class="row justify-content-center">
 
 				<div class="col-12">
+
 					<div class="bs_sign_box row justify-content-center">
 						<div class="col-12">
-							<div class="text-start" style="width: 250px">
+							<h1>사업자 회원가입</h1>
+						</div>
+
+						<div class="col-12 gy-5">
+							<div class="text-start" style="width: 350px">
 								<p class="text_title">사업자정보</p>
 							</div>
 						</div>
 
 						<div class="col-12 gy-3">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">이메일</span>
 							</div>
 							<input type="text" name="bs_email" id="bs_email"
 								placeholder="이메일을 입력하세요" maxlength="25">
 						</div>
 						<div class="col-12 gy-2">
-							<div class="error_msg text_mini text-start" style="width: 250px">
+							<div class="error_msg text_mini text-start" style="width: 350px">
 								<span class="error_msg_display" id="bs_email_msg"></span>
 							</div>
 						</div>
 
 
 						<div class="col-12 gy-4">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">비밀번호</span>
 							</div>
 							<input type="password" name="bs_pw" id="bs_pw"
 								placeholder="비밀번호를 입력하세요" maxlength="16">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">비밀번호 확인</span>
 							</div>
 							<input type="password" name="bs_pw_re" id="bs_pw_re"
 								placeholder="동일 비밀번호를 입력하세요" maxlength="16">
 						</div>
 						<div class="col-12 gy-2">
-							<div class="error_msg text_mini text-start" style="width: 250px">
+							<div class="error_msg text_mini text-start" style="width: 350px">
 								<span class="error_msg_display" id="bs_pw_re_msg"></span>
 							</div>
 						</div>
 
 						<div class="col-12 gy-4">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">담당자이름</span>
 							</div>
 							<input type="text" name="bs_name" id="bs_name"
 								placeholder="이름을 입력하세요" maxlength="5"
 								oninput="this.value = this.value.replace(/[^ㄱ-ㅎ가-힣A-Za-z.]/g, '').replace(/(\..*)\./g, '$1');">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">담당자연락처</span>
 							</div>
 							<input type="text" name="bs_phone" id="bs_phone"
 								placeholder="연락처를 입력하세요" maxlength="11" oninput=validNum()>
 						</div>
 						<div class="col-12 gy-2">
-							<div class="error_msg text_mini text-start" style="width: 250px">
+							<div class="error_msg text_mini text-start" style="width: 350px">
 								<span class="error_msg_display" id="bs_phone_msg"></span>
 							</div>
 						</div>
 
 
 						<div class="col-12 gy-4">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">사업자번호</span>
 							</div>
 							<input type="text" name="bs_number" id="bs_number"
 								placeholder="사업자번호 숫자만 입력하세요" maxlength="10" oninput=validNum()>
-							<div class="text-start" class="text-start" style="width: 250px">
+							<div class="text-start" class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">사업자등록증</span>
 							</div>
 
 
-							<div class="filebox text-start" style="width: 250px">
-								<label for="file" class="bs_regl_name"> 이미지를 업로드하세요 </label> 
-								<input type="file" name="file" id="file" style="display: none" class="bs_regl_hidden" multiple>
+							<div class="filebox text-start" style="width: 350px">
+								<label for="file" class="bs_regl_name"> 이미지를 업로드하세요 </label> <input
+									type="file" name="file" id="file" style="display: none"
+									class="bs_regl_hidden" multiple>
 							</div>
 						</div>
 
 						<div class="col-12 gy-2">
-							<div class="error_msg text_mini text-start" style="width: 250px">
+							<div class="error_msg text_mini text-start" style="width: 350px">
 								<span class="error_msg_display" id="bs_number_msg"></span>
 							</div>
 						</div>
 
-
-					</div>
-				</div>
-
-				<div class="col-12">
-					<div class="bs_sign_box row gy-3">
-						<div class="col-12">
-							<div class="text-start" style="width: 250px">
+						
+						
+						<div class="col-12 gy-5 gymtitle">
+							<div class="text-start" style="width: 350px">
 								<p class="text_title">시설정보</p>
 							</div>
 						</div>
 
 						<div class="col-12 gy-3">
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">시설명</span>
 							</div>
 							<input type="text" name="gym_name" class="gym_name"
 								placeholder="시설명을 입력하세요" maxlength="20">
 
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">시설연락처</span>
 							</div>
 							<input type="text" name="gym_phone" class="gym_phone"
 								placeholder="연락처를 입력하세요" maxlength="11" oninput=validNum()>
 
-							<div class="text-start" class="text-start" style="width: 250px">
+							<div class="text-start" class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">시설주소</span>
 							</div>
 
 							<div class="zipcodebox text-start" class="text-start"
-								style="width: 250px">
+								style="width: 350px">
 								<label className="gym_address1-button" for="gym_address1"
 									class="lb_gym_address1"> 우편번호를 검색하세요 </label> <input
-									type="button" name="gym_address1" class="gym_address1"
+									type="text" name="gym_address1" class="gym_address1"
+									style="display: none"> <input type="text" name="gym_x"
+									style="display: none"><input type="text" name="gym_y"
 									style="display: none">
+
 							</div>
 
-							<div class="text-start" style="width: 250px">
+							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">시설상세주소</span>
 							</div>
 							<input type="text" name="gym_address2" class="gym_address2"
@@ -143,36 +144,37 @@
 						</div>
 
 						<div class="col-12 gy-2">
-							<div class="error_msg text_mini text-start" style="width: 250px">
+							<div class="error_msg text_mini text-start" style="width: 350px">
 								<span class="error_msg_display gym_msg"></span>
 							</div>
 						</div>
 
 
 					</div>
+
 				</div>
 
 
 				<div class="col-12 gy-4">
-                        <button type="button" class="btn_outline" id="btn_gym_add">시설추가</button>
-                        <p style="color: #808080;" class="text_mini">시설 추가를 원하시면 버튼을 눌러
-                            추가 정보를 입력해주세요.</p>
-                    </div>
+					<button type="button" class="btn_outline" id="btn_gym_add">시설추가</button>
+					<p style="color: #808080;" class="text_mini">시설 추가를 원하시면 버튼을 눌러
+						추가 정보를 입력해주세요.</p>
+				</div>
 
 
 
-                    <div class="col-12 gy-4">
-                        <button type="button" class="btn_base" id="btn_bs_sign">회원가입</button>
-                    </div>
+				<div class="col-12 gy-4">
+					<button type="button" class="btn_base" id="btn_bs_sign">회원가입</button>
+				</div>
 
-                </div>
-            
+			</div>
 
-        </div>
 
-</form>
+		</div>
 
-        <script>
+	</form>
+
+	<script>
 
             // input 칸에 숫자 외에 입력 안되게 막기
             function validNum() {
@@ -194,7 +196,7 @@
                         $(this).closest(".gym_add_box_main").remove();
                     });
                     add_box.append(delBtn);
-                    add_box.append("<div class='col-12'><div class='text-start' style='width:250px'><p class='text_title'>추가시설</p></div></div><div class='col-12 gy-3'><div class='text-start' style='width:250px'><span style='color:#808080; font-size:x-small'>시설명</span></div><input type='text' name='gym_name' class='gym_name' placeholder='시설명을 입력하세요' maxlength='20'><div class='text-start' style='width:250px'><span style='color:#808080; font-size:x-small'>시설연락처</span></div><input type='text' name='gym_phone' class='gym_phone' placeholder='연락처를 입력하세요' maxlength='11' oninput=validNum()><div class='text-start' class='text-start' style='width:250px'><span style='color:#808080; font-size:x-small'>시설주소</span></div><div class='zipcodebox text-start' class='text-start' style='width:250px'><label className='gym_address1-button' for='gym_address1' class='lb_gym_address1'> 우편번호를 검색하세요</label><input type='button' name='gym_address1' class='gym_address1' style='display:none'></div><div class='text-start' style='width:250px'><span style='color:#808080; font-size:x-small'>시설상세주소</span></div><input type='text' name='gym_address2' class='gym_address2' placeholder='시설상세주소를 입력하세요' maxlength='40'></div><div class='col-12 gy-2'><div class='error_msg text_mini text-start' style='width:250px'><span class='error_msg_display gym_msg'></span></div></div>")
+                    add_box.append("<div class='col-12'><div class='text-start' style='width:350px'><p class='text_title'>추가시설</p></div></div><div class='col-12 gy-3'><div class='text-start' style='width:350px'><span style='color:#808080; font-size:x-small'>시설명</span></div><input type='text' name='gym_name' class='gym_name' placeholder='시설명을 입력하세요' maxlength='20'><div class='text-start' style='width:350px'><span style='color:#808080; font-size:x-small'>시설연락처</span></div><input type='text' name='gym_phone' class='gym_phone' placeholder='연락처를 입력하세요' maxlength='11' oninput=validNum()><div class='text-start' class='text-start' style='width:350px'><span style='color:#808080; font-size:x-small'>시설주소</span></div><div class='zipcodebox text-start' class='text-start' style='width:350px'><label className='gym_address1-button' for='gym_address1' class='lb_gym_address1'>우편번호를 검색하세요</label><input type='text' name='gym_address1' class='gym_address1' style='display:none'><input type='text' name='gym_x' style='display: none'><input type='text' name='gym_y' style='display: none'></div><div class='text-start' style='width:350px'><span style='color:#808080; font-size:x-small'>시설상세주소</span></div><input type='text' name='gym_address2' class='gym_address2' placeholder='시설상세주소를 입력하세요' maxlength='40'></div><div class='col-12 gy-2'><div class='error_msg text_mini text-start' style='width:350px'><span class='error_msg_display gym_msg'></span></div></div>")
                     add_box_main.hide();
 
                     $("#btn_gym_add").before(add_box_main);
@@ -231,32 +233,18 @@
                         }
 
                         e.target.innerHTML = roadAddr;
-                        $(e.target).siblings("input[name=gym_address1]").val(roadAddr);
+                        $(e.target).siblings("input[name='gym_address1']").attr("value",roadAddr);
 
-                        console.log($(".gym_address1").val());
-                        console.log($(".gym_address2").val());
 
                         var geocoder = new kakao.maps.services.Geocoder();
 
                         var callback = function (result, status) {
                             if (status === kakao.maps.services.Status.OK) {
-                                var gym_x = result[0].x;
-                                var gym_y = result[0].y;
-
-                                console.log(gym_x);
-                                console.log(gym_y);
-
-                                $.ajax({
-                                    url: "/sign.bs",
-                                    type: "post",
-                                    data: {
-                                        "gym_x": gym_x,
-                                        "gym_y": gym_y
-                                    },
-                                    success: function (data) {
-                                        console.log("x,y값 잘 전달됨");
-                                    }
-                                });
+                                result[0].x;
+                                result[0].y;
+                                
+                                $(e.target).siblings("input[name='gym_x']").val(result[0].x);
+                                $(e.target).siblings("input[name='gym_y']").val(result[0].y);
 
                             }
                         };
@@ -322,11 +310,8 @@
                 $(this).siblings('.bs_regl_name').html(filename);
                 $(this).find('#file').val(filename);
 
-                console.log($("#file").val());
-
             });
 
-            console.log($("#file").val());
             
             // 떨림 애니메이션
             function wobble(element) {
@@ -337,9 +322,20 @@
             }
 
             // 유효성 검사 (공백 확인)
-            function isFilled(elements) {
+            function isBsFilled(elements) {
                 for (i = 0; i < elements.length; i++) {
                     if (elements[i].value == "") {
+                        wobble(elements[i]);
+                        elements[i].focus();
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+            function isBsFilledLb(elements) {
+                for (i = 0; i < elements.length; i++) {
+                    if (elements[i].html == "") {
                         wobble(elements[i]);
                         elements[i].focus();
                         return false;
@@ -374,52 +370,6 @@
                       processData: false
                     });
                     
-            	
-               // $.post("/sign.bs", $("#form_bs_sign").serialize())
-               //     .done((res) => {
-               //         if (res == "true") {
-               //            Swal.fire({ title: "Success!", icon: "success", text: "회원가입이 되었습니다" })
-               //                .then((result) => {
-               //                    if (result.isConfirmed) { location.reload(); }
-               //               });
-               //        } else {
-               //           Swal.fire({ title: "Error", icon: "error", text: "오류입니다. 관리자에게 문의해주세요" });
-               //        }
-               //   });
-                
-
-                // // 시설 정보 배열로 받기
-
-                // var gymNameValues = [];
-                // var gymPhoneValues = [];
-                // var gymAddress1Values = [];
-                // var gymAddress2Values = [];
-
-                // $("input[name='gym_name']").each(function (i) {
-                //     gymNameValues.push($(this).val());
-                // });
-                // $("input[name='gym_phone']").each(function (i) {
-                //     gymPhoneValues.push($(this).val());
-                // });
-                // $("input[name='gym_address1']").each(function (i) {
-                //     gymAddress1Values.push($(this).val());
-                // });
-                // $("input[name='gym_address2']").each(function (i) {
-                //     gymAddress2Values.push($(this).val());
-                // });
-
-                // var allData = { "gym_name": gymNameValues, "gym_phone": gymPhoneValues, "gym_location": gymAddress1Values + " " };
-
-                // $.ajax({
-                //     url : "/sign.bs",
-                //     type : "post",
-                //     data : JSON.stringify(allData),
-                //     dataType: "JSON",
-                //     success : function (data) {
-                //         alert("success")
-                //     }
-                // });
-
             }
 
             // 버튼 이벤트
@@ -432,9 +382,16 @@
                 }
                 else if ($("#bs_phone_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_phone")[0]); $("#bs_phone").focus(); }
                 else if ($("#bs_number_msg").css("color") == "rgb(255, 0, 0)") { wobble($("#bs_number")[0]); $("#bs_number").focus(); }
-
+				
                 else {
-                    if (isFilled($("#bs_email", "#bs_pw", "#bs_pw_re", "#bs_name", "#bs_phone", "#bs_number", "#file", ".gym_name", ".gym_phone", ".gym_address1", ".gym_address2"))) { tryBsSign(); }
+                	isBsFilledLb($(".bs_regl_name"));
+                	
+                	
+            //        if (isBsFilled($("#bs_email, #bs_pw, #bs_pw_re, #bs_name, #bs_phone, #bs_number")) && isBsFilledLb($(".bs_regl_name"))
+            //        		&& isBsFilled($(".gym_name, .gym_phone")) 
+            //        		&& isBsFilledLb($(".lb_gym_address1"))
+            //        		&& isBsFilled($(".gym_address2")) 
+            //        ) { tryBsSign(); }
                 }
             });
 
@@ -463,7 +420,6 @@
                         url: "/duplCheck.bs",
                         data: { "bs_email": email }
                     }).done(function (resp) {
-                        console.log(resp);
                         if (resp == "true") { // 아이디가 이미 존재하므로 사용할 수 없는 경우
                             $("#bs_email_msg").css("display", "block");
                             $("#bs_email_msg").css("color", "red");
@@ -615,6 +571,6 @@
 
 
         </script>
-    </main>
+</main>
 
 <%@ include file="/layout/footer.jsp"%>
