@@ -16,9 +16,9 @@ public class ReviewDTO {
     private int bs_seq;
     private String review_writer;
     private String review_contents;
-    private int reveiw_like;
+    private int review_like;
     private Timestamp review_writer_date;
-    private String reivew_check1;
+    private String review_check1;
     private String review_check2;
     private String review_check3;
     private String review_check4;
@@ -81,12 +81,12 @@ public class ReviewDTO {
         this.review_contents = review_contents;
     }
 
-    public int getReveiw_like() {
-        return reveiw_like;
+    public int getReview_like() {
+        return review_like;
     }
 
-    public void setReveiw_like(int reveiw_like) {
-        this.reveiw_like = reveiw_like;
+    public void setReview_like(int review_like) {
+        this.review_like = review_like;
     }
 
     public Timestamp getReview_writer_date() {
@@ -97,12 +97,12 @@ public class ReviewDTO {
         this.review_writer_date = review_writer_date;
     }
 
-    public String getReivew_check1() {
-        return reivew_check1;
+    public String getReview_check1() {
+        return review_check1;
     }
 
-    public void setReivew_check1(String reivew_check1) {
-        this.reivew_check1 = reivew_check1;
+    public void setReview_check1(String review_check1) {
+        this.review_check1 = review_check1;
     }
 
     public String getReview_check2() {
@@ -139,7 +139,7 @@ public class ReviewDTO {
 
 
     public ReviewDTO(int review_seq, int user_seq, int gym_seq, int bs_seq, String review_writer,
-                     String review_contents, int reveiw_like, Timestamp review_writer_date, String reivew_check1,
+                     String review_contents, int review_like, Timestamp review_writer_date, String review_check1,
                      String review_check2, String review_check3, String review_check4, String review_check5) {
         super();
         this.review_seq = review_seq;
@@ -148,9 +148,9 @@ public class ReviewDTO {
         this.bs_seq = bs_seq;
         this.review_writer = review_writer;
         this.review_contents = review_contents;
-        this.reveiw_like = reveiw_like;
+        this.review_like = review_like;
         this.review_writer_date = review_writer_date;
-        this.reivew_check1 = reivew_check1;
+        this.review_check1 = review_check1;
         this.review_check2 = review_check2;
         this.review_check3 = review_check3;
         this.review_check4 = review_check4;
@@ -195,9 +195,9 @@ public class ReviewDTO {
         this.bs_seq = resultSet.getInt("bs_seq");
         this.review_writer = resultSet.getString("review_writer");
         this.review_contents = resultSet.getString("review_contents");
-        this.reveiw_like = resultSet.getInt("review_like");
+        this.review_like = resultSet.getInt("review_like");
         this.review_writer_date = resultSet.getTimestamp("review_writer_date");
-        this.reivew_check1 = resultSet.getString("review_check1");
+        this.review_check1 = resultSet.getString("review_check1");
         this.review_check2 = resultSet.getString("review_check2");
         this.review_check3 = resultSet.getString("review_check3");
         this.review_check4 = resultSet.getString("review_check4");
