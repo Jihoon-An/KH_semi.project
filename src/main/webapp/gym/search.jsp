@@ -12,10 +12,10 @@
 			<form onsubmit="searchPlaces(); return false;" id="mainForm">
 				<div class="search_main">
 					<div class="search_main_span">
-						<span style="font-weight: 100;">Your</span> <span
-							style="font-weight: 700;">Needs</span> <span
-							style="font-weight: 100;">For</span> <span
-							style="font-weight: 700;">Fitness</span>
+						<span style="font-weight: 100;">Your</span> 
+						<span style="font-weight: 700;">Needs</span>
+						<span style="font-weight: 100;">For</span> 
+						<span style="font-weight: 700;">Fitness</span>
 					</div>
 						<div class="search_main_input">
 							<input type="text" id="keyword"
@@ -35,34 +35,75 @@
 			</form>
 			<!-- 검색 리스트 네비 -->
 			<div class="searchListNav">
-				<div class="search_sub">
-					<div class="search_sub_input">
-						<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요.">
+				<form action="/gym.search" id="subForm">
+					<div class="search_sub">
+						<div class="search_sub_input">
+							<input type="text" id="searchInput" 
+								placeholder="지역명 또는 헬스장명을 검색해보세요.">
+						</div>
+						<div class="search_sub_icon">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</div>
 					</div>
-					<div class="search_sub_icon">
-						<i class="fa-solid fa-magnifying-glass"></i>
+					<div class="search_sub_filter">
+						<div class="search_tag_icon" style="margin-left: 37px;">
+							<img src="/resource/filter.png" alt="">
+						</div>
+						<div class="search_tag" style="margin-left: 5px;">
+							<label for="" class="filter_open filter">#24시간</label>
+						</div>
+						<div class="search_tag" style="margin-left: 5px;">
+							<label for="" class="filter_locker filter">#라커</label>
+						</div>
+						<div class="search_tag" style="margin-left: 5px;">
+							<label for="" class="filter_shower filter">#샤워실</label>
+						</div>
+						<div class="search_tag" style="margin-left: 5px;">
+							<label for="" class="filter_park filter">#주차장</label>
+						</div>
 					</div>
-				</div>
+				</form>
+				
+				<script>
+					$("#searchInput").on("keyup", function(e){
+						if(e.keyCode == 13) {
+							$("#subForm").submit();
+						};
+					});
+				</script>
 
-				<div class="search_sub_filter">
-					<div class="search_tag_icon" style="margin-left: 37px;">
-						<img src="/resource/filter.png" alt="">
-					</div>
-					<div class="search_tag" style="margin-left: 5px;">
-						<label for="" class="filter_open filter">#24시간</label>
-					</div>
-					<div class="search_tag" style="margin-left: 5px;">
-						<label for="" class="filter_locker filter">#라커</label>
-					</div>
-					<div class="search_tag" style="margin-left: 5px;">
-						<label for="" class="filter_shower filter">#샤워실</label>
-					</div>
-					<div class="search_tag" style="margin-left: 5px;">
-						<label for="" class="filter_park filter">#주차장</label>
-					</div>
 
-				</div>
 
+
+				<c:forEach var="gymList" items="${gymList}">
+					<div class="gym_list">
+						<div class="gym_list_logo">
+							<img
+								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
+						</div>
+						<div class="gym_list_article">
+							<div class="gym_list_title">
+								<a href="">${gymList.gym_name }</a>
+							</div>
+							<div class="gym_list_location">
+								<span>${gymList.gym_location }</span>
+							</div>
+							<div class="gym_list_phone">
+								<span>${gymList.gym_phone }</span>
+							</div>
+							<div class="gym_list_open">
+								<span>${gymList.gym_open } / ${gymList.gym_close }</span>
+							</div>
+							<div class="gym_list_tagBox">
+								<div class="gym_list_tag open btn_base">#24시간</div>
+								<div class="gym_list_tag locker btn_base">#라커</div>
+								<div class="gym_list_tag shower btn_base">#샤워실</div>
+								<div class="gym_list_tag park btn_base">#주차장</div>
+							</div>
+						</div>
+					</div>				
+				</c:forEach>
+				
 				<div class="gym_list">
 					<div class="gym_list_logo">
 						<img
@@ -227,17 +268,17 @@
                 latlng: new kakao.maps.LatLng(37.567705541547866, 126.98238168043521)
             } 
         ];
-
+		
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "/resource/ping.png"; 
             
         for (var i = 0; i < positions.length; i ++) {
             
             // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new kakao.maps.Size(65, 70); 
+            var imageSize = new kakao.maps.Size(64, 69);
             
             // 마커 이미지를 생성합니다    
-            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             
             // 마커를 생성합니다
             var marker = new kakao.maps.Marker({

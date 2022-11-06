@@ -1,10 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
-import dao.FavoritesDAO;
-import dao.GymDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
+import dao.*;
 import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
@@ -49,7 +46,7 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //회원 탈퇴
                 case "/signDown.userMyPage":
-
+                    this.signDown(request,response);
                     break;
                 //즐겨찾기 삭제
                 case "/delHeart.userMyPage":
@@ -128,5 +125,23 @@ public class UserMyPageController extends ControllerAbs {
         String pw = request.getParameter("pw");
         int userSeq = Integer.parseInt(request.getParameter("userSeq"));
         UserDAO.getInstance().updatePw(userSeq, pw);
+    }
+
+    protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        // userSeq 받아오기
+        int userSeq = (int)request.getSession().getAttribute("userSeq");
+        // 로그아웃
+        request.getSession().removeAttribute("userSeq");
+        // 유저 테이블 삭제
+        UserDAO.getInstance().deleteByUserSeq(userSeq);
+        // 즐겨찾기 테이블 삭제
+        FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
+        // 헬스장 회원 테이블 삭제
+        MembershipDAO.getInstance().deleteByUserSeq(userSeq);
+        // 캘린더 테이블 삭제
+        CalendarDAO.getInstance().deleteByUserSeq(userSeq);
+        // 운동기록 테이블 삭제
+
+        //
     }
 }

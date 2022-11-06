@@ -243,4 +243,15 @@ public class UserDAO extends Dao {
         }
     }
 
+    public void deleteByUserSeq(int userSeq) throws Exception{
+        String sql = "delete from users where users_seq = ?";
+        try(Connection connection = this.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, userSeq);
+            statement.executeUpdate();
+
+            connection.commit();
+        }
+    }
 }

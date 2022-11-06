@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 
 import dto.FavoritesDTO;
 
@@ -88,4 +84,16 @@ public class FavoritesDAO extends Dao {
             }
         }
     }
+
+	public void deleteByUserSeq(int userSeq) throws Exception{
+		String sql = "delete from favorites where user_seq = ?";
+		try(Connection connection = this.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+		){
+			statement.setInt(1, userSeq);
+
+			statement.executeUpdate();
+			connection.commit();
+		}
+	}
 }

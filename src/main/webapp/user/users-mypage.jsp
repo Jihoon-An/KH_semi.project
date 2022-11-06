@@ -3,7 +3,7 @@
 		<%@ include file="/layout/header.jsp" %>
 
 
-			<div class="main_margin_155 containerbox"></div>
+			<div class="main_margin_155 containerbox" style="height: 80px;"></div>
 			<!-- Site Main -->
 			<main class="containerbox" id="users-mypage">
 				<div class="row text-center">
@@ -187,6 +187,9 @@
 							<div>정말 탈퇴하시겠습니까?</div>
 							<button type="button" class="sign_down_confirm_btn" id="confirm_y">예</button>
 							<button type="button" class="sign_down_confirm_btn" id="confirm_n">아니오</button>
+							<form action="/signDown.userMyPage" id="sign_down_form">
+								<input type="hidden" value="${userSeq}">
+							</form>
 						</div>
 					</div>
 				</form>
@@ -445,7 +448,7 @@
 						$("#sign_down_confirm").css("display", "none");
 					});
 					$("#confirm_y").click(function () {
-						///////
+						$("#sugn_down_form").submit();
 					});
 
 					// 개인 정보 수정 버튼 동작
