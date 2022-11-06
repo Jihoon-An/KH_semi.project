@@ -16,6 +16,8 @@ public class UserDTO {
     private Timestamp signup;
     private String sex;
     private String interest;
+    private String pi;
+
 
     /**
      * resultSet째로 넣으면 데이터 넣어줌.
@@ -35,8 +37,16 @@ public class UserDTO {
         this.signup = resultSet.getTimestamp("users_signup");
         this.sex = resultSet.getString("sex");
         this.interest = resultSet.getString("interest");
+        this.pi = resultSet.getString("users_PI");
     }
 
+    public String getPi() {
+        return pi;
+    }
+
+    public void setPi(String pi) {
+        this.pi = pi;
+    }
     public String getSex() {
         return sex;
     }
