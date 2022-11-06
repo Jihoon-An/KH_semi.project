@@ -212,6 +212,11 @@
 
 				<script>
 					///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
+					
+					$("#user_img_in").on("input", function(){
+						console.log("testset");
+					});
+					
 					let profile_upload = $("#profile_upload");
 					profile_upload.on("click", function () {
 
@@ -448,7 +453,7 @@
 						$("#sign_down_confirm").css("display", "none");
 					});
 					$("#confirm_y").click(function () {
-						$("#sugn_down_form").submit();
+						$("#sign_down_form").submit();
 					});
 
 					// 개인 정보 수정 버튼 동작

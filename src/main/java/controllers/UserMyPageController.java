@@ -1,6 +1,8 @@
 package controllers;
 
 import com.google.gson.Gson;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.*;
 import dto.GymDTO;
 import dto.ReviewDTO;
@@ -10,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class UserMyPageController extends ControllerAbs {
                 // 페이지 띄우기
                 case "/page.userMyPage":
                     this.getPage(request, response);
-                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
+                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request, response);
                     break;
                 // 프로필 수정
                 case "/fixProfile.userMyPage":
@@ -41,24 +44,26 @@ public class UserMyPageController extends ControllerAbs {
                 //비밀번호 변경
                 case "/pw.userMyPage":
                     this.updatePw(request, response);
-                    this.getPage(request,response);
-                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request,response);
+                    this.getPage(request, response);
+                    request.getRequestDispatcher("/user/users-mypage.jsp").forward(request, response);
                     break;
                 //회원 탈퇴
                 case "/signDown.userMyPage":
-                    this.signDown(request,response);
+                    this.signDown(request, response);
+                    response.sendRedirect("/");
                     break;
                 //즐겨찾기 삭제
                 case "/delHeart.userMyPage":
-
                     break;
                 //즐겨찾기 다시 추가
                 case "/addHeart.userMyPage":
-
                     break;
                 //리뷰 삭제
                 case "/delReview.userMyPage":
-
+                    break;
+                //프로필 이미지(PI) 수정
+                case "/modifyPI.userMyPage":
+                    this.insertPI(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -78,7 +83,7 @@ public class UserMyPageController extends ControllerAbs {
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //test용 login seq 발행
         request.getSession().setAttribute("userSeq", 1);
-        
+
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // user 데이터 불러오기
         UserDTO user = UserDAO.getInstance().selectBySeq(userSeq);
@@ -102,10 +107,10 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     *  프로필 수정,
-     *  사진은 제외
+     * 프로필 수정,
+     * 사진은 제외
      */
-    protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDTO user = new UserDTO();
         Gson gson = new Gson();
         user.setSeq(Integer.parseInt(request.getParameter("userSeq")));
@@ -121,15 +126,15 @@ public class UserMyPageController extends ControllerAbs {
     /**
      * 비밀번호 변경
      */
-    protected void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    protected void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String pw = request.getParameter("pw");
         int userSeq = Integer.parseInt(request.getParameter("userSeq"));
         UserDAO.getInstance().updatePw(userSeq, pw);
     }
 
-    protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
-        int userSeq = (int)request.getSession().getAttribute("userSeq");
+        int userSeq = (int) request.getSession().getAttribute("userSeq");
         // 로그아웃
         request.getSession().removeAttribute("userSeq");
         // 유저 테이블 삭제
@@ -141,7 +146,27 @@ public class UserMyPageController extends ControllerAbs {
         // 캘린더 테이블 삭제
         CalendarDAO.getInstance().deleteByUserSeq(userSeq);
         // 운동기록 테이블 삭제
+        ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
+    }
 
-        //
+    protected void insertPI(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 최대 파일 크기
+        int maxSize = 1024 * 1024 * 10;
+
+        //경로 저장
+        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
+        File fileSavePath = new File(savePath);
+
+        // 폴더 생성
+        if (!fileSavePath.exists()) { //find directory
+            fileSavePath.mkdir();//make directory
+        }
+        // 파일 생성
+        MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
+        String sysName = multi.getFilesystemName("user_img_in");
+
+        int userSeq = (int)request.getSession().getAttribute("userSeq");
+
+//        UserDAO.getInstance().insertPi(userSeq, sysName);
     }
 }

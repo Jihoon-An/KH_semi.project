@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 
 public class MembershipDAO extends Dao{
 
-    protected MembershipDAO() {
+    private MembershipDAO() {
         super();
     }
 
