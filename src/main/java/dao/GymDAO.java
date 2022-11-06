@@ -43,6 +43,7 @@ public class GymDAO extends Dao {
     }
     
     
+    
 
     /**
      * 헬스장 정보 출력
