@@ -91,6 +91,8 @@
         // 회원가입 signupModal 열기
         function showSignupModal() {
             $("#signupModal").attr("style", "display:inline-flex");
+            $("#loginModal").attr("style", "display:none");
+            toBackward();
         }
         
      	// 회원가입 signupModal 닫기
@@ -142,7 +144,7 @@
             	wobble($("#users_phone")[0]); $("#users_phone").focus();
             
             } else {
-            	if (isFilled($("#users_email", "#users_pw", "#users_pw_re", "#users_phone"))) { trySign(); }
+            	if (isFilled($("#users_email, #users_pw, #users_pw_re, #users_phone"))) { trySign(); }
             }
 
         });

@@ -6,11 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
-import dto.BsUsersDTO;
 import dto.GymDTO;
 
 
@@ -26,7 +21,29 @@ public class GymDAO extends Dao {
         }
         return instance;
     }
-
+    
+    /**
+     * gym 테이블의 모든 컬럼 조회
+     * 
+     * @return List<GymDTO>
+     * @throws Exception
+     */
+    public List<GymDTO> selectAll() throws Exception {
+    	String sql = "select * from gym";
+    	List<GymDTO> result = new ArrayList<>();
+    	
+    	try(Connection con = getConnection();
+    			PreparedStatement pstat = con.prepareStatement(sql)) {
+    		
+    		ResultSet rs = pstat.executeQuery();
+    		
+    		while(rs.next()) { result.add( new GymDTO(rs) ); }
+    	}
+    	return result;
+    }
+    
+    
+    
 
     /**
      * 헬스장 정보 출력
