@@ -103,7 +103,7 @@
     	$.ajax({
     		url : "/usersDel.host",
     		type:"get",
-    		traditonal:true,
+    		datatype="json"
     		data:userseq
     	})
     })
