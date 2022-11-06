@@ -13,6 +13,11 @@ public class ExerciseDAO extends Dao{
         return (ExerciseDAO) Dao.getInstance();
     }
 
+    /**
+     * UserSeq로 Exercise 테이블 데이터 지우기
+     * @param userSeq
+     * @throws Exception
+     */
     public void deleteByUserSeq(int userSeq) throws Exception{
         String sql = "delete from exercise where user_seq = ?";
         try(Connection connection = this.getConnection();
