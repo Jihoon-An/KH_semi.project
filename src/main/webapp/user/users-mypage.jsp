@@ -214,6 +214,8 @@
 				<script>
 					///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 
+
+					var pi_check = false;
 					var sel_file;
 
 					$("#user_img_in").on("change", handleImgFileSelect);
@@ -239,10 +241,10 @@
 							reader.readAsDataURL(f);
 						});
 
-						
+						pi_check = true;
 					}
 
-
+					//이미지 저장
 					function fn_submit() {
 
 						var form = new FormData();
@@ -255,8 +257,7 @@
 							, contentType: false
 							, data: form
 							, success: function (response) {
-								alert("성공하였습니다.");
-								console.log(response);
+								console.log("프로필 변경에 성공하였습니다.");
 							}
 							, error: function (jqXHR) {
 								alert(jqXHR.responseText);
@@ -367,14 +368,17 @@
 					interests.forEach(inter => interestBase(inter));
 
 
-
-
 					// 프로필 영역 기본값
 					$(".modify_input").attr("disabled", "true");
 					$(".modify_btn").css("display", "none");
 					$("#profile_upload").css("cursor", "default");
 					$("#user_img_in").attr("disabled", "true");
 					$("sex_btn").css("cursor", "default");
+					// 프로필 이미지 초기 세팅
+					let root = "${user.pi}";
+					if(root != null){
+						$("#user_img").attr("src", root);
+					}
 					// 프로필 수정하기 버튼 클릭 이벤트
 					$("#modifyProfile").on("click", modifyProfile);
 					let modifyBtn = $("#modifyProfile");
@@ -429,7 +433,7 @@
 								console.log("success!!");
 							}
 						});
-						
+
 						modifyBtn.html("프로필 수정");
 						$(".modify_input").attr("disabled", "true");
 						$(".modify_btn").css("display", "none");
@@ -441,6 +445,9 @@
 						$("sex_btn").css("cursor", "default");
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
+						if (pi_check) {
+							fn_submit();
+						}
 					};
 
 					///////////////////////////////////// My 시설 ////////////////////////////////////////////////////
@@ -549,6 +556,8 @@
 
 					$("#sign_down_confirm").css("display", "none");
 					$("#form_pw").css("display", "none");
+
+
 				</script>
 			</main>
 

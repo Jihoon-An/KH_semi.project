@@ -37,7 +37,7 @@ public class UserDTO {
         this.signup = resultSet.getTimestamp("users_signup");
         this.sex = resultSet.getString("sex");
         this.interest = resultSet.getString("interest");
-        this.pi = resultSet.getString("users_PI");
+        this.pi = "/resource/profileImg/" + resultSet.getString("users_PI");
     }
 
     public String getPi() {
