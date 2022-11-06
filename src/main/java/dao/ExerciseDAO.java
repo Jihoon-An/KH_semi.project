@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 
 public class ExerciseDAO extends Dao{
 
-    protected ExerciseDAO() {
+    private ExerciseDAO() {
         super();
     }
 

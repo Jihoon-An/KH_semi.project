@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 
 public class CalendarDAO extends Dao{
 
-    protected CalendarDAO() {
+    private CalendarDAO() {
         super();
     }
     public static CalendarDAO getInstance(){

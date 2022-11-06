@@ -46,7 +46,7 @@ public class FavoritesDAO extends Dao {
 	    * @return
 	    * @throws Exception
 	    */
-		public int remove(int gym_seq) throws Exception{  // 즐찾 삭제
+		public int removeByGymSeq(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
