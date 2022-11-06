@@ -6,10 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 
 import dto.FavoritesDTO;
 
@@ -50,7 +46,7 @@ public class FavoritesDAO extends Dao {
 	    * @return
 	    * @throws Exception
 	    */
-		public int remove(int gym_seq) throws Exception{  // 즐찾 삭제
+		public int removeByGymSeq(int gym_seq) throws Exception{  // 즐찾 삭제
 			String sql = "delete from favorites where gym_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
@@ -88,4 +84,16 @@ public class FavoritesDAO extends Dao {
             }
         }
     }
+
+	public void deleteByUserSeq(int userSeq) throws Exception{
+		String sql = "delete from favorites where user_seq = ?";
+		try(Connection connection = this.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+		){
+			statement.setInt(1, userSeq);
+
+			statement.executeUpdate();
+			connection.commit();
+		}
+	}
 }

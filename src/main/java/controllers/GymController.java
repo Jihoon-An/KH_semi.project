@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -98,7 +97,7 @@ public class GymController extends ControllerAbs {
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
-			int result=dao.remove(gym_seq);
+			int result=dao.removeByGymSeq(gym_seq);
 	 
 	 }
 		 

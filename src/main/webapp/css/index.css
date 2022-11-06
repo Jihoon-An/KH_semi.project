@@ -76,7 +76,6 @@ nav {
 	font-weight: 600;
 }
 
-
 /* footer */
 
 #footer {
@@ -340,6 +339,11 @@ nav {
 	box-shadow: 1px 1px 5px 1px #C8C8C8;
 	border-radius: 6px;
 	transition: 0.5s
+}
+
+#index .item td {
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #index .item:hover {

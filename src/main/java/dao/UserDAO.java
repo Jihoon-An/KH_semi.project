@@ -155,7 +155,7 @@ public class UserDAO extends Dao {
      */
     public int isUserSignUp(String email, String pw, String phone) throws Exception {
 
-        String sql = "insert into users values(users_seq.nextval,?,?,null,?,null,sysdate,null,null)";
+        String sql = "insert into users values(users_seq.nextval,?,?,null,?,null,sysdate,null,null,null)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
@@ -225,8 +225,9 @@ public class UserDAO extends Dao {
 
     /**
      * 비밀번호 변경
+     *
      * @param userSeq
-     * @param pw 암호화 전의 PW
+     * @param pw      암호화 전의 PW
      * @throws Exception
      */
     public void updatePw(int userSeq, String pw) throws Exception {
@@ -243,4 +244,28 @@ public class UserDAO extends Dao {
         }
     }
 
+    public void deleteByUserSeq(int userSeq) throws Exception {
+        String sql = "delete from users where users_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, userSeq);
+            statement.executeUpdate();
+
+            connection.commit();
+        }
+    }
+
+    public void insertPi(int userSeq, String sysFile) throws Exception{
+        String sql = "update users set users_PI = ? where user_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, sysFile);
+            statement.setInt(2, userSeq);
+            statement.executeUpdate();
+
+            connection.commit();
+        }
+    }
 }
