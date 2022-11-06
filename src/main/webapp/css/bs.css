@@ -37,6 +37,7 @@
 	border: 0px;
 	border-bottom: 1px solid black;
 	color: #757575;
+	transition: 1s;
 }
 
 #bs_sign label:active {

@@ -88,6 +88,7 @@
 
 
 <script>
+
         // 회원가입 signupModal 열기
         function showSignupModal() {
             $("#signupModal").attr("style", "display:inline-flex");
@@ -98,14 +99,23 @@
      	// 회원가입 signupModal 닫기
 		function hideSignupModal() {
 			$("#signupModal").attr("style", "display:none");
+			
         	$("#users_email").val("");
         	$("#users_pw").val("");
         	$("#users_pw_re").val("");
         	$("#users_phone").val("");
-
-            $("#users_email_msg").css("display", "none");
+        	
+        	$("#users_email_msg").css("display", "none");
             $("#users_email_msg").css("color", "#001A41");
             $("#users_email_msg").html("이메일 형식을 아이디로 사용합니다");
+
+            $("#users_pw_re_msg").css("display", "none");
+            $("#users_pw_re_msg").css("color", "#001A41");
+            $("#users_pw_re_msg").html("특수문자를 포함한 8~16자리 입력해주세요");
+            
+            $("#users_phone_msg").css("display", "none");
+            $("#users_phone_msg").css("color", "#001A41");
+            $("#users_phone_msg").html("연락처는 - 를 제외한 숫자만 입력해주세요");
 		}
      	
         // ESC 누르면 signupModal 닫기
@@ -116,9 +126,8 @@
         //  회원가입 함수
         function trySign() {
         	$.post("/sign.user", $("#form_sign").serialize())
-                .done((res) => {
-                	console.log(res);
-                	if (res == "1") {
+                .done((resp) => {
+                	if (resp == "1") {
                         Swal.fire({ title: "Success!", icon: "success", text: "회원가입이 되었습니다."})
                             .then((result) => {
                                 if (result.isConfirmed) { location.reload(); }
@@ -142,7 +151,7 @@
             else if ($("#users_phone_msg").css("color") == "rgb(255, 0, 0)") { 
             	console.log($("#users_phone_msg").css("color"));
             	wobble($("#users_phone")[0]); $("#users_phone").focus();
-            
+            	
             } else {
             	if (isFilled($("#users_email, #users_pw, #users_pw_re, #users_phone"))) { trySign(); }
             }

@@ -36,13 +36,15 @@
 					<input type="hidden" name="login_bs" id="login_bs" value="false">
 					<input class="form-check-input" type="checkbox" id="chk_bs">
 					<label class="form-check-label" for="login_bs"
-						style="color: #404040; font-size: 14px; letter-spacing: -1px;">운영자 로그인</label>
+						style="color: #404040; font-size: 14px; letter-spacing: -1px;">운영자
+						로그인</label>
 				</div>
 				<div class="col-12 gy-4" style="letter-spacing: -1px;">
 					<span style="color: #404040;">계정이 없으신가요?</span> <a href="#"
 						onclick="showSignupModal(); return false;">회원가입</a>
 				</div>
-				<div class="col-12 gy-1" style="color: #808080; font-size: small; letter-spacing: -1px;">
+				<div class="col-12 gy-1"
+					style="color: #808080; font-size: small; letter-spacing: -1px;">
 					<a onclick="showSearch()">아이디 찾기</a> <span>/</span> <a
 						onclick="showSearch()">비밀번호 찾기</a>
 				</div>
