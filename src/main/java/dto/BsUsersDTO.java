@@ -1,5 +1,6 @@
 package dto;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class BsUsersDTO {
@@ -65,6 +66,18 @@ public class BsUsersDTO {
 		this.bs_signup = bs_signup;
 	}
 	
+	
+	
+	public BsUsersDTO(ResultSet resultSet) throws Exception {
+        this.bs_seq = resultSet.getInt("bs_seq");
+        this.bs_number = resultSet.getString("bs_number");
+        this.bs_email = resultSet.getString("bs_email");
+        this.bs_pw = resultSet.getString("bs_pw");
+        this.bs_name = resultSet.getString("bs_name");
+        this.bs_phone = resultSet.getString("bs_phone");
+        this.bs_signup = resultSet.getTimestamp("bs_signup");
+
+    }
 	
 	
 	public BsUsersDTO() {}

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.BsUsersDTO;
 import dto.UserDTO;
 
 public class UserDAO extends Dao {
@@ -167,8 +168,32 @@ public class UserDAO extends Dao {
             con.commit();
 
             return result;
-        }
-    }
+           }
+       }
+    /**
+     * 관리자 페이지 회원검색
+     * @param name
+     * @return
+     * @throws Exception
+     */
+	public List<UserDTO> searchUser(String name) throws Exception{
+		String sql = "select * from users where users_name like ?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				){
+			pstat.setString(1, "%"+name+"%");
+			try(ResultSet rs = pstat.executeQuery();){
+				List<UserDTO> list = new ArrayList<>();
+				while(rs.next()) {
+					list.add(new UserDTO(rs));
+				}
+				return list;
+			}
+		}
+	}
+	
+
+   
 
     public void fixProfileInfo(UserDTO user) throws Exception{
         String sql = "update users set " +
@@ -193,4 +218,5 @@ public class UserDAO extends Dao {
             connection.commit();
         }
     }
+
 }

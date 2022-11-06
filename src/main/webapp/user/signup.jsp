@@ -111,16 +111,6 @@
             if ($("#signupModal")[0].style.display == "inline-flex" && e.keyCode == 27) { hideSignupModal(); }
         });
 
-
-        // 유효성 검사 (공백 확인)
-        function isFilled(element1, element2, element3, element4) {
-            if (element1.val() == "") { wobble((element1)[0]); element1.focus(); }
-            else if (element2.val() == "") { wobble((element2)[0]); element2.focus(); }
-            else if (element3.val() == "") { wobble((element3)[0]); element3.focus(); }
-            else if (element4.val() == "") { wobble((element4)[0]); element4.focus(); }
-            else { return true; }
-        }
-
         //  회원가입 함수
         function trySign() {
         	$.post("/sign.user", $("#form_sign").serialize())
@@ -152,7 +142,7 @@
             	wobble($("#users_phone")[0]); $("#users_phone").focus();
             
             } else {
-            	if (isFilled($("#users_email"), $("#users_pw"), $("#users_pw_re"), $("#users_phone"))) { trySign(); }
+            	if (isFilled($("#users_email", "#users_pw", "#users_pw_re", "#users_phone"))) { trySign(); }
             }
 
         });
