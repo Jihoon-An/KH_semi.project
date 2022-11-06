@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.BsUsersDTO;
+import commons.Common;
 import dto.UserDTO;
 
 public class UserDAO extends Dao {
@@ -122,16 +122,15 @@ public class UserDAO extends Dao {
         }
     }
 
-	/**
-	 * 
-	 * 유저 회원가입 이메일 중복 확인
-	 * 
-	 * @param email
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean isUserEmailCheck(String email) throws Exception {
-		String sql = "select * from users where users_email = ?";
+    /**
+     * 유저 회원가입 이메일 중복 확인
+     *
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    public boolean isUserEmailCheck(String email) throws Exception {
+        String sql = "select * from users where users_email = ?";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
@@ -143,7 +142,7 @@ public class UserDAO extends Dao {
 
         }
     }
-	
+
 
     /**
      * 유저 회원가입
@@ -168,34 +167,40 @@ public class UserDAO extends Dao {
             con.commit();
 
             return result;
-           }
-       }
+        }
+    }
+
     /**
      * 관리자 페이지 회원검색
+     *
      * @param name
      * @return
      * @throws Exception
      */
-	public List<UserDTO> searchUser(String name) throws Exception{
-		String sql = "select * from users where users_name like ?";
-		try(Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				){
-			pstat.setString(1, "%"+name+"%");
-			try(ResultSet rs = pstat.executeQuery();){
-				List<UserDTO> list = new ArrayList<>();
-				while(rs.next()) {
-					list.add(new UserDTO(rs));
-				}
-				return list;
-			}
-		}
-	}
-	
+    public List<UserDTO> searchUser(String name) throws Exception {
+        String sql = "select * from users where users_name like ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setString(1, "%" + name + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<UserDTO> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(new UserDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
 
-   
-
-    public void fixProfileInfo(UserDTO user) throws Exception{
+    /**
+     * 프로필 수정
+     * 수정목록 : 이름, 생일, 전화번호, 성별, 관심사
+     *
+     * @param user
+     * @throws Exception
+     */
+    public void updateProfileInfo(UserDTO user) throws Exception {
         String sql = "update users set " +
                 "users_name = ?," +
                 "users_birthday = ?," +
@@ -203,16 +208,35 @@ public class UserDAO extends Dao {
                 "sex = ?," +
                 "interest = ? " +
                 "where users_seq = ?";
-        try(
-                Connection connection = this.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql);
-                ){
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
             statement.setString(1, user.getName());
             statement.setString(2, user.getBirthday());
             statement.setString(3, user.getPhone());
             statement.setString(4, user.getSex());
             statement.setString(5, user.getInterest());
             statement.setInt(6, user.getSeq());
+
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
+
+    /**
+     * 비밀번호 변경
+     * @param userSeq
+     * @param pw 암호화 전의 PW
+     * @throws Exception
+     */
+    public void updatePw(int userSeq, String pw) throws Exception {
+        String sql = "update users set users_pw = ? where users_seq = ?";
+        String password = Common.getSHA512(pw);
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, password);
+            statement.setInt(2, userSeq);
 
             statement.executeUpdate();
             connection.commit();

@@ -149,7 +149,8 @@
 
 				<!-- 개인정보 수정 테이블 -->
 
-				<form id="form_pw" class="modal-overlay">
+				<form id="form_pw" class="modal-overlay" action="/pw.userMyPage">
+					<input type="hidden" name="userSeq" value="${userSeq}">
 					<div id="private_table">
 						<!-- X icon -->
 						<i class="fa-solid fa-x" id="close_private"></i>

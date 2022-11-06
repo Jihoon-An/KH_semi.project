@@ -8,10 +8,6 @@ import java.security.MessageDigest;
 
 public class Common {
 
-    public static Common getInstance(){
-        return new Common();
-    }
-
     /**
      * 패스워드 암호화
      * @param password
