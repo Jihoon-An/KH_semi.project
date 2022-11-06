@@ -259,6 +259,7 @@
         
 		
 
+  
 		
 		function createMarker(name, x, y){
 			var positions =
