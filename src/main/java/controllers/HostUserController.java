@@ -37,6 +37,13 @@ public class HostUserController extends ControllerAbs {
         try {
         switch (uri) {
 		
+        // 관리자 임시 로그인용
+        case "/admin.host":
+        	request.getSession().invalidate();
+        	request.getSession().setAttribute("admin", true);
+        	response.sendRedirect("/index.jsp");
+        	break;
+        
         //관리자 페이지 일반회원목록 출력
         case "/userslist.host":
         	

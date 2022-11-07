@@ -81,7 +81,6 @@ public class UserController extends HttpServlet {
 	protected boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("login_id");
 		String req_pw = request.getParameter("login_pw");
-//		boolean req_bs = request.getParameter("login_bs").equals("true") ? true : false;
 		List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
 		if (!list.isEmpty()) {
 			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {

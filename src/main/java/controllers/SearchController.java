@@ -14,7 +14,7 @@ import dao.GymDAO;
 import dto.GymDTO;
 
 /**
- * Servlet implementation class SearchController
+ * developer : Minseop
  */
 @WebServlet("*.search")
 public class SearchController extends HttpServlet {

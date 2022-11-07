@@ -155,7 +155,7 @@ public class UserDAO extends Dao {
      */
     public int isUserSignUp(String email, String pw, String phone) throws Exception {
 
-        String sql = "insert into users values(users_seq.nextval,?,?,null,?,null,sysdate,null,null)";
+        String sql = "insert into users values(users_seq.nextval,?,?,null,?,null,sysdate,null,null,null)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
@@ -256,8 +256,8 @@ public class UserDAO extends Dao {
         }
     }
 
-    public void insertPi(int userSeq, String sysFile) throws Exception{
-        String sql = "update users set users_PI = ? where user_seq = ?";
+    public void insertPi(int userSeq, String sysFile) throws Exception {
+        String sql = "update users set users_PI = ? where users_seq = ?";
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
         ) {
@@ -266,6 +266,21 @@ public class UserDAO extends Dao {
             statement.executeUpdate();
 
             connection.commit();
+        }
+    }
+
+    public String getPiNameByUserSeq(int userSeq) throws Exception {
+        String sql = "select users_pi from users where users_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, userSeq);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                if (resultSet.next()) {
+                    return resultSet.getString("users_pi");
+                }
+            }
+            return null;
         }
     }
 }

@@ -33,16 +33,17 @@
 					<button type="button" class="btn_base" id="btn_login">로그인</button>
 				</div>
 				<div class="col-12 gy-1">
-					<input type="hidden" name="login_bs" id="login_bs" value="false">
 					<input class="form-check-input" type="checkbox" id="chk_bs">
-					<label class="form-check-label" for="login_bs"
-						style="color: #404040; font-size: 14px; letter-spacing: -1px;">운영자 로그인</label>
+					<label class="form-check-label" for="chk_bs"
+						style="color: #404040; font-size: 14px; letter-spacing: -1px;">운영자
+						로그인</label>
 				</div>
 				<div class="col-12 gy-4" style="letter-spacing: -1px;">
 					<span style="color: #404040;">계정이 없으신가요?</span> <a href="#"
 						onclick="showSignupModal(); return false;">회원가입</a>
 				</div>
-				<div class="col-12 gy-1" style="color: #808080; font-size: small; letter-spacing: -1px;">
+				<div class="col-12 gy-1"
+					style="color: #808080; font-size: small; letter-spacing: -1px;">
 					<a onclick="showSearch()">아이디 찾기</a> <span>/</span> <a
 						onclick="showSearch()">비밀번호 찾기</a>
 				</div>
@@ -153,7 +154,7 @@
 
 			// 로그인 함수
 			function tryLogin() {
-				$.post("/login.user", $("#form_login").serialize())
+				$.post($("#chk_bs").is(":checked") ? "/login.bs" : "/login.user", $("#form_login").serialize())
 					.done((res) => {
 						if (res == "true") {
 							Swal.fire({ title: "Success!", icon: "success", text: "로그인에 성공했습니다." })
@@ -163,7 +164,7 @@
 						} else {
 							Swal.fire({ title: "Error", icon: "error", text: "ID가 등록되지 않았거나 비밀번호가 올바르지 않습니다." });
 						}
-					}).fail(alert(""));
+					});
 			}
 
 			// 아이디 찾기 함수
@@ -214,11 +215,6 @@
 
 			$("#btn_searchPw").on("click", () => {
 				if (isFilled($("#searchPw_email, #searchPw_phone"))) { trySearchPw(); }
-			});
-
-			// 체크박스 이벤트
-			$("#chk_bs").on("change", (e) => {
-				$("#login_bs")[0].value = $(e.target).is(":checked") ? "true" : "false";
 			});
 
 			// 엔터 = 버튼 클릭

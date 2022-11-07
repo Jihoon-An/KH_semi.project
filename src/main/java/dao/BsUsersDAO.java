@@ -46,6 +46,7 @@ public class BsUsersDAO extends Dao {
         }
     }
 
+    
 
     /**
      * 관리자 사업자 회원 페이지 회원 검색
@@ -67,6 +68,27 @@ public class BsUsersDAO extends Dao {
                 }
                 return list;
             }
+        }
+    }
+    
+    /**
+     * bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회
+     *
+     * @param option
+     * @param value
+     * @return List<UserDTO>
+     * @throws Exception
+     */
+    public List<BsUsersDTO> searchAll(String option, String value) throws Exception {
+        List<BsUsersDTO> result = new ArrayList<>();
+        String sql = "select * from bs_users where " + option + " = ?";
+        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setString(1, value);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                result.add(new BsUsersDTO(rs));
+            }
+            return result;
         }
     }
 
@@ -144,11 +166,11 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, dto.getBs_seq());
-            pstat.setString(2, dto.getBs_email());
-            pstat.setString(3, dto.getBs_pw());
-            pstat.setString(4, dto.getBs_name());
-            pstat.setString(5, dto.getBs_phone());
-            pstat.setString(6, dto.getBs_number());
+            pstat.setString(2, dto.getBs_number());
+            pstat.setString(3, dto.getBs_email());
+            pstat.setString(4, dto.getBs_pw());
+            pstat.setString(5, dto.getBs_name());
+            pstat.setString(6, dto.getBs_phone());
 
             con.commit();
 

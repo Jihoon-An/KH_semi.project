@@ -57,16 +57,17 @@
 						<div class="profile_input_group py-2">
 							<div class="profile_title">전화번호</div>
 							<div style="display:inline-table;"><input class="form-control modify_input" type="text"
-									value="${user.phone}" name="user_phone" id="user_phone" maxlength="11" placeholder='"-"를 제외하고 입력하세요.'>
+									value="${user.phone}" name="user_phone" id="user_phone" maxlength="11"
+									placeholder='"-"를 제외하고 입력하세요.'>
 							</div>
 						</div>
 						<!-- 전화번호 유효성 검사 및 포맷 -->
 						<script>
-							$("#user_phone").on("keydown",function()  {
+							$("#user_phone").on("keydown", function () {
 								$(this).val($(this).val().replace(/[^0-9]/ig, ''));
-							  }).on("keyup",function()  {
+							}).on("keyup", function () {
 								$(this).val($(this).val().replace(/[^0-9]/ig, ''));
-							  });
+							});
 						</script>
 						<!-- interesting -->
 						<div class="profile_input_group pt-2" style="height:50px;">
@@ -212,11 +213,60 @@
 
 				<script>
 					///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
-					
-					$("#user_img_in").on("input", function(){
-						console.log("testset");
-					});
-					
+
+
+					var pi_check = false;
+					var sel_file;
+
+					$("#user_img_in").on("change", handleImgFileSelect);
+					//이미지 미리보기
+					function handleImgFileSelect(e) {
+						var files = e.target.files;
+						var filesArr = Array.prototype.slice.call(files);
+
+						var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+
+						filesArr.forEach(function (f) {
+							if (!f.type.match(reg)) {
+								alert("확장자는 이미지 확장자만 가능합니다.");
+								return;
+							}
+
+							sel_file = f;
+
+							var reader = new FileReader();
+							reader.onload = function (e) {
+								$("#user_img").attr("src", e.target.result);
+							}
+							reader.readAsDataURL(f);
+						});
+
+						pi_check = true;
+					}
+
+					//이미지 저장
+					function fn_submit() {
+
+						var form = new FormData();
+						form.append("user_img_in", $("#user_img_in")[0].files[0]);
+
+						$.ajax({
+							url: "/modifyPI.userMyPage"
+							, type: "POST"
+							, processData: false
+							, contentType: false
+							, data: form
+							, success: function (response) {
+								console.log("프로필 변경에 성공하였습니다.");
+							}
+							, error: function (jqXHR) {
+								alert(jqXHR.responseText);
+							}
+						});
+					}
+					////////////////////////
+
+
 					let profile_upload = $("#profile_upload");
 					profile_upload.on("click", function () {
 
@@ -314,10 +364,12 @@
 
 					//초기 관심사 생성
 					//let interests = JSON.parse("${user.interest}");
-					let interests = JSON.parse(${ user.interest });
-					interests.forEach(inter => interestBase(inter));
 
-
+					
+					<c:if test="${user.interest != null}">
+						let interests = JSON.parse(${ user.interest });
+						interests.forEach(inter => interestBase(inter));
+					</c:if>
 
 
 					// 프로필 영역 기본값
@@ -326,6 +378,11 @@
 					$("#profile_upload").css("cursor", "default");
 					$("#user_img_in").attr("disabled", "true");
 					$("sex_btn").css("cursor", "default");
+					// 프로필 이미지 초기 세팅
+					let root = "${user.pi}";
+					if (root != "/resource/profileImg/null") {
+						$("#user_img").attr("src", root);
+					}
 					// 프로필 수정하기 버튼 클릭 이벤트
 					$("#modifyProfile").on("click", modifyProfile);
 					let modifyBtn = $("#modifyProfile");
@@ -371,15 +428,16 @@
 								name: fix_name,
 								sex: fix_sex,
 								birthday: fix_birthday,
-								phone : fix_phone,
+								phone: fix_phone,
 								interest: JSON.stringify(interest_list),
 								userSeq: "${userSeq}"
 							},
 							type: "post",
-							success:function(){
+							success: function () {
 								console.log("success!!");
 							}
 						});
+
 						modifyBtn.html("프로필 수정");
 						$(".modify_input").attr("disabled", "true");
 						$(".modify_btn").css("display", "none");
@@ -391,6 +449,9 @@
 						$("sex_btn").css("cursor", "default");
 						modifyBtn.off("click");
 						modifyBtn.on("click", modifyProfile);
+						if (pi_check) {
+							fn_submit();
+						}
 					};
 
 					///////////////////////////////////// My 시설 ////////////////////////////////////////////////////
@@ -420,9 +481,9 @@
 					$(".del_review_btn").on("click", function () {
 						$.ajax({
 							url: "/delReview.userMyPage",
-							data: { review_seq : $(this).closest(".review_card").find(".review_seq").val() },
+							data: { review_seq: $(this).closest(".review_card").find(".review_seq").val() },
 							type: "POST",
-							success:function () {
+							success: function () {
 								$(this).closest(".review_card").remove();
 							}
 						});
@@ -499,6 +560,8 @@
 
 					$("#sign_down_confirm").css("display", "none");
 					$("#form_pw").css("display", "none");
+
+
 				</script>
 			</main>
 
