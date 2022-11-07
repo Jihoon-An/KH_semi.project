@@ -63,15 +63,15 @@ public class GymController extends ControllerAbs {
 	 protected void getDetailGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		//헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
-			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
+			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 
-			//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
+			//String writer=(String)request.getSession().getAttribute("userSeq"); //로그인 사용자
 		 
 		 ReviewDAO dao = ReviewDAO.getInstance();
 			GymDAO dao2 = GymDAO.getInstance();
-			List<ReviewDTO> dto = dao.printReivew(1);
-			GymDTO dto2 = dao2.printGym(2);
+			List<ReviewDTO> dto = dao.printReivew(gym_seq);
+			GymDTO dto2 = dao2.printGym(gym_seq);
 			
 			request.setAttribute("list", dto2);
 			request.setAttribute("list2", dto);
@@ -83,21 +83,23 @@ public class GymController extends ControllerAbs {
 			
 			//즐겨찾기 추가
 			
-			//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
+		 int user_seq=Integer.parseInt((String) request.getSession().getAttribute("userSeq"));  //로그인 사용자
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
 			//사용자 id필요 임시로 1
-			int result = dao.add(new FavoritesDTO(0, 1, gym_seq));
+			int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
 	 
 	 }
 	 
 	 protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
 			//즐겨찾기 삭제
+		 
+		 int user_seq=Integer.parseInt((String) request.getSession().getAttribute("userSeq"));
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
-			int result=dao.removeByGymSeq(gym_seq);
+			int result=dao.removeByGymSeq(gym_seq, user_seq );
 	 
 	 }
 		 
