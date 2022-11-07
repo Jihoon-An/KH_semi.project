@@ -179,6 +179,7 @@ nav {
 /* main */
 
 #index .wrap {
+	width:100%;
 	 min-width : 1200px;
 	 height: 950px;
 	 overflow: hidden;
@@ -188,12 +189,10 @@ nav {
 
 #index .mainimg {
 	background-image: url("/resource/main.jpg");
-	/* background-size: cover;
-  	background-position: center; */
-  	
-  	height: 100vh;
-	  background-size: cover;
-	  background-attachment: fixed;
+  	width: 100%;
+	background-size: cover;
+	background-attachment: fixed;  	
+	background-position: center;
 }
 
 #index .bg{
@@ -207,7 +206,7 @@ nav {
 @-webkit-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -217,7 +216,7 @@ nav {
 @-moz-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -227,7 +226,7 @@ nav {
 @-o-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -237,7 +236,7 @@ nav {
 @keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
