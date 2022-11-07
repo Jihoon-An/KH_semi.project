@@ -1,8 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import commons.FileControl;
 import dao.*;
 import dto.GymDTO;
 import dto.ReviewDTO;
@@ -132,6 +131,9 @@ public class UserMyPageController extends ControllerAbs {
         UserDAO.getInstance().updatePw(userSeq, pw);
     }
 
+    /**
+     * 회원탈퇴를 위한 데이터 삭제
+     */
     protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
@@ -156,30 +158,21 @@ public class UserMyPageController extends ControllerAbs {
         ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
     }
 
+    /**
+     * insert profile image to DB
+     */
     protected void insertPI(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 최대 파일 크기
-        int maxSize = 1024 * 1024 * 10;
 
-        //경로 저장
-        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
-        File fileSavePath = new File(savePath);
-
-        // 폴더 생성
-        if (!fileSavePath.exists()) { //find directory
-            fileSavePath.mkdir();//make directory
-        }
-        // 파일 생성
-        MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-        String sysName = multi.getFilesystemName("user_img_in");
+        FileControl fileControl = new FileControl();
+        String path = "/resource/profileImg";
+        String sysName = fileControl.save(request, path, "user_img_in");
 
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
 
         // 기존 파일 지우기
         String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
-        File beforeFile = new File(savePath + "/" + beforePiName);
-        if (beforeFile.exists()) {
-            beforeFile.delete();
-        }
+        fileControl.delete(request, path, beforePiName);
+
         // 새로 생성한 파일 커밋
         UserDAO.getInstance().insertPi(userSeq, sysName);
     }
