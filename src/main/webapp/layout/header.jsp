@@ -129,7 +129,7 @@
 									<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 								</li>
 								<li class="float-end">
-									<a class="header_a_tag" href="#">사업자페이지</a>
+									<a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
 								</li>
 							</c:when>
 							<c:when test="${admin}">

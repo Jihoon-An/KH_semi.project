@@ -38,7 +38,7 @@
 				<form action="/gym.search" id="subForm">
 					<div class="search_sub">
 						<div class="search_sub_input">
-							<input type="text" id="searchInput" 
+							<input type="text" id="searchInput" name="searchInput" 
 								placeholder="지역명 또는 헬스장명을 검색해보세요.">
 						</div>
 						<div class="search_sub_icon">
@@ -73,8 +73,6 @@
 				</script>
 
 
-
-
 				<c:forEach var="gymList" items="${gymList}">
 					<div class="gym_list">
 						<div class="gym_list_logo">
@@ -99,6 +97,9 @@
 								<div class="gym_list_tag locker btn_base">#라커</div>
 								<div class="gym_list_tag shower btn_base">#샤워실</div>
 								<div class="gym_list_tag park btn_base">#주차장</div>
+								<input type="hidden" class="gym_list_x" value="${gymList.gym_x}">
+								<input type="hidden" class="gym_list_y" value="${gymList.gym_y}">
+								<input type="hidden" class="gym_list_name" value="${gymList.gym_name}">
 							</div>
 						</div>
 					</div>				
@@ -136,7 +137,7 @@
 		function createMarker(name, x, y){
 			var positions =
 				{
-					title: name, 
+					content: "<div class=info><img src='/resource/duck.ico'>"+name+"</div>", 
 					latlng: new kakao.maps.LatLng(x, y)
 				}
 			
@@ -154,10 +155,55 @@
 				var marker = new kakao.maps.Marker({
 					map: map, // 마커를 표시할 지도
 					position: positions.latlng, // 마커를 표시할 위치
-					title : positions.title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 					image : markerImage // 마커 이미지 
 				});
+
+				// 마커에 표시할 인포윈도우를 생성합니다 
+				var infowindow = new kakao.maps.InfoWindow({
+					content: positions.content // 인포윈도우에 표시할 내용
+				});
+
+				// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+				// 이벤트 리스너로는 클로저를 만들어 등록합니다 
+				// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+				kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+				kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+				// 마커 클릭 시 해당 리스트로 focus
+				kakao.maps.event.addListener(marker, 'click', function() {
+					let target = $(".gym_list_name[value='"+ name + "']").closest(".gym_list");
+				});
 		};
+
+		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+		function makeOverListener(map, marker, infowindow) {
+			return function() {
+				infowindow.open(map, marker);
+			};
+		}
+
+		// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+		function makeOutListener(infowindow) {
+			return function() {
+				infowindow.close();
+			};
+		}
+
+		$(".gym_list").on("click", e => { 
+			panTo(e);
+		});
+
+		// 지도 이동 함수
+		function panTo(e) {
+			// 이동할 위도 경도 위치를 생성합니다 
+			let x = $(e.target).closest(".gym_list").find(".gym_list_x").val();
+			let y = $(e.target).closest(".gym_list").find(".gym_list_y").val();
+			var moveLatLon = new kakao.maps.LatLng(x, y);
+			
+			// 지도 중심을 부드럽게 이동시킵니다
+			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+			map.panTo(moveLatLon);            
+		}       
 
 	</script>
 	<c:forEach var="gymList" items="${gymList}">

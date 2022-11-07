@@ -32,9 +32,10 @@ public class SearchController extends HttpServlet {
 				this.getMainList(request, response);
 				request.getRequestDispatcher("/gym/search.jsp").forward(request,response);
 				break;
-			//
-			case "/b.search":
-				
+			// 헬스장 검색 리스트
+			case "/gym.search":
+				this.getSearchList(request, response);
+				request.getRequestDispatcher("/gym/search.jsp").forward(request, response);
 				break;
 			//
 			case "/c.search":
@@ -63,12 +64,31 @@ public class SearchController extends HttpServlet {
 	 * 헬스장 검색 전 초기 헬스장 리스트 메서드
 	 */
 	protected void getMainList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// gym 데이터 불러오기
+		// gym data 불러오기
 		List<GymDTO> gymList = GymDAO.getInstance().selectAll();
 		
 		// gym data 담기
 		request.setAttribute("gymList", gymList);
 		
 	}
+
+	/**
+	 * 헬스장 리스트 검색 메서드
+	 */
+	protected void getSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 검색어 parameter 가져오기
+		String searchInput = request.getParameter("searchInput");
+
+		// 검색 내용에 맞는 gym data 불러오기
+		List<GymDTO> gymList = GymDAO.getInstance().selectBySearch(searchInput);
+
+		// gym data 담기
+		request.setAttribute("gymList", gymList);
+	}
+
+
+
+
+
 
 }
