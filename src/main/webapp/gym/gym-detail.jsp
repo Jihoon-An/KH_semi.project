@@ -19,9 +19,9 @@
 					</div>
 
 					<div class="icon1">
-								<!-- {userSeq==list2.user_seq}list사용자 로그인만 보이게끔 -->
+						 <c:if test="${userSeq==list2.user_seq}"> <!-- list사용자 로그인만 보이게끔 --> 
 						<i class="fa-solid fa-heart" id="heart"></i> 
-					
+						</c:if>
 						<span class="button gray medium">
 						<a onclick="clip(); return false;" class="shareicon"> 
 						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
