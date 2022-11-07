@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 
 import dto.FavoritesDTO;
@@ -104,12 +105,39 @@ public class FavoritesDAO extends Dao {
         }
     }
 
+	public int getFavSeqByUserAndGym(int userSeq, int GymSeq) throws Exception{
+		String sql = "select fav_seq from favorites where user_seq = ? and gym_seq = ?";
+		try (Connection connection = this.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql)
+		) {
+			statement.setInt(1, userSeq);
+			statement.setInt(2, GymSeq);
+			ResultSet resultSet = statement.executeQuery();
+			if(resultSet.next()){
+				return resultSet.getInt("fav_seq");
+			}
+			return 0;
+		}
+	}
+
 	public void deleteByUserSeq(int userSeq) throws Exception{
 		String sql = "delete from favorites where user_seq = ?";
 		try(Connection connection = this.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 		){
 			statement.setInt(1, userSeq);
+
+			statement.executeUpdate();
+			connection.commit();
+		}
+	}
+
+	public void deleteByFavoriteSeq(int fav_seq) throws Exception{
+		String sql = "delete from favorites where fav_seq = ?";
+		try (Connection connection = this.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql);
+		) {
+			statement.setInt(1, fav_seq);
 
 			statement.executeUpdate();
 			connection.commit();

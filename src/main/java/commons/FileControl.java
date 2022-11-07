@@ -41,7 +41,7 @@ public class FileControl {
     /**
      * 파일을 저장함.
      * @param request File을 불러오는 request
-     * @param path 파일을 저장할 경로
+     * @param path 파일을 저장할 경로<br>Ex) "/resource/profile"
      * @param paramName request에서 파일을 불러올 parameter 이름
      * @return 저장된 파일의 system name
      * @throws IOException
@@ -65,7 +65,7 @@ public class FileControl {
     /**
      * 기존에 있는 파일 지우기
      * @param request 파일이 있는 실시간 경로를 찾기 위한 request
-     * @param path 지울 파일이 있는 경로
+     * @param path 지울 파일이 있는 경로(!not savePath!)<br>Ex) "/resource/profile"
      * @param fileName 지울 파일 이름.
      */
     public void delete(HttpServletRequest request,String path, String fileName){
