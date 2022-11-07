@@ -9,7 +9,7 @@
 
 
 <main id="gym-detail">
-	<div class="main_margin_155"></div>
+	<div style="height:70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
 			<div class="placebox1">
@@ -17,6 +17,12 @@
 					<div class="placename">
 						<h1>${list.gym_name}</h1>
 					</div>
+					
+					<c:if test="${bsSeq !=null }">
+					<div class="bs_modify"><button type="button" class="btn btn-outline-secondary">수정하기</button>
+					</div>
+					</c:if> 
+					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
 					<div class="icon1">
 						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
@@ -82,8 +88,11 @@
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
 									<div class="starc">${r.review_star }</div>
-									<div class="reviewlike"><i class="fa-regular fa-thumbs-up"></i></div>
-									<c:if test="t">
+									 <c:if test="${userSeq !=null}">
+									<div class="reviewlike"><i class="reviewlike fa-solid fa-thumbs-up"></i></div>
+									</c:if>
+									
+									<c:if test="${bsSeq !=null }"> <!-- 사업자회원 -->
 									<div class="bs_icon"><i class="fa-solid fa-xmark"></i></div>
 									</c:if>
 									<div class="reviewcon">${r.review_contents } </div>
@@ -143,6 +152,13 @@
 	
 	<script>
 	
+
+	
+
+	
+	
+	
+	<!-- 즐겨찾기 아이콘 트루면 빨강, 아니면 회색 -->
 	$( document ).ready(function() {
 	    if(${favresult}){
 	    	$("#heart").css("color", "#CF0C00");

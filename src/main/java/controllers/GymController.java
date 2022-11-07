@@ -34,6 +34,10 @@ public class GymController extends ControllerAbs {
 			case "/detail.gym":
 				this.getDetailGym(request, response);
 				break;
+				
+//			case "/reviewlikeAdd.gym":
+//				this.getReLikeAdd(request, response);
+//				break;
 				//즐겨찾기 추가
 			case "/favoriteadd.gym":
 
@@ -52,6 +56,8 @@ public class GymController extends ControllerAbs {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,5 +113,16 @@ public class GymController extends ControllerAbs {
 		int result = dao.removeByGymSeq(gym_seq, user_seq);
 
 	}
+	
+//	private void getReLikeAdd(HttpServletRequest request, HttpServletResponse response) {
+//		//즐겨찾기 추가
+//		int user_seq = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userSeq"))); // 로그인 사용자
+//		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+//		int review_like = Integer.parseInt(request.getParameter("review_like"));
+//	
+//		// 사용자 id필요 임시로 1
+//		int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
+//		
+//	}
 
 }
