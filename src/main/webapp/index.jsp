@@ -24,7 +24,7 @@
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
 											name="keyword">
 									</div>
-									<i class="fa-solid fa-magnifying-glass" id="btn_search"></i>
+									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
 							</div>
 						</div>
@@ -41,7 +41,7 @@
 
 						<div class="col-12 carousel">
 							<div class="prevBox">
-								<i class="fa-solid fa-play prev"></i>
+								<i class="fa-solid fa-play prev" onclick="owl.trigger('prev.owl.carousel', [2000]);"></i>
 							</div>
 							<div class="owl-carousel text-center" style="width: 1000px; height: 400px">
 								<div class="item">
@@ -66,7 +66,7 @@
 								</div>
 							</div>
 							<div class="nextBox">
-								<i class="fa-solid fa-play next"></i>
+								<i class="fa-solid fa-play next" onclick="owl.trigger('next.owl.carousel', [2000]);"></i>
 							</div>
 						</div>
 
@@ -85,31 +85,10 @@
 				</div>
 			</main>
 			<script>
-				$(() => { getReviewData(); });
+				$(() => { getReviewData(); $('.owl-carousel').trigger('next.owl.carousel', [10000]); });
 
 				// AOS 스크립트 시작
 				AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
-
-				// Carousel 스크립트
-				$(() => { $('.owl-carousel').trigger('next.owl.carousel', [10000]) });
-				let owl = $('.owl-carousel');
-				owl.owlCarousel({
-					items: 3,
-					startPosition: 9,
-					margin: 50,
-					loop: true,
-					dots: false,
-					autoplay: true,
-					autoplaySpeed: 10000,
-					autoplayTimeout: 10000,
-					autoplayHoverPause: false
-				});
-				$(".prev").on("click", () => {
-					owl.trigger('prev.owl.carousel', [2000]);
-				});
-				$(".next").on("click", () => {
-					owl.trigger('next.owl.carousel', [2000]);
-				});
 
 				// Review DB 가져오기
 				function getReviewData() {
@@ -139,8 +118,18 @@
 					return result;
 				}
 
-				$("#btn_search").on("click", () => {
-					$("#form_search").submit();
+				// Carousel 스크립트
+				let owl = $('.owl-carousel');
+				owl.owlCarousel({
+					items: 3,
+					startPosition: 9,
+					margin: 50,
+					loop: true,
+					dots: false,
+					autoplay: true,
+					autoplaySpeed: 10000,
+					autoplayTimeout: 10000,
+					autoplayHoverPause: false
 				});
 			</script>
 

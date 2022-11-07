@@ -364,8 +364,12 @@
 
 					//초기 관심사 생성
 					//let interests = JSON.parse("${user.interest}");
-					let interests = JSON.parse(${ user.interest });
-					interests.forEach(inter => interestBase(inter));
+
+					
+					<c:if test="${user.interest != null}">
+						let interests = JSON.parse(${ user.interest });
+						interests.forEach(inter => interestBase(inter));
+					</c:if>
 
 
 					// 프로필 영역 기본값
@@ -376,7 +380,7 @@
 					$("sex_btn").css("cursor", "default");
 					// 프로필 이미지 초기 세팅
 					let root = "${user.pi}";
-					if(root != null){
+					if (root != "/resource/profileImg/null") {
 						$("#user_img").attr("src", root);
 					}
 					// 프로필 수정하기 버튼 클릭 이벤트

@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,13 @@ public class BsUsersController extends HttpServlet {
 
 			// 로그인 요청
 			case "/login.bs":
+				// GET 요청 시 에러페이지로 넘김
+				if (request.getMethod().equals("GET")) {
+					response.sendRedirect("/error.jsp");
+					return;
+				}
+				response.getWriter().append(String.valueOf(this.isBsLogin(request, response)));
+				break;
 
 				// 회원가입 요청
 			case "/sign.bs":
@@ -66,6 +74,24 @@ public class BsUsersController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	protected boolean isBsLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("login_id");
+		String req_pw = request.getParameter("login_pw");
+		List<BsUsersDTO> list = BsUsersDAO.getInstance().searchAll("bs_email", req_email);
+		if (!list.isEmpty()) {
+			if (Common.getSHA512(req_pw).equals(list.get(0).getBs_pw())) {
+				// 로그인 성공
+				request.getSession().setAttribute("bsSeq", list.get(0).getBs_seq());
+				return true;
+			} else {
+				// 비밀번호 오류
+			}
+		} else {
+			// 등록되지 않은 ID
+		}
+		return false;
+	}
+	
 	protected boolean isBsDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("bs_email");
 		return BsUsersDAO.getInstance().isBsEmailCheck(req_email);
