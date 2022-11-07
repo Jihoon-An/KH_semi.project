@@ -23,7 +23,15 @@ public class ReviewDTO {
     private String review_check3;
     private String review_check4;
     private String review_check5;
+    private int review_star;
 
+    public int getReview_star() {
+        return review_star;
+    }
+
+    public void setReview_star(int review_star) {
+        this.review_star = review_star;
+    }
 
     public String getGym_name() {
         return gym_name;
@@ -138,25 +146,6 @@ public class ReviewDTO {
     }
 
 
-    public ReviewDTO(int review_seq, int user_seq, int gym_seq, int bs_seq, String review_writer,
-                     String review_contents, int review_like, Timestamp review_writer_date, String review_check1,
-                     String review_check2, String review_check3, String review_check4, String review_check5) {
-        super();
-        this.review_seq = review_seq;
-        this.user_seq = user_seq;
-        this.gym_seq = gym_seq;
-        this.bs_seq = bs_seq;
-        this.review_writer = review_writer;
-        this.review_contents = review_contents;
-        this.review_like = review_like;
-        this.review_writer_date = review_writer_date;
-        this.review_check1 = review_check1;
-        this.review_check2 = review_check2;
-        this.review_check3 = review_check3;
-        this.review_check4 = review_check4;
-        this.review_check5 = review_check5;
-    }
-
 
     public String getFormDate() {
 
@@ -181,8 +170,6 @@ public class ReviewDTO {
             //SimpleDateFormat sdf = new SimpleDateFormat("MM월dd일 hh시mm분");
             return sdf.format(writeTime);
         }
-
-
     }
 
     public ReviewDTO() {
@@ -202,6 +189,8 @@ public class ReviewDTO {
         this.review_check3 = resultSet.getString("review_check3");
         this.review_check4 = resultSet.getString("review_check4");
         this.review_check5 = resultSet.getString("review_check5");
+        this.review_star = resultSet.getInt("review_star");
+
     }
 
 }
