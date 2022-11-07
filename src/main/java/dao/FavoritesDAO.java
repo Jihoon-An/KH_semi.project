@@ -42,15 +42,16 @@ public class FavoritesDAO extends Dao {
 	   
 	   /**
 	    *  즐겨찾기 삭제
-	    * @param gym_seq  gym_seq 기준으로 , user 기능도 추
+	    * @param gym_seq  gym_seq, user_Seq 기준으로 삭제
 	    * @return
 	    * @throws Exception
 	    */
-		public int removeByGymSeq(int gym_seq) throws Exception{  // 즐찾 삭제
-			String sql = "delete from favorites where gym_seq = ?";
+		public int removeByGymSeq(int gym_seq, int user_seq) throws Exception{  // 즐찾 삭제
+			String sql = "delete from favorites where gym_seq = ? and user_seq = ?";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){
 				pstat.setInt(1, gym_seq);
+				pstat.setInt(2, user_seq);
 				int result = pstat.executeUpdate();
 				con.commit();
 				return result;
