@@ -66,7 +66,7 @@ public class GymController extends ControllerAbs {
 			//int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 
-			//String writer=(String)request.getSession().getAttribute("loginID"); //로그인 사용자
+			String writer=(String)request.getSession().getAttribute("userSeq"); //로그인 사용자
 		 
 		 ReviewDAO dao = ReviewDAO.getInstance();
 			GymDAO dao2 = GymDAO.getInstance();

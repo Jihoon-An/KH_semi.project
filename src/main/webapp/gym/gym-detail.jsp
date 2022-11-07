@@ -19,7 +19,7 @@
 					</div>
 
 					<div class="icon1">
-				
+								<!-- {userSeq==list2.user_seq}list사용자 로그인만 보이게끔 -->
 						<i class="fa-solid fa-heart" id="heart"></i> 
 					
 						<span class="button gray medium">
@@ -115,7 +115,7 @@
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="gym_info_open">
-				<span>OPEN : AM 09:00</span><br /> <span>CLOSE : PM 22:30</span>
+				<span>OPEN : ${list.gym_open}</span><br /> <span>CLOSE : ${list.gym_close}</span>
 			</div>
 			
 
@@ -129,13 +129,13 @@
 		
 			<div class="infopicture">
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
+					<img src="/resource/health.png" class="figure-img img-fluid rounded"
 						alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
-						alt="..." />
+					<img src="/resource/health.png" class="figure-img img-fluid rounded"
+						alt="" />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 			</div>
