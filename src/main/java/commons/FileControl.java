@@ -12,6 +12,9 @@ public class FileControl {
 
     private int maxSize = 1024 * 1024 * 10;
 
+    /**
+     * 기본 최대 파일 사이즈는 10Mb입니다.
+     */
     public FileControl() {
     }
 
