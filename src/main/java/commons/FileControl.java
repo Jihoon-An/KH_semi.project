@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 
+
 public class FileControl {
 
     private int maxSize = 1024 * 1024 * 10;
@@ -35,6 +36,7 @@ public class FileControl {
     }
 
     /**
+     * 파일을 저장함.
      * @param request File을 불러오는 request
      * @param path 파일을 저장할 경로
      * @param paramName request에서 파일을 불러올 parameter 이름
@@ -57,6 +59,12 @@ public class FileControl {
         return sysName;
     }
 
+    /**
+     * 기존에 있는 파일 지우기
+     * @param request 파일이 있는 실시간 경로를 찾기 위한 request
+     * @param path 지울 파일이 있는 경로
+     * @param fileName 지울 파일 이름.
+     */
     public void delete(HttpServletRequest request,String path, String fileName){
         String savePath = request.getServletContext().getRealPath(path);
         File file = new File(savePath + "/" + fileName);
