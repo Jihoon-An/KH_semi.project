@@ -33,7 +33,7 @@
 			    <!-- 리스트가 비어있지않다면 -->
 				<c:forEach  var="u" items="${list}" >
         <div class="title"> 
-            <div class="selectuser text_normal"> <input type="checkbox" name="bsuser" >선택 </div>
+            <div class="selectuser text_normal"> <input type="checkbox" name="bsuser"  value="${u.bs_seq}" >선택 </div>
             <div class="user-seq text_normal">${u.bs_seq }</div>
             <div class="user-email text_normal">${u.bs_email }</div>
             <div class="user-name text_normal">${u.bs_name}</div>
