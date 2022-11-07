@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
       },
 
-      // Delete event
+      // 이벤트 삭제
       eventClick: function (arg) {
           Swal.fire({
               text: "Are you sure you want to delete this event?",
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
               }
           });
       },
-      dayMaxEvents: true, // allow "more" link when too many events
+      dayMaxEvents: true, // more link
       // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
       events: [
           {
