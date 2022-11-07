@@ -82,13 +82,25 @@ public class BsUsersDAO extends Dao {
     public List<BsUsersDTO> searchAll(String option, String value) throws Exception {
         List<BsUsersDTO> result = new ArrayList<>();
         String sql = "select * from bs_users where " + option + " = ?";
-        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setString(1, value);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
                 result.add(new BsUsersDTO(rs));
             }
             return result;
+        }
+    }
+
+    public boolean searchBsPw(String email, String phone) throws Exception {
+        String sql = "select bs_email from bs_users where bs_email = ? and bs_phone = ?";
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setString(1, email);
+            pstat.setString(2, phone);
+            ResultSet rs = pstat.executeQuery();
+            return rs.next();
         }
     }
 

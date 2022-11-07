@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>피트니즈 - Fitneeds</title>
-<link rel="shortcut icon" type="image/x-icon" href="/resource/duck.ico">
+<link rel="shortcut icon" type="image/x-icon" href="/resource/fitneeds.ico">
 
 <!-- fontawesome -->
 <link
@@ -130,7 +130,7 @@
 									<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 								</li>
 								<li class="float-end">
-									<a class="header_a_tag" href="#">사업자페이지</a>
+									<a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
 								</li>
 							</c:when>
 							<c:when test="${admin}">

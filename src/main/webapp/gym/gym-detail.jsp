@@ -9,7 +9,7 @@
 
 
 <main id="gym-detail">
-	<div class="main_margin_155"></div>
+	<div style="height:70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
 			<div class="placebox1">
@@ -17,6 +17,12 @@
 					<div class="placename">
 						<h1>${list.gym_name}</h1>
 					</div>
+					
+					<c:if test="${bsSeq !=null }">
+					<div class="bs_modify"><button type="button" class="btn btn-outline-secondary">수정하기</button>
+					</div>
+					</c:if> 
+					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
 					<div class="icon1">
 						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
@@ -51,12 +57,7 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-				<div class="machine_info shadow-none p-3 mb-3 bg-light rounded">
-					<dt>
-						<p class="text_normal">기구정보</p>
-					</dt>
-					<dd>sd</dd>
-				</div>
+			
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
@@ -86,8 +87,15 @@
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
-									<div class="starc">${r.review_like }</div>
-									${r.review_contents }
+									<div class="starc">${r.review_star }</div>
+									 <c:if test="${userSeq !=null}">
+									<div class="reviewlike"><i class="reviewlike fa-solid fa-thumbs-up"></i></div>
+									</c:if>
+									
+									<c:if test="${bsSeq !=null }"> <!-- 사업자회원 -->
+									<div class="bs_icon"><i class="fa-solid fa-xmark"></i></div>
+									</c:if>
+									<div class="reviewcon">${r.review_contents } </div>
 									</div>
 						
 								</div>
@@ -143,9 +151,25 @@
 	</div>
 	
 	<script>
+	
+
+	
+
+	
+	
+	
+	<!-- 즐겨찾기 아이콘 트루면 빨강, 아니면 회색 -->
+	$( document ).ready(function() {
+	    if(${favresult}){
+	    	$("#heart").css("color", "#CF0C00");
+	    }else{
+	    	$("#heart").css("color", "#8f959a")
+	    }
+	});
+	
 	$("#heart").on("click", function(){
 		
-		if($("#heart").css("color")=="rgb(143, 149, 154)" && !(${favResult})){
+		if($("#heart").css("color")=="rgb(143, 149, 154)" ){
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
@@ -153,7 +177,7 @@
 				type:"get"
 			})
 		} else {
-			$("#heart").css("color", "#8f959a" && ${favResult})
+			$("#heart").css("color", "#8f959a")
 			console.log("즐찾삭제")
 			$.ajax({
 				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
