@@ -11,11 +11,8 @@ public class MembershipDAO extends Dao{
 
     private static MembershipDAO instance;
 
-    synchronized public static MembershipDAO getInstance() {
-        if (instance == null) {
-            instance = new MembershipDAO();
-        }
-        return instance;
+    public static MembershipDAO getInstance() {
+        return (MembershipDAO) Dao.getInstance();
     }
 
 
