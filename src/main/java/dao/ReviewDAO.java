@@ -28,7 +28,12 @@ public class ReviewDAO extends Dao{
 	}
 
 	
-
+	/**
+	 * gym_seq를 기준으로 출력
+	 * @param gym_seq
+	 * @return
+	 * @throws Exception
+	 */
 	public List<ReviewDTO> printReivew(int gym_seq) throws Exception{
 
 		String sql="select * from review where gym_seq= ?";
