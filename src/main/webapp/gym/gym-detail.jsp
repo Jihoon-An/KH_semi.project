@@ -86,7 +86,7 @@
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
-									<div class="starc">star</div>
+									<div class="starc">${r.review_like }</div>
 									${r.review_contents }
 									</div>
 						
@@ -153,7 +153,7 @@
 				type:"get"
 			})
 		} else {
-			$("#heart").css("color", "#8f959a" )
+			$("#heart").css("color", "#8f959a" && ${favResult})
 			console.log("즐찾삭제")
 			$.ajax({
 				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
