@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,90 +20,83 @@ import dto.ReviewDTO;
 public class GymController extends ControllerAbs {
 
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response);
-        String uri = request.getRequestURI();
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		super.doGet(request, response);
+		String uri = request.getRequestURI();
 
 
-        try {
+		try {
 
-            switch (uri) {
+			switch (uri) {
 
-                //헬스장 정보
-                case "/detail.gym":
-                    this.getDetailGym(request, response);
-                    break;
-                //즐겨찾기 추가
-                case "/favoriteadd.gym":
+			//헬스장 정보
+			case "/detail.gym":
+				this.getDetailGym(request, response);
+				break;
+				//즐겨찾기 추가
+			case "/favoriteadd.gym":
 
-                    this.getFavAdd(request, response);
-                    break;
+				this.getFavAdd(request, response);
+				break;
 
-                //즐겨찾기 제거
-                case "/favoriteremove.gym":
+				//즐겨찾기 제거
+			case "/favoriteremove.gym":
 
-                    this.getFavDelete(request, response);
+				this.getFavDelete(request, response);
 
-                    break;
+				break;
 
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        this.doGet(request, response);
-    }
+		this.doGet(request, response);
+	}
 
-    protected void getDetailGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void getDetailGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        //헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
-        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
-        //	List<ReviewDTO> dto = dao.printReivew(gym_seq);
-
-        //String writer=(String)request.getSession().getAttribute("userSeq"); //로그인 사용자
-        int user_seq = (Integer) request.getSession().getAttribute("userSeq");
+		//헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
+		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
 		ReviewDAO reviewdao = ReviewDAO.getInstance();
 		GymDAO gymdao = GymDAO.getInstance();
 		FavoritesDAO favdao = FavoritesDAO.getInstance();
 
-		boolean result = false;
-		if(!(user_seq==0)) {
-			result = favdao.isFavExist(user_seq, gym_seq);
-
-		}
-		
-	//	System.out.println(result);
 		List<ReviewDTO> reviewdto = reviewdao.printReivew(gym_seq);
 		GymDTO gymdto = gymdao.printGym(gym_seq);
 
-		request.setAttribute("favresult", result);
+		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
+
+		} else {
+			boolean result = favdao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+			request.setAttribute("favresult", result);
+		}
+
 		request.setAttribute("list", gymdto);
 		request.setAttribute("list2", reviewdto);
 		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
-    }
+	}
 
-    protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        //즐겨찾기 추가
-
-
+		//즐겨찾기 추가
 		int user_seq = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userSeq"))); // 로그인 사용자
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 		FavoritesDAO dao = FavoritesDAO.getInstance();
 		// 사용자 id필요 임시로 1
 		int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
 
-    }
+	}
 
-    protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    	// 즐겨찾기 삭제
+		// 즐겨찾기 삭제
 
 		// int user_seq=Integer.parseInt(
 		// String.valueOf(request.getSession().getAttribute("userSeq")));
@@ -112,7 +106,6 @@ public class GymController extends ControllerAbs {
 		FavoritesDAO dao = FavoritesDAO.getInstance();
 		int result = dao.removeByGymSeq(gym_seq, user_seq);
 
-
-    }
+	}
 
 }
