@@ -22,7 +22,25 @@ public class FavoritesDAO extends Dao {
         return instance;
     }
 
+    
+    
+    public boolean isFavExist(int useq, int gseq) throws Exception{  //id중복확인 dao
+		   String sql = "select * from Favorites where user_seq = ? and gym_seq = ?";
+		   try(Connection con = this.getConnection();
+					PreparedStatement pstat = con.prepareStatement(sql);
+				  ){
+			   pstat.setInt(1, useq);
+			   pstat.setInt(2, gseq);
+			   try( ResultSet rs = pstat.executeQuery();){
+				   boolean result = rs.next(); //존재하면 true
+					return result;
+					//return rs.next(); 가능
+			   }
+	
 
+	   }
+		
+	   	}
 	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();

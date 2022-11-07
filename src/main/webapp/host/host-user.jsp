@@ -69,6 +69,7 @@
     	}
     }
     
+    
     <!-- 전체 체크중 하나 체크 취소하면 전체체크 풀림-->
     $(document).on("click", "input:checkbox[name=user]", function(e) {
     	
