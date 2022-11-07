@@ -38,15 +38,14 @@ public class UserController extends HttpServlet {
 				break;
 
 			// 아이디 찾기 요청
-			case "/searchId.user":
-				List<UserDTO> list = UserDAO.getInstance().selectByOption("users_phone", request.getParameter("phone"));
-				response.getWriter().append(!list.isEmpty() ? list.get(0).getEmail() : null);
-				break;
+//			case "/searchId.user":
+//				List<UserDTO> list = UserDAO.getInstance().selectByOption("users_phone", request.getParameter("phone"));
+//				response.getWriter().append(!list.isEmpty() ? list.get(0).getEmail() : null);
+//				break;
 
 			// 비밀번호 찾기 요청
 			case "/searchPw.user":
-				list = UserDAO.getInstance().selectByOption("users_phone", request.getParameter("phone"));
-				response.getWriter().append(String.valueOf(!list.isEmpty()));
+				response.getWriter().append(String.valueOf(this.hasUserData(request, response)));
 				break;
 
 			// 로그아웃 요청
@@ -96,6 +95,11 @@ public class UserController extends HttpServlet {
 			// 등록되지 않은 ID
 		}
 		return false;
+	}
+	protected boolean hasUserData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("email");
+		String req_phone = request.getParameter("phone");
+		return UserDAO.getInstance().searchPw(req_email, req_phone);
 	}
 	
 	protected boolean isUserDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {

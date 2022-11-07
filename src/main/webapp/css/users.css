@@ -2,7 +2,7 @@
 
 /* 로그인 */
 
-#loginModal .swal2-shown {
+.swal2-shown {
 	overflow-y: scroll;
 	padding: 0px !important;
 }
