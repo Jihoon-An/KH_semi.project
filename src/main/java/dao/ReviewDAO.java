@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
@@ -55,6 +56,41 @@ public class ReviewDAO extends Dao{
 			}
 		}
 
+	}
+	
+	/**
+	 * 좋아요 클릭시 리뷰 1 증가 계정당 1회
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public int add(ReviewDTO dto) throws Exception{
+		String sql="update review set review_like=review_like+1 where seq=?";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){   
+			//seq를 직접 넣는 이유는 파일 때문에
+
+			pstat.setInt(1, dto.getUser_seq());
+			pstat.setInt(2, dto.getGym_seq());
+	
+			
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	
+	public int addViewCount(int seq) throws Exception{ //조회수 증가
+		String sql="update board set view_count=view_count+1 where seq=?";
+		try(Connection con= this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+			pstat.setInt(1,  seq);
+			int reuslt=pstat.executeUpdate();
+			con.commit();
+			
+			return reuslt;
+		}
 	}
 	
 	
