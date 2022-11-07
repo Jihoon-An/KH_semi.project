@@ -76,8 +76,10 @@
 				<c:forEach var="gymList" items="${gymList}">
 					<div class="gym_list">
 						<div class="gym_list_logo">
-							<img
-								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
+							<a href="/detail.gym?gym_seq=${gymList.gym_seq}">
+								<img
+									src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
+							</a>
 						</div>
 						<div class="gym_list_article">
 							<div class="gym_list_title">
@@ -97,9 +99,6 @@
 								<div class="gym_list_tag locker btn_base">#라커</div>
 								<div class="gym_list_tag shower btn_base">#샤워실</div>
 								<div class="gym_list_tag park btn_base">#주차장</div>
-								<input type="hidden" class="gym_list_x" value="${gymList.gym_x}">
-								<input type="hidden" class="gym_list_y" value="${gymList.gym_y}">
-								<input type="hidden" class="gym_list_name" value="${gymList.gym_name}">
 							</div>
 						</div>
 					</div>				
@@ -168,11 +167,6 @@
 				// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 				kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 				kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-
-				// 마커 클릭 시 해당 리스트로 focus
-				kakao.maps.event.addListener(marker, 'click', function() {
-					let target = $(".gym_list_name[value='"+ name + "']").closest(".gym_list");
-				});
 		};
 
 		// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -189,22 +183,15 @@
 			};
 		}
 
-		$(".gym_list").on("click", e => { 
-			panTo(e);
-		});
-
-		// 지도 이동 함수
-		function panTo(e) {
+		function panTo(x,y) {
 			// 이동할 위도 경도 위치를 생성합니다 
-			let x = $(e.target).closest(".gym_list").find(".gym_list_x").val();
-			let y = $(e.target).closest(".gym_list").find(".gym_list_y").val();
 			var moveLatLon = new kakao.maps.LatLng(x, y);
 			
 			// 지도 중심을 부드럽게 이동시킵니다
 			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 			map.panTo(moveLatLon);            
-		}       
-
+		}   
+		$(".gym_list_name[value='"+ name + "']").closest(".gym_list").attr('tabindex', 0).focus();
 	</script>
 	<c:forEach var="gymList" items="${gymList}">
 		<script>

@@ -170,9 +170,8 @@
     float: left;
     overflow: hidden;
 }
-#search .gym_list > .gym_list_logo > img{
-    height: 100%;
-}
+#search .gym_list > .gym_list_logo > a {height: 100%;}
+#search .gym_list > .gym_list_logo > a > img{height: 100%;}
 #search .gym_list > .gym_list_article{
     width: 268.5px;
     height: 100%;
