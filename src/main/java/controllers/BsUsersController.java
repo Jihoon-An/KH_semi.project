@@ -130,7 +130,7 @@ public class BsUsersController extends HttpServlet {
 
 		for (int i = 0; i < gym_name.length; i++) {
 			String gym_location = gym_address1[i] + " " + gym_address2[i];
-			GymDAO.getInstance().addGYM(new GymDTO(0, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
+			GymDAO.getInstance().addGYM(new GymDTO(0, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null,
 					null, null, null, gym_x[i], gym_y[i]));
 		}
 
@@ -141,15 +141,14 @@ public class BsUsersController extends HttpServlet {
 			String name = e.nextElement();
 			System.out.println(name);
 
-			String oriName = multi.getOriginalFileName(name);
 			String sysName = multi.getFilesystemName(name);
 
 			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
-				if (oriName == null) {
+				if (sysName == null) {
 					continue;
 				}
 				;
-				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, oriName, sysName));
+				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, sysName));
 			}
 		}
 

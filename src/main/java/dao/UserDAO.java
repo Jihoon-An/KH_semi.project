@@ -93,7 +93,8 @@ public class UserDAO extends Dao {
      */
     public boolean searchPw(String email, String phone) throws Exception {
         String sql = "select users_email from users where users_email = ? and users_phone = ?";
-        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setString(1, email);
             pstat.setString(2, phone);
             ResultSet rs = pstat.executeQuery();
@@ -112,7 +113,9 @@ public class UserDAO extends Dao {
     public List<UserDTO> searchAll(String option, String value) throws Exception {
         List<UserDTO> result = new ArrayList<>();
         String sql = "select * from users where " + option + " = ?";
-        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);)
+        {
             pstat.setString(1, value);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {

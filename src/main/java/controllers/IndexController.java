@@ -20,30 +20,29 @@ import dto.ReviewDTO;
  */
 @WebServlet("*.index")
 public class IndexController extends HttpServlet {
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("utf8");
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf8");
-		String uri = request.getRequestURI();
-		try {
-			switch(uri) {
-			
-			// 리뷰 정보 요청
-			case "/review.index":
-				List<HashMap<String, Object>> list = ReviewDAO.getInstance().selectAllSortByLikes();
-				Gson g = new Gson();
-				HashMap<String, Object> data = new HashMap<>();
-				data.put("list", list);
-				response.getWriter().append(g.toJson(data));
-				break;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		doGet(request, response);
-	}
+        String uri = request.getRequestURI();
+        try {
+            switch (uri) {
+
+                // 리뷰 정보 요청
+                case "/review.index":
+                    List<HashMap<String, Object>> list = ReviewDAO.getInstance().selectAllSortByLikes();
+                    Gson g = new Gson();
+                    HashMap<String, Object> data = new HashMap<>();
+                    data.put("list", list);
+                    response.getWriter().append(g.toJson(data));
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doGet(request, response);
+    }
 }
