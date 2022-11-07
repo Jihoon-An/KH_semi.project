@@ -47,7 +47,12 @@ public class BsUsersController extends HttpServlet {
 				response.getWriter().append(String.valueOf(this.isBsLogin(request, response)));
 				break;
 
-				// 회원가입 요청
+			// 비밀번호 찾기 요청
+				case "/searchPw.bs":
+				response.getWriter().append(String.valueOf(this.hasBsData(request, response)));
+				break;
+
+			// 회원가입 요청
 			case "/sign.bs":
 				// GET 요청 시 에러페이지로 넘김
 				if (request.getMethod().equals("GET")) {
@@ -90,6 +95,12 @@ public class BsUsersController extends HttpServlet {
 			// 등록되지 않은 ID
 		}
 		return false;
+	}
+
+	protected boolean hasBsData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("email");
+		String req_phone = request.getParameter("phone");
+		return BsUsersDAO.getInstance().searchBsPw(req_email, req_phone);
 	}
 	
 	protected boolean isBsDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {

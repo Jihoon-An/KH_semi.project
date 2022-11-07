@@ -108,8 +108,11 @@
 				function reviewBuilder(data) {
 					let date = new Date(data.review.review_writer_date);
 					let dateFormat = date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes();
+					let star = "";
+					for (j = 0; j < parseInt(data.review.review_star); j++) { star += "★"; }
+					
 					let gymName = "<tr><td colspan=2 class='text_title'>" + data.gym.gym_name + "</td></tr>";
-					let score = "<tr><td colspan=2>★★★★★<hr class='mt-3 mb-3'></td></tr>";
+					let score = "<tr><td colspan=2>" + star + "<hr class='mt-3 mb-3'></td></tr>";
 					let writer = "<tr><td style='text-align:left'><strong>" + data.review.review_writer + "</strong></td>";
 					let writeDate = "<td class='text_mini' style='text-align:right'>" + dateFormat + " 작성</td></tr>";
 					let likes = "<tr><td colspan=2 class='text_mini' style='text-align:right'> 추천수 : " + data.review.review_like + "</td></tr>";
