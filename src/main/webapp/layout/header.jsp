@@ -159,5 +159,5 @@
 	<!-- 로그인 Modal -->
 	<%@ include file="/user/login.jsp"%>
 
-	<!-- 회원가입 모달 -->
+	<!-- 회원가입 Modal -->
 	<%@ include file="/user/signup.jsp"%>
