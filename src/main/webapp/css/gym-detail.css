@@ -48,12 +48,9 @@
 	float: left;
 }
 
-#gym-detail .machine_info {
-	width: 100%;
-	float: left;
-}
 
 #gym-detail .placeprice {
+
 	width: 100%;
 	float: left;
 }
@@ -92,21 +89,47 @@
 }
 
 #gym-detail .ranwriter {
-	width: 40%;
+	width: 30%;
 	height: 50px;
 	float: left;
+	font-size:20px;
 }
 
 #gym-detail .writerd {
-	width: 40%;
+	width: 30%;
 	height: 50px;
+	font-size:20px;
 	float: left;
 }
 
 #gym-detail .starc {
 	width: 10%;
 	height: 50px;
+	font-size:20px;
 	float: left;
+}
+#gym-detail .reviewlike{
+	width:10%;
+	height:50px;
+	font-size:20px;
+	float: left;
+}
+
+/*사업자한테만 보이는 아이콘*/
+#gym-detail .bs_icon{
+	width:10%;
+	height: 50px;
+	float:left;
+	font-size:20px;
+	display:none;
+} 
+
+#gym-detail .reviewcon{
+	margin-top:20px;
+	width:80%;
+	font-size:20px;
+	overflow:hidden;
+
 }
 
 #gym-detail .recontents {
@@ -197,9 +220,12 @@
 
 }
 
+
 .fa-heart{
-	color: #8f959a;
+	color: #8f959a; 
+
 }
+
 .fa-heart:hover{
 	cursor: pointer;
 	 margin-top: -2px;
@@ -221,4 +247,8 @@
 	background: #000;
 }
 
+#gym-detail .fa-regular:hover{
+		cursor:pointer;
+		color:  #001A41;
+}
 /*  */

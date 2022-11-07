@@ -51,12 +51,7 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-				<div class="machine_info shadow-none p-3 mb-3 bg-light rounded">
-					<dt>
-						<p class="text_normal">기구정보</p>
-					</dt>
-					<dd>sd</dd>
-				</div>
+			
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
@@ -86,8 +81,12 @@
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
-									<div class="starc">${r.review_like }</div>
-									${r.review_contents }
+									<div class="starc">${r.review_star }</div>
+									<div class="reviewlike"><i class="fa-regular fa-thumbs-up"></i></div>
+									<c:if test="t">
+									<div class="bs_icon"><i class="fa-solid fa-xmark"></i></div>
+									</c:if>
+									<div class="reviewcon">${r.review_contents } </div>
 									</div>
 						
 								</div>
@@ -143,9 +142,18 @@
 	</div>
 	
 	<script>
+	
+	$( document ).ready(function() {
+	    if(${favresult}){
+	    	$("#heart").css("color", "#CF0C00");
+	    }else{
+	    	$("#heart").css("color", "#8f959a")
+	    }
+	});
+	
 	$("#heart").on("click", function(){
 		
-		if($("#heart").css("color")=="rgb(143, 149, 154)" && !(${favResult})){
+		if($("#heart").css("color")=="rgb(143, 149, 154)" ){
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
@@ -153,7 +161,7 @@
 				type:"get"
 			})
 		} else {
-			$("#heart").css("color", "#8f959a" && ${favResult})
+			$("#heart").css("color", "#8f959a")
 			console.log("즐찾삭제")
 			$.ajax({
 				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
