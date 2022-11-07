@@ -19,7 +19,7 @@
 					</div>
 
 					<div class="icon1">
-						 <c:if test="${userSeq==list2.user_seq}"> <!-- list사용자 로그인만 보이게끔 --> 
+						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
 						<i class="fa-solid fa-heart" id="heart"></i> 
 						</c:if>
 						<span class="button gray medium">
@@ -145,7 +145,7 @@
 	<script>
 	$("#heart").on("click", function(){
 		
-		if($("#heart").css("color")=="rgb(143, 149, 154)"){
+		if($("#heart").css("color")=="rgb(143, 149, 154)" && !(${favResult})){
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
@@ -153,7 +153,7 @@
 				type:"get"
 			})
 		} else {
-			$("#heart").css("color", "#8f959a")
+			$("#heart").css("color", "#8f959a" )
 			console.log("즐찾삭제")
 			$.ajax({
 				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},

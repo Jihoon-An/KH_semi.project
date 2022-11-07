@@ -66,13 +66,18 @@ public class GymController extends ControllerAbs {
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			//	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 
-			//String writer=(String)request.getSession().getAttribute("userSeq"); //로그인 사용자
+			 int user_seq = (Integer) request.getSession().getAttribute("userSeq");
 		 
 		 ReviewDAO dao = ReviewDAO.getInstance();
 			GymDAO dao2 = GymDAO.getInstance();
+			FavoritesDAO dao3= FavoritesDAO.getInstance();
+			
+			boolean result = dao3.isFavExist(user_seq, gym_seq);
+			
 			List<ReviewDTO> dto = dao.printReivew(gym_seq);
 			GymDTO dto2 = dao2.printGym(gym_seq);
 			
+			request.setAttribute("favResult", result);
 			request.setAttribute("list", dto2);
 			request.setAttribute("list2", dto);
 			request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
@@ -83,11 +88,12 @@ public class GymController extends ControllerAbs {
 			
 			//즐겨찾기 추가
 			
-		 int user_seq=Integer.parseInt((String) request.getSession().getAttribute("userSeq"));  //로그인 사용자
+		 int user_seq=Integer.parseInt(	String.valueOf(request.getSession().getAttribute("userSeq")));  //로그인 사용자
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
 			//사용자 id필요 임시로 1
 			int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
+			
 	 
 	 }
 	 
@@ -95,7 +101,8 @@ public class GymController extends ControllerAbs {
 			
 			//즐겨찾기 삭제
 		 
-		 int user_seq=Integer.parseInt((String) request.getSession().getAttribute("userSeq"));
+		// int user_seq=Integer.parseInt(	String.valueOf(request.getSession().getAttribute("userSeq")));
+		 int user_seq = (Integer) request.getSession().getAttribute("userSeq");
 			int gym_seq = Integer.parseInt(request.getParameter("gym_seq")); 
 			
 			FavoritesDAO dao = FavoritesDAO.getInstance();
