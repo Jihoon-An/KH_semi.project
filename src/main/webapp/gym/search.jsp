@@ -83,7 +83,7 @@
 						</div>
 						<div class="gym_list_article">
 							<div class="gym_list_title">
-								<a href="">${gymList.gym_name }</a>
+								<a href="/detail.gym?gym_seq=${gymList.gym_seq}">${gymList.gym_name }</a>
 							</div>
 							<div class="gym_list_location">
 								<span>${gymList.gym_location }</span>
@@ -104,135 +104,7 @@
 					</div>				
 				</c:forEach>
 				
-				<div class="gym_list">
-					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
-					</div>
-					<div class="gym_list_article">
-						<div class="gym_list_title">
-							<a href="">에이블짐</a>
-						</div>
-						<div class="gym_list_location">
-							<span>서울 중구 서소문로 124 지하2층</span>
-						</div>
-						<div class="gym_list_phone">
-							<span>02-6250-5273</span>
-						</div>
-						<div class="gym_list_open">
-							<span>영업중 / CLOSE PM 24:00</span>
-						</div>
-						<div class="gym_list_tagBox">
-							<div class="gym_list_tag open btn_base">#24시간</div>
-							<div class="gym_list_tag locker btn_base">#라커</div>
-							<div class="gym_list_tag shower btn_base">#샤워실</div>
-							<div class="gym_list_tag park btn_base">#주차장</div>
-						</div>
-					</div>
-				</div>
-				<div class="gym_list">
-					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
-					</div>
-					<div class="gym_list_article">
-						<div class="gym_list_title">
-							<a href="">스포애니</a>
-						</div>
-						<div class="gym_list_location">
-							<span>서울특별시 서울구 서울동 123-123 지하1층</span>
-						</div>
-						<div class="gym_list_phone">
-							<span>02-353-1234</span>
-						</div>
-						<div class="gym_list_open">
-							<span>영업종료 / CLOSE PM 21:00</span>
-						</div>
-						<div class="gym_list_tagBox">
-							<div class="gym_list_tag open btn_base">#24시간</div>
-							<div class="gym_list_tag park btn_base">#주차장</div>
-						</div>
-					</div>
-				</div>
-				<div class="gym_list">
-					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
-					</div>
-					<div class="gym_list_article">
-						<div class="gym_list_title">
-							<a href="">원숭이나무에올라가짐</a>
-						</div>
-						<div class="gym_list_location">
-							<span>서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층</span>
-						</div>
-						<div class="gym_list_phone">
-							<span>02-353-1234</span>
-						</div>
-						<div class="gym_list_open">
-							<span>영업중 / CLOSE PM 23:00</span>
-						</div>
-						<div class="gym_list_tagBox">
-							<div class="gym_list_tag locker btn_base">#라커</div>
-							<div class="gym_list_tag shower btn_base">#샤워실</div>
-						</div>
-					</div>
-				</div>
-				<div class="gym_list">
-					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
-					</div>
-					<div class="gym_list_article">
-						<div class="gym_list_title">
-							<a href="">원숭이나무에올라가짐살라짐</a>
-						</div>
-						<div class="gym_list_location">
-							<span> 서울특별시 서울구 서울동 123-123 원숭이나무 빌딩 지하1층 서울특별시 서울구 서울동
-								123-123 원숭이나무 빌딩 지하1층 </span>
-						</div>
-						<div class="gym_list_phone">
-							<span>02-353-1234</span>
-						</div>
-						<div class="gym_list_open">
-							<span>24 HOURS</span>
-						</div>
-						<div class="gym_list_tagBox">
-							<div class="gym_list_tag locker btn_base">#라커</div>
-							<div class="gym_list_tag shower btn_base">#샤워실</div>
-							<div class="gym_list_tag park btn_base">#주차장</div>
-						</div>
-					</div>
-				</div>
-				<div class="gym_list">
-					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
-					</div>
-					<div class="gym_list_article">
-						<div class="gym_list_title">
-							<a href="">바디와이짐&라필라테스 용현동헬스</a>
-						</div>
-						<div class="gym_list_location">
-							<span> 서울특별시 종로구 을지로입구 3번출구 나와서 직진 겁나하면 우리은행 옆에 빌딩들어가서 3층
-								들어가서 E강의장까지오면됨 </span>
-						</div>
-						<div class="gym_list_phone">
-							<span>02-353-1234</span>
-						</div>
-						<div class="gym_list_open">
-							<span>영업중 / CLOSE PM 24:00</span><br> <span></span>
-						</div>
-						<div class="gym_list_tagBox">
-							<div class="gym_list_tag open btn_base">#24시간</div>
-							<div class="gym_list_tag locker btn_base">#라커</div>
-							<div class="gym_list_tag shower btn_base">#샤워실</div>
-							<div class="gym_list_tag park btn_base">#주차장</div>
-						</div>
-					</div>
-				</div>
 			</div>
-
 
 		</div>
 	</div>
@@ -290,7 +162,7 @@
 	</script>
 	<c:forEach var="gymList" items="${gymList}">
 		<script>
-			createMarker("${gymList.gym_name}","${gymList.gym_y}","${gymList.gym_x}");
+			createMarker("${gymList.gym_name}","${gymList.gym_x}","${gymList.gym_y}");
 		</script>
 	</c:forEach>
 
