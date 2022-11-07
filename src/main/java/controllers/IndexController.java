@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import dao.ReviewDAO;
-import dto.ReviewDTO;
 
 /**
  * Servlet implementation class HeaderController

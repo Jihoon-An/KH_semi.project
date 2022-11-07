@@ -73,7 +73,7 @@ public class UserDAO extends Dao {
      * @return List<UserDTO>
      * @throws Exception
      */
-    public List<UserDTO> searchAll(String option, String value) throws Exception {
+    public List<UserDTO> selectByOption(String option, String value) throws Exception {
         List<UserDTO> result = new ArrayList<>();
         String sql = "select * from users where " + option + " = ?";
         try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
