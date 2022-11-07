@@ -65,39 +65,53 @@ public class GymController extends ControllerAbs {
         //	List<ReviewDTO> dto = dao.printReivew(gym_seq);
 
         //String writer=(String)request.getSession().getAttribute("userSeq"); //로그인 사용자
+        int user_seq = (Integer) request.getSession().getAttribute("userSeq");
 
-        ReviewDAO dao = ReviewDAO.getInstance();
-        GymDAO dao2 = GymDAO.getInstance();
-        List<ReviewDTO> dto = dao.printReivew(gym_seq);
-        GymDTO dto2 = dao2.printGym(gym_seq);
+		ReviewDAO reviewdao = ReviewDAO.getInstance();
+		GymDAO gymdao = GymDAO.getInstance();
+		FavoritesDAO favdao = FavoritesDAO.getInstance();
 
-        request.setAttribute("list", dto2);
-        request.setAttribute("list2", dto);
-        request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
+		boolean result = false;
+		if(!(user_seq==0)) {
+			result = favdao.isFavExist(user_seq, gym_seq);
 
+		}
+		
+	//	System.out.println(result);
+		List<ReviewDTO> reviewdto = reviewdao.printReivew(gym_seq);
+		GymDTO gymdto = gymdao.printGym(gym_seq);
+
+		request.setAttribute("favresult", result);
+		request.setAttribute("list", gymdto);
+		request.setAttribute("list2", reviewdto);
+		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
     }
 
     protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         //즐겨찾기 추가
 
-        int user_seq = Integer.parseInt((String) request.getSession().getAttribute("userSeq"));  //로그인 사용자
-        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
-        FavoritesDAO dao = FavoritesDAO.getInstance();
-        //사용자 id필요 임시로 1
-        int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
+
+		int user_seq = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userSeq"))); // 로그인 사용자
+		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+		FavoritesDAO dao = FavoritesDAO.getInstance();
+		// 사용자 id필요 임시로 1
+		int result = dao.add(new FavoritesDTO(0, user_seq, gym_seq));
 
     }
 
     protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        //즐겨찾기 삭제
+    	// 즐겨찾기 삭제
 
-        int user_seq = Integer.parseInt((String) request.getSession().getAttribute("userSeq"));
-        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+		// int user_seq=Integer.parseInt(
+		// String.valueOf(request.getSession().getAttribute("userSeq")));
+		int user_seq = (Integer) request.getSession().getAttribute("userSeq");
+		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
-        FavoritesDAO dao = FavoritesDAO.getInstance();
-        int result = dao.removeByGymSeq(gym_seq, user_seq);
+		FavoritesDAO dao = FavoritesDAO.getInstance();
+		int result = dao.removeByGymSeq(gym_seq, user_seq);
+
 
     }
 
