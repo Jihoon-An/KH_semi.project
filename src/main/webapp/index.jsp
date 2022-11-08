@@ -38,13 +38,13 @@
 
 					<!-- Review Carousel -->
 					<section class="row justify-content-center review">
-						<h1 class="text_title col-12 mt-5 mb-5">베스트 리뷰</h1>
+						<p class="text-start text_title col-12 mt-5 mb-5">Best User Reviews</p>
 
 						<div class="col-12 carousel">
 							<div class="prevBox">
-								<i class="fa-solid fa-play prev" onclick="owl.trigger('prev.owl.carousel', [2000]);"></i>
+								<i class="fa-solid fa-angle-left angle" onclick="owl.trigger('prev.owl.carousel', [2000]);"></i>
 							</div>
-							<div class="owl-carousel text-center" style="width: 1000px; height: 400px">
+							<div class="owl-carousel text-center" style="width: 1050px; height: 400px">
 								<div class="item">
 								</div>
 								<div class="item">
@@ -67,31 +67,92 @@
 								</div>
 							</div>
 							<div class="nextBox">
-								<i class="fa-solid fa-play next" onclick="owl.trigger('next.owl.carousel', [2000]);"></i>
+								<i class="fa-solid fa-angle-right angle" onclick="owl.trigger('next.owl.carousel', [2000]);"></i>
 							</div>
+						</div>
+
+					</section>
+
+					<!-- Image Section -->
+					<section class="row justify-content-evenly preview mb-5">
+						<p class="text-start text_title col-12 mt-5 mb-5">Image Preview</p>
+
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
+						</div>
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
+						</div>
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
+						</div>
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
+						</div>
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
+						</div>
+						<div class="col-4 imgBox">
+							<div class="imgFilter">
+								<p></p>
+								<input type="hidden">
+							</div>
+							<img src="/resource/health.png">
 						</div>
 
 					</section>
 
 					<!-- Banner Section -->
 					<section class="row justify-content-evenly ads mb-5">
-						<h1 class="text_title col-12 mt-5 mb-5">헬스용품 배너</h1>
+						<p class="text-start text_title col-12 mt-5 mb-5">Recommended Items</p>
 
-						<div class="col-5 banner gy-5">배너</div>
-						<div class="col-5 banner gy-5">배너</div>
-						<div class="col-5 banner gy-5">배너</div>
-						<div class="col-5 banner gy-5">배너</div>
+						<div class="col-6 gy-5">
+							<div class="banner">배너</div>
+						</div>
+						<div class="col-6 gy-5">
+							<div class="banner">배너</div>
+						</div>
+						<div class="col-6 gy-5">
+							<div class="banner">배너</div>
+						</div>
+						<div class="col-6 gy-5">
+							<div class="banner">배너</div>
+						</div>
 
 					</section>
 				</div>
 			</main>
 			<script>
-				$(() => { getReviewData(); $('.owl-carousel').trigger('next.owl.carousel', [10000]); });
+				$(() => {
+					getReviewData();
+					getGymData();
+					$('.owl-carousel').trigger('next.owl.carousel', [10000]);
+				});
 
 				// AOS 스크립트 시작
 				AOS.init(); // 자바스크립트로 init()을 해야 동작한다.
 
-				// Review DB 가져오기
+				// Review DB 가져온 뒤 Carousel 연결 함수
 				function getReviewData() {
 					$.getJSON("/review.index", res => {
 						console.log(res.reviewList);
@@ -109,13 +170,13 @@
 					let date = new Date(data.review.review_writer_date);
 					let dateFormat = date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes();
 					let star = "<img src='/resource/ratingImg/rating_" + data.review.review_star + ".png' style='width:80%'>";
-					let gymName = "<tr><td colspan=2 style='font-family:Jua; font-size:24px'><a href='detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></td></tr>";
+					let gymName = "<tr><td colspan=2 class='text_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></td></tr>";
 					let score = "<tr style='border-top:5px solid white'><td colspan=2 align=center>" + star + "<hr class='mt-3 mb-3'></td></tr>";
-					let writer = "<tr><td style='text-align:left'><img src='/resource/duck.ico' style='display:inline-block; width:22px'>&nbsp" + data.review.review_writer + "</td>";
+					let writer = "<tr><td style='text-align:left'><img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp" + data.review.review_writer + "</td>";
 					let writeDate = "<td class='text_mini' style='text-align:right; color=#808080'>" + dateFormat + " 작성</td></tr>";
 					let likes = "<tr><td colspan=2 class='text_mini' style='text-align:right; color=#808080'> 추천수 : " + data.review.review_like + "</td></tr>";
 					let contents = "<tr style='border-top:15px solid white'><td colspan=2>" + data.review.review_contents + "</td></tr>";
-					let result = "<table style='width:100%; font-family:Gowun Dodum'>" + gymName + score + writer + writeDate + likes + contents + "</table>";
+					let result = "<table style='width:100%'>" + gymName + score + writer + writeDate + likes + contents + "</table>";
 					return result;
 				}
 
@@ -123,7 +184,7 @@
 				let owl = $('.owl-carousel');
 				owl.owlCarousel({
 					items: 3,
-					startPosition: 9,
+					startPosition: 3,
 					margin: 50,
 					loop: true,
 					dots: false,
@@ -132,6 +193,30 @@
 					autoplayTimeout: 10000,
 					autoplayHoverPause: false
 				});
+
+				function getGymData() {
+					$.getJSON("/gym.index", res => {
+						console.log(res.gymList);
+						let item_list = document.querySelectorAll(".imgBox");
+						for (i = 0; i < item_list.length; i++) {
+							let item = item_list[i];
+							let data = res.gymList[i];
+							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br><i class='fa-solid fa-heart' style='color:red'></i>&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+						}
+					});
+				}
+
+				$(".imgBox").on("click", e => {
+					location.href = "/detail.gym?gym_seq=" + e.target.getAttribute("seq");
+				});
+
+				$(".imgBox").on("mouseenter", e => {
+					$(e.target).find("i").fadeOut(500);
+				})
+
+				$(".imgBox").on("mouseleave", e => {
+					$(e.target).find("i").fadeIn(500);
+				})
 			</script>
 
 			<%@ include file="/layout/footer.jsp" %>
