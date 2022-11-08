@@ -27,7 +27,7 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html;charset=utf8");
 		
 		String uri = request.getRequestURI();
-		System.out.println(uri);
+
 		try {
 			switch (uri) {
 			// 헬스장 검색 전 초기 헬스장 리스트
@@ -75,7 +75,7 @@ public class SearchController extends HttpServlet {
 		for(GymDTO gym : gymList){
 			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
 		}
-		
+
 		// gym data 담기
 		request.setAttribute("gymList", gymList);
 		request.setAttribute("gymFilterList", gymFilterList);
