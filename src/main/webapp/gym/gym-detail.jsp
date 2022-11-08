@@ -15,7 +15,7 @@
 			<div class="placebox1">
 				<div>
 					<div class="placename">
-						<h1>${list.gym_name}</h1>
+						<h1>${gymList.gym_name}</h1>
 					</div>
 					
 					<c:if test="${bsSeq !=null }">
@@ -62,7 +62,7 @@
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${list.gym_price }원</dd>
+					<dd>${gymList.gym_price }원</dd>
 				</div>
 			</div>
 
@@ -75,13 +75,13 @@
 						type="button">리뷰작성</button>
 				</div>
 				
-				<c:choose>
-						<c:when test="${not empty list2 }">
+					<c:choose>
+						<c:when test="${not empty reviewList }">
 							<!-- 리스트가 비어있지않다면 -->
-							<c:forEach var="r" items="${list2 }">
+							<c:forEach var="r" items="${reviewList }">
 				<div class="review2">
 					
-							
+								
 								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
 									
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
@@ -89,7 +89,11 @@
 									<div class="writerd">${r.formDate}</div>
 									<div class="starc">${r.review_star }</div>
 									 <c:if test="${userSeq !=null}">
-									<div class="reviewlike"><i class="reviewlike fa-solid fa-thumbs-up"></i></div>
+									<div class="reviewlike">
+									<input type="hidden" name="review_seq" class ="rseq" value="${r.review_seq}">
+									<input type="hidden" name="gym_seq" class ="gym" value="${r.gym_seq}">
+									<input type="hidden" name="review_like" class="rlike" value="${r.review_like}">
+									<i class="relike fa-solid fa-thumbs-up"></i></div>
 									</c:if>
 									
 									<c:if test="${bsSeq !=null }"> <!-- 사업자회원 -->
@@ -97,7 +101,7 @@
 									</c:if>
 									<div class="reviewcon">${r.review_contents } </div>
 									</div>
-						
+							
 								</div>
 				
 							</c:forEach>
@@ -110,7 +114,7 @@
 						</c:otherwise>
 					</c:choose>
 				
-		
+			
 	
 							
 
@@ -123,9 +127,8 @@
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="gym_info_open">
-				<span>OPEN : ${list.gym_open}</span><br /> <span>CLOSE : ${list.gym_close}</span>
+				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE : ${gymList.gym_close}</span>
 			</div>
-			
 
 
 			<div class="gym_info_tagBox">
@@ -150,11 +153,62 @@
 		</div>
 	</div>
 	
+
+	
 	<script>
-	
 
 	
+	$(".relike").on("click", function(){
+	
+		if($(this).css("color")=="rgb(143, 149, 154)" ){
 
+			$.ajax({
+				url:"/reviewLikeAdd.gym",
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+					"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+					
+				},
+				type:"post",
+				success:()=> {$(this).css("color", "#001A41")
+					
+					console.log($(this).closest(".reviewlike").find(".gym").val())
+					console.log($(this).closest(".reviewlike").find(".rlike").val())
+					console.log("좋아요 추가")}
+				
+			})
+		} else {
+		
+			
+			$.ajax({
+				url:"/reviewLikeDel.gym",
+				
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+				"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+						},	
+				type:"post",
+				success:()=> {$(this).css("color", "#8f959a")
+					console.log("좋아요 취소")}
+			})
+		}
+	})
+
+	
+<!-- 좋아요 아이콘 트루면 빨강, 아니면 회색 -->
+/*
+	$( document ).ready(function() {
+
+	    if(${likeresult}){
+	    	$(".relike").css("color", "#001A41");
+	    }else{
+	    	$(".relike").css("color", "#8f959a")
+	    }
+	
+	});
+	*/
 	
 	
 	
@@ -173,14 +227,14 @@
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
-				url:"/favoriteadd.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteadd.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		} else {
 			$("#heart").css("color", "#8f959a")
 			console.log("즐찾삭제")
 			$.ajax({
-				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteremove.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		}
