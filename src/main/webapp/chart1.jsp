@@ -17,10 +17,10 @@
 </style>
 <body>
 	<div class="chart-wrap">
-		<canvas id="myChart" width="250" height="305"></canvas>
+		<canvas id="weight_change" width="250" height="305"></canvas>
 	</div>
 	<script>
-		const ctx = document.getElementById('myChart').getContext('2d');
+		const ctx = document.getElementById('weight_change').getContext('2d');
 		const myChart = new Chart(ctx,
 				{
 					type : 'bar',
