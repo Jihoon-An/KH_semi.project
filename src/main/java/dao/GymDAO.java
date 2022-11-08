@@ -135,7 +135,7 @@ public class GymDAO extends Dao {
      */
     public int addGYM(GymDTO dto) throws Exception {
 
-        String sql = "insert into gym values(gym_seq.nextval,?,?,?,?,null,null,null,null,null,?,?)";
+        String sql = "insert into gym values(gym_seq.nextval,?,?,?,?,null,null,null,null,?,?)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
