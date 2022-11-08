@@ -9,6 +9,7 @@ import java.util.List;
 
 import dto.GymDTO;
 import dto.ReviewDTO;
+import dto.UserDTO;
 
 public class ReviewDAO extends Dao {
 
@@ -54,8 +55,21 @@ public class ReviewDAO extends Dao {
         }
 
     }
-    
 
+    public List<Integer> selectLikedUser(int gym_seq) throws Exception {
+        List<Integer> result = new ArrayList<>();
+        String sql = "select r.review_seq, liked_user_seq from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);)
+        {
+            pstat.setInt(1, gym_seq);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                result.add(Integer.parseInt(rs.getString("liked_user_seq")));
+            }
+            return result;
+        }
+    }
 	
     
 	/**
