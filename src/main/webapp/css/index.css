@@ -392,7 +392,7 @@ nav {
 }
 
 #index .preview .imgBox .imgFilter {
-	position: relative;
+	position: absolute;
 	width: 402px;
 	height: 294px;
 	background-color: #181818C8;
@@ -408,7 +408,11 @@ nav {
 	user-select: none;
 }
 
-
+#index .preview .imgBox .imgFilter p {
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+}
 
 #index .preview .imgBox img {
 	width: 100%;
