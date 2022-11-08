@@ -8,7 +8,7 @@
 			<!-- Site Main -->
 			<main id="index">
 				<section>
-					<form action="/search.gym" id="form_search">
+					<form action="/gym.search" id="form_search">
 
 						<div class="wrap">
 							<div class="mainimg bg type-b"></div>
@@ -23,7 +23,7 @@
 									</div>
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
-											name="keyword">
+											name="searchInput">
 									</div>
 									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
@@ -94,10 +94,10 @@
 				// Review DB 가져오기
 				function getReviewData() {
 					$.getJSON("/review.index", res => {
-						console.log(res.list)
+						console.log(res.reviewList);
 						let item_list = document.querySelectorAll(".item");
 						for (i = 0; i < item_list.length / 2; i++) {
-							let review = reviewBuilder(res.list[i]);
+							let review = reviewBuilder(res.reviewList[i]);
 							item_list[i].innerHTML = review;
 							item_list[i + 10].innerHTML = review;
 						}
@@ -108,17 +108,14 @@
 				function reviewBuilder(data) {
 					let date = new Date(data.review.review_writer_date);
 					let dateFormat = date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes();
-					let star = "";
-					for (j = 0; j < parseInt(data.review.review_star); j++) { star += "★"; }
-					
-					let gymName = "<tr><td colspan=2 class='text_title'>" + data.gym.gym_name + "</td></tr>";
-					let score = "<tr><td colspan=2>" + star + "<hr class='mt-3 mb-3'></td></tr>";
-					let writer = "<tr><td style='text-align:left'><strong>" + data.review.review_writer + "</strong></td>";
-					let writeDate = "<td class='text_mini' style='text-align:right'>" + dateFormat + " 작성</td></tr>";
-					let likes = "<tr><td colspan=2 class='text_mini' style='text-align:right'> 추천수 : " + data.review.review_like + "</td></tr>";
-					let contents = "<tr><td colspan=2>" + data.review.review_contents + "</td></tr>";
-					let space = "<tr><td><br></td></tr>";
-					let result = "<table style='width:100%'>" + gymName + score + writer + writeDate + likes + space + contents + "</table>";
+					let star = "<img src='/resource/ratingImg/rating_" + data.review.review_star + ".png' style='width:80%'>";
+					let gymName = "<tr><td colspan=2 style='font-family:Jua; font-size:24px'><a href='detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></td></tr>";
+					let score = "<tr style='border-top:5px solid white'><td colspan=2 align=center>" + star + "<hr class='mt-3 mb-3'></td></tr>";
+					let writer = "<tr><td style='text-align:left'><img src='/resource/duck.ico' style='display:inline-block; width:22px'>&nbsp" + data.review.review_writer + "</td>";
+					let writeDate = "<td class='text_mini' style='text-align:right; color=#808080'>" + dateFormat + " 작성</td></tr>";
+					let likes = "<tr><td colspan=2 class='text_mini' style='text-align:right; color=#808080'> 추천수 : " + data.review.review_like + "</td></tr>";
+					let contents = "<tr style='border-top:15px solid white'><td colspan=2>" + data.review.review_contents + "</td></tr>";
+					let result = "<table style='width:100%; font-family:Gowun Dodum'>" + gymName + score + writer + writeDate + likes + contents + "</table>";
 					return result;
 				}
 

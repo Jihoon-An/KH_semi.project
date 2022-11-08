@@ -29,11 +29,7 @@ public class IndexController extends HttpServlet {
 
                 // 리뷰 정보 요청
                 case "/review.index":
-                    List<HashMap<String, Object>> list = ReviewDAO.getInstance().selectAllSortByLikes();
-                    Gson g = new Gson();
-                    HashMap<String, Object> data = new HashMap<>();
-                    data.put("list", list);
-                    response.getWriter().append(g.toJson(data));
+                    response.getWriter().append(new Gson().toJson(getReviewData(request, response)));
                     break;
             }
         } catch (Exception e) {
@@ -43,5 +39,11 @@ public class IndexController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
+    }
+
+    protected HashMap<String, Object> getReviewData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("reviewList", ReviewDAO.getInstance().selectAllSortByLikes());
+        return result;
     }
 }
