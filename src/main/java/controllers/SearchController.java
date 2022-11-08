@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import commons.Common;
 import dao.GymDAO;
+import dao.GymFilterDAO;
 import dto.GymDTO;
+import dto.GymFilterDTO;
 
 /**
  * developer : Minseop
@@ -66,10 +69,16 @@ public class SearchController extends HttpServlet {
 	protected void getMainList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// gym data 불러오기
 		List<GymDTO> gymList = GymDAO.getInstance().selectAll();
+
+		List<GymFilterDTO> gymFilterList = new ArrayList<>();
+
+		for(GymDTO gym : gymList){
+			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
+		}
 		
 		// gym data 담기
 		request.setAttribute("gymList", gymList);
-		
+		request.setAttribute("gymFilterList", gymFilterList);
 	}
 
 	/**
@@ -95,19 +104,21 @@ public class SearchController extends HttpServlet {
 		if (filter_locker.equals("false")){filter_locker = "none";}else {filter_locker = "false";}
 		if (filter_shower.equals("false")){filter_shower = "none";}else {filter_shower = "false";}
 		if (filter_park.equals("false")){filter_park = "none";}else {filter_park = "false";}
-		System.out.println(filter_open);
-		System.out.println(filter_locker);
-		System.out.println(filter_shower);
-		System.out.println(filter_park);
 
 		// 검색 내용에 맞는 gym data 불러오기
 		List<GymDTO> gymList = GymDAO.getInstance().selectBySearch(
 				searchInput, filter_open, filter_locker, filter_shower, filter_park
 		);
 
+		List<GymFilterDTO> gymFilterList = new ArrayList<>();
+
+		for(GymDTO gym : gymList){
+			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
+		}
 
 		// gym data 담기
 		request.setAttribute("gymList", gymList);
+		request.setAttribute("gymFilterList", gymFilterList);
 	}
 
 

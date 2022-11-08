@@ -138,7 +138,7 @@
 			</script>
 
 
-			<c:forEach var="gymList" items="${gymList}">
+			<c:forEach var="gymList" items="${gymList}" varStatus="status">
 				<div class="gym_list">
 					<div class="gym_list_logo">
 						<img
@@ -146,7 +146,9 @@
 					</div>
 					<div class="gym_list_article">
 						<div class="gym_list_title">
-							<a href="/detail.gym?gym_seq=${gymList.gym_seq}">${gymList.gym_name }</a>
+							<a href="/detail.gym?gym_seq=${gymList.gym_seq}">
+								<i class="fa-solid fa-right-to-bracket"></i> ${gymList.gym_name }
+							</a>
 						</div>
 						<div class="gym_list_location">
 							<span>${gymList.gym_location }</span>
@@ -158,10 +160,22 @@
 							<span>${gymList.gym_open } / ${gymList.gym_close }</span>
 						</div>
 						<div class="gym_list_tagBox">
-							<div class="gym_list_tag open btn_base">#24시간</div>
-							<div class="gym_list_tag locker btn_base">#라커</div>
-							<div class="gym_list_tag shower btn_base">#샤워실</div>
-							<div class="gym_list_tag park btn_base">#주차장</div>
+							<c:if test="${gymFilterList[status.index].open eq 'true'}">
+								<div class="gym_list_tag open btn_base">#24시간</div>
+							</c:if>
+							<c:if test="${gymFilterList[status.index].locker eq 'true'}">
+								<div class="gym_list_tag locker btn_base">#라커</div>
+							</c:if>
+							<c:if test="${gymFilterList[status.index].shower eq 'true'}">
+								<div class="gym_list_tag shower btn_base">#샤워실</div>
+							</c:if>
+							<c:if test="${gymFilterList[status.index].park eq 'true'}">
+								<div class="gym_list_tag park btn_base">#주차장</div>
+							</c:if>
+							
+							
+							
+							
 							<input type="hidden" class="gym_list_x" value="${gymList.gym_x}">
 							<input type="hidden" class="gym_list_y" value="${gymList.gym_y}">
 							<input type="hidden" class="gym_list_name" value="${gymList.gym_name}">
@@ -173,11 +187,14 @@
 		</div>
 	</div>
 	<script>
+		let main_x = "${gymList[0].gym_x}";
+		let main_y = "${gymList[0].gym_y}";
+		
 		var markers = [];
-	
+		
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new kakao.maps.LatLng(37.56793539931502, 126.98309190765903), // 지도의 중심좌표
+		        center: new kakao.maps.LatLng(main_x, main_y), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };  
 	
@@ -259,6 +276,10 @@
 			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 			map.panTo(moveLatLon);            
 		}       
+
+
+		
+
 	</script>
 	<c:forEach var="gymList" items="${gymList}">
 		<script>
