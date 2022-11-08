@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import dto.FavoritesDTO;
 import dto.GymDTO;
+import dto.ReviewDTO;
+import dto.UserDTO;
 
 
 public class GymDAO extends Dao {
@@ -147,7 +151,6 @@ public class GymDAO extends Dao {
             return pstat.executeUpdate();
         }
     }
-
 
 //public List<GymDTO> printGym2() throws Exception{   //test
 //	
