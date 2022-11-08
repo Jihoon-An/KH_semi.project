@@ -58,21 +58,64 @@ public class ReviewDAO extends Dao {
         }
 
     }
+    
+//    public List<I> printReviewSeq() throws Exception {
+//
+//        String sql = "select review_seq from review";
+//        try (Connection con = this.getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql);
+//
+//        ) {
+//
+//            List<ReviewDTO> list = new ArrayList();
+//
+//            try (ResultSet rs = pstat.executeQuery()) {
+//
+//                while (rs.next()) {
+//                    list.add(rs.getInt("review_seq"));
+//                }
+//                return list;
+//
+//            }
+//        }
+//
+//    }
 	
 	/**
-	 * 좋아요 클릭시 리뷰 1 증가 계정당 1회
+	 * 좋아요 클릭시 리뷰테이블의 review_like 1 감소
 	 * @param dto
 	 * @return
 	 * @throws Exception
 	 */
-	public int add(ReviewDTO dto) throws Exception{
-		String sql="update review set review_like=review_like+1 where seq=?";
+	public int addReviewLike(int rseq) throws Exception{
+		String sql="update review set review_like=review_like+1 where review_seq=? ";
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);){   
 			//seq를 직접 넣는 이유는 파일 때문에
 
-			pstat.setInt(1, dto.getUser_seq());
-			pstat.setInt(2, dto.getGym_seq());
+			pstat.setInt(1,rseq);
+			
+	
+			
+			
+			int result = pstat.executeUpdate();
+			con.commit();
+			return result;
+		}
+	}
+	/**
+	 *  * 좋아요 클릭시 리뷰테이블의 review_like 1 감소
+	 * @param rseq
+	 * @return
+	 * @throws Exception
+	 */
+	public int delReviewLike(int rseq) throws Exception{
+		String sql="update review set review_like=review_like-1 where review_seq = ? ";
+		try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){   
+			//seq를 직접 넣는 이유는 파일 때문에
+
+			pstat.setInt(1,rseq);
 	
 			
 			

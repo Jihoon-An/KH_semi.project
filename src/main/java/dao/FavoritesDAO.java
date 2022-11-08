@@ -43,7 +43,14 @@ public class FavoritesDAO extends Dao {
 		
 	   	}
 
-	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
+    
+    /**
+     * 즐겨찾기 추가
+     * @param dto
+     * @return
+     * @throws Exception
+     */
+	   public int add(FavoritesDTO dto) throws Exception{ 
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
 					PreparedStatement pstat = con.prepareStatement(sql);){   
