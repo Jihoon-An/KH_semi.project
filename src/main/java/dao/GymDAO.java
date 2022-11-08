@@ -155,7 +155,25 @@ public class GymDAO extends Dao {
             return pstat.executeUpdate();
         }
     }
+    
+    /**
+	 * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 gym_seq 추가하기 위함
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public int getGymSeqNextVal() throws Exception {
+		String sql = "select gym_seq.nextval from dual";
 
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+
+			return rs.getInt(1);
+		}
+
+	}
 
 //public List<GymDTO> printGym2() throws Exception{   //test
 //	
