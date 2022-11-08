@@ -172,21 +172,21 @@ public class ReviewDTO {
 	public ReviewDTO() {
 	}
 
-	public ReviewDTO(ResultSet resultSet) throws SQLException {
-		this.review_seq = resultSet.getInt("review_seq");
-		this.user_seq = resultSet.getInt("user_seq");
-		this.gym_seq = resultSet.getInt("gym_seq");
-		this.bs_seq = resultSet.getInt("bs_seq");
-		this.review_writer = resultSet.getString("review_writer");
-		this.review_contents = resultSet.getString("review_contents");
-		this.review_like = resultSet.getInt("review_like");
-		this.review_writer_date = resultSet.getTimestamp("review_writer_date");
-		this.review_check1 = resultSet.getString("review_check1");
-		this.review_check2 = resultSet.getString("review_check2");
-		this.review_check3 = resultSet.getString("review_check3");
-		this.review_check4 = resultSet.getString("review_check4");
-		this.review_check5 = resultSet.getString("review_check5");
-		this.review_star = resultSet.getInt("review_star");
+    public ReviewDTO(ResultSet resultSet) throws SQLException {
+        this.review_seq = resultSet.getInt("review_seq");
+        this.user_seq = resultSet.getInt("user_seq");
+        this.gym_seq = resultSet.getInt("gym_seq");
+        this.bs_seq = resultSet.getInt("bs_seq");
+        this.review_writer = resultSet.getString("review_writer");
+        this.review_contents = resultSet.getString("review_contents");
+        this.review_star = resultSet.getInt("review_star");
+        this.review_like = resultSet.getInt("review_like");
+        this.review_writer_date = resultSet.getTimestamp("review_writer_date");
+        this.review_check1 = resultSet.getString("review_check1");
+        this.review_check2 = resultSet.getString("review_check2");
+        this.review_check3 = resultSet.getString("review_check3");
+        this.review_check4 = resultSet.getString("review_check4");
+        this.review_check5 = resultSet.getString("review_check5");
 
 	}
 

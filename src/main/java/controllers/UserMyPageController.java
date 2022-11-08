@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //프로필 이미지(PI) 수정
                 case "/modifyPI.userMyPage":
-                    this.insertPI(request, response);
+                    this.updatePI(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -82,7 +81,7 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 즐겨찾기 추가
+     * <h2>즐겨찾기 추가</h2>
      */
     private void addHeart(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int favSeq = Integer.parseInt(request.getParameter("fav_seq"));
@@ -94,7 +93,7 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 페이지를 띄우는 기본 메서드
+     * <h2>페이지를 띄우는 기본 메서드</h2>
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //test용 login seq 발행
@@ -126,8 +125,8 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 프로필 수정,
-     * 사진은 제외
+     * <h1>프로필 수정</h1>
+     * <h2>사진은 제외</h2>
      */
     protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDTO user = new UserDTO();
@@ -143,7 +142,7 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 비밀번호 변경
+     * <h1>>비밀번호 변경</h1
      */
     protected void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String pw = request.getParameter("pw");
@@ -152,7 +151,7 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 회원탈퇴를 위한 데이터 삭제
+     * <h1>회원탈퇴를 위한 데이터 삭제</h1>
      */
     protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
@@ -176,9 +175,9 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * insert profile image to DB
+     * <h1>insert profile image to DB</h1>
      */
-    protected void insertPI(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void updatePI(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         FileControl fileControl = new FileControl();
         String path = "/resource/profileImg";
@@ -191,6 +190,6 @@ public class UserMyPageController extends ControllerAbs {
         fileControl.delete(request, path, beforePiName);
 
         // 새로 생성한 파일 커밋
-        UserDAO.getInstance().insertPi(userSeq, sysName);
+        UserDAO.getInstance().updatePi(userSeq, sysName);
     }
 }

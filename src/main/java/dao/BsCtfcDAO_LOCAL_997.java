@@ -10,23 +10,22 @@ import dto.BsUsersDTO;
 
 public class BsCtfcDAO extends Dao {
 
-//	private BsCtfcDAO() {
-//		super();
-//	}
-//
-//	public static BsCtfcDAO getInstance() {
-//		return (BsCtfcDAO) Dao.getInstance();
-//	}
-
-	
-	private static BsCtfcDAO instance;
-
-	synchronized public static BsCtfcDAO getInstance() {
-		if (instance == null) {
-			instance = new BsCtfcDAO();
-		}
-		return instance;
+	private BsCtfcDAO() {
+		super();
 	}
+
+	public static BsCtfcDAO getInstance() {
+		return (BsCtfcDAO) Dao.getInstance();
+	}
+
+//	private static BsCtfcDAO instance;
+
+//	synchronized public static BsCtfcDAO getInstance() {
+//		if (instance == null) {
+//			instance = new BsCtfcDAO();
+//		}
+//		return instance;
+//	}
 
 	/**
 	 * <h1>사업증 이미지 테이블 가져오기</h1>
@@ -50,7 +49,6 @@ public class BsCtfcDAO extends Dao {
 			}
 		}
 	}
-
 
 	/**
 	 * insert (신규 데이터 생성)

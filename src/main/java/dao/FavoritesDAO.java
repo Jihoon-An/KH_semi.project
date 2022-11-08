@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.SynchronousQueue;
 
 
 import dto.FavoritesDTO;
+import dto.GymDTO;
 
 
 public class FavoritesDAO extends Dao {
@@ -165,5 +167,29 @@ public class FavoritesDAO extends Dao {
 			statement.executeUpdate();
 			connection.commit();
 		}
+	}
+
+	/** gym table을 join 시킨 favorites table을 gym_seq로 그룹화하여 count가 높은 6행 만큼 조회
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<HashMap<String, Object>> selectSortByFavorites() throws Exception {
+		List<HashMap<String, Object>> result = new ArrayList<>();
+		String sql = "select * from (select gym_seq, count(*) count from favorites group by gym_seq order by count desc) f left join gym g on f.gym_seq = g.gym_seq where rownum <= 6";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			ResultSet rs = pstat.executeQuery();
+			while (rs.next()) {
+				HashMap<String, Object> data = new HashMap<>();
+				FavoritesDTO favorites = new FavoritesDTO();
+				favorites.setGym_seq(rs.getInt("gym_seq"));
+				favorites.setCount(rs.getInt("count"));
+				data.put("favorites", favorites);
+				data.put("gym", new GymDTO(rs));
+				result.add(data);
+			}
+			rs.close();
+		}
+		return result;
 	}
 }
