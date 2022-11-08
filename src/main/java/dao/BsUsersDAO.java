@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import commons.Common;
 import dto.BsUsersDTO;
 
 import dto.UserDTO;
@@ -28,7 +29,7 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 사업자 회원 날짜 오름차순 정렬 출력
+     * <h1>사업자 회원 날짜 오름차순 정렬 출력</h1>
      *
      * @return
      * @throws Exception
@@ -46,10 +47,9 @@ public class BsUsersDAO extends Dao {
         }
     }
 
-    
 
     /**
-     * 관리자 사업자 회원 페이지 회원 검색
+     * <h1>관리자 사업자 회원 페이지 회원 검색</h1>
      *
      * @param name
      * @return
@@ -70,9 +70,9 @@ public class BsUsersDAO extends Dao {
             }
         }
     }
-    
+
     /**
-     * bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회
+     * <h1>bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회</h1>
      *
      * @param option
      * @param value
@@ -111,7 +111,7 @@ public class BsUsersDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public int delete(int seq) throws Exception {  //byseq
+    public int deleteBySeq(int seq) throws Exception {  //byseq
         String sql = "delete from bs_users where seq = ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
@@ -123,7 +123,7 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 사업자 회원가입 창에서 이메일 중복 확인
+     * <h1>사업자 회원가입 창에서 이메일 중복 확인</h1>
      *
      * @param email
      * @return
@@ -144,7 +144,7 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함
+     * <h1>사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함</h1>
      *
      * @return
      * @throws Exception
@@ -163,7 +163,7 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 사업자 회원가입
+     * <h1>사업자 회원가입</h1>
      *
      * @param email
      * @param pw
@@ -323,5 +323,54 @@ public class BsUsersDAO extends Dao {
 
 
     }
+
+
+    /**
+     * <h1>BS profile 수정</h1>
+     * 수정목록: 3개
+     * 이름, 사업자번호, 전화번호
+     *
+     * @param bsUser
+     * @throws Exception
+     */
+    public void updateProfile(BsUsersDTO bsUser) throws Exception {
+        String sql = "update bs_users set bs_number = ? , bs_name = ?, bs_phone = ? where bs_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, bsUser.getBs_number());
+            statement.setString(2, bsUser.getBs_name());
+            statement.setString(3, bsUser.getBs_phone());
+            statement.setInt(4, bsUser.getBs_seq());
+
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
+
+    /**
+     * <h1>bsSeq로 하나의 사업자 데이터를 불러옴</h1>
+     *
+     * @param bsSeq
+     * @return
+     * @throws Exception
+     */
+    public BsUsersDTO getByBsSeq(int bsSeq) throws Exception {
+        String sql = "select * from bs_users where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)
+        ) {
+            statement.setInt(1, bsSeq);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return new BsUsersDTO(rs);
+                } else {
+                    return new BsUsersDTO();
+                }
+            }
+        }
+    }
+
 
 }

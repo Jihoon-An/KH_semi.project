@@ -93,7 +93,7 @@ public class GymDAO extends Dao {
 
                     return dto;
                 } else {
-                    return null;
+                    return new GymDTO();
                 }
             }
         }

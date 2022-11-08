@@ -241,7 +241,7 @@ public class UserDAO extends Dao {
         }
     }
 
-    public void insertPi(int userSeq, String sysFile) throws Exception {
+    public void updatePi(int userSeq, String sysFile) throws Exception {
         String sql = "update users set users_PI = ? where users_seq = ?";
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
