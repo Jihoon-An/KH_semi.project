@@ -18,6 +18,7 @@ import commons.Common;
 import dao.BsCtfcDAO;
 import dao.BsUsersDAO;
 import dao.GymDAO;
+import dao.GymFilterDAO;
 import dto.BsCtfcDTO;
 import dto.BsUsersDTO;
 import dto.GymDTO;
@@ -48,7 +49,7 @@ public class BsUsersController extends HttpServlet {
 				break;
 
 			// 비밀번호 찾기 요청
-				case "/searchPw.bs":
+			case "/searchPw.bs":
 				response.getWriter().append(String.valueOf(this.hasBsData(request, response)));
 				break;
 
@@ -102,7 +103,7 @@ public class BsUsersController extends HttpServlet {
 		String req_phone = request.getParameter("phone");
 		return BsUsersDAO.getInstance().searchBsPw(req_email, req_phone);
 	}
-	
+
 	protected boolean isBsDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("bs_email");
 		return BsUsersDAO.getInstance().isBsEmailCheck(req_email);
@@ -141,9 +142,12 @@ public class BsUsersController extends HttpServlet {
 
 		for (int i = 0; i < gym_name.length; i++) {
 			String gym_location = gym_address1[i] + " " + gym_address2[i];
-			GymDAO.getInstance().addGYM(new GymDTO(0, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null,
-					null, null, null, gym_x[i], gym_y[i]));
+			GymDAO.getInstance().addGYM(new GymDTO(0, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
+					null, null, gym_x[i], gym_y[i]));
 		}
+
+		// 필터추가
+		GymFilterDAO.getInstance().addGymFilter(bsSeqNextVal);
 
 		// 사업자등록증 업로드
 		Enumeration<String> e = multi.getFileNames();

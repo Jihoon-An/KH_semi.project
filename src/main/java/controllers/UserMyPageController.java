@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import commons.FileControl;
 import dao.*;
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
@@ -53,12 +54,15 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //즐겨찾기 삭제
                 case "/delHeart.userMyPage":
+                    FavoritesDAO.getInstance().deleteByFavoriteSeq(Integer.parseInt(request.getParameter("fav_seq")));
                     break;
                 //즐겨찾기 다시 추가
                 case "/addHeart.userMyPage":
+                    this.addHeart(request, response);
                     break;
                 //리뷰 삭제
                 case "/delReview.userMyPage":
+                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
                     break;
                 //프로필 이미지(PI) 수정
                 case "/modifyPI.userMyPage":
@@ -71,9 +75,22 @@ public class UserMyPageController extends ControllerAbs {
         }
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         this.doGet(request, response);
+    }
+
+    /**
+     * 즐겨찾기 추가
+     */
+    private void addHeart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int favSeq = Integer.parseInt(request.getParameter("fav_seq"));
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
+        FavoritesDTO favDTO = new FavoritesDTO(favSeq, userSeq, gymSeq);
+
+        FavoritesDAO.getInstance().addCus(favDTO);
     }
 
     /**
@@ -91,15 +108,18 @@ public class UserMyPageController extends ControllerAbs {
         // 즐겨찾기 한 데이터
         List<GymDTO> gyms = new ArrayList<>();
         GymDAO gymDAO = GymDAO.getInstance();
+        List<Integer> favs = new ArrayList<>();
 
         for (int gymSeq : gymsSeq) {
             gyms.add(gymDAO.printGym(gymSeq));
+            favs.add(FavoritesDAO.getInstance().getFavSeqByUserAndGym(userSeq, gymSeq));
         }
         // reivew 데이터
-        List<ReviewDTO> reviews = ReviewDAO.getInstance().selectByUser(userSeq);
+        List<ReviewDTO> reviews = ReviewDAO.getInstance().getListByUser(userSeq);
 
         //data 담기
         request.setAttribute("user", user);
+        request.setAttribute("favs", favs);
         request.setAttribute("gyms", gyms);
         request.setAttribute("reviews", reviews);
 
@@ -140,12 +160,9 @@ public class UserMyPageController extends ControllerAbs {
         // 로그아웃
         request.getSession().removeAttribute("userSeq");
         // 프사지우기
-        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
-        String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
-        File beforeFile = new File(savePath + "/" + beforePiName);
-        if (beforeFile.exists()) {
-            beforeFile.delete();
-        }
+        String path = "/resource/profile"; //런타임 webapp 폴더를 불러옴.
+        String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+        new FileControl().delete(request, path, delFileName);
         // 유저 테이블 삭제
         UserDAO.getInstance().deleteByUserSeq(userSeq);
         // 즐겨찾기 테이블 삭제
