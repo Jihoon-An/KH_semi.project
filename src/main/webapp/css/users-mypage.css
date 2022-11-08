@@ -1,3 +1,302 @@
 @charset "utf-8";
 
 
+#users-mypage div {
+    box-sizing: border-box;
+}
+
+#users-mypage #user_img {
+    width: 159px;
+    height: 159px;
+    border-radius: 100%;
+}
+
+#users-mypage #profile_upload {
+    cursor: pointer;
+    width: max-content;
+}
+
+#users-mypage .profile_title {
+    width: 100px;
+    display: inline-table;
+
+}
+
+#users-mypage #interest_out {
+    width: 420px;
+    overflow: scroll;
+    display: inline-table;
+    height: 120px;
+    position: relative;
+    transform: translate(100px,0px);
+}
+
+#users-mypage .interesting {
+    border: 1px solid rgb(204, 204, 204);
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 3px 5px;
+    text-align: center;
+    border-radius: 30px;
+    width: max-content;
+    display: inline-table;
+}
+
+#users-mypage .modifyBtn {
+    transform: translate(0, -2px);
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    padding: 5px;
+    display: inline-table;
+}
+
+#users-mypage .gym_area {
+    width: 1200px;
+    height: 260px;
+    padding-left: 12px;
+}
+
+#users-mypage .gym_cards_box {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    width: 280px;
+    height: 1200px;
+    transform: rotate(-90deg);
+    position: relative;
+    left: 446px;
+    top: -460px;
+}
+
+#users-mypage .gym_cards_box::-webkit-scrollbar {
+    display: none;
+}
+
+#users-mypage .gym_card {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 30px;
+    transform: rotate(90deg);
+    overflow: visible;
+    z-index: 1;
+}
+
+#users-mypage .gym_img {
+    width: 260px;
+    height: 260px;
+    cursor: pointer;
+}
+
+
+#users-mypage .gym_text {
+    background-color: rgba(221, 221, 221, 0.71);
+    color: rgb(36, 36, 40);
+    position: absolute;
+    width: 100%;
+    height: 140px;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#users-mypage .gym_card:hover .gym_text {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+#users-mypage .heart {
+    cursor: pointer;
+    color: #CF0C00;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    z-index: 2;
+}
+
+#users-mypage .heart:hover {
+    filter: blur(0px);
+    -webkit-filter: blur(1px);
+    transition: 0.2s;
+}
+
+#users-mypage .review_cards_area {
+    margin: 0 auto;
+    width: 1200px;
+}
+
+#users-mypage .modify_review_btn {
+    color: black;
+    padding-left: 10px;
+}
+
+#users-mypage .modify_review_btn:hover {
+    color: rgb(120, 19, 214);
+}
+
+#users-mypage .del_review_btn {
+    color: red;
+    cursor: pointer;
+}
+
+#users-mypage .del_review_btn:hover {
+    color: rgb(171, 13, 13);
+}
+
+#users-mypage .review_gymName {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding-left: 30px;
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+#users-mypage .review_text {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    width: 95%;
+    max-height: 40px;
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#users-mypage hr {
+    width: 98%;
+    margin: 0 auto;
+}
+
+#users-mypage #private {
+    position: fixed;
+    top: 85px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(179, 179, 179, 0.227);
+    z-index: 1001;
+}
+
+
+#users-mypage .modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background: rgba(255, 255, 255, 0.25); */
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 6px;
+    border: 1px solid #808080;
+    z-index: 1002;
+}
+
+#users-mypage #private_table {
+    border: 1px solid black;
+    position: relative;
+    width: 400px;
+    height: 500px;
+    top: 100px;
+    background-color: white;
+    border-radius: 6px;
+}
+
+#users-mypage #close_private {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #808080;
+    cursor: pointer;
+}
+
+#users-mypage #close_private:hover {
+    filter: blur(0.5px);
+    -webkit-filter: blur(0.5px);
+    color: rgb(209, 50, 50);
+    transition: 0.2s;
+}
+
+#users-mypage #private_title{
+    display: block;
+    text-shadow: 1px 1px 2px grey;
+    text-align: center;
+    color: var(--bs-body-color);
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: calc(1.325rem + .9vw);
+    left: auto;
+    margin-top: 60px;
+}
+
+#users-mypage #pw{
+    position:relative;
+    top:-250px;
+}
+
+#users-mypage .input_pw {
+    width:250px;
+}
+
+#users-mypage .input_pw input {
+    padding: 5px 0;
+    width: 250px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+#users-mypage .input_pw span{
+    color: #808080;
+    font-size: x-small;
+}
+
+#users-mypage #sign_down{
+    position: relative;
+    top:-200px;
+    cursor: pointer;
+    color: blue;
+    text-align: center;
+}
+
+#users-mypage .sign_down_area{
+    height: 40px;
+    text-align: center;
+}
+
+#users-mypage .sign_down_confirm_btn{
+    width: 80px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+}
+
+#users-mypage .sign_down_confirm_btn:hover{
+    color: #3e225f;
+    transition:0.3s;
+}
+
+#users-mypage .sex_btn{
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #fff;
+	border: 1px solid #cbcbcb;
+    
+	box-sizing: border-box;
+	color: #cbcbcb;
+}
+
+#users-mypage .sex_btn_hover:hover{
+    background-color:#939196;
+    color: #cecaca;
+}

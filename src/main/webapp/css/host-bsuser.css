@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+  #host-bsuser * {
+    box-sizing: border-box;
+ }
+
+ #host-bsuser div:not(.btn_div, .containerbox) {
+    border: 1px solid black;
+
+ }
+
+ #host-bsuser .board {
+    width: 1200px;
+    margin: auto;
+    overflow: hidden;
+ }
+
+ #host-bsuser .title>div {
+  
+    text-align: center;
+ }
+
+ #host-bsuser .title>div{
+    
+    height: 30px;
+ }
+
+  #host-bsuser .userm{
+   width: 100%;
+ }
+
+ #host-bsuser .selectuser {
+    float: left;
+    width: 5%;
+    
+    
+ }
+#host-bsuser .user-seq {
+   float: left;
+    width: 10%;
+ }
+
+ #host-bsuser .user-email {
+   float: left;
+    width: 20%;
+ }
+
+ #host-bsuser .user-name {
+    float: left;
+    width: 15%;
+ }
+
+#host-bsuser .user-phone {
+    float: left;
+    width: 15%;
+ }
+
+ #host-bsuser .gym-count {
+   float: left;
+    width: 10%;
+ }
+
+
+ #host-bsuser .sign-date {
+    overflow: hidden;
+    width: 25%;
+ }
+
+
+
+ #host-bsuser .btn_div {
+    float: right;
+ }
+
+  #host-bsuser .other{
+    width: 100%;
+    height: 30px;
+ }
+ 
+ #host-bsuser .navi{
+ 	width:100%;
+ 	
+ }
+ 
+ #host-bsuser .search{
+ 	width:100%;
+ }
+/*  */
