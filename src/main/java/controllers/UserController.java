@@ -38,9 +38,10 @@ public class UserController extends HttpServlet {
 				break;
 
 			// 아이디 찾기 요청
-			case "/searchId.user":
-				response.getWriter().append(this.getSearchId(request, response));
-				break;
+//			case "/searchId.user":
+//				List<UserDTO> list = UserDAO.getInstance().selectByOption("users_phone", request.getParameter("phone"));
+//				response.getWriter().append(!list.isEmpty() ? list.get(0).getEmail() : null);
+//				break;
 
 			// 비밀번호 찾기 요청
 			case "/searchPw.user":
@@ -81,7 +82,7 @@ public class UserController extends HttpServlet {
 	protected boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("login_id");
 		String req_pw = request.getParameter("login_pw");
-		List<UserDTO> list = UserDAO.getInstance().searchAll("users_email", req_email);
+		List<UserDTO> list = UserDAO.getInstance().selectByOption("users_email", req_email);
 		if (!list.isEmpty()) {
 			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
 				// 로그인 성공
@@ -95,13 +96,6 @@ public class UserController extends HttpServlet {
 		}
 		return false;
 	}
-	
-	protected String getSearchId(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String req_name = request.getParameter("name");
-		String req_phone = request.getParameter("phone");
-		return UserDAO.getInstance().searchId(req_name, req_phone);
-	}
-	
 	protected boolean hasUserData(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("email");
 		String req_phone = request.getParameter("phone");

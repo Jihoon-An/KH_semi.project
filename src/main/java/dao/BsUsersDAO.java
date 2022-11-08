@@ -3,32 +3,27 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import commons.Common;
 import dto.BsUsersDTO;
-
-import dto.UserDTO;
 
 public class BsUsersDAO extends Dao {
 
-    private BsUsersDAO() {
-        super();
-    }
 
-    private static BsUsersDAO instance;
+	private static BsUsersDAO instance;
 
-    synchronized public static BsUsersDAO getInstance() {
-        if (instance == null) {
-            instance = new BsUsersDAO();
-        }
-        return instance;
-    }
+	synchronized public static BsUsersDAO getInstance() {
+		if (instance == null) {
+			instance = new BsUsersDAO();
+		}
+		return instance;
+	}
 
     /**
-     * 사업자 회원 날짜 오름차순 정렬 출력
+     * <h1>사업자 회원 날짜 오름차순 정렬 출력</h1>
      *
      * @return
      * @throws Exception
@@ -39,17 +34,16 @@ public class BsUsersDAO extends Dao {
         try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
             ResultSet rs = pstat.executeQuery();
 
-            while (rs.next()) {
-                result.add(new BsUsersDTO(rs));
-            }
-            return result;
-        }
-    }
+			while (rs.next()) {
+				result.add(new BsUsersDTO(rs));
+			}
+			return result;
+		}
+	}
 
-    
 
     /**
-     * 관리자 사업자 회원 페이지 회원 검색
+     * <h1>관리자 사업자 회원 페이지 회원 검색</h1>
      *
      * @param name
      * @return
@@ -70,9 +64,9 @@ public class BsUsersDAO extends Dao {
             }
         }
     }
-    
+
     /**
-     * bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회
+     * <h1>bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회</h1>
      *
      * @param option
      * @param value
@@ -82,7 +76,8 @@ public class BsUsersDAO extends Dao {
     public List<BsUsersDTO> searchAll(String option, String value) throws Exception {
         List<BsUsersDTO> result = new ArrayList<>();
         String sql = "select * from bs_users where " + option + " = ?";
-        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setString(1, value);
             ResultSet rs = pstat.executeQuery();
             while (rs.next()) {
@@ -92,6 +87,16 @@ public class BsUsersDAO extends Dao {
         }
     }
 
+	public boolean searchBsPw(String email, String phone) throws Exception {
+		String sql = "select bs_email from bs_users where bs_email = ? and bs_phone = ?";
+		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, email);
+			pstat.setString(2, phone);
+			ResultSet rs = pstat.executeQuery();
+			return rs.next();
+		}
+	}
+
     /**
      * 삭제 기능 미완성
      *
@@ -99,7 +104,7 @@ public class BsUsersDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public int delete(int seq) throws Exception {  //byseq
+    public int deleteBySeq(int seq) throws Exception {  //byseq
         String sql = "delete from bs_users where seq = ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
@@ -111,7 +116,7 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 사업자 회원가입 창에서 이메일 중복 확인
+     * <h1>사업자 회원가입 창에서 이메일 중복 확인</h1>
      *
      * @param email
      * @return
@@ -120,19 +125,19 @@ public class BsUsersDAO extends Dao {
     public boolean isBsEmailCheck(String email) throws Exception {
         String sql = "select * from bs_users where bs_email = ?";
 
-        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setString(1, email);
+			pstat.setString(1, email);
 
-            try (ResultSet rs = pstat.executeQuery();) {
-                return rs.next();
-            }
+			try (ResultSet rs = pstat.executeQuery();) {
+				return rs.next();
+			}
 
-        }
-    }
+		}
+	}
 
     /**
-     * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함
+     * <h1>사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함</h1>
      *
      * @return
      * @throws Exception
@@ -140,18 +145,18 @@ public class BsUsersDAO extends Dao {
     public int getBsSeqNextVal() throws Exception {
         String sql = "select bs_seq.nextval from dual";
 
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            rs.next();
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			rs.next();
 
-            return rs.getInt(1);
-        }
+			return rs.getInt(1);
+		}
 
-    }
+	}
 
     /**
-     * 사업자 회원가입
+     * <h1>사업자 회원가입</h1>
      *
      * @param email
      * @param pw
@@ -161,155 +166,225 @@ public class BsUsersDAO extends Dao {
      */
     public int isBsSignUp(BsUsersDTO dto) throws Exception {
 
-        String sql = "insert into bs_users values(?,?,?,?,?,?,sysdate)";
+		String sql = "insert into bs_users values(?,?,?,?,?,?,sysdate)";
 
-        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setInt(1, dto.getBs_seq());
-            pstat.setString(2, dto.getBs_number());
-            pstat.setString(3, dto.getBs_email());
-            pstat.setString(4, dto.getBs_pw());
-            pstat.setString(5, dto.getBs_name());
-            pstat.setString(6, dto.getBs_phone());
+			pstat.setInt(1, dto.getBs_seq());
+			pstat.setString(2, dto.getBs_number());
+			pstat.setString(3, dto.getBs_email());
+			pstat.setString(4, dto.getBs_pw());
+			pstat.setString(5, dto.getBs_name());
+			pstat.setString(6, dto.getBs_phone());
 
-            con.commit();
+			con.commit();
 
-            return pstat.executeUpdate();
-        }
-    }
+			return pstat.executeUpdate();
+		}
+	}
 
+	/**
+	 * 
+	 * 사업자 회원가입시 GYM 필터 추가
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public int isBsSignUp5(BsUsersDTO dto) throws Exception {
 
-    // 아래로 네비바 로직
-    public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) where rn between ? and ?";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-        ) {
+		String sql = "insert into gym_filter (gym_seq) values (?)";
 
-            pstat.setInt(1, start);
-            pstat.setInt(2, end);
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            try (ResultSet rs = pstat.executeQuery();) {
+			pstat.setInt(1, dto.getBs_seq());
+			pstat.setString(2, dto.getBs_number());
+			pstat.setString(3, dto.getBs_email());
+			pstat.setString(4, dto.getBs_pw());
+			pstat.setString(5, dto.getBs_name());
+			pstat.setString(6, dto.getBs_phone());
 
-                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
+			con.commit();
 
-                while (rs.next()) {
+			return pstat.executeUpdate();
+		}
+	}
 
-                    //하나의 dto만 나오기떄문에 while문 필요x
+	// 아래로 네비바 로직
+	public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
+		String sql = "select  * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) where rn between ? and ?";
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-                    list.add(new BsUsersDTO(rs));
-                }
-                return list;
-            }
+			pstat.setInt(1, start);
+			pstat.setInt(2, end);
 
-        }
-    }
+			try (ResultSet rs = pstat.executeQuery();) {
 
+				List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
 
-    public int getRecordCount() throws Exception { //게시글 갯수반환
-        String sql = "select count(*) from bs_users";
+				while (rs.next()) {
 
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1);  //한줄 뽑겠다
-        }
+					// 하나의 dto만 나오기떄문에 while문 필요x
 
-    }
+					list.add(new BsUsersDTO(rs));
+				}
+				return list;
+			}
 
-    public String getPageNavi(int currentPage) throws Exception { //페이지 네비
-        //총 몇개의 글
+		}
+	}
 
-        int recordTotalCount = this.getRecordCount(); //board 테이블에 총 144개의 글이 있다고 가정
-        int recordCountPerPage = 10; //한페이지당 몇개의 글을 보여줄것인가
-        int naviCountPerpage = 10; //게시판 하단의 page vaigator 가 한번에 몇개씩 보여질지저장
+	public int getRecordCount() throws Exception { // 게시글 갯수반환
+		String sql = "select count(*) from bs_users";
 
-        //recordCountPerPage
-        //naviCountPerpage 는 dao의 지역변수로 쓰면 안되고 따로 클래스를 만들어 static으로 사용해야함
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+			return rs.getInt(1); // 한줄 뽑겠다
+		}
 
+	}
 
-        int pageTotalCount = 0; //총페이지 갯수
+	public String getPageNavi(int currentPage) throws Exception { // 페이지 네비
+		// 총 몇개의 글
 
-        if (recordTotalCount % recordCountPerPage > 0) {  //총게시글/ 한페이지 몇개의 글 나머지가 0보다 크면 +1 아니면 그대로 //페이지 총 갯수
+		int recordTotalCount = this.getRecordCount(); // board 테이블에 총 144개의 글이 있다고 가정
+		int recordCountPerPage = 10; // 한페이지당 몇개의 글을 보여줄것인가
+		int naviCountPerpage = 10; // 게시판 하단의 page vaigator 가 한번에 몇개씩 보여질지저장
 
-            pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
-        } else {
-            pageTotalCount = (recordTotalCount / recordCountPerPage);
-        } //전체페이지갯수
+		// recordCountPerPage
+		// naviCountPerpage 는 dao의 지역변수로 쓰면 안되고 따로 클래스를 만들어 static으로 사용해야함
 
-        //int currentPage =12; //현재 페이지가 12 // 매개변수로존재해야함
-        //7 : 1~10
-        //15 : 11 ~20
-        //28 : 21~30
-        //현재 페이지부터 시작 페이지를 얻어서 +9  // 1의 자리를 날리고 1을 끼워넣으면 시작페이지
+		int pageTotalCount = 0; // 총페이지 갯수
 
-        if (currentPage < 1) { //현재 페이지가 1보다 작다그러면 현재 페이지는 1
-            currentPage = 1;
-        } else if (currentPage > pageTotalCount) { //현재 페이지가 토탈페이지갯수보다 크면 현재페이지=토탈
-            currentPage = pageTotalCount;
-        } //보안코드
+		if (recordTotalCount % recordCountPerPage > 0) { // 총게시글/ 한페이지 몇개의 글 나머지가 0보다 크면 +1 아니면 그대로 //페이지 총 갯수
 
+			pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
+		} else {
+			pageTotalCount = (recordTotalCount / recordCountPerPage);
+		} // 전체페이지갯수
 
-        int startNavi = (currentPage - 1) / naviCountPerpage * naviCountPerpage + 1;
-        int endNavi = startNavi + naviCountPerpage - 1;
-        //7 : 1~10
-        //15 : 11 ~20
-        //28 : 21~30
-        //int startNavi=(currentPage-1)/10 *10 +1;
-        //1의 자리를 날리고 1을 끼워넣으면 시작페이지  //10의 배수일떈 성립이 안되어서 currentPage-1
-        //10페이지를 본다는 기준하에
+		// int currentPage =12; //현재 페이지가 12 // 매개변수로존재해야함
+		// 7 : 1~10
+		// 15 : 11 ~20
+		// 28 : 21~30
+		// 현재 페이지부터 시작 페이지를 얻어서 +9 // 1의 자리를 날리고 1을 끼워넣으면 시작페이지
 
-        if (endNavi > pageTotalCount) {
-            endNavi = pageTotalCount;  //네비게이터끝이 토탈 페이지 보다 크면 둘은 같다
-        }
+		if (currentPage < 1) { // 현재 페이지가 1보다 작다그러면 현재 페이지는 1
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) { // 현재 페이지가 토탈페이지갯수보다 크면 현재페이지=토탈
+			currentPage = pageTotalCount;
+		} // 보안코드
+
+		int startNavi = (currentPage - 1) / naviCountPerpage * naviCountPerpage + 1;
+		int endNavi = startNavi + naviCountPerpage - 1;
+		// 7 : 1~10
+		// 15 : 11 ~20
+		// 28 : 21~30
+		// int startNavi=(currentPage-1)/10 *10 +1;
+		// 1의 자리를 날리고 1을 끼워넣으면 시작페이지 //10의 배수일떈 성립이 안되어서 currentPage-1
+		// 10페이지를 본다는 기준하에
+
+		if (endNavi > pageTotalCount) {
+			endNavi = pageTotalCount; // 네비게이터끝이 토탈 페이지 보다 크면 둘은 같다
+		}
 
 //		System.out.println("현재 페이지" +currentPage);
 //		System.out.println("네비게이터 시작:" + startNavi);
 //		System.out.println("네비게이터 끝"+endNavi);
 
-        boolean needPrev = true;
-        boolean needNext = true;
+		boolean needPrev = true;
+		boolean needNext = true;
+
+		if (startNavi == 1) {
+			needPrev = false; // 스타트
+		}
+		if (endNavi == pageTotalCount) {
+			needNext = false;
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		if (needPrev) { // 왼쪽 화살표가 필요한 상황이면
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (startNavi - 1)
+					+ "'>Previous</a></li>");
+			// System.out.println("<");
+		} // 이전페이지
+
+		for (int i = startNavi; i <= endNavi; i++) {
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + i + "'>" + i
+					+ "</a></li>");
+			// System.out.println(i+" ");
+		}
+
+		if (needNext) {
+			sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (endNavi + 1)
+					+ "'>Next</a></li>");
+			// System.out.println(">");
+		} // 다음페이지
+
+		return sb.toString();
+		/*
+		 * int pageTotalCount= (recordTotalCount+9) / recordCountPerPage; 수정전
+		 * recordCountPerPage = 10일때만 해당될겁니다간단하게 페이지당 2페이지보이게하면 저걸로하면 페이지 엄청불어남
+		 * 
+		 * 수정후 int pageTotalCount= (recordTotalCount+(recordCountPerPage-1)) /
+		 * recordCountPerPage;
+		 * 
+		 * 
+		 */
+		// 게시글의 갯수 / 한페이지당 보여줄게시글+1=전체페에지 갯수
+
+	}
 
 
-        if (startNavi == 1) {
-            needPrev = false; //스타트
+    /**
+     * <h1>BS profile 수정</h1>
+     * 수정목록: 3개
+     * 이름, 사업자번호, 전화번호
+     *
+     * @param bsUser
+     * @throws Exception
+     */
+    public void updateProfile(BsUsersDTO bsUser) throws Exception {
+        String sql = "update bs_users set bs_number = ? , bs_name = ?, bs_phone = ? where bs_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, bsUser.getBs_number());
+            statement.setString(2, bsUser.getBs_name());
+            statement.setString(3, bsUser.getBs_phone());
+            statement.setInt(4, bsUser.getBs_seq());
+
+            statement.executeUpdate();
+            connection.commit();
         }
-        if (endNavi == pageTotalCount) {
-            needNext = false;
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        if (needPrev) { //왼쪽 화살표가 필요한 상황이면
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (startNavi - 1) + "'>Previous</a></li>");
-            //System.out.println("<");
-        }  //이전페이지
-
-        for (int i = startNavi; i <= endNavi; i++) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + i + "'>" + i + "</a></li>");
-            //	System.out.println(i+" ");
-        }
-
-        if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (endNavi + 1) + "'>Next</a></li>");
-            //	System.out.println(">");
-        } //다음페이지
-
-        return sb.toString();
-        /*
-         * int pageTotalCount= (recordTotalCount+9) / recordCountPerPage;
-         * 수정전
-         * recordCountPerPage = 10일때만 해당될겁니다간단하게 페이지당 2페이지보이게하면 저걸로하면 페이지 엄청불어남
-
-         * 수정후
-         * int pageTotalCount= (recordTotalCount+(recordCountPerPage-1)) / recordCountPerPage;
-
-
-         * */
-        //	게시글의 갯수 / 한페이지당 보여줄게시글+1=전체페에지 갯수
-
-
     }
+
+    /**
+     * <h1>bsSeq로 하나의 사업자 데이터를 불러옴</h1>
+     *
+     * @param bsSeq
+     * @return
+     * @throws Exception
+     */
+    public BsUsersDTO getByBsSeq(int bsSeq) throws Exception {
+        String sql = "select * from bs_users where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)
+        ) {
+            statement.setInt(1, bsSeq);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return new BsUsersDTO(rs);
+                } else {
+                    return new BsUsersDTO();
+                }
+            }
+        }
+    }
+
 
 }

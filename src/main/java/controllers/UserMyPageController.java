@@ -1,9 +1,9 @@
 package controllers;
 
 import com.google.gson.Gson;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import commons.FileControl;
 import dao.*;
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,16 +53,19 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //즐겨찾기 삭제
                 case "/delHeart.userMyPage":
+                    FavoritesDAO.getInstance().deleteByFavoriteSeq(Integer.parseInt(request.getParameter("fav_seq")));
                     break;
                 //즐겨찾기 다시 추가
                 case "/addHeart.userMyPage":
+                    this.addHeart(request, response);
                     break;
                 //리뷰 삭제
                 case "/delReview.userMyPage":
+                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
                     break;
                 //프로필 이미지(PI) 수정
                 case "/modifyPI.userMyPage":
-                    this.insertPI(request, response);
+                    this.updatePI(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -72,13 +74,26 @@ public class UserMyPageController extends ControllerAbs {
         }
     }
 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         this.doGet(request, response);
     }
 
     /**
-     * 페이지를 띄우는 기본 메서드
+     * <h2>즐겨찾기 추가</h2>
+     */
+    private void addHeart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int favSeq = Integer.parseInt(request.getParameter("fav_seq"));
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
+        FavoritesDTO favDTO = new FavoritesDTO(favSeq, userSeq, gymSeq);
+
+        FavoritesDAO.getInstance().addCus(favDTO);
+    }
+
+    /**
+     * <h2>페이지를 띄우는 기본 메서드</h2>
      */
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //test용 login seq 발행
@@ -92,23 +107,26 @@ public class UserMyPageController extends ControllerAbs {
         // 즐겨찾기 한 데이터
         List<GymDTO> gyms = new ArrayList<>();
         GymDAO gymDAO = GymDAO.getInstance();
+        List<Integer> favs = new ArrayList<>();
 
         for (int gymSeq : gymsSeq) {
             gyms.add(gymDAO.printGym(gymSeq));
+            favs.add(FavoritesDAO.getInstance().getFavSeqByUserAndGym(userSeq, gymSeq));
         }
         // reivew 데이터
-        List<ReviewDTO> reviews = ReviewDAO.getInstance().selectByUser(userSeq);
+        List<ReviewDTO> reviews = ReviewDAO.getInstance().getListByUser(userSeq);
 
         //data 담기
         request.setAttribute("user", user);
+        request.setAttribute("favs", favs);
         request.setAttribute("gyms", gyms);
         request.setAttribute("reviews", reviews);
 
     }
 
     /**
-     * 프로필 수정,
-     * 사진은 제외
+     * <h1>프로필 수정</h1>
+     * <h2>사진은 제외</h2>
      */
     protected void updateProfile(HttpServletRequest request, HttpServletResponse response) throws Exception {
         UserDTO user = new UserDTO();
@@ -124,7 +142,7 @@ public class UserMyPageController extends ControllerAbs {
     }
 
     /**
-     * 비밀번호 변경
+     * <h1>>비밀번호 변경</h1
      */
     protected void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String pw = request.getParameter("pw");
@@ -132,18 +150,18 @@ public class UserMyPageController extends ControllerAbs {
         UserDAO.getInstance().updatePw(userSeq, pw);
     }
 
+    /**
+     * <h1>회원탈퇴를 위한 데이터 삭제</h1>
+     */
     protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // 로그아웃
         request.getSession().removeAttribute("userSeq");
         // 프사지우기
-        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
-        String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
-        File beforeFile = new File(savePath + "/" + beforePiName);
-        if (beforeFile.exists()) {
-            beforeFile.delete();
-        }
+        String path = "/resource/profile"; //런타임 webapp 폴더를 불러옴.
+        String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+        new FileControl().delete(request, path, delFileName);
         // 유저 테이블 삭제
         UserDAO.getInstance().deleteByUserSeq(userSeq);
         // 즐겨찾기 테이블 삭제
@@ -156,31 +174,22 @@ public class UserMyPageController extends ControllerAbs {
         ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
     }
 
-    protected void insertPI(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 최대 파일 크기
-        int maxSize = 1024 * 1024 * 10;
+    /**
+     * <h1>insert profile image to DB</h1>
+     */
+    protected void updatePI(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        //경로 저장
-        String savePath = request.getServletContext().getRealPath("/resource/profileImg"); //런타임 webapp 폴더를 불러옴.
-        File fileSavePath = new File(savePath);
-
-        // 폴더 생성
-        if (!fileSavePath.exists()) { //find directory
-            fileSavePath.mkdir();//make directory
-        }
-        // 파일 생성
-        MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF8", new DefaultFileRenamePolicy());
-        String sysName = multi.getFilesystemName("user_img_in");
+        FileControl fileControl = new FileControl();
+        String path = "/resource/profileImg";
+        String sysName = fileControl.save(request, path, "user_img_in");
 
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
 
         // 기존 파일 지우기
         String beforePiName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
-        File beforeFile = new File(savePath + "/" + beforePiName);
-        if (beforeFile.exists()) {
-            beforeFile.delete();
-        }
+        fileControl.delete(request, path, beforePiName);
+
         // 새로 생성한 파일 커밋
-        UserDAO.getInstance().insertPi(userSeq, sysName);
+        UserDAO.getInstance().updatePi(userSeq, sysName);
     }
 }

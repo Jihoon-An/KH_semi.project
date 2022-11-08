@@ -102,13 +102,22 @@
 				<!-- 시설 카드 -->
 				<div class="gym_area mb-5">
 					<div class="gym_cards_box" id="gym_cards_box">
-						<div class="gym_card">
-							<a href="">
-								<img class="gym_img" src="/resource/main.jpg">
-								<span class="gym_text">testeset</span>
-							</a>
-							<i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
-						</div>
+						<c:forEach var="gym" items="${gyms}" varStatus="status">
+							<div class="gym_card">
+								<input type="hidden" name="fav_seq" value="${favs[status.index]}">
+								<input type="hidden" name="gym_seq" value="${gym.gym_seq}">
+								<a href="/detail.gym?gym_seq=${gym.gym_seq}">
+									<img class="gym_img" src="/resource/main.jpg">
+									<span class="gym_text p-2 ellipsis">
+										<span class="pb-2 ellipsis">${gym.gym_name}</span><br>
+										<span class="ellipsis">${gym.gym_phone}</span><br>
+										<span class="ellipsis">${gym.gym_location}</span><br>
+										<span class="ellipsis">${gym.gym_open}부터 ${gym.gym_close}까지</span>
+									</span>
+								</a>
+								<i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 
@@ -365,9 +374,9 @@
 					//초기 관심사 생성
 					//let interests = JSON.parse("${user.interest}");
 
-					
+
 					<c:if test="${user.interest != null}">
-						let interests = JSON.parse(${ user.interest });
+						let interests = JSON.parse(${user.interest});
 						interests.forEach(inter => interestBase(inter));
 					</c:if>
 
@@ -463,14 +472,25 @@
 					$(".heart").on("click", function () {
 						if ($(this).css("color") == "rgb(143, 149, 154)") {
 							$.ajax({
-								url: "/delReview.userMyPage",
-								data: { gym_seq: $(this).closest(".review_card").find(".review_seq").val() },
+								url: "/addHeart.userMyPage",
+								data: {
+									fav_seq: $(this).closest(".gym_card").find(".fav_seq").val(),
+									gym_seq:$(this).closest(".gym_card").find(".gym_seq").val()
+								},
 								type: "POST",
+								success:()=>{$(this).css("color", "#CF0C00");}
 							});
-							$(this).css("color", "#CF0C00");
 						} else {
 							//즐겨찾기 취소
-							$(this).css("color", "#8f959a")
+							$.ajax({
+								url: "/delHeart.userMyPage",
+								data: {
+									fav_seq: $(this).closest(".gym_card").find(".fav_seq").val()
+								},
+								type: "POST",
+								success:()=>{$(this).css("color", "#8f959a")}
+							});
+							
 						}
 					});
 
@@ -543,7 +563,7 @@
 						if (!pwRegex_mypage.test($("#pw1").val())) {
 							wobble(document.getElementById("pw1"));
 							$("#pw_confirm").html("입력이 옳바르지 않습니다.");
-							$("#pw1").val("").focus();
+							$("#pw1").val("").focus(); 
 							$("#pw2").val("");
 							return false;
 						}

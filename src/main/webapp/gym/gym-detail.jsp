@@ -9,19 +9,25 @@
 
 
 <main id="gym-detail">
-	<div class="main_margin_155"></div>
+	<div style="height:70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
 			<div class="placebox1">
 				<div>
 					<div class="placename">
-						<h1>${list.gym_name}</h1>
+						<h1>${gymList.gym_name}</h1>
 					</div>
+					
+					<c:if test="${bsSeq !=null }">
+					<div class="bs_modify"><button type="button" class="btn btn-outline-secondary">수정하기</button>
+					</div>
+					</c:if> 
+					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
 					<div class="icon1">
-				
+						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
 						<i class="fa-solid fa-heart" id="heart"></i> 
-					
+						</c:if>
 						<span class="button gray medium">
 						<a onclick="clip(); return false;" class="shareicon"> 
 						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
@@ -51,17 +57,12 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-				<div class="machine_info shadow-none p-3 mb-3 bg-light rounded">
-					<dt>
-						<p class="text_normal">기구정보</p>
-					</dt>
-					<dd>sd</dd>
-				</div>
+			
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${list.gym_price }원</dd>
+					<dd>${gymList.gym_price }원</dd>
 				</div>
 			</div>
 
@@ -74,22 +75,33 @@
 						type="button">리뷰작성</button>
 				</div>
 				
-				<c:choose>
-						<c:when test="${not empty list2 }">
+					<c:choose>
+						<c:when test="${not empty reviewList }">
 							<!-- 리스트가 비어있지않다면 -->
-							<c:forEach var="r" items="${list2 }">
+							<c:forEach var="r" items="${reviewList }">
 				<div class="review2">
 					
-							
+								
 								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
 									
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
-									<div class="starc">star</div>
-									${r.review_contents }
+									<div class="starc">${r.review_star }</div>
+									 <c:if test="${userSeq !=null}">
+									<div class="reviewlike">
+									<input type="hidden" name="review_seq" class ="rseq" value="${r.review_seq}">
+									<input type="hidden" name="gym_seq" class ="gym" value="${r.gym_seq}">
+									<input type="hidden" name="review_like" class="rlike" value="${r.review_like}">
+									<i class="relike fa-solid fa-thumbs-up"></i></div>
+									</c:if>
+									
+									<c:if test="${bsSeq !=null }"> <!-- 사업자회원 -->
+									<div class="bs_icon"><i class="fa-solid fa-xmark"></i></div>
+									</c:if>
+									<div class="reviewcon">${r.review_contents } </div>
 									</div>
-						
+							
 								</div>
 				
 							</c:forEach>
@@ -102,7 +114,7 @@
 						</c:otherwise>
 					</c:choose>
 				
-		
+			
 	
 							
 
@@ -115,9 +127,8 @@
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="gym_info_open">
-				<span>OPEN : AM 09:00</span><br /> <span>CLOSE : PM 22:30</span>
+				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE : ${gymList.gym_close}</span>
 			</div>
-			
 
 
 			<div class="gym_info_tagBox">
@@ -129,34 +140,101 @@
 		
 			<div class="infopicture">
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
+					<img src="/resource/health.png" class="figure-img img-fluid rounded"
 						alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
-						alt="..." />
+					<img src="/resource/health.png" class="figure-img img-fluid rounded"
+						alt="" />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 			</div>
 		</div>
 	</div>
 	
+
+	
 	<script>
+
+	
+	$(".relike").on("click", function(){
+	
+		if($(this).css("color")=="rgb(143, 149, 154)" ){
+
+			$.ajax({
+				url:"/reviewLikeAdd.gym",
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+					"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+					
+				},
+				type:"post",
+				success:()=> {$(this).css("color", "#001A41")
+					
+					console.log($(this).closest(".reviewlike").find(".gym").val())
+					console.log($(this).closest(".reviewlike").find(".rlike").val())
+					console.log("좋아요 추가")}
+				
+			})
+		} else {
+		
+			
+			$.ajax({
+				url:"/reviewLikeDel.gym",
+				
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+				"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+						},	
+				type:"post",
+				success:()=> {$(this).css("color", "#8f959a")
+					console.log("좋아요 취소")}
+			})
+		}
+	})
+
+	
+<!-- 좋아요 아이콘 트루면 빨강, 아니면 회색 -->
+/*
+	$( document ).ready(function() {
+
+	    if(${likeresult}){
+	    	$(".relike").css("color", "#001A41");
+	    }else{
+	    	$(".relike").css("color", "#8f959a")
+	    }
+	
+	});
+	*/
+	
+	
+	
+	<!-- 즐겨찾기 아이콘 트루면 빨강, 아니면 회색 -->
+	$( document ).ready(function() {
+	    if(${favresult}){
+	    	$("#heart").css("color", "#CF0C00");
+	    }else{
+	    	$("#heart").css("color", "#8f959a")
+	    }
+	});
+	
 	$("#heart").on("click", function(){
 		
-		if($("#heart").css("color")=="rgb(143, 149, 154)"){
+		if($("#heart").css("color")=="rgb(143, 149, 154)" ){
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
-				url:"/favoriteadd.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteadd.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		} else {
 			$("#heart").css("color", "#8f959a")
 			console.log("즐찾삭제")
 			$.ajax({
-				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteremove.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		}

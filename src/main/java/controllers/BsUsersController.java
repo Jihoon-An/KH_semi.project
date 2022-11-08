@@ -18,6 +18,7 @@ import commons.Common;
 import dao.BsCtfcDAO;
 import dao.BsUsersDAO;
 import dao.GymDAO;
+import dao.GymFilterDAO;
 import dto.BsCtfcDTO;
 import dto.BsUsersDTO;
 import dto.GymDTO;
@@ -47,7 +48,12 @@ public class BsUsersController extends HttpServlet {
 				response.getWriter().append(String.valueOf(this.isBsLogin(request, response)));
 				break;
 
-				// 회원가입 요청
+			// 비밀번호 찾기 요청
+			case "/searchPw.bs":
+				response.getWriter().append(String.valueOf(this.hasBsData(request, response)));
+				break;
+
+			// 회원가입 요청
 			case "/sign.bs":
 				// GET 요청 시 에러페이지로 넘김
 				if (request.getMethod().equals("GET")) {
@@ -91,7 +97,13 @@ public class BsUsersController extends HttpServlet {
 		}
 		return false;
 	}
-	
+
+	protected boolean hasBsData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String req_email = request.getParameter("email");
+		String req_phone = request.getParameter("phone");
+		return BsUsersDAO.getInstance().searchBsPw(req_email, req_phone);
+	}
+
 	protected boolean isBsDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("bs_email");
 		return BsUsersDAO.getInstance().isBsEmailCheck(req_email);
@@ -121,6 +133,10 @@ public class BsUsersController extends HttpServlet {
 		int bsSeqNextVal = BsUsersDAO.getInstance().getBsSeqNextVal();
 
 		// 시설추가
+
+		// gymSeqNextVal
+		int gymSeqNextVal = GymDAO.getInstance().getGymSeqNextVal();
+		
 		String[] gym_name = multi.getParameterValues("gym_name");
 		String[] gym_phone = multi.getParameterValues("gym_phone");
 		String[] gym_address1 = multi.getParameterValues("gym_address1");
@@ -130,8 +146,11 @@ public class BsUsersController extends HttpServlet {
 
 		for (int i = 0; i < gym_name.length; i++) {
 			String gym_location = gym_address1[i] + " " + gym_address2[i];
-			GymDAO.getInstance().addGYM(new GymDTO(0, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
-					null, null, null, gym_x[i], gym_y[i]));
+			GymDAO.getInstance().addGYM(new GymDTO(gymSeqNextVal, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
+					null, null, gym_x[i], gym_y[i]));
+
+			// 필터추가
+			GymFilterDAO.getInstance().addGymFilter(gymSeqNextVal);
 		}
 
 		// 사업자등록증 업로드
@@ -141,15 +160,14 @@ public class BsUsersController extends HttpServlet {
 			String name = e.nextElement();
 			System.out.println(name);
 
-			String oriName = multi.getOriginalFileName(name);
 			String sysName = multi.getFilesystemName(name);
 
 			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
-				if (oriName == null) {
+				if (sysName == null) {
 					continue;
-				}
-				;
-				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, oriName, sysName));
+				};
+				
+				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, sysName));
 			}
 		}
 
