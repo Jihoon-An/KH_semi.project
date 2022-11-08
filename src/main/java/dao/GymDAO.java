@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import dto.FavoritesDTO;
 import dto.GymDTO;
+import dto.ReviewDTO;
+import dto.UserDTO;
+
+import javax.xml.transform.Result;
 
 
 public class GymDAO extends Dao {
@@ -50,15 +56,21 @@ public class GymDAO extends Dao {
      * @return List<GymDTO>
      * @throws Exception
      */
-    public List<GymDTO> selectBySearch(String searchInput) throws Exception {
-        String sql = "select * from gym where gym_name = ? or gym_location like ?";
+    public List<GymDTO> selectBySearch(String searchInput, String open, String locker, String shower, String park) throws Exception {
+        String sql = "select * from gym g join gym_filter f on g.gym_seq = f.gym_seq" +
+                " where (gym_name like ? or gym_location like ?)" +
+                " and not open = ? and not locker = ? and not shower = ? and not park = ?";
         List<GymDTO> result = new ArrayList<>();
 
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setString(1, searchInput);
+            pstat.setString(1, "%" + searchInput + "%");
             pstat.setString(2, "%" + searchInput + "%");
+            pstat.setString(3, open);
+            pstat.setString(4, locker);
+            pstat.setString(5, shower);
+            pstat.setString(6, park);
 
             ResultSet rs = pstat.executeQuery();
 
@@ -93,7 +105,7 @@ public class GymDAO extends Dao {
 
                     return dto;
                 } else {
-                    return null;
+                    return new GymDTO();
                 }
             }
         }
@@ -131,22 +143,43 @@ public class GymDAO extends Dao {
      */
     public int addGYM(GymDTO dto) throws Exception {
 
-        String sql = "insert into gym values(gym_seq.nextval,?,?,?,?,null,null,null,null,?,?)";
+        String sql = "insert into gym values(?,?,?,?,?,null,null,null,null,?,?)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setInt(1, dto.getBs_seq());
-            pstat.setString(2, dto.getGym_name());
-            pstat.setString(3, dto.getGym_phone());
-            pstat.setString(4, dto.getGym_location());
-            pstat.setString(5, dto.getGym_x());
-            pstat.setString(6, dto.getGym_y());
+            pstat.setInt(1,dto.getGym_seq());
+            pstat.setInt(2, dto.getBs_seq());
+            pstat.setString(3, dto.getGym_name());
+            pstat.setString(4, dto.getGym_phone());
+            pstat.setString(5, dto.getGym_location());
+            pstat.setString(6, dto.getGym_x());
+            pstat.setString(7, dto.getGym_y());
 
             con.commit();
 
             return pstat.executeUpdate();
         }
     }
+    
+    /**
+	 * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 gym_seq 추가하기 위함
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public int getGymSeqNextVal() throws Exception {
+		String sql = "select gym_seq.nextval from dual";
+
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+				ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+
+			return rs.getInt(1);
+		}
+
+	}
 
 
 //public List<GymDTO> printGym2() throws Exception{   //test

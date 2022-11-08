@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import commons.Common;
 import dto.BsUsersDTO;
 
 public class BsUsersDAO extends Dao {
@@ -20,19 +22,17 @@ public class BsUsersDAO extends Dao {
 		return instance;
 	}
 
-	
-	
-	/**
-	 * 사업자 회원 날짜 오름차순 정렬 출력
-	 *
-	 * @return
-	 * @throws Exception
-	 */
-	public List<BsUsersDTO> selectAll() throws Exception {
-		List<BsUsersDTO> result = new ArrayList<>();
-		String sql = "select * from bs_users order by bs_signup desc";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			ResultSet rs = pstat.executeQuery();
+    /**
+     * <h1>사업자 회원 날짜 오름차순 정렬 출력</h1>
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<BsUsersDTO> selectAll() throws Exception {
+        List<BsUsersDTO> result = new ArrayList<>();
+        String sql = "select * from bs_users order by bs_signup desc";
+        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            ResultSet rs = pstat.executeQuery();
 
 			while (rs.next()) {
 				result.add(new BsUsersDTO(rs));
@@ -41,47 +41,51 @@ public class BsUsersDAO extends Dao {
 		}
 	}
 
-	/**
-	 * 관리자 사업자 회원 페이지 회원 검색
-	 *
-	 * @param name
-	 * @return
-	 * @throws Exception
-	 */
-	public List<BsUsersDTO> search(String name) throws Exception {
-		String sql = "select * from bs_users where bs_name like ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setString(1, "%" + name + "%");
-			try (ResultSet rs = pstat.executeQuery();) {
-				List<BsUsersDTO> list = new ArrayList<>();
-				while (rs.next()) {
-					list.add(new BsUsersDTO(rs));
-				}
-				return list;
-			}
-		}
-	}
 
-	/**
-	 * bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회
-	 *
-	 * @param option
-	 * @param value
-	 * @return List<UserDTO>
-	 * @throws Exception
-	 */
-	public List<BsUsersDTO> searchAll(String option, String value) throws Exception {
-		List<BsUsersDTO> result = new ArrayList<>();
-		String sql = "select * from bs_users where " + option + " = ?";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setString(1, value);
-			ResultSet rs = pstat.executeQuery();
-			while (rs.next()) {
-				result.add(new BsUsersDTO(rs));
-			}
-			return result;
-		}
-	}
+    /**
+     * <h1>관리자 사업자 회원 페이지 회원 검색</h1>
+     *
+     * @param name
+     * @return
+     * @throws Exception
+     */
+    public List<BsUsersDTO> search(String name) throws Exception {
+        String sql = "select * from bs_users where bs_name like ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setString(1, "%" + name + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<BsUsersDTO> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(new BsUsersDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
+    /**
+     * <h1>bs_users 테이블에서 option의 value가 일치하는 모든 컬럼을 조회</h1>
+     *
+     * @param option
+     * @param value
+     * @return List<UserDTO>
+     * @throws Exception
+     */
+    public List<BsUsersDTO> searchAll(String option, String value) throws Exception {
+        List<BsUsersDTO> result = new ArrayList<>();
+        String sql = "select * from bs_users where " + option + " = ?";
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setString(1, value);
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                result.add(new BsUsersDTO(rs));
+            }
+            return result;
+        }
+    }
 
 	public boolean searchBsPw(String email, String phone) throws Exception {
 		String sql = "select bs_email from bs_users where bs_email = ? and bs_phone = ?";
@@ -93,32 +97,33 @@ public class BsUsersDAO extends Dao {
 		}
 	}
 
-	/**
-	 * 삭제 기능 미완성
-	 *
-	 * @param seq
-	 * @return
-	 * @throws Exception
-	 */
-	public int delete(int seq) throws Exception { // byseq
-		String sql = "delete from bs_users where seq = ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			pstat.setInt(1, seq);
-			int result = pstat.executeUpdate();
-			con.commit();
-			return result;
-		}
-	}
+    /**
+     * 삭제 기능 미완성
+     *
+     * @param seq
+     * @return
+     * @throws Exception
+     */
+    public int deleteBySeq(int seq) throws Exception {  //byseq
+        String sql = "delete from bs_users where seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, seq);
+            int result = pstat.executeUpdate();
+            con.commit();
+            return result;
+        }
+    }
 
-	/**
-	 * 사업자 회원가입 창에서 이메일 중복 확인
-	 *
-	 * @param email
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean isBsEmailCheck(String email) throws Exception {
-		String sql = "select * from bs_users where bs_email = ?";
+    /**
+     * <h1>사업자 회원가입 창에서 이메일 중복 확인</h1>
+     *
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    public boolean isBsEmailCheck(String email) throws Exception {
+        String sql = "select * from bs_users where bs_email = ?";
 
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
@@ -131,14 +136,14 @@ public class BsUsersDAO extends Dao {
 		}
 	}
 
-	/**
-	 * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함
-	 *
-	 * @return
-	 * @throws Exception
-	 */
-	public int getBsSeqNextVal() throws Exception {
-		String sql = "select bs_seq.nextval from dual";
+    /**
+     * <h1>사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 사업자 seq 추가하기 위함</h1>
+     *
+     * @return
+     * @throws Exception
+     */
+    public int getBsSeqNextVal() throws Exception {
+        String sql = "select bs_seq.nextval from dual";
 
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -150,16 +155,16 @@ public class BsUsersDAO extends Dao {
 
 	}
 
-	/**
-	 * 사업자 회원가입
-	 *
-	 * @param email
-	 * @param pw
-	 * @param phone
-	 * @return
-	 * @throws Exception
-	 */
-	public int isBsSignUp(BsUsersDTO dto) throws Exception {
+    /**
+     * <h1>사업자 회원가입</h1>
+     *
+     * @param email
+     * @param pw
+     * @param phone
+     * @return
+     * @throws Exception
+     */
+    public int isBsSignUp(BsUsersDTO dto) throws Exception {
 
 		String sql = "insert into bs_users values(?,?,?,?,?,?,sysdate)";
 
@@ -332,5 +337,54 @@ public class BsUsersDAO extends Dao {
 		// 게시글의 갯수 / 한페이지당 보여줄게시글+1=전체페에지 갯수
 
 	}
+
+
+    /**
+     * <h1>BS profile 수정</h1>
+     * 수정목록: 3개
+     * 이름, 사업자번호, 전화번호
+     *
+     * @param bsUser
+     * @throws Exception
+     */
+    public void updateProfile(BsUsersDTO bsUser) throws Exception {
+        String sql = "update bs_users set bs_number = ? , bs_name = ?, bs_phone = ? where bs_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, bsUser.getBs_number());
+            statement.setString(2, bsUser.getBs_name());
+            statement.setString(3, bsUser.getBs_phone());
+            statement.setInt(4, bsUser.getBs_seq());
+
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
+
+    /**
+     * <h1>bsSeq로 하나의 사업자 데이터를 불러옴</h1>
+     *
+     * @param bsSeq
+     * @return
+     * @throws Exception
+     */
+    public BsUsersDTO getByBsSeq(int bsSeq) throws Exception {
+        String sql = "select * from bs_users where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)
+        ) {
+            statement.setInt(1, bsSeq);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return new BsUsersDTO(rs);
+                } else {
+                    return new BsUsersDTO();
+                }
+            }
+        }
+    }
+
 
 }

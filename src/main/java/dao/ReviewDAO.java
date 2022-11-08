@@ -134,8 +134,12 @@ public class ReviewDAO extends Dao {
 	}
 
 
-
-    public List<HashMap<String, Object>> selectAllSortByLikes() throws Exception {
+    /**
+     * gym table을 join 시킨 review table을 review_like가 높은 10행 만큼 조회
+     * @return List<HashMap<String, Object>>
+     * @throws Exception
+     */
+    public List<HashMap<String, Object>> selectSortByLikes() throws Exception {
         List<HashMap<String, Object>> result = new ArrayList<>();
         String sql = "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
         try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
