@@ -190,4 +190,12 @@ public class ReviewDTO {
 
 	}
 
+	public ReviewDTO(int review_seq) {
+	
+		this.review_seq = review_seq;
+	
+	}
+    
+    
+
 }
