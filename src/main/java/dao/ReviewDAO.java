@@ -12,45 +12,50 @@ import dto.ReviewDTO;
 
 public class ReviewDAO extends Dao {
 
-	private static ReviewDAO instance;
-
-	synchronized public static ReviewDAO getInstance() {
-		if (instance == null) {
-			instance = new ReviewDAO();
-		}
-		return instance;
-	}
+    private ReviewDAO() {
+    }
 
 
-	/**
-	 * gym_seq를 기준으로 출력
-	 * 
-	 * @param gym_seq
-	 * @return
-	 * @throws Exception
-	 */
-	public List<ReviewDTO> printReivew(int gym_seq) throws Exception {
+    private static ReviewDAO instance;
 
-		String sql = "select * from review where gym_seq= ?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);
+    synchronized public static ReviewDAO getInstance() {
+        if (instance == null) {
+            instance = new ReviewDAO();
+        }
+        return instance;
+    }
 
-		) {
 
-			pstat.setInt(1, gym_seq);
-			List<ReviewDTO> list = new ArrayList();
+    /**
+     * gym_seq를 기준으로 출력
+     *
+     * @param gym_seq
+     * @return
+     * @throws Exception
+     */
+    public List<ReviewDTO> printReivew(int gym_seq) throws Exception {
 
-			try (ResultSet rs = pstat.executeQuery()) {
+        String sql = "select * from review where gym_seq= ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
 
-				while (rs.next()) {
-					list.add(new ReviewDTO(rs));
-				}
-				return list;
+            pstat.setInt(1, gym_seq);
+            List<ReviewDTO> list = new ArrayList();
 
-			}
-		}
+            try (ResultSet rs = pstat.executeQuery()) {
 
-	}
+                while (rs.next()) {
+                    list.add(new ReviewDTO(rs));
+                }
+                return list;
 
+            }
+        }
+
+    }
+	
+    
 	/**
 	 * 좋아요 클릭시 리뷰 1 증가 계정당 1회
 	 * 
@@ -128,39 +133,61 @@ public class ReviewDAO extends Dao {
 //		}
 //	}
 
-	public List<HashMap<String, Object>> selectAllSortByLikes() throws Exception {
-		List<HashMap<String, Object>> result = new ArrayList<>();
-		String sql = "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
-		try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-			ResultSet rs = pstat.executeQuery();
-			while (rs.next()) {
-				HashMap<String, Object> data = new HashMap<>();
-				data.put("review", new ReviewDTO(rs));
-				data.put("gym", new GymDTO(rs));
-				result.add(data);
-			}
-			rs.close();
-		}
-		return result;
-	}
 
-	public List<ReviewDTO> selectByUser(int userSeq) throws Exception {
-		List<ReviewDTO> reviews = new ArrayList<>();
-		String sql = "select * from review where user_seq = ?";
-		try (Connection connection = this.getConnection();
-				PreparedStatement statement = connection.prepareStatement(sql);) {
-			statement.setInt(1, userSeq);
-			ResultSet rs = statement.executeQuery();
+    public List<HashMap<String, Object>> selectAllSortByLikes() throws Exception {
+        List<HashMap<String, Object>> result = new ArrayList<>();
+        String sql = "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
+        try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            ResultSet rs = pstat.executeQuery();
+            while (rs.next()) {
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("review", new ReviewDTO(rs));
+                data.put("gym", new GymDTO(rs));
+                result.add(data);
+            }
+            rs.close();
+        }
+        return result;
+    }
 
-			while (rs.next()) {
-				ReviewDTO review = new ReviewDTO(rs);
-				String gymName = GymDAO.getInstance().printGym(review.getGym_seq()).getGym_name();
-				review.setGym_name(gymName);
-				reviews.add(review);
-			}
-			rs.close();
+    /**
+     * userSeq로 review를 List로 불러옴.
+     *
+     * @param userSeq
+     * @return
+     * @throws Exception
+     */
+    public List<ReviewDTO> getListByUser(int userSeq) throws Exception {
+        List<ReviewDTO> reviews = new ArrayList<>();
+        String sql = "select * from review where user_seq = ?";
+        try (
+                Connection connection = this.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, userSeq);
+            ResultSet rs = statement.executeQuery();
 
-			return reviews;
-		}
-	}
+            while (rs.next()) {
+                ReviewDTO review = new ReviewDTO(rs);
+                String gymName = GymDAO.getInstance().printGym(review.getGym_seq()).getGym_name();
+                review.setGym_name(gymName);
+                reviews.add(review);
+            }
+            rs.close();
+
+            return reviews;
+        }
+    }
+
+    public void deleteByReviewSeq(int review_seq) throws Exception {
+        String sql = "delete from review where review_seq = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, review_seq);
+            statement.executeUpdate();
+
+            connection.commit();
+        }
+    }
 }

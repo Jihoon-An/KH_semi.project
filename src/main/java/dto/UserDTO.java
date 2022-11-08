@@ -47,6 +47,7 @@ public class UserDTO {
     public void setPi(String pi) {
         this.pi = pi;
     }
+
     public String getSex() {
         return sex;
     }

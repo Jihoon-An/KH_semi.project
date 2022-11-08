@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 
 import dto.FavoritesDTO;
@@ -41,6 +42,7 @@ public class FavoritesDAO extends Dao {
 	   }
 		
 	   	}
+
 	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
@@ -57,7 +59,22 @@ public class FavoritesDAO extends Dao {
 				return result;
 			}
 		}
-	   
+
+		public void addCus(FavoritesDTO favDto) throws Exception{
+			String sql = "insert into favorites values(?, ?, ?)";
+			try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+				//seq를 직접 넣는 이유는 파일 때문에
+
+				pstat.setInt(1, favDto.getFav_seq());
+				pstat.setInt(2, favDto.getUser_seq());
+				pstat.setInt(3, favDto.getGym_seq());
+
+				pstat.executeUpdate();
+				con.commit();
+			}
+		}
+
 	   /**
 	    *  즐겨찾기 삭제
 	    * @param gym_seq  gym_seq, user_Seq 기준으로 삭제
@@ -104,12 +121,39 @@ public class FavoritesDAO extends Dao {
         }
     }
 
+	public int getFavSeqByUserAndGym(int userSeq, int GymSeq) throws Exception{
+		String sql = "select fav_seq from favorites where user_seq = ? and gym_seq = ?";
+		try (Connection connection = this.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql)
+		) {
+			statement.setInt(1, userSeq);
+			statement.setInt(2, GymSeq);
+			ResultSet resultSet = statement.executeQuery();
+			if(resultSet.next()){
+				return resultSet.getInt("fav_seq");
+			}
+			return 0;
+		}
+	}
+
 	public void deleteByUserSeq(int userSeq) throws Exception{
 		String sql = "delete from favorites where user_seq = ?";
 		try(Connection connection = this.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 		){
 			statement.setInt(1, userSeq);
+
+			statement.executeUpdate();
+			connection.commit();
+		}
+	}
+
+	public void deleteByFavoriteSeq(int fav_seq) throws Exception{
+		String sql = "delete from favorites where fav_seq = ?";
+		try (Connection connection = this.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql);
+		) {
+			statement.setInt(1, fav_seq);
 
 			statement.executeUpdate();
 			connection.commit();

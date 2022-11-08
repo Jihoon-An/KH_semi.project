@@ -180,6 +180,5 @@ public class GymDAO extends Dao {
 //	   }
 //	  }
 
-
 }
 
