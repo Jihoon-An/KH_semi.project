@@ -33,20 +33,45 @@ public class ReviewDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public List<ReviewDTO> printReivew(int gym_seq) throws Exception {
+//    public List<ReviewDTO> printReivew(int gym_seq) throws Exception {
+//
+//        String sql = "select * from review where gym_seq= ?";
+//        try (Connection con = this.getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql);
+//        ) {
+//
+//            pstat.setInt(1, gym_seq);
+//            List<ReviewDTO> list = new ArrayList();
+//
+//            try (ResultSet rs = pstat.executeQuery()) {
+//
+//                while (rs.next()) {
+//                    list.add(new ReviewDTO(rs));
+//                }
+//                return list;
+//
+//            }
+//        }
+//
+//    }
 
-        String sql = "select * from review where gym_seq= ?";
+    public List<HashMap<String, Object>> printReivew(int gym_seq) throws Exception {
+
+        String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
+
         ) {
 
             pstat.setInt(1, gym_seq);
-            List<ReviewDTO> list = new ArrayList();
-
-            try (ResultSet rs = pstat.executeQuery()) {
+            List<HashMap<String, Object>> list = new ArrayList<>();
+            HashMap<String, Object> data = new HashMap<>();
+            try (ResultSet rs = pstat.executeQuery();) {
 
                 while (rs.next()) {
-                    list.add(new ReviewDTO(rs));
+                    data.put("review", new ReviewDTO(rs));
+                    data.put("liked", rs.getString("liked_user_seq"));
+                	list.add(data);
                 }
                 return list;
 

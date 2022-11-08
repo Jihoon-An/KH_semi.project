@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.FavoritesDAO;
 import dao.GymDAO;
+import dao.GymFilterDAO;
 import dao.LikesDAO;
 import dao.ReviewDAO;
 import dto.FavoritesDTO;
 import dto.GymDTO;
+import dto.GymFilterDTO;
 import dto.LikesDTO;
 import dto.ReviewDTO;
 
@@ -76,6 +79,48 @@ public class GymController extends ControllerAbs {
 		this.doGet(request, response);
 	}
 
+//	protected void getDetailGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//		//헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
+//		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+//		//int review_seq = Integer.parseInt(request.getParameter("review_seq"));
+//
+//		ReviewDAO reviewdao = ReviewDAO.getInstance();
+//		GymDAO gymdao = GymDAO.getInstance();
+//		FavoritesDAO favdao = FavoritesDAO.getInstance();
+//		LikesDAO likesDAO = LikesDAO.getInstance();
+//
+//		List<ReviewDTO> reviewdto = reviewdao.printReivew(gym_seq);
+//		
+//		//reviewdao.printReviewSeq();
+//		//System.out.println(reviewdto.get(2).getReview_seq());
+//		
+//		
+//		
+//		
+//		GymDTO gymdto = gymdao.printGym(gym_seq);
+//		
+//		
+//		
+//		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
+//			request.setAttribute("favresult", "check");
+//		} else {
+//			boolean result = favdao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+//			request.setAttribute("favresult", result);
+//		}
+//		
+////		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
+////
+////		} else {
+////			boolean result = likesDAO.isLikeExist(r, (Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+////			request.setAttribute("likeresult", result);
+////		}
+//
+//		request.setAttribute("gymList", gymdto);
+//		request.setAttribute("reviewList", reviewdto);
+//		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
+//	}
+	
 	protected void getDetailGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		//헬스장 정보(이름, 위치, 번호 가격) 리뷰, 더보기 기능
@@ -86,13 +131,13 @@ public class GymController extends ControllerAbs {
 		GymDAO gymdao = GymDAO.getInstance();
 		FavoritesDAO favdao = FavoritesDAO.getInstance();
 		LikesDAO likesDAO = LikesDAO.getInstance();
-
-		List<ReviewDTO> reviewdto = reviewdao.printReivew(gym_seq);
+		GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
 		
-		//reviewdao.printReviewSeq();
-		//System.out.println(reviewdto.get(2).getReview_seq());
+		//List<ReviewDTO> reviewdto = reviewdao.printReivew(gym_seq);
+		List<HashMap<String, Object>> reviewdto = reviewdao.printReivew(gym_seq);
 		
 		
+		GymFilterDTO gymFilterDTO= filterDAO.selectByFilter(gym_seq);
 		
 		
 		GymDTO gymdto = gymdao.printGym(gym_seq);
@@ -100,7 +145,7 @@ public class GymController extends ControllerAbs {
 		
 		
 		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
-			request.setAttribute("favresult", "check");
+
 		} else {
 			boolean result = favdao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
 			request.setAttribute("favresult", result);
@@ -109,15 +154,19 @@ public class GymController extends ControllerAbs {
 //		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
 //
 //		} else {
-//			boolean result = likesDAO.isLikeExist(r, (Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+//			boolean result = likesDAO.isLikeExist(, (Integer) request.getSession().getAttribute("userSeq"), gym_seq);
 //			request.setAttribute("likeresult", result);
 //		}
-
+		request.setAttribute("gymFilter", gymFilterDTO);
 		request.setAttribute("gymList", gymdto);
 		request.setAttribute("reviewList", reviewdto);
 		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
 	}
 
+	
+	
+	
+	
 	protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		//즐겨찾기 추가

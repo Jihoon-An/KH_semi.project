@@ -85,23 +85,23 @@
 								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
 									
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
-									<div class="ranwriter">${r.review_writer}</div>
-									<div class="writerd">${r.formDate}</div>
+									<div class="ranwriter">${r.review.review_writer}</div>
+									<div class="writerd">${r.review.formDate}</div>
 									<div class="starc" >
-									<input type="hidden" name="review_seq" class ="star" value="${r.review_star}">
+									<input type="hidden" name="review_seq" class ="star" value="${r.review.review_star}">
 									
 									</div>
 									
 									 <c:if test="${userSeq !=null}">
 									<div class="reviewlike">
-									<input type="hidden" name="review_seq" class ="rseq" value="${r.review_seq}">
-									<input type="hidden" name="gym_seq" class ="gym" value="${r.gym_seq}">
-									<input type="hidden" name="review_like" class="rlike" value="${r.review_like}">
+									<input type="hidden" name="review_seq" class ="rseq" value="${r.review.review_seq}">
+									<input type="hidden" name="gym_seq" class ="gym" value="${r.review.gym_seq}">
+									<input type="hidden" name="review_like" class="rlike" value="${r.review.review_like}">
 									<i class="relike fa-solid fa-thumbs-up"></i></div>
 									</c:if>
 									
 									
-									<div class="reviewcon">${r.review_contents } </div>
+									<div class="reviewcon">${r.review.review_contents } </div>
 									</div>
 							
 								</div>
@@ -137,11 +137,29 @@
 
 
 			<div class="gym_info_tagBox">
+					
+			<c:choose>
+			<c:when test="${gymFilter.open == 'true'}">	
 				<div class="gym_info_tag open">#24시간</div>
+				</c:when>
+				</c:choose>
+			<c:choose>
+			<c:when test="${gymFilter.locker == 'true'}">	
 				<div class="gym_info_tag locker">#라커</div>
+				</c:when>
+				</c:choose>
+			<c:choose>
+			<c:when test="${gymFilter.shower == 'true'}">	
 				<div class="gym_info_tag shower">#샤워실</div>
+				</c:when>
+				</c:choose>
+				<c:choose>
+			<c:when test="${gymFilter.park == 'true'}">	
 				<div class="gym_info_tag park">#주차장</div>
+				</c:when>
+				</c:choose>
 			</div>
+	
 		
 			<div class="infopicture">
 				<figure class="figure">
@@ -219,11 +237,11 @@
 
 	
 
-	/*
+
 	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
 	$(document).ready(function() {
 
-	    if(${favresult} != "check"){
+	    if(${favresult} !== "check"){
 	    	if(${favresult}){
 		    	$("#heart").css("color", "#CF0C00");
 		    }else{
@@ -232,7 +250,7 @@
 	    }
 	});
 	
-	*/
+
 
 	
 	$("#heart").on("click", function(){
