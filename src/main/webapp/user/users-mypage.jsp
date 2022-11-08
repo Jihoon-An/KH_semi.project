@@ -472,19 +472,25 @@
 					$(".heart").on("click", function () {
 						if ($(this).css("color") == "rgb(143, 149, 154)") {
 							$.ajax({
-								url: "/delHeart.userMyPage",
+								url: "/addHeart.userMyPage",
 								data: {
-									fav_seq: $(this).closest(".gym_card").find(".fav_seq").val()//,
-									//user_seq: ,
-									//gym_seq:
-
+									fav_seq: $(this).closest(".gym_card").find(".fav_seq").val(),
+									gym_seq:$(this).closest(".gym_card").find(".gym_seq").val()
 								},
 								type: "POST",
+								success:()=>{$(this).css("color", "#CF0C00");}
 							});
-							$(this).css("color", "#CF0C00");
 						} else {
 							//즐겨찾기 취소
-							$(this).css("color", "#8f959a")
+							$.ajax({
+								url: "/delHeart.userMyPage",
+								data: {
+									fav_seq: $(this).closest(".gym_card").find(".fav_seq").val()
+								},
+								type: "POST",
+								success:()=>{$(this).css("color", "#8f959a")}
+							});
+							
 						}
 					});
 
@@ -557,7 +563,7 @@
 						if (!pwRegex_mypage.test($("#pw1").val())) {
 							wobble(document.getElementById("pw1"));
 							$("#pw_confirm").html("입력이 옳바르지 않습니다.");
-							$("#pw1").val("").focus();
+							$("#pw1").val("").focus(); 
 							$("#pw2").val("");
 							return false;
 						}

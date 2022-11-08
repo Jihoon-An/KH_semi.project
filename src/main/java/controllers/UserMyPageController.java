@@ -84,8 +84,13 @@ public class UserMyPageController extends ControllerAbs {
     /**
      * 즐겨찾기 추가
      */
-    private void addHeart(HttpServletRequest request, HttpServletResponse response) {
-        request.getParameter("");
+    private void addHeart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int favSeq = Integer.parseInt(request.getParameter("fav_seq"));
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+        int userSeq = (Integer) request.getSession().getAttribute("userSeq");
+        FavoritesDTO favDTO = new FavoritesDTO(favSeq, userSeq, gymSeq);
+
+        FavoritesDAO.getInstance().addCus(favDTO);
     }
 
     /**

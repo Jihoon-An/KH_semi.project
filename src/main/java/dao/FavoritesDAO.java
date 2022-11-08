@@ -42,6 +42,7 @@ public class FavoritesDAO extends Dao {
 	   }
 		
 	   	}
+
 	   public int add(FavoritesDTO dto) throws Exception{ //즐찾 추가
 			String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
 			try(Connection con = this.getConnection();
@@ -58,7 +59,22 @@ public class FavoritesDAO extends Dao {
 				return result;
 			}
 		}
-	   
+
+		public void addCus(FavoritesDTO favDto) throws Exception{
+			String sql = "insert into favorites values(?, ?, ?)";
+			try(Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);){
+				//seq를 직접 넣는 이유는 파일 때문에
+
+				pstat.setInt(1, favDto.getFav_seq());
+				pstat.setInt(2, favDto.getUser_seq());
+				pstat.setInt(3, favDto.getGym_seq());
+
+				pstat.executeUpdate();
+				con.commit();
+			}
+		}
+
 	   /**
 	    *  즐겨찾기 삭제
 	    * @param gym_seq  gym_seq, user_Seq 기준으로 삭제
