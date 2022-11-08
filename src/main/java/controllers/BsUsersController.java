@@ -148,10 +148,10 @@ public class BsUsersController extends HttpServlet {
 			String gym_location = gym_address1[i] + " " + gym_address2[i];
 			GymDAO.getInstance().addGYM(new GymDTO(gymSeqNextVal, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
 					null, null, gym_x[i], gym_y[i]));
-		}
 
-		// 필터추가
-		GymFilterDAO.getInstance().addGymFilter(gymSeqNextVal);
+			// 필터추가
+			GymFilterDAO.getInstance().addGymFilter(gymSeqNextVal);
+		}
 
 		// 사업자등록증 업로드
 		Enumeration<String> e = multi.getFileNames();
@@ -165,8 +165,8 @@ public class BsUsersController extends HttpServlet {
 			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
 				if (sysName == null) {
 					continue;
-				}
-				;
+				};
+				
 				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, sysName));
 			}
 		}
