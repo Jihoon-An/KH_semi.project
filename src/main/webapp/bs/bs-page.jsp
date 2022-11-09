@@ -12,7 +12,7 @@
             <button type="button" id="modify_profile_btn" class="btn_base" style="display:inline-table">일반
                 정보 수정
             </button>
-            <button type="button" id="modify_account_btn" class="btn_base" style="display:inline-table">계정
+            <button type="button" id="modify_acc_btn" class="btn_base" style="display:inline-table">계정
                 정보 수정
             </button>
         </div>
@@ -78,20 +78,74 @@
             </div>
         </div>
     </div>
+
+    <!-- 계정 정보 수정 폼 -->
+    <div class="fixed-top" id="modify_acc">
+        <div id="acc_box">
+            <div class="container">
+
+                <div class="row header text-center pt-5 mx-3">
+                    <div class="col-3 text-start">
+                        <button class="button-6" id="account_cancel">취소</button>
+                    </div>
+                    <div class="col-6">
+                        <h2>정보 수정</h2>
+                    </div>
+                    <div class="col-3 text-end">
+                        <button class="button-6" id="acc_save">저장</button>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-8">
+                        <%--비밀번호 입력--%>
+                        <div class="row profile_title pt-4"><span>비밀번호</span></div>
+                        <div class="row"><input id="bs_pw1" type="password" class="profile_input form-control"
+                                                placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
+                        <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
+                        <div class="row"><input id="bs_pw2" type="password" class="profile_input form-control"
+                                                placeholder="비밀번호 재입력" maxlength="16"></div>
+                        <div class="row mt-2" id="acc_cf"></div>
+
+
+                        <%--회원탈퇴--%>
+                        <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
+                        <!--sd = sign down -->
+                        <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
+                            <div style="color: blue">정말 탈퇴하시겠습니까?</div>
+                            <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
+                            <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
+                        </div>
+                        <form action="/signDown.bsPage"></form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
+
+
+<%----------------------------- script   ------------------------------%>
 
 
 <script>
     ////////////////////////            프로필                   ///////////////////////////////////////////////////////////
 
-    //// 프로필 정보 수정 버튼 클릭 이벤트
+    /**
+     * 프로필 정보 수정 버튼 클릭 이벤트
+     */
     $("#modify_profile_btn").on("click", () => {
         $("#modify_profile").css("display", "block");
     });
     /////////////////첨부파일
     $("#bs_ctfc_input").on("change", handleImgFileSelect);
 
-    //이미지 미리보기
+    /**
+     * 이미지 미리보기
+     * @param e
+     */
     function handleImgFileSelect(e) {
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
@@ -116,7 +170,9 @@
         pi_check = true;
     }
 
-    //이미지 저장
+    /**
+     * 이미지 저장
+     */
     function fn_submit() {
 
         var form = new FormData();
@@ -137,7 +193,9 @@
         });
     }
 
-    ////프로필 저장 버튼 클릭
+    /*
+     * 프로필 저장
+     */
     $("#profile_save").click(function () {
         let bs_name = $("#bs_name").val();
         let bs_phone = $("#bs_phone").val();
@@ -163,23 +221,102 @@
 
     //// 프로필 변경 취소버튼
     $("#profile_cancel").click(function () {
+        reset();
+    });
+
+
+    /**
+     * 프로필 기본값 설정
+     */
+    function reset() {
         $("#modify_profile").css("display", "none");
         $("#bs_name").val("${bsUser.bs_name}");
         $("#bs_phone").val("${bsUser.bs_phone}");
         $("#bs_number").val("${bsUser.bs_number}");
         $("#bs_ctfc").attr("src", "${bsCtfc.sysName}");
         $("#bs_ctfc_img").attr("src", "/resource/ctfc/${bsCtfc.sysName}");
+    }
+
+    reset();
+
+    ///////////////////////////////////////////       계정 정보 수정       ////////////////////////////////////////////////////////////////////
+
+    acc_close();
+    $("#modify_acc_btn").click(function () {
+        $("#modify_acc").css("display", "block");
+    });
+    /*
+     * 계정 정보 수정 취소
+     */
+    $("#acc_cancel").click(function () {
+        acc_close();
     });
 
-    //// 프로필 기본값
-    $("#modify_profile").css("display", "none");
-    $("#bs_name").val("${bsUser.bs_name}");
-    $("#bs_phone").val("${bsUser.bs_phone}");
-    $("#bs_number").val("${bsUser.bs_number}");
-    $("#bs_ctfc").attr("src", "${bsCtfc.sysName}");
-    $("#bs_ctfc_img").attr("src", "/resource/ctfc/${bsCtfc.sysName}");
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    function acc_close() {
+        $("#bs_pw1").val("");
+        $("#bs_pw2").val("");
+        $("#bs_sd").css("display", "block");
+        $("#bs_sd_cf").css("display", "none");
+        $("#modify_acc").css("display", "none");
+    }
 
+    /*
+     * 비밀번호 저장
+     * @type {RegExp}
+     */
+    $("#bs_pw1").on("input", function () {
+        $("#acc_cf").html("");
+    });
+    $("#bs_pw2").on("input", function () {
+        $("#acc_cf").html("");
+    });
+    //유효성 검사
+    let bsPwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
+    $("#acc_save").click(function () {
+        // 실패
+        let pw1 = $("#bs_pw1").val();
+        let pw2 = $("#bs_pw2").val();
+        if (!(bsPwRegex.test(pw1))) {
+            $("#acc_cf").html("옳바르지 않은 입력입니다.");
+            $("#bs_pw1").val("");
+            $("#bs_pw2").val("");
+            $("#bs_pw1").focus();
+            return false;
+        }
+        if (pw1 != pw2) {
+            $("#acc_cf").html("비밀번호를 확인해주세요");
+            $("#bs_pw2").val("");
+            $("#bs_pw2").focus();
+            return false;
+        }
+        //성공
+        $.ajax({
+            url: "/updatePw.bsPage",
+            data: {
+                pw: pw1
+            },
+            type: "post",
+            success: function () {
+                acc_close();
+                console.log("success!!");
+            }
+        });
+    });
+    /*
+     * 회원탈퇴
+     */
+    $("#bs_sd_btn").click(function () {
+        $("#bs_sd").css("display", "none");
+        $("#bs_sd_cf").css("display", "block");
+    });
+    //아니오 누를 시
+    $("#bs_cf_sd_n").click(function () {
+        $("#bs_sd").css("display", "block");
+        $("#bs_sd_cf").css("display", "none");
+    });
+    $("#bs_cf_sd_y").click(function () {
+
+    });
 
 </script>
 <%@ include file="/layout/footer.jsp" %>

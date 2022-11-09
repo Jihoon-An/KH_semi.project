@@ -42,7 +42,6 @@ public class BsUsersController extends HttpServlet {
 			case "/login.bs":
 				// GET 요청 시 에러페이지로 넘김
 				if (request.getMethod().equals("GET")) {
-					response.sendRedirect("/error.jsp");
 					return;
 				}
 				response.getWriter().append(String.valueOf(this.isBsLogin(request, response)));
@@ -53,14 +52,21 @@ public class BsUsersController extends HttpServlet {
 				response.getWriter().append(String.valueOf(this.hasBsData(request, response)));
 				break;
 
-			// 회원가입 요청
+			// 회원가입 페이지 가기
 			case "/sign.bs":
+				request.getRequestDispatcher("/bs/bs-signup.jsp").forward(request,response);
+				break;
+				
+			// 회원가입 요청
+			case "/signUp.bs":
 				// GET 요청 시 에러페이지로 넘김
 				if (request.getMethod().equals("GET")) {
 					response.sendRedirect("/error.jsp");
 					return;
 				}
 				response.getWriter().append(String.valueOf(this.isBsSignUp(request, response)));
+				request.setAttribute("start", "login");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				break;
 
 			// 아이디 중복체크 요청
@@ -132,11 +138,6 @@ public class BsUsersController extends HttpServlet {
 		// bsSeqNextVal
 		int bsSeqNextVal = BsUsersDAO.getInstance().getBsSeqNextVal();
 
-		// 시설추가
-
-		// gymSeqNextVal
-		int gymSeqNextVal = GymDAO.getInstance().getGymSeqNextVal();
-		
 		String[] gym_name = multi.getParameterValues("gym_name");
 		String[] gym_phone = multi.getParameterValues("gym_phone");
 		String[] gym_address1 = multi.getParameterValues("gym_address1");
@@ -144,11 +145,15 @@ public class BsUsersController extends HttpServlet {
 		String[] gym_x = multi.getParameterValues("gym_x");
 		String[] gym_y = multi.getParameterValues("gym_y");
 
+		// 시설추가
 		for (int i = 0; i < gym_name.length; i++) {
-			String gym_location = gym_address1[i] + " " + gym_address2[i];
-			GymDAO.getInstance().addGYM(new GymDTO(gymSeqNextVal, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location, null, null,
-					null, null, gym_x[i], gym_y[i]));
 
+			// gymSeqNextVal
+			int gymSeqNextVal = GymDAO.getInstance().getGymSeqNextVal();
+
+			String gym_location = gym_address1[i] + " " + gym_address2[i];
+			GymDAO.getInstance().addGym(new GymDTO(gymSeqNextVal, bsSeqNextVal, gym_name[i], gym_phone[i], gym_location,
+					null, null, null, null, gym_x[i], gym_y[i]));
 			// 필터추가
 			GymFilterDAO.getInstance().addGymFilter(gymSeqNextVal);
 		}
@@ -158,15 +163,12 @@ public class BsUsersController extends HttpServlet {
 
 		while (e.hasMoreElements()) { // 하나만 받아서 이거 필요없긴함..
 			String name = e.nextElement();
-			System.out.println(name);
-
 			String sysName = multi.getFilesystemName(name);
 
 			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
 				if (sysName == null) {
 					continue;
 				};
-				
 				BsCtfcDAO.getInstance().uploadBsCtfc(new BsCtfcDTO(bsSeqNextVal, req_number, sysName));
 			}
 		}

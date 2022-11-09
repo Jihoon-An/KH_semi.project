@@ -143,6 +143,7 @@
 				</div>
 			</main>
 			<script>
+				
 				$(() => {
 					getReviewData();
 					getGymData();
@@ -201,7 +202,7 @@
 						for (i = 0; i < item_list.length; i++) {
 							let item = item_list[i];
 							let data = res.gymList[i];
-							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br><i class='fa-solid fa-heart' style='color:red'></i>&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>❤️&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
 						}
 					});
 				}
@@ -210,13 +211,15 @@
 					location.href = "/detail.gym?gym_seq=" + e.target.getAttribute("seq");
 				});
 
-				$(".imgBox").on("mouseenter", e => {
-					$(e.target).find("i").fadeOut(500);
-				})
+				// $(".imgFilter").on("mouseenter", e => {
+				// 	$(e.target).find("p").attr("style","color: #00000000;");
+				// 	$(e.target).find("i").attr("style","color: #00000000;");
+				// })
 
-				$(".imgBox").on("mouseleave", e => {
-					$(e.target).find("i").fadeIn(500);
-				})
+				// $(".imgFilter").on("mouseleave", e => {
+				// 	$(e.target).find("p").attr("style","color: white;");
+				// 	$(e.target).find("i").attr("style","color:red");
+				// })
 			</script>
 
 			<%@ include file="/layout/footer.jsp" %>
