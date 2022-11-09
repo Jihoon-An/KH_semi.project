@@ -60,7 +60,8 @@
 				<script>
 					$(() => {
 						initCalendar();
-						$('.calendar').datepicker();
+						$(".calendar").datepicker();
+						modifyCalendarFont();
 						$("#result").text($.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate")) + "의 운동 기록");
 					});
 
@@ -86,6 +87,15 @@
 					function onSelect() {
 						let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
 						$("#result").text(date + "의 운동기록");
+					}
+					
+					function modifyCalendarFont() {
+						$(".ui-datepicker-header").css("height", "90px");
+						$(".ui-datepicker-title").css("font-size", "20px");
+						$(".ui-corner-all").find("a").css("transform", "translate(0, 6px)");
+						$(".ui-datepicker-week-end").parent().find("th").css("font-size","18px").css("position", "relative").css("top", "-10px");
+						$(".ui-datepicker td a").css("font-size", "20px");
+						$(".ui-datepicker-calendar").css({"width":"90%", "height":"75%"});
 					}
 
 					// $(".ui-state-default").on("click", e => {
