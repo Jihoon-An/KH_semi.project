@@ -10,15 +10,12 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
 	integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 <link rel="stylesheet" href="/api/jquery-ui/jquery-ui.css">
-
-<script src="/api/jquery-ui/jquery-ui.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/api/jquery-ui/images"></script>
 </head>
 <body>
-	<div id="datepicker" class="datepicker"></div>
+	<div class="calendar"></div>
 	<script>
 		$.datepicker.setDefaults({
 			dateFormat : 'yy/mm/dd',
@@ -36,7 +33,7 @@
 		});
 
 		$(function() {
-			$('.datepicker').datepicker();
+			$('.calendar').datepicker();
 		});
 		
 	</script>
