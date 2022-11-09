@@ -27,7 +27,7 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html;charset=utf8");
 		
 		String uri = request.getRequestURI();
- 
+
 		try {
 			switch (uri) {
 			// 헬스장 검색 전 초기 헬스장 리스트
@@ -90,7 +90,7 @@ public class SearchController extends HttpServlet {
 		request.setAttribute("filter_shower", filter_shower);
 		request.setAttribute("filter_park", filter_park);
 
-		// false 값을 다른 값으로 변환하고, ture값을 false로 변환하기
+		// false 값을 다른 값으로 변환하고, true 값을 false 로 변환하기
 		if (filter_open.equals("false")){filter_open = "none";}else {filter_open = "false";}
 		if (filter_locker.equals("false")){filter_locker = "none";}else {filter_locker = "false";}
 		if (filter_shower.equals("false")){filter_shower = "none";}else {filter_shower = "false";}
