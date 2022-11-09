@@ -3,68 +3,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
-
+<html>
+	
 <%@ include file="/layout/header.jsp"%>
 
+<div class="main_margin_85"></div>
 <!-- Site Main -->
 <main id="personal-record">
-	<section>
-		<div class="mainimg">
-			<div class="containerbox">
-
-				<div class="search_main">
-					<div class="search_main_span">
-						<span style="font-weight: lighter;">Your</span> <span
-							style="font-weight: bold;">Needs</span> <span
-							style="font-weight: lighter;">For</span> <span
-							style="font-weight: bold;">Fitness</span>
-					</div>
-					<div class="search_main_input">
-						<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요.">
-					</div>
-					<div class="search_main_icon">
-						<i class="fa-solid fa-magnifying-glass"></i>
-					</div>
+	<div class="containerbox row" align="center">
+		<div class="col-12">
+			<div id="notice">운동을 하지 않은지 30년 지났습니다.</div>
+		</div>
+		<div class="col-3">
+			<div id="manager">+</div>
+		</div>
+		<div class="col-6">
+			<div id="inbody">
+				태어나서 처음 해본 인바디 결과
+				<div class="chart_wrap">
+					<canvas id="inbody_chart" height="110"></canvas>
 				</div>
-
 			</div>
 		</div>
-	</section>
-
-	<div class="containerbox">
-		<div class="today">오늘 날짜</div>
-		<div class="workless">운동하지않은 일 수</div>
-		<div class="health_date">
-			헬스일자
-			<div class="start"></div>
-			<div class="finish"></div>
-			<div class="workday"></div>
-		</div>
-		<div class="inbody">
-			<div class="inbody_chart_wrap">
-			<canvas id="inbody" width="575" height="305"></canvas>
+		<div class="col-3">
+			<div id="weight">
+				몸무게 변화
+				<div class="chart_wrap">
+				<canvas id="weight_chart" height="250"></canvas>
+				</div>
 			</div>
 		</div>
-		<div class="weight_change">
-			<div class="weight_chart_wrap">
-				<canvas id="weight_change" width="250" height="305"></canvas>
+		<div class="col-3">
+			<div class="calendar" id="calendar">
 			</div>
 		</div>
-		<div class="calendar">달력</div>
-		<div class="exercise_results">운동 결과</div>
+		<div class="col-9">
+			<div id="result">
+				운동 결과
+			</div>
+		</div>
 	</div>
 	<script>
-	<!--inbody chart-->
-	const ctx = document.getElementById('inbody').getContext('2d');
-	const myChart = new Chart(ctx, {
+	// inbody chart
+	const ctx1 = document.getElementById('inbody_chart').getContext('2d');
+	const myChart1 = new Chart(ctx1, {
 		type : 'bar',
 		data : {
 			labels : [ '체중', '골격근량', '체지방량', 'BMI', '체지방률'
 					],
 			datasets : [ {
 				axis:'y',
-				label : '# inbody',
+				label : '# inbody_chart',
 				data : [ 74, 39, 16, 24, 21,],
 				backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
@@ -90,9 +79,9 @@
 			}
 		}
 	});
-		<!--weight change chart-->
-		const ctx = document.getElementById('weight_change').getContext('2d');
-		const myChart = new Chart(ctx,
+		// weight change chart
+		const ctx2 = document.getElementById('weight_chart').getContext('2d');
+		const myChart2 = new Chart(ctx2,
 				{
 					type : 'bar',
 					data : {
@@ -125,7 +114,7 @@
 					}
 				});
 		
-		<!--calendar-->
+		// calendar
 		$.datepicker.setDefaults({
 			dateFormat : 'yy/mm/dd',
 			prevText : '이전 달',
