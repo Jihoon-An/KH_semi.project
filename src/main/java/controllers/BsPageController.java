@@ -89,6 +89,8 @@ public class BsPageController extends ControllerAbs {
      * <h1>사업자 페이지 데이터 불러오기</h1>
      */
     private void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.getSession().setAttribute("bsSeq", 112);
+
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
 
         BsUsersDTO bsUser = BsUsersDAO.getInstance().getByBsSeq(bsSeq);
