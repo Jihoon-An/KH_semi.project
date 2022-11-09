@@ -55,7 +55,10 @@ public class BsPageController extends ControllerAbs {
         // 광고배너 지우기
         AdDAO.getInstance().deleteByBsSeq(bsSeq);
         // 즐겨찾기 지우기
-        FavoritesDAO.getInstance().deleteByGymSeq();
+        FavoritesDAO favDao = FavoritesDAO.getInstance();
+        for (GymDTO gym : gymList) {
+        favDao.deleteByGymSeq(gym.getGym_seq());
+        }
         // 헬스 회원 지우기
         MembershipDAO.getInstance().deleteByBsSeq(bsSeq);
         // 리뷰 좋아요 지우기
@@ -63,11 +66,17 @@ public class BsPageController extends ControllerAbs {
         // 사업자 등록증 지우기
         BsCtfcDAO.getInstance().deleteByBsSeq(bsSeq);
         // 시설 필터 지우기
-        GymFilterDAO.getInstance().deleteByBsSeq(bsSeq);
+        GymFilterDAO gymFilDao = GymFilterDAO.getInstance();
+        for (GymDTO gym : gymList) {
+        gymFilDao.deleteByGymSeq(gym.getGym_seq());
+        }
         // 시설이미지 지우기
-        FileControl file = new FileControl;
-        file.delete(request, "/resource/gym", fileName);
-        GymImgDAO.getInstance().deleteByBsSeq(bsSeq);
+        FileControl file = new FileControl();
+        for(GymDTO gym : gymList) {
+
+            file.delete(request, "/resource/gym", fileName);
+            GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
+        }
         //시설 지우기
         GymDAO.getInstance().deleteByBsSeq(bsSeq);
         // 비지니스 유저 지유기

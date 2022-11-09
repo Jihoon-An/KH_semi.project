@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -202,8 +203,15 @@ public class FavoritesDAO extends Dao {
         return result;
     }
 
-    public void deleteByGymSeq(int gymSeq) {
+    public void deleteByGymSeq(int gymSeq) throws Exception {
         String sql = "delete from favorites where gym_seq = ?";
-        try ()
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, gymSeq);
+
+            statement.executeUpdate();
+            con.commit();
+        }
     }
 }
