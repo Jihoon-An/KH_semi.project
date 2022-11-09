@@ -110,7 +110,7 @@
 }
 
 #gym-detail .starc {
-	width: 10%;
+	width: 20%;
 	height: 50px;
 	font-size:20px;
 	float: left;
@@ -122,14 +122,7 @@
 	float: left;
 }
 
-/*사업자한테만 보이는 아이콘*/
-#gym-detail .bs_icon{
-	width:10%;
-	height: 50px;
-	float:left;
-	font-size:20px;
 
-} 
 
 #gym-detail .reviewcon{
 	margin-top:20px;
