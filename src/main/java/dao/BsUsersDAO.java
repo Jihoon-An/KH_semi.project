@@ -387,4 +387,17 @@ public class BsUsersDAO extends Dao {
     }
 
 
+	public void updatePw(int bsSeq, String pw) throws Exception {
+		String sql = "update bs_users set bs_pw = ? where bs_seq = ?";
+		String password = Common.getSHA512(pw);
+		try (Connection connection = this.getConnection();
+			 PreparedStatement statement = connection.prepareStatement(sql);
+		) {
+			statement.setString(1, password);
+			statement.setInt(2, bsSeq);
+
+			statement.executeUpdate();
+			connection.commit();
+		}
+	}
 }

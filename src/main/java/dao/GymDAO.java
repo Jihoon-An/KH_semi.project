@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -180,6 +181,21 @@ public class GymDAO extends Dao {
 		}
 
 	}
+
+    public List<GymDTO> getGymByBsSeq(int bsSeq) throws Exception {
+        List<GymDTO> gymList = new ArrayList<>();
+        String sql = "select * from gym where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql))
+        {
+            statement.setInt(1, bsSeq);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                gymList.add(new GymDTO(rs));
+            }
+            return gymList;
+        }
+    }
 
 
 //public List<GymDTO> printGym2() throws Exception{   //test
