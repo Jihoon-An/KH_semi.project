@@ -142,13 +142,13 @@ public class GymDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public int addGYM(GymDTO dto) throws Exception {
+    public int addGym(GymDTO dto) throws Exception {
 
         String sql = "insert into gym values(?,?,?,?,?,null,null,null,null,?,?)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setInt(1,dto.getGym_seq());
+            pstat.setInt(1, dto.getGym_seq());
             pstat.setInt(2, dto.getBs_seq());
             pstat.setString(3, dto.getGym_name());
             pstat.setString(4, dto.getGym_phone());
@@ -198,36 +198,6 @@ public class GymDAO extends Dao {
     }
 
 
-//public List<GymDTO> printGym2() throws Exception{   //test
-//	
-//	String sql="select * from gym ";
-//	  try(Connection con = this.getConnection();
-//			   PreparedStatement pstat = con.prepareStatement(sql);
-//			  ResultSet rs = pstat.executeQuery();
-//			){
-//		  
-//	
-//		   List<GymDTO> list = new ArrayList();
-//		   
-//
-//			   while(rs.next()) {
-//				   GymDTO dto = new GymDTO();
-//				   dto.setGym_seq(rs.getInt("gym_seq"));
-//				   dto.setBs_seq(rs.getInt("bs.seq"));
-//				   dto.setGym_name(rs.getString("gym_name"));
-//				   dto.setGym_phone(rs.getString("gym_phone"));
-//				   dto.setGym_location(rs.getString("gym_location"));
-//				   dto.setGym_price(rs.getInt("gym_price"));
-//				   dto.setManager_name(rs.getString("manager_name"));
-//				   dto.setManager_phone(rs.getString("manager_phone"));
-//				   dto.setManager_email(rs.getString("manager_email"));
-//				   list.add(dto);
-//		 
-//		   }
-//			   return list;
-//		
-//	   }
-//	  }
 
 }
 

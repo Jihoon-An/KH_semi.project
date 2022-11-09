@@ -81,6 +81,7 @@
     <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
+
     <!-- css -->
     <link rel="stylesheet" href="/css/base.css" type="text/css">
     <link rel="stylesheet" href="/css/index.css" type="text/css">
@@ -92,9 +93,11 @@
     <link rel="stylesheet" href="/css/host-user.css" type="text/css">
     <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
-    <link rel="stylesheet" href="/css/pesonal-record.css" type="text/css">
+    <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
+    <link rel="stylesheet" href="/css/review.css" type="text/css">
 
 </head>
+
 
 <body>
 
@@ -105,7 +108,7 @@
 
         <div class="float-start">
             <h1 id="header_logo">
-                <a class="header_a_tag" href="/index.jsp">Fitneeds</a>
+                <a class="header_a_tag" href="/">Fitneeds</a>
             </h1>
         </div>
 
@@ -164,5 +167,19 @@
 <!-- 로그인 Modal -->
 <%@ include file="/user/login.jsp" %>
 
+
 <!-- 회원가입 Modal -->
 <%@ include file="/user/signup.jsp" %>
+
+
+<script>
+
+    if (${start!=null}||${start!=undefind}) {
+        //사업자회원가입 후 index에서 로그인 Modal 열기
+        if (${start == "login"}) {
+            $("#loginModal").attr("style", "display:inline-flex");
+            $("#login_bs").attr("checked", true);
+        }
+    }
+
+</script>

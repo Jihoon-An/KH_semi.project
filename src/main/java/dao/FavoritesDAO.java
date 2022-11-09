@@ -8,9 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.SynchronousQueue;
 
+import org.eclipse.jdt.internal.compiler.ast.WhileStatement;
 
+import dto.BsUsersDTO;
 import dto.FavoritesDTO;
 import dto.GymDTO;
+import dto.ReviewDTO;
+import dto.UserDTO;
 
 
 public class FavoritesDAO extends Dao {
@@ -26,7 +30,13 @@ public class FavoritesDAO extends Dao {
     }
 
     
-    
+    /**
+     * 즐겨찾기 테이블에 id중복확인
+     * @param useq
+     * @param gseq
+     * @return
+     * @throws Exception
+     */
     public boolean isFavExist(int useq, int gseq) throws Exception{  //id중복확인 dao
 		   String sql = "select * from Favorites where user_seq = ? and gym_seq = ?";
 		   try(Connection con = this.getConnection();
@@ -44,6 +54,8 @@ public class FavoritesDAO extends Dao {
 	   }
 		
 	   	}
+
+	   	
 
     
     /**
