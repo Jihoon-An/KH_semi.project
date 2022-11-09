@@ -27,7 +27,7 @@ public class SearchController extends HttpServlet {
         response.setContentType("text/html;charset=utf8");
 		
 		String uri = request.getRequestURI();
-
+ 
 		try {
 			switch (uri) {
 			// 헬스장 검색 전 초기 헬스장 리스트
