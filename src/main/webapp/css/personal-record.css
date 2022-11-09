@@ -4,7 +4,7 @@
 	padding: 10px;
 }
 
-#personal-record div[class^='col']>div {
+#personal-record .row:not(.containerbox) div[class^='col']>div {
 	padding: 10px;
 	border: solid #808080 1px;
 	border-radius: 6px;
@@ -19,7 +19,12 @@
 }
 
 #personal-record #calendar, #result {
-	height: 290px;
+	height: 400px;
+}
+
+#personal-record #record {
+	height: 540px;
+	visibility: hidden;
 }
 
 #personal-record .chart_wrap {
@@ -28,9 +33,14 @@
 }
 
 #personal-record #calendar {
-	padding-top: 0px;
+	position : relative;
+	padding: 0px;
+	top: -10px;
+	border: none;
+	
 }
 
 #personal-record #calendar>* {
 	width:100%;
+	height:100%;
 }
