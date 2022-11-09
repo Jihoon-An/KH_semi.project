@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>피트니즈 - Fitneeds</title>
-<link rel="shortcut icon" type="image/x-icon" href="/resource/fitneeds.ico">
+<link rel="shortcut icon" type="image/x-icon"
+	href="/resource/fitneeds.ico">
 
 <!-- fontawesome -->
 <link
@@ -91,6 +92,7 @@
 <link rel="stylesheet" href="/css/host-user.css" type="text/css">
 <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
 <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
+<link rel="stylesheet" href="/css/review.css" type="text/css">
 
 </head>
 
@@ -103,7 +105,7 @@
 
 			<div class="float-start">
 				<h1 id="header_logo">
-					<a class="header_a_tag" href="/index.jsp">Fitneeds</a>
+					<a class="header_a_tag" href="/">Fitneeds</a>
 				</h1>
 			</div>
 
@@ -118,36 +120,31 @@
 					<ul id="header_nav_person">
 						<c:choose>
 							<c:when test="${userSeq != null}">
-								<li class="float-end">
-									<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+								<li class="float-end"><a class="header_a_tag"
+									onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 								</li>
-								<li class="float-end">
-									<a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
-								</li>
+								<li class="float-end"><a class="header_a_tag"
+									href="/page.userMyPage">마이페이지</a></li>
 							</c:when>
 							<c:when test="${bsSeq != null}">
-								<li class="float-end">
-									<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+								<li class="float-end"><a class="header_a_tag"
+									onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 								</li>
-								<li class="float-end">
-									<a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
-								</li>
+								<li class="float-end"><a class="header_a_tag"
+									href="/page.bsPage">사업자페이지</a></li>
 							</c:when>
 							<c:when test="${admin}">
-								<li class="float-end">
-									<a class="header_a_tag" onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+								<li class="float-end"><a class="header_a_tag"
+									onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
 								</li>
-								<li class="float-end">
-									<a class="header_a_tag" href="/userslist.host">관리자페이지</a>
-								</li>
+								<li class="float-end"><a class="header_a_tag"
+									href="/userslist.host">관리자페이지</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="float-end">
-									<a class="header_a_tag"onclick="showLoginModal()">로그인</a>
-								</li>
-								<li class="float-end">
-									<a class="header_a_tag" onclick="showSignupModal()">회원가입</a>
-								</li>
+								<li class="float-end"><a class="header_a_tag"
+									onclick="showLoginModal()">로그인</a></li>
+								<li class="float-end"><a class="header_a_tag"
+									onclick="showSignupModal()">회원가입</a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -162,3 +159,17 @@
 
 	<!-- 회원가입 Modal -->
 	<%@ include file="/user/signup.jsp"%>
+
+
+
+	<script>
+
+		if(${start!=null}||${start!=undefind}){
+			//사업자회원가입 후 index에서 로그인 Modal 열기
+			if(${start == "login"}){
+				$("#loginModal").attr("style", "display:inline-flex");
+				$("#login_bs").attr("checked", true);
+			}
+		}
+
+	</script>
