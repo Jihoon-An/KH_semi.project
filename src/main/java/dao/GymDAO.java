@@ -141,13 +141,13 @@ public class GymDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public int addGYM(GymDTO dto) throws Exception {
+    public int addGym(GymDTO dto) throws Exception {
 
         String sql = "insert into gym values(?,?,?,?,?,null,null,null,null,?,?)";
 
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
-            pstat.setInt(1,dto.getGym_seq());
+            pstat.setInt(1, dto.getGym_seq());
             pstat.setInt(2, dto.getBs_seq());
             pstat.setString(3, dto.getGym_name());
             pstat.setString(4, dto.getGym_phone());
