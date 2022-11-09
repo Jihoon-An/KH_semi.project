@@ -55,7 +55,7 @@
 		<div class="exercise_results">운동 결과</div>
 	</div>
 	<script>
-	<!--inbody chart-->
+	//inbody chart
 	const ctx = document.getElementById('inbody').getContext('2d');
 	const myChart = new Chart(ctx, {
 		type : 'bar',
@@ -90,9 +90,9 @@
 			}
 		}
 	});
-		<!--weight change chart-->
-		const ctx = document.getElementById('weight_change').getContext('2d');
-		const myChart = new Chart(ctx,
+		//weight change chart
+		const ctx1 = document.getElementById('weight_change').getContext('2d');
+		const myChart1 = new Chart(ctx1,
 				{
 					type : 'bar',
 					data : {
@@ -125,7 +125,7 @@
 					}
 				});
 		
-		<!--calendar-->
+		//calendar
 		$.datepicker.setDefaults({
 			dateFormat : 'yy/mm/dd',
 			prevText : '이전 달',
@@ -143,7 +143,7 @@
 
 		$(function() {
 			$('.calendar').datepicker();
-		});
+		}); 
 	</script>
 </main>
 
