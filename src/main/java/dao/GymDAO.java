@@ -215,5 +215,17 @@ public class GymDAO extends Dao {
             con.commit();
         }
     }
+
+
+
+    public void modifyGym(GymDTO gymDto) throws Exception {
+        String sql = "update gym ";
+    }
+
+
+
+
+
+
 }
 

@@ -7,7 +7,7 @@
 	font-style: normal;
 }
 
-body,h1,div,p,span{font-family:'Pretendard-Regular'}
+body *{font-family:'Pretendard-Regular'}
 
 /* 전 컨텐츠를 감싸는 div */
 .containerbox {
