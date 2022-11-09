@@ -36,12 +36,12 @@
 				</div>
 				<div class="place">
 					<dt class="text_normal">위치</dt>
-					<dd>${list.gym_location}</dd>
+					<dd>${gymList.gym_location}</dd>
 				</div>
 
 				<div class="place">
 					<dt class="text_normal">연락처</dt>
-					<dd>${list.gym_phone}</dd>
+					<dd>${gymList.gym_phone}</dd>
 				</div>
 
 				<div class="placemap" id="map"></div>
@@ -87,7 +87,11 @@
 									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
 									<div class="ranwriter">${r.review_writer}</div>
 									<div class="writerd">${r.formDate}</div>
-									<div class="starc">${r.review_star }</div>
+									<div class="starc" >
+									<input type="hidden" name="review_seq" class ="star" value="${r.review_star}">
+									
+									</div>
+									
 									 <c:if test="${userSeq !=null}">
 									<div class="reviewlike">
 									<input type="hidden" name="review_seq" class ="rseq" value="${r.review_seq}">
@@ -96,9 +100,7 @@
 									<i class="relike fa-solid fa-thumbs-up"></i></div>
 									</c:if>
 									
-									<c:if test="${bsSeq !=null }"> <!-- 사업자회원 -->
-									<div class="bs_icon"><i class="fa-solid fa-xmark"></i></div>
-									</c:if>
+									
 									<div class="reviewcon">${r.review_contents } </div>
 									</div>
 							
@@ -120,6 +122,9 @@
 
 			</div>
 		</div>
+		
+		
+		
 		
 
 		<div class="rcontents">
@@ -156,8 +161,25 @@
 
 	
 	<script>
-
 	
+	
+	$(document).ready(function() {
+			if($(".star").val()==1){
+				$(".starc").html("★")
+			}if($(".star").val()==2){
+				$(".starc").html("★★")
+			}if($(".star").val()==3){
+				$(".starc").html("★★★")
+			}
+			if($(".star").val()==4){
+				$(".starc").html("★★★★")
+			}
+			if($(".star").val()==5){
+				$(".starc").html("★★★★★")
+			}
+			
+	})
+
 	$(".relike").on("click", function(){
 	
 		if($(this).css("color")=="rgb(143, 149, 154)" ){
@@ -179,8 +201,7 @@
 				
 			})
 		} else {
-		
-			
+
 			$.ajax({
 				url:"/reviewLikeDel.gym",
 				
@@ -197,29 +218,22 @@
 	})
 
 	
-<!-- 좋아요 아이콘 트루면 빨강, 아니면 회색 -->
-/*
-	$( document ).ready(function() {
 
-	    if(${likeresult}){
-	    	$(".relike").css("color", "#001A41");
-	    }else{
-	    	$(".relike").css("color", "#8f959a")
+	/*
+	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
+	$(document).ready(function() {
+
+	    if(${favresult} != "check"){
+	    	if(${favresult}){
+		    	$("#heart").css("color", "#CF0C00");
+		    }else{
+		    	$("#heart").css("color", "#8f959a")
+		    }
 	    }
-	
 	});
+	
 	*/
-	
-	
-	
-	<!-- 즐겨찾기 아이콘 트루면 빨강, 아니면 회색 -->
-	$( document ).ready(function() {
-	    if(${favresult}){
-	    	$("#heart").css("color", "#CF0C00");
-	    }else{
-	    	$("#heart").css("color", "#8f959a")
-	    }
-	});
+
 	
 	$("#heart").on("click", function(){
 		

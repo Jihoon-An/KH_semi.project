@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+#personal-record .containerbox {
+	width: 1300px;
+	margin: auto;
+}
+
+#personal-record .containerbox>div {
+	border: 1px solid black;
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	border-radius: 6px;
+}
+
+#personal-record .today {
+	width: 33%;
+	height: 75px;
+}
+
+#personal-record .workless {
+	width: 63%;
+	height: 75px;
+}
+
+#personal-record .health_date {
+	width: 33%;
+	height: 305px;
+}
+
+#personal-record .inbody {
+	width: 45%;
+	height: 305px;
+}
+
+#personal-record .weight_change {
+	width: 16%;
+	height: 305px;
+}
+
+#personal-record .calendar {
+	width: 33%;
+	height: 385px;
+}
+
+#personal-record .exercise_results {
+	width: 63%;
+	height: 385px;
+}
+
+#personal-record .health_date>div {
+	border: 1px solid black;
+	width: 320px;
+	height: 50px;
+	margin: auto;
+	margin-top: 25px;
+	border-radius: 6px;
+}
