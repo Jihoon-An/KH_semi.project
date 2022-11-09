@@ -26,35 +26,13 @@ public class ReviewDAO extends Dao {
     }
 
 
+ 
     /**
-     * gym_seq를 기준으로 출력
-     *
+     * gym-detail 페이지 불러올때 사용자가 클릭한 리뷰 좋아요 유지를 위해 hashmap 사용
      * @param gym_seq
      * @return
      * @throws Exception
      */
-//    public List<ReviewDTO> printReivew(int gym_seq) throws Exception {
-//
-//        String sql = "select * from review where gym_seq= ?";
-//        try (Connection con = this.getConnection();
-//             PreparedStatement pstat = con.prepareStatement(sql);
-//        ) {
-//
-//            pstat.setInt(1, gym_seq);
-//            List<ReviewDTO> list = new ArrayList();
-//
-//            try (ResultSet rs = pstat.executeQuery()) {
-//
-//                while (rs.next()) {
-//                    list.add(new ReviewDTO(rs));
-//                }
-//                return list;
-//
-//            }
-//        }
-//
-//    }
-
     public List<HashMap<String, Object>> printReivew(int gym_seq) throws Exception {
 
         String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";

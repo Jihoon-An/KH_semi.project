@@ -7,7 +7,6 @@
 <%@ include file="/layout/header.jsp"%>
 
 
-
 <main id="gym-detail">
 	<div style="height:70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
@@ -27,6 +26,7 @@
 					<div class="icon1">
 						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
 						<i class="fa-solid fa-heart" id="heart"></i> 
+						
 						</c:if>
 						<span class="button gray medium">
 						<a onclick="clip(); return false;" class="shareicon"> 
@@ -97,7 +97,14 @@
 									<input type="hidden" name="review_seq" class ="rseq" value="${r.review.review_seq}">
 									<input type="hidden" name="gym_seq" class ="gym" value="${r.review.gym_seq}">
 									<input type="hidden" name="review_like" class="rlike" value="${r.review.review_like}">
-									<i class="relike fa-solid fa-thumbs-up"></i></div>
+										<i class="relike fa-solid fa-thumbs-up"></i>
+									<c:if test="${r.liked ==userSeq}">
+										<script>
+										$(".relike").attr("style", "color:#001A41")
+										</script>
+									</c:if>
+									</div>
+
 									</c:if>
 									
 									
@@ -226,7 +233,7 @@
 				data:{
 					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
 					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
-				"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+					"review_like":$(this).closest(".reviewlike").find(".rlike").val()
 						},	
 				type:"post",
 				success:()=> {$(this).css("color", "#8f959a")
@@ -241,7 +248,7 @@
 	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
 	$(document).ready(function() {
 
-	    if(${favresult} !== "check"){
+	    if(${favresult}!== "check"){
 	    	if(${favresult}){
 		    	$("#heart").css("color", "#CF0C00");
 		    }else{
