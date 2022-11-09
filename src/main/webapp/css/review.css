@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 /* review */
 
 
@@ -157,18 +158,18 @@
 
 .checkbox-wrapper-46 {
     margin: 10px 0px;
-    width: 350px;
+    width: 400px;
     text-align: left;
     background-color: #FFFFFF;
     border: 1px solid rgb(209, 213, 219);
     border-radius: .5rem;
     box-sizing: border-box;
     color: #111827;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    line-height: 1.25rem;
-    padding: .75rem 1rem;
-    padding-left: 20px;
+    line-height: 1.5rem;
+    padding: 1rem 1.2rem;
+    padding-left: 30px;
     text-decoration: none #D1D5DB solid;
     text-decoration-thickness: auto;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -311,8 +312,11 @@
     width: 600px;
     height: 300px;
     resize: none;
-    /* 사용자 임의 변경 불가 */
 }
+
+
+
+
 
 .checkIcon {
     width: 20px;
@@ -343,59 +347,7 @@
 }
 
 
-/* 페이지 자체 제목 쓸 때 사용. ex) 자유게시판 */
-h1 {
-    font-size: 30px;
-    letter-spacing: -1px;
-    font-weight: 800;
-    margin: 0;
-    margin-bottom: 50px;
-}
-
-.text_main_title_600 {
-    font-size: 24px;
-    letter-spacing: -1px;
-    font-weight: 600;
-}
-
-/* 컨텐츠 제목 */
-.text_title {
-    font-size: 20px;
-    letter-spacing: -1px;
-}
-
-.text_title_600 {
-    font-size: 20px;
-    letter-spacing: -1px;
-    font-weight: 600;
-}
-
-/* 컨텐츠 내용 */
-.text_normal {
-    font-size: 16px;
-    letter-spacing: -1px;
-}
-
-/* 컨텐츠 내용 */
-.text_normal_600 {
-    font-size: 16px;
-    letter-spacing: -1px;
-    font-weight: 600;
-}
-
-.text_mini {
-    font-size: 12px;
-    letter-spacing: -1px;
-}
-
-.text_mini_600 {
-    font-size: 12px;
-    letter-spacing: -1px;
-    font-weight: 600;
-}
-
 .reviw_content_star {
-
-    margin-top: 50px;
-    margin-left: 12px;
+    margin-top: 55px;
+    margin-left: 50px;
 }

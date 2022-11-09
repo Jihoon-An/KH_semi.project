@@ -16,7 +16,7 @@
 
 #header_logo {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #FFFFFF;
 	font-size: 40px;
@@ -114,7 +114,7 @@ nav {
 
 #footer #footer_logo {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #C7D3DC;
 	font-size: 40px;
@@ -129,7 +129,7 @@ nav {
 
 #footer #footer_call {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #001A41;
 	font-size: 40px;

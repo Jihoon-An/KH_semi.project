@@ -91,7 +91,7 @@
 							<div class="filebox text-start" style="width: 350px">
 								<label for="file" class="bs_regl_name">이미지를 업로드하세요</label> <input
 									type="file" name="file" id="file" style="display: none"
-									class="bs_regl_hidden" multiple>
+									class="bs_regl_hidden">
 							</div>
 						</div>
 
