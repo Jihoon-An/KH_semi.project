@@ -290,7 +290,7 @@
 	</script>
 	<c:forEach var="gymList" items="${gymList}">
 		<script>
-			createMarker("${gymList.gym_name}","${gymList.gym_y}","${gymList.gym_x}");
+			createMarker("${gymList.gym_name}","${gymList.gym_x}","${gymList.gym_y}");
 		</script>
 	</c:forEach>
 
