@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +40,9 @@ public class GymDAO extends Dao {
         List<GymDTO> result = new ArrayList<>();
 
         try (Connection con = getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);) {
+             PreparedStatement pstat = con.prepareStatement(sql);
+             ResultSet rs = pstat.executeQuery();) {
 
-            ResultSet rs = pstat.executeQuery();
 
             while (rs.next()) {
                 result.add(new GymDTO(rs));
@@ -72,12 +73,13 @@ public class GymDAO extends Dao {
             pstat.setString(5, shower);
             pstat.setString(6, park);
 
-            ResultSet rs = pstat.executeQuery();
+            try (ResultSet rs = pstat.executeQuery();) {
 
-            while (rs.next()) {
-                result.add(new GymDTO(rs));
+                while (rs.next()) {
+                    result.add(new GymDTO(rs));
+                }
+                return result;
             }
-            return result;
         }
     }
 
@@ -160,28 +162,58 @@ public class GymDAO extends Dao {
             return pstat.executeUpdate();
         }
     }
-    
+
     /**
-	 * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 gym_seq 추가하기 위함
-	 *
-	 * @return
-	 * @throws Exception
-	 */
-	public int getGymSeqNextVal() throws Exception {
-		String sql = "select gym_seq.nextval from dual";
+     * 사업자 회원가입시 seq 단 한번만 만들어서 시설정보에 gym_seq 추가하기 위함
+     *
+     * @return
+     * @throws Exception
+     */
+    public int getGymSeqNextVal() throws Exception {
+        String sql = "select gym_seq.nextval from dual";
 
 
-		try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-				ResultSet rs = pstat.executeQuery()) {
-			rs.next();
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+             ResultSet rs = pstat.executeQuery()) {
+            rs.next();
 
-			return rs.getInt(1);
-		}
+            return rs.getInt(1);
+        }
 
-	}
+    }
+
+    public List<GymDTO> getGymByBsSeq(int bsSeq) throws Exception {
+        List<GymDTO> gymList = new ArrayList<>();
+        String sql = "select * from gym where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, bsSeq);
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    gymList.add(new GymDTO(rs));
+                }
+                return gymList;
+            }
+        }
+    }
 
 
+    /**
+     * BsSeq에 해당하는 데이터 삭제
+     * @param bsSeq
+     * @throws Exception
+     */
+    public void deleteByBsSeq(int bsSeq) throws Exception {
+        String sql = "delete from gym where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
 
+            statement.setInt(1, bsSeq);
+            statement.executeUpdate();
+
+            con.commit();
+        }
+    }
 }
 

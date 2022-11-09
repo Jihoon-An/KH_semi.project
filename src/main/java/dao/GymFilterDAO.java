@@ -1,13 +1,10 @@
 package dao;
 
-import dto.GymDTO;
 import dto.GymFilterDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GymFilterDAO extends Dao {
 
@@ -53,13 +50,26 @@ public class GymFilterDAO extends Dao {
 				PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, gym_seq);
 
-			ResultSet rs = pstat.executeQuery();
+			try(ResultSet rs = pstat.executeQuery();) {
 
-			if(rs.next()) {
-				return new GymFilterDTO(rs);
+				if (rs.next()) {
+					return new GymFilterDTO(rs);
+				}
+				return new GymFilterDTO();
 			}
-			return new GymFilterDTO();
 		}
 	}
 
+	public void deleteByGymSeq(int gymSeq) throws Exception{
+		String sql = "delete from gym_filter where gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+			 PreparedStatement statement = con.prepareStatement(sql)) {
+
+			statement.setInt(1, gymSeq);
+			statement.executeUpdate();
+
+			con.commit();
+		}
+	}
 }
