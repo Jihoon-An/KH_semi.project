@@ -197,6 +197,11 @@ public class ReviewDAO extends Dao {
         }
     }
 
+    /**
+     * bsSeq에 해당하는 데이터 삭제
+     * @param bsSeq
+     * @throws Exception
+     */
     public void deleteByBsSeq(int bsSeq) throws Exception {
         String sql = "delete from review where bs_seq = ?";
         try (Connection connection = this.getConnection();

@@ -199,5 +199,21 @@ public class GymDAO extends Dao {
     }
 
 
+    /**
+     * BsSeq에 해당하는 데이터 삭제
+     * @param bsSeq
+     * @throws Exception
+     */
+    public void deleteByBsSeq(int bsSeq) throws Exception {
+        String sql = "delete from gym where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, bsSeq);
+            statement.executeUpdate();
+
+            con.commit();
+        }
+    }
 }
 

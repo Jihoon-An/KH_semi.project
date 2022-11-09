@@ -5,6 +5,7 @@ import dao.*;
 import dto.BsCtfcDTO;
 import dto.BsUsersDTO;
 import dto.GymDTO;
+import dto.GymImgDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,39 +51,53 @@ public class BsPageController extends ControllerAbs {
     }
 
     private void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
         List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
+
         // 광고배너 지우기
         AdDAO.getInstance().deleteByBsSeq(bsSeq);
+
         // 즐겨찾기 지우기
         FavoritesDAO favDao = FavoritesDAO.getInstance();
+
         for (GymDTO gym : gymList) {
-        favDao.deleteByGymSeq(gym.getGym_seq());
+            favDao.deleteByGymSeq(gym.getGym_seq());
         }
+
         // 헬스 회원 지우기
         MembershipDAO.getInstance().deleteByBsSeq(bsSeq);
+
         // 리뷰 좋아요 지우기
         ReviewDAO.getInstance().deleteByBsSeq(bsSeq);
+
         // 사업자 등록증 지우기
         BsCtfcDAO.getInstance().deleteByBsSeq(bsSeq);
+
         // 시설 필터 지우기
         GymFilterDAO gymFilDao = GymFilterDAO.getInstance();
+
         for (GymDTO gym : gymList) {
-        gymFilDao.deleteByGymSeq(gym.getGym_seq());
+            gymFilDao.deleteByGymSeq(gym.getGym_seq());
         }
+
         // 시설이미지 지우기
         FileControl file = new FileControl();
-        for(GymDTO gym : gymList) {
+        GymImgDAO gymImgDAO = GymImgDAO.getInstance();
 
-            file.delete(request, "/resource/gym", fileName);
+        for (GymDTO gym : gymList) {
+            List<GymImgDTO> gymImgList = gymImgDAO.getByGymSeq(gym.getGym_seq());
+
+            for (GymImgDTO gymImg : gymImgList) {
+                file.delete(request, "/resource/gym", gymImg.getGym_sysimg());
+            }
+
             GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
         }
         //시설 지우기
         GymDAO.getInstance().deleteByBsSeq(bsSeq);
         // 비지니스 유저 지유기
         BsUsersDAO.getInstance().deleteByBsSeq(bsSeq);
-
-
     }
 
     private void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception {

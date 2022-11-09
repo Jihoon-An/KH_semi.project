@@ -403,4 +403,20 @@ public class BsUsersDAO extends Dao {
             connection.commit();
         }
     }
+
+    /**
+     * BsSeq에 해당하는 데이터 삭제
+     * @param bsSeq
+     */
+    public void deleteByBsSeq(int bsSeq) throws Exception {
+        String sql = "delete from bs_users where bs_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, bsSeq);
+            statement.executeUpdate();
+
+            con.commit();
+        }
+    }
 }
