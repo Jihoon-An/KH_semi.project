@@ -86,7 +86,7 @@
 
                 <div class="row header text-center pt-5 mx-3">
                     <div class="col-3 text-start">
-                        <button class="button-6" id="account_cancel">취소</button>
+                        <button class="button-6" id="acc_cancel">취소</button>
                     </div>
                     <div class="col-6">
                         <h2>정보 수정</h2>
@@ -116,7 +116,7 @@
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
-                        <form action="/signDown.bsPage"></form>
+                        <form action="/signDown.bsPage" id="sign_down_form"></form>
 
                     </div>
                 </div>
@@ -315,7 +315,7 @@
         $("#bs_sd_cf").css("display", "none");
     });
     $("#bs_cf_sd_y").click(function () {
-
+        $("#sign_down_form").submit();
     });
 
 </script>
