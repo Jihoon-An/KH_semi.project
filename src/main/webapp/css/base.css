@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+body,h1,div,p,span{font-family:'Pretendard-Regular'}
+
 /* 전 컨텐츠를 감싸는 div */
 .containerbox {
 	width: 1200px;
@@ -16,36 +25,61 @@
 	height: 155px;
 }
 
+
 /* 페이지 자체 제목 쓸 때 사용. ex) 자유게시판 */
-h1{ 
-	font-size: 24px;
-	letter-spacing : -1px;
+h1 {
+	font-size: 30px;
 	font-weight: 800;
 	margin: 0;
 	margin-bottom: 50px;
 }
 
+/* 컨텐츠 메인 제목 */
+.text_main_title {
+	font-size: 24px;
+}
+
+.text_main_title_600 {
+	font-size: 24px;
+	font-weight: 600;
+}
 
 /* 컨텐츠 제목 */
-.text_title{
+
+.text_title {
 	font-size: 20px;
-	letter-spacing : -1px;
+}
+
+.text_title_600 {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+/* 컨텐츠 내용 */
+.text_normal {
+	font-size: 16px;
+}
+
+.text_normal_600 {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+/* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
+
+
+.text_mini {
+	font-size: 14px;
+}
+
+.text_mini_600 {
+	font-size: 14px;
 	font-weight: 600;
 }
 
 
-/* 컨텐츠 내용 */
-.text_normal{
-	font-size: 16px;
-	letter-spacing : -1px;
-}
 
 
-/* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
-.text_mini{
-	font-size: 12px;
-	letter-spacing : -1px;
-}
 
 
 
@@ -62,7 +96,6 @@ h1{
 	border-radius: 10px;
 	display: block;
 	border: 0px;
-	font-weight: 700;
 	box-shadow: 0px 0px 14px -7px #013d98;
 	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
 	cursor: pointer;
@@ -88,14 +121,11 @@ h1{
 	height: 48px;
 	align-items: center;
 	background-color: #fff;
-	border: 2px solid #001A41;
+	border: 2px solid rgb(1,61,152, 0.15);
 	box-sizing: border-box;
 	color: #001A41;
 	cursor: pointer;
 	display: inline-flex;
-	fill: #001A41;
-	font-family: Inter, sans-serif;
-	font-weight: 600;
 	justify-content: center;
 	outline: 0;
 	margin: 10px;
@@ -125,8 +155,8 @@ h1{
 
 .btn_outline:hover,
 .btn_outline:focus {
-	border-color: #013d98 (0, 0, 0, 0.15);
-	box-shadow: #013d98 (0, 0, 0, 0.1) 0 4px 12px;
+	border-color: rgb(1,61,152, 0.3);
+	box-shadow: rgb(1,61,152, 0.2) 0 2px 12px;
 }
 
 .btn_outline:active {
