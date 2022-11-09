@@ -1,7 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,eclipse,intellij,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,eclipse,intellij,git
-fitneeds.iml
-.idea/
+
 ### Eclipse ###
 .metadata
 bin/
@@ -18,7 +17,7 @@ local.properties
 .project
 build/
 .settings/
-
+.idea/
 # External tool builders
 .externalToolBuilders/
 
@@ -125,9 +124,9 @@ build/
 # .idea/compiler.xml
 # .idea/jarRepositories.xml
 # .idea/modules.xml
-# .idea/*.iml
+.idea/*.iml
 # .idea/modules
-# *.iml
+*.iml
 # *.ipr
 
 # CMake
@@ -169,10 +168,10 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# *.iml
-# modules.xml
-# .idea/misc.xml
-# *.ipr
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
 
 # Sonarlint plugin
 # https://plugins.jetbrains.com/plugin/7973-sonarlint
@@ -214,6 +213,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
+*.jar
 *.war
 *.nar
 *.ear

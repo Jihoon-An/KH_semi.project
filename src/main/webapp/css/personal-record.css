@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+#personal-record div[class^='col'] {
+	padding: 10px;
+}
+
+#personal-record .row:not(.containerbox) div[class^='col']>div {
+	padding: 10px;
+	border: solid #808080 1px;
+	border-radius: 6px;
+}
+
+#personal-record #notice {
+	height:50px;
+}
+
+#personal-record #manager, #inbody, #weight {
+	height:250px;
+}
+
+#personal-record #calendar, #result {
+	height: 400px;
+}
+
+#personal-record #record {
+	height: 540px;
+	visibility: hidden;
+}
+
+#personal-record .chart_wrap {
+	padding: 5px;
+	width:100%;
+}
+
+#personal-record #calendar {
+	position : relative;
+	padding: 0px;
+	top: -10px;
+	border: none;
+	
+}
+
+#personal-record #calendar>* {
+	width:100%;
+	height:100%;
+}

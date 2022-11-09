@@ -34,11 +34,12 @@ public class UserDAO extends Dao {
         List<UserDTO> result = new ArrayList<>();
         String sql = "select * from users";
         try (Connection con = getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-            ResultSet rs = pstat.executeQuery();
-            while (rs.next()) {
-                result.add(new UserDTO(rs));
+            try(ResultSet rs = pstat.executeQuery();) {
+                while (rs.next()) {
+                    result.add(new UserDTO(rs));
+                }
+                return result;
             }
-            return result;
         }
     }
 
@@ -79,8 +80,9 @@ public class UserDAO extends Dao {
              PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setString(1, email);
             pstat.setString(2, phone);
-            ResultSet rs = pstat.executeQuery();
-            return rs.next();
+            try(ResultSet rs = pstat.executeQuery();) {
+                return rs.next();
+            }
         }
     }
 
@@ -99,11 +101,12 @@ public class UserDAO extends Dao {
              PreparedStatement pstat = con.prepareStatement(sql);)
         {
             pstat.setString(1, value);
-            ResultSet rs = pstat.executeQuery();
-            while (rs.next()) {
-                result.add(new UserDTO(rs));
+            try(ResultSet rs = pstat.executeQuery();) {
+                while (rs.next()) {
+                    result.add(new UserDTO(rs));
+                }
+                return result;
             }
-            return result;
         }
     }
 
@@ -124,7 +127,6 @@ public class UserDAO extends Dao {
             try (ResultSet rs = pstat.executeQuery();) {
                 return rs.next();
             }
-
         }
     }
 
@@ -168,11 +170,14 @@ public class UserDAO extends Dao {
              PreparedStatement pstat = con.prepareStatement(sql);
         ) {
             pstat.setString(1, "%" + name + "%");
+
             try (ResultSet rs = pstat.executeQuery();) {
                 List<UserDTO> list = new ArrayList<>();
+
                 while (rs.next()) {
                     list.add(new UserDTO(rs));
                 }
+
                 return list;
             }
         }
@@ -261,6 +266,7 @@ public class UserDAO extends Dao {
         ) {
             statement.setInt(1, userSeq);
             try (ResultSet resultSet = statement.executeQuery();) {
+
                 if (resultSet.next()) {
                     return resultSet.getString("users_pi");
                 }

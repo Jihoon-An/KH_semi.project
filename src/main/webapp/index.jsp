@@ -143,6 +143,7 @@
 				</div>
 			</main>
 			<script>
+				
 				$(() => {
 					getReviewData();
 					getGymData();

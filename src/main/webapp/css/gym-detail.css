@@ -221,12 +221,12 @@
 }
 
 
-.fa-heart{
+#gym-detail .fa-heart{
 	color: #8f959a; 
 
 }
 
-.fa-heart:hover{
+#gym-detail .fa-heart:hover{
 	cursor: pointer;
 	 margin-top: -2px;
   margin-left: 0px;
@@ -245,11 +245,14 @@
 	background: #000;
 }
 
+
 #gym-detail .fa-thumbs-up {
 	color: #8f959a;
 }
+
+
 #gym-detail .fa-thumbs-up:hover{
 		cursor:pointer;
-		color:  #001A41;
 }
+
 /*  */
