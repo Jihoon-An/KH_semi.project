@@ -6,13 +6,11 @@ import dto.BsCtfcDTO;
 import dto.BsUsersDTO;
 import dto.GymDTO;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -57,7 +55,7 @@ public class BsPageController extends ControllerAbs {
         // 광고배너 지우기
         AdDAO.getInstance().deleteByBsSeq(bsSeq);
         // 즐겨찾기 지우기
-        FavoritesDAO.getInstance().deleteByBsSeq(bsSeq);
+        FavoritesDAO.getInstance().deleteByGymSeq();
         // 헬스 회원 지우기
         MembershipDAO.getInstance().deleteByBsSeq(bsSeq);
         // 리뷰 좋아요 지우기

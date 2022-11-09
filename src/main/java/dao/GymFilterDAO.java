@@ -53,12 +53,13 @@ public class GymFilterDAO extends Dao {
 				PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, gym_seq);
 
-			ResultSet rs = pstat.executeQuery();
+			try(ResultSet rs = pstat.executeQuery();) {
 
-			if(rs.next()) {
-				return new GymFilterDTO(rs);
+				if (rs.next()) {
+					return new GymFilterDTO(rs);
+				}
+				return new GymFilterDTO();
 			}
-			return new GymFilterDTO();
 		}
 	}
 
