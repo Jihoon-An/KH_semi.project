@@ -115,7 +115,6 @@ public class GymController extends ControllerAbs {
 
 		request.setAttribute("gymList", gymdto);
 		request.setAttribute("reviewList", reviewdto);
-		request.setAttribute("likedUserList", reviewdao.selectLikedUser(gym_seq));
 		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
 	}
 
