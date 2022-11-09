@@ -8,7 +8,7 @@
 
 
 <main id="gym-detail">
-	<div style="height:70px;"></div>
+	<div style="height: 70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
 			<div class="placebox1">
@@ -16,22 +16,24 @@
 					<div class="placename">
 						<h1>${gymList.gym_name}</h1>
 					</div>
-					
+
 					<c:if test="${bsSeq !=null }">
-					<div class="bs_modify"><button type="button" class="btn btn-outline-secondary">수정하기</button>
-					</div>
-					</c:if> 
+						<div class="bs_modify">
+							<button type="button" class="btn btn-outline-secondary">수정하기</button>
+						</div>
+					</c:if>
 					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
 					<div class="icon1">
-						 <c:if test="${userSeq !=null}"> <!-- list사용자 로그인만 보이게끔 --> 
-						<i class="fa-solid fa-heart" id="heart"></i> 
-						
+						<c:if test="${userSeq !=null}">
+							<!-- list사용자 로그인만 보이게끔 -->
+							<i class="fa-solid fa-heart" id="heart"></i>
+
 						</c:if>
-						<span class="button gray medium">
-						<a onclick="clip(); return false;" class="shareicon"> 
-						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-						style="cursor: pointer;" aria-hidden="true"></i></a></span>
+						<span class="button gray medium"> <a
+							onclick="clip(); return false;" class="shareicon"> <i
+								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
+								style="cursor: pointer;" aria-hidden="true"></i></a></span>
 					</div>
 				</div>
 				<div class="place">
@@ -57,7 +59,7 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-			
+
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
@@ -74,117 +76,125 @@
 					<button type="button" class="btn btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
-				
-					<c:choose>
-						<c:when test="${not empty reviewList }">
-							<!-- 리스트가 비어있지않다면 -->
-							<c:forEach var="r" items="${reviewList }">
-				<div class="review2">
-					
-								
-								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-									
-									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
+
+				<c:choose>
+					<c:when test="${not empty reviewList }">
+						<!-- 리스트가 비어있지않다면 -->
+						<c:forEach var="r" items="${reviewList }">
+							<div class="review2">
+
+
+								<div
+									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
+
+									<div class="authmark">
+										<i class="fa-solid fa-user-shield"></i>
+									</div>
 									<div class="ranwriter">${r.review.review_writer}</div>
 									<div class="writerd">${r.review.formDate}</div>
-									<div class="starc" >
-									<input type="hidden" name="review_seq" class ="star" value="${r.review.review_star}">
-									
-									</div>
-									
-									 <c:if test="${userSeq !=null}">
-									<div class="reviewlike">
-									<input type="hidden" name="review_seq" class ="rseq" value="${r.review.review_seq}">
-									<input type="hidden" name="gym_seq" class ="gym" value="${r.review.gym_seq}">
-									<input type="hidden" name="review_like" class="rlike" value="${r.review.review_like}">
-										<i class="relike fa-solid fa-thumbs-up"></i>
-									<c:if test="${r.liked ==userSeq}">
-										<script>
-										$(".relike").attr("style", "color:#001A41")
-										</script>
-									</c:if>
+									<div class="starc">
+										<input type="hidden" name="review_seq" class="star"
+											value="${r.review.review_star}">
+
 									</div>
 
+									<c:if test="${userSeq !=null}">
+										<div class="reviewlike">
+											<input type="hidden" name="review_seq" class="rseq"
+												value="${r.review.review_seq}"> <input type="hidden"
+												name="gym_seq" class="gym" value="${r.review.gym_seq}">
+											<input type="hidden" name="review_like" class="rlike"
+												value="${r.review.review_like}"> <i
+												class="relike fa-solid fa-thumbs-up"></i>
+											<c:if test="${r.liked ==userSeq}">
+												<script>
+										$(".relike").attr("style", "color:#001A41")
+										</script>
+											</c:if>
+										</div>
+
 									</c:if>
-									
-									
-									<div class="reviewcon">${r.review.review_contents } </div>
-									</div>
-							
+
+
+									<div class="reviewcon">${r.review.review_contents }</div>
 								</div>
-				
-							</c:forEach>
-								<div class="newmore">
-							<a href="#" class="btn btn_outline" data-bs-toggle="button" id="load">NEW MORE</a>
+
+							</div>
+
+						</c:forEach>
+						<div class="newmore">
+							<a href="#" class="btn btn_outline" data-bs-toggle="button"
+								id="load">NEW MORE</a>
 						</div>
-						</c:when>
-						<c:otherwise>
-							<div class="other">작성된 리뷰가 없습니다</div>
-						</c:otherwise>
-					</c:choose>
-				
-			
-	
-							
+					</c:when>
+					<c:otherwise>
+						<div class="other">작성된 리뷰가 없습니다</div>
+					</c:otherwise>
+				</c:choose>
+
+
+
+
 
 			</div>
 		</div>
-		
-		
-		
-		
+
+
+
+
 
 		<div class="rcontents">
 			<div class="chart1">
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="gym_info_open">
-				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE : ${gymList.gym_close}</span>
+				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE :
+					${gymList.gym_close}</span>
 			</div>
 
 
 			<div class="gym_info_tagBox">
-					
-			<c:choose>
-			<c:when test="${gymFilter.open == 'true'}">	
-				<div class="gym_info_tag open">#24시간</div>
-				</c:when>
-				</c:choose>
-			<c:choose>
-			<c:when test="${gymFilter.locker == 'true'}">	
-				<div class="gym_info_tag locker">#라커</div>
-				</c:when>
-				</c:choose>
-			<c:choose>
-			<c:when test="${gymFilter.shower == 'true'}">	
-				<div class="gym_info_tag shower">#샤워실</div>
-				</c:when>
+
+				<c:choose>
+					<c:when test="${gymFilter.open == 'true'}">
+						<div class="gym_info_tag open">#24시간</div>
+					</c:when>
 				</c:choose>
 				<c:choose>
-			<c:when test="${gymFilter.park == 'true'}">	
-				<div class="gym_info_tag park">#주차장</div>
-				</c:when>
+					<c:when test="${gymFilter.locker == 'true'}">
+						<div class="gym_info_tag locker">#라커</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.shower == 'true'}">
+						<div class="gym_info_tag shower">#샤워실</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.park == 'true'}">
+						<div class="gym_info_tag park">#주차장</div>
+					</c:when>
 				</c:choose>
 			</div>
-	
-		
+
+
 			<div class="infopicture">
 				<figure class="figure">
-					<img src="/resource/health.png" class="figure-img img-fluid rounded"
-						alt="..." />
+					<img src="/resource/health.png"
+						class="figure-img img-fluid rounded" alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 				<figure class="figure">
-					<img src="/resource/health.png" class="figure-img img-fluid rounded"
-						alt="" />
+					<img src="/resource/health.png"
+						class="figure-img img-fluid rounded" alt="" />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 			</div>
 		</div>
 	</div>
-	
 
-	
+
+
 	<script>
 	
 	
@@ -295,7 +305,7 @@
             document.body.removeChild(textarea);
            $(".fa-sharp fa-solid fa-share-nodes").tooltip();  //URL 주소 복사 가능 TOOLTIP
           })//아이콘 클릭시 주소복사 버튼
-        </script>  
+        </script>
 
 	<script>
        
@@ -350,15 +360,15 @@
 	<script>
         const myChart = new Chart(document.getElementById("myChart"), config);
       </script>
-      
-      <script>
+
+	<script>
       
       $("#reviewbtn").on("click", function () {
           location.href = "";
         }); //리뷰작성 이동
       </script>
-      
-   
+
+
 </main>
 
 <%@ include file="/layout/footer.jsp"%>
