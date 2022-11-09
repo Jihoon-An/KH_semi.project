@@ -20,8 +20,8 @@ public class BsCtfcDTO {
 
 	public BsCtfcDTO(ResultSet rs) throws SQLException {
 		this.bsSeq = rs.getInt("bs_seq");
-		this.bsNumber = rs.getString("bsNumber");
-		this.sysName = rs.getString("sysName");
+		this.bsNumber = rs.getString("bs_Number");
+		this.sysName = rs.getString("bs_regi_sys");
 	}
 
 	public int getBsSeq() {
