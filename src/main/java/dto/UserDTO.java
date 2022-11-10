@@ -39,7 +39,7 @@ public class UserDTO {
         this.interest = resultSet.getString("interest");
         this.pi = "/resource/profileImg/" + resultSet.getString("users_PI");
     }
-
+       
     public String getPi() {
         return pi;
     }
