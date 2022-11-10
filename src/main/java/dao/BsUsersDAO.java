@@ -110,8 +110,10 @@ public class BsUsersDAO extends Dao {
      */
     public int deleteBySeq(int seq) throws Exception {  //byseq
         String sql = "delete from bs_users where seq = ?";
+
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
+
             pstat.setInt(1, seq);
             int result = pstat.executeUpdate();
             con.commit();
@@ -133,10 +135,9 @@ public class BsUsersDAO extends Dao {
 
             pstat.setString(1, email);
 
-            try (ResultSet rs = pstat.executeQuery();) {
+            try (ResultSet rs = pstat.executeQuery()) {
                 return rs.next();
             }
-
         }
     }
 
@@ -152,9 +153,10 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-
-            return rs.getInt(1);
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         }
 
     }
@@ -243,10 +245,11 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1); // 한줄 뽑겠다
+            if(rs.next()) {
+                return rs.getInt(1); // 한줄 뽑겠다
+            }
+            return 0;
         }
-
     }
 
     public String getPageNavi(int currentPage) throws Exception { // 페이지 네비
@@ -382,9 +385,8 @@ public class BsUsersDAO extends Dao {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return new BsUsersDTO(rs);
-                } else {
-                    return new BsUsersDTO();
                 }
+                return new BsUsersDTO();
             }
         }
     }

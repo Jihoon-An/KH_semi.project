@@ -227,10 +227,18 @@ public class GymDAO extends Dao {
 
 
 
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from gym where gym_seq = ?";
 
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
 
+            statement.setInt(1, gymSeq);
 
-
+            statement.executeUpdate();
+            con.commit();
+        }
+    }
 }
 
 

@@ -31,13 +31,15 @@ public class LikesDAO extends Dao {
     public int add(LikesDTO dto) throws Exception {
         String sql = "insert into Likes values(?, ?, ?)";
         try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);) {
+             PreparedStatement pstat = con.prepareStatement(sql)) {
+
             pstat.setInt(1, dto.getReview_seq());
             pstat.setInt(2, dto.getUsers_seq());
             pstat.setInt(3, dto.getGym_seq());
 
             int result = pstat.executeUpdate();
             con.commit();
+
             return result;
         }
     }
@@ -54,11 +56,14 @@ public class LikesDAO extends Dao {
         String sql = "delete from likes where review_seq= ? and gym_seq = ? and users_seq = ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
+
             pstat.setInt(1, review_seq);
             pstat.setInt(2, gym_seq);
             pstat.setInt(3, users_seq);
+
             int result = pstat.executeUpdate();
             con.commit();
+
             return result;
         }
     }
@@ -71,11 +76,21 @@ public class LikesDAO extends Dao {
             pstat.setInt(1, rseq);
             pstat.setInt(1, useq);
             pstat.setInt(2, gseq);
-            try (ResultSet rs = pstat.executeQuery();) {
+            try (ResultSet rs = pstat.executeQuery()) {
                 boolean result = rs.next(); //존재하면 true
                 return result;
                 //return rs.next(); 가능
             }
+        }
+    }
+
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from likes where gym_seq = ?";
+
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, gymSeq);
         }
     }
 }

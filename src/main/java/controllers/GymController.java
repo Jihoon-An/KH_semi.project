@@ -78,11 +78,13 @@ public class GymController extends ControllerAbs {
         GymDAO gymDao = GymDAO.getInstance();
         FavoritesDAO favDao = FavoritesDAO.getInstance();
         GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
-
+        
+        HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
+        System.out.println(check);
 
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
-        GymFilterDTO gymFilterDtO = filterDAO.selectByFilter(gym_seq);
+        GymFilterDTO gymFilterDtO = filterDAO.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
@@ -94,7 +96,7 @@ public class GymController extends ControllerAbs {
             request.setAttribute("favresult", result);
         }
 
-
+        request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);
         request.setAttribute("gymList", gymDto);
         request.setAttribute("reviewList", reviewDto);

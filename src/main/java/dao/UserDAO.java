@@ -61,7 +61,7 @@ public class UserDAO extends Dao {
                     UserDTO result = new UserDTO(resultSet);
                     return result;
                 } else {
-                    return null;
+                    return new UserDTO();
                 }
             }
         }
@@ -176,7 +176,6 @@ public class UserDAO extends Dao {
                 List<UserDTO> list = new ArrayList<>();
 
                 while (rs.next()) {
-             
 					list.add(new UserDTO(rs));
                 }
 
@@ -229,6 +228,7 @@ public class UserDAO extends Dao {
     public void updatePw(int userSeq, String pw) throws Exception {
         String sql = "update users set users_pw = ? where users_seq = ?";
         String password = Common.getSHA512(pw);
+
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
         ) {
@@ -242,6 +242,7 @@ public class UserDAO extends Dao {
 
     public void deleteByUserSeq(int userSeq) throws Exception {
         String sql = "delete from users where users_seq = ?";
+
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
         ) {
@@ -254,6 +255,7 @@ public class UserDAO extends Dao {
 
     public void updatePi(int userSeq, String sysFile) throws Exception {
         String sql = "update users set users_PI = ? where users_seq = ?";
+
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
         ) {
@@ -267,6 +269,7 @@ public class UserDAO extends Dao {
 
     public String getPiNameByUserSeq(int userSeq) throws Exception {
         String sql = "select users_pi from users where users_seq = ?";
+
         try (Connection connection = this.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
         ) {
@@ -277,7 +280,7 @@ public class UserDAO extends Dao {
                     return resultSet.getString("users_pi");
                 }
             }
-            return null;
+            return "";
         }
     }
     
@@ -303,7 +306,6 @@ public class UserDAO extends Dao {
                 }
                 	return list;
             }
-
         }
     }
 
@@ -313,10 +315,11 @@ public class UserDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1); // 한줄 뽑겠다
+            if(rs.next()) {
+                return rs.getInt(1); // 한줄 뽑겠다
+            }
+            return 0;
         }
-
     }
 
     public String getPageNavi(int currentPage) throws Exception { // 페이지 네비

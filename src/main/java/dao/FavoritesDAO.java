@@ -35,7 +35,7 @@ public class FavoritesDAO extends Dao {
     public boolean isFavExist(int useq, int gseq) throws Exception {  //id중복확인 dao
         String sql = "select * from Favorites where user_seq = ? and gym_seq = ?";
         try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
+             PreparedStatement pstat = con.prepareStatement(sql)
         ) {
             pstat.setInt(1, useq);
             pstat.setInt(2, gseq);
@@ -44,10 +44,7 @@ public class FavoritesDAO extends Dao {
                 return result;
                 //return rs.next(); 가능
             }
-
-
         }
-
     }
 
 
@@ -61,7 +58,7 @@ public class FavoritesDAO extends Dao {
     public int add(FavoritesDTO dto) throws Exception {
         String sql = "insert into favorites values(fav_seq.nextval, ?, ?)";
         try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);) {
+             PreparedStatement pstat = con.prepareStatement(sql)) {
             //seq를 직접 넣는 이유는 파일 때문에
 
             pstat.setInt(1, dto.getUser_seq());
@@ -201,6 +198,7 @@ public class FavoritesDAO extends Dao {
         }
         return result;
     }
+
 
     public void deleteByGymSeq(int gymSeq) throws Exception {
         String sql = "delete from favorites where gym_seq = ?";

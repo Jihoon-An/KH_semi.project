@@ -9,20 +9,31 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("*.personal")
-public class PersonalRecordController extends HttpServlet {
+public class PersonalRecordController extends ControllerAbs {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String command = request.getParameter("command");
+        String uri = request.getRequestURI();
 
-		if(command.equals("calendar")) {
-			response.sendRedirect("calendar.jsp");
-		}
-	}
+        try {
+            switch (uri) {
+                case "/main.personal":
+					response.sendRedirect("/personal/personal-record.jsp");
+					break;
 
-		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				case "/something.personal":
+					break;
+            }
+        } catch (Exception e) {
+			e.printStackTrace();
+        }
+    }
 
-			doGet(request, response);
-		}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	}
+        this.doGet(request, response);
+    }
+
+}
