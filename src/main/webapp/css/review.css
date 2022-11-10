@@ -1,4 +1,319 @@
 @charset "utf-8";
 
+
 /* review */
 
+
+.star-rating {
+    width: 300px;
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 50px;
+    line-height: 50px;
+    justify-content: space-around;
+    padding: 0 0.2em;
+    text-align: center;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(209, 213, 219);
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    -webkit-text-fill-color: #ddd;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(209, 213, 219);
+    /* Will override color (regardless of order) */
+    cursor: pointer;
+}
+
+.star-rating :checked~label {
+    -webkit-text-fill-color: red;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(236, 0, 0);
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label {
+    -webkit-text-fill-color: red;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(236, 0, 0);
+}
+
+
+
+
+/* CSS */
+.btn_check {
+    margin: 47px 0px 30px 0px;
+    padding: 15px 20px;
+    text-align: left;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #111827;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.btn_check:hover {
+    background-color: rgb(249, 250, 251);
+}
+
+.btn_check:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.btn_check:focus-visible {
+    box-shadow: none;
+}
+
+
+
+
+.checkbox-wrap {
+    margin: 10px 0px;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #111827;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.checkbox-wrap:hover {
+    background-color: rgb(249, 250, 251);
+}
+
+.checkbox-wrap:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.checkbox-wrap:focus-visible {
+    box-shadow: none;
+}
+
+.checkbox-wrap input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+}
+
+.checkbox-wrap .cbx {
+    width: 360px;
+    margin: 1rem 20px;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.checkbox-wrap .cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrap .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098A9;
+    transition: all 0.2s ease;
+}
+
+.checkbox-wrap .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrap .cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506EEC;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.checkbox-wrap .cbx span:last-child {
+    padding-left: 8px;
+}
+
+.checkbox-wrap .cbx:hover span:first-child {
+    border-color: #506EEC;
+}
+
+.checkbox-wrap .inp-cbx:checked+.cbx span:first-child {
+    background: #506EEC;
+    border-color: #506EEC;
+    animation: wave-46 0.4s ease;
+}
+
+.checkbox-wrap .inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.checkbox-wrap .inp-cbx:checked+.cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+@keyframes wave-46 {
+    50% {
+        transform: scale(0.9);
+    }
+}
+
+
+
+
+/* review_text */
+
+.review_text_box {
+    margin-top: 50px;
+    padding: 25px;
+    width: 600px;
+    height: 400px;
+    background-color: rgb(199,211,220,0.4);
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 6px;
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+#review_text {
+    margin: 0px;
+    padding: 20px;
+    width: 550px;
+    height: 320px;
+    resize: none;
+    border-radius: 6px;
+    border: 2px solid rgb(199,211,220,0.4);
+    outline-color: #C7D3DC;
+}
+
+textarea::placeholder {color:#8f959a;}
+textarea::-webkit-input-placeholder {color:#8f959a;}
+textarea:-ms-input-placeholder {color:#8f959a;}
+
+#review_text_cnt{
+    font-weight: 500;
+    text-align: right;
+}
+
+
+
+
+.checkIcon {
+    width: 23px;
+    height: 23px;
+    margin: 0px 12px 2px 20px;
+}
+
+.reviw_title {
+    width: 600px;
+}
+
+.reviw_content {
+    width: 400px;
+}
+
+.img_wrap {
+    width: 600px;
+    height: 300px;
+    border-radius: 6px;
+}
+
+.img_wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit:contain
+}
+
+.line {
+    border: none;
+    margin: 30px 0px;
+}
+
+.line2 {
+    border: none;
+    margin: 70px 0px;
+}
+
+.reviw_content_star {
+    margin-top: 55px;
+}
+
+.reviw_content_keyword{
+    margin-top: 43px;
+}
+
+
+.star_value{
+    color: #5e646c;
+}
+
+.reviw_policy {
+    margin-top: 160px;
+    border-radius: 6px;
+    width: 530px;
+    height: 160px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+.reviw_img_info {
+    margin-top: 208px;
+    border-radius: 6px;
+    width: 530px;
+    height: 145px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}

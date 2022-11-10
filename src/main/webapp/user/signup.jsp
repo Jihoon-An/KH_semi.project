@@ -74,7 +74,7 @@
 				<div class="col-12 gy-3"
 					style="font-size: small; letter-spacing: -1px;">
 					<span style="color: #808080;">시설운영자로 가입하길 원하시나요?</span><br> <a
-						href="/bs/bs-signup.jsp">사업자회원가입</a>
+						href="/sign.bs">사업자회원가입</a>
 				</div>
 
 			</div>

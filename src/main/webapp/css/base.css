@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+body * {font-family:'Pretendard-Regular'}
+
 /* 전 컨텐츠를 감싸는 div */
 .containerbox {
 	width: 1200px;
@@ -16,59 +25,96 @@
 	height: 155px;
 }
 
+
 /* 페이지 자체 제목 쓸 때 사용. ex) 자유게시판 */
-h1{ 
-	font-size: 24px;
-	letter-spacing : -1px;
+h1 {
+	font-size: 30px;
 	font-weight: 800;
 	margin: 0;
 	margin-bottom: 50px;
 }
 
+/* 컨텐츠 메인 제목 */
+h2 {
+	font-size: 28px;
+	font-weight: 800;
+	margin: 0;
+}
+
+
+.text_main_title {
+	font-size: 24px;
+}
+
+.text_main_title_600 {
+	font-size: 24px;
+	font-weight: 600;
+}
 
 /* 컨텐츠 제목 */
-.text_title{
+
+.text_title {
 	font-size: 20px;
-	letter-spacing : -1px;
+}
+
+.text_title_600 {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+/* 컨텐츠 내용 */
+.text_normal {
+	font-size: 16px;
+}
+
+.text_normal_600 {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+/* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
+
+
+.text_mini {
+	font-size: 14px;
+}
+
+.text_mini_600 {
+	font-size: 14px;
 	font-weight: 600;
 }
 
 
-/* 컨텐츠 내용 */
-.text_normal{
-	font-size: 16px;
-	letter-spacing : -1px;
-}
 
 
-/* 컨텐츠 내용보다 더 작은 참고용 내용 적을 때 사용 */
-.text_mini{
-	font-size: 12px;
-	letter-spacing : -1px;
-}
 
 
 
 /* 버튼 디자인 - 일반 주요 버튼 */
 .btn_base {
-	height: 50px;
+	height: 52px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: 0;
 	margin: 10px;
 	padding: 15px 30px;
 	text-align: center;
+	border-radius: 10px;
+	font-weight: 500;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+
 	text-transform: uppercase;
 	transition: 0.5s;
 	background-size: 200% auto;
 	color: white;
-	border-radius: 10px;
-	display: block;
 	border: 0px;
-	font-weight: 700;
 	box-shadow: 0px 0px 14px -7px #013d98;
 	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
-	cursor: pointer;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
 }
 
 .btn_base:hover {
@@ -85,30 +131,26 @@ h1{
 
 /* 버튼 디자인 - 아웃라인버튼 */
 .btn_outline {
-	height: 48px;
-	align-items: center;
+	height: 52px;
 	background-color: #fff;
-	border: 2px solid #001A41;
-	box-sizing: border-box;
+	border: 2px solid rgb(1,61,152, 0.15);
 	color: #001A41;
+	box-sizing: border-box;
 	cursor: pointer;
 	display: inline-flex;
-	fill: #001A41;
-	font-family: Inter, sans-serif;
-	font-weight: 600;
+	align-items: center;
 	justify-content: center;
 	outline: 0;
 	margin: 10px;
 	padding: 15px 30px;
 	text-align: center;
-	text-align: center;
+	border-radius: 10px;
+	font-weight: 600;
 	text-decoration: none;
-	transition: all .3s;
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
-	border-radius: 10px;
-	font-weight: 700;
+	transition: all .3s;
 	/* box-shadow: 0px 0px 14px -7px #013d98; */
 }
 
@@ -125,8 +167,8 @@ h1{
 
 .btn_outline:hover,
 .btn_outline:focus {
-	border-color: #013d98 (0, 0, 0, 0.15);
-	box-shadow: #013d98 (0, 0, 0, 0.1) 0 4px 12px;
+	border-color: rgb(1,61,152, 0.3);
+	box-shadow: rgb(1,61,152, 0.2) 0 2px 12px;
 }
 
 .btn_outline:active {

@@ -180,3 +180,82 @@
 #signupModal .search {
 	display: none;
 }
+
+
+/* 사업자 체크박스 */
+
+.checkbox-bsLogin {
+	--size: 1rem;
+	--background: #fff;
+	font-size: var(--size);
+}
+
+.checkbox-bsLogin *,
+.checkbox-bsLogin *::after,
+.checkbox-bsLogin *::before {
+	box-sizing: border-box;
+}
+
+.checkbox-bsLogin input[type="checkbox"] {
+	visibility: hidden;
+	display: none;
+}
+
+.checkbox-bsLogin .checkbox__label {
+	width: var(--size);
+}
+
+.checkbox-bsLogin .checkbox__label:before {
+	content: ' ';
+	display: block;
+	height: var(--size);
+	width: var(--size);
+	position: absolute;
+	top: calc(var(--size) * 0.125);
+	left: 0;
+	background: var(--background);
+}
+
+.checkbox-bsLogin .checkbox__label:after {
+	content: ' ';
+	display: block;
+	height: var(--size);
+	width: var(--size);
+	border: calc(var(--size) * .14) solid #000;
+	transition: 200ms;
+	position: absolute;
+	top: calc(var(--size) * 0.125);
+	left: 0;
+	background: var(--background);
+}
+
+.checkbox-bsLogin .checkbox__label:after {
+	transition: 100ms ease-in-out;
+}
+
+.checkbox-bsLogin .form-check-input:checked ~ .checkbox__label:after {
+	border-top-style: none;
+	border-right-style: none;
+	-ms-transform: rotate(-45deg); /* IE9 */
+	transform: rotate(-45deg);
+	height: calc(var(--size) * .5);
+	border-color: #003584;
+}
+
+.checkbox-bsLogin .form-check-label {
+	position: relative;
+	display: flex;
+	cursor: pointer;
+	width: 100px;
+	/* Mobile Safari: */
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.checkbox-bsLogin .checkbox__label:after:hover,
+.checkbox-bsLogin .checkbox__label:after:active {
+	border-color: #003584;
+}
+
+.checkbox-bsLogin .checkbox__label {
+	margin-right: calc(var(--size) * 0.45);
+}

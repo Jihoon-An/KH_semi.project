@@ -31,4 +31,15 @@ public class MembershipDAO extends Dao{
             connection.commit();
         }
     }
+
+    public void deleteByBsSeq(int bsSeq) throws Exception {
+        String sql = "delete from membership where bs_seq = ?";
+        try(Connection connection = this.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, bsSeq);
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
 }

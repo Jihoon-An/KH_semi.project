@@ -14,7 +14,7 @@
         <div class="title">
             <div class="userm text_title">일반회원</div> 
 
-            <div class="selectuser text_title"><input type="checkbox" name="userchkAll"  id="allcheck" onclick="checkAll();">선택</div>
+            <div class="selectuser text_title"><input type="checkbox" name="userchkAll"  id="allcheck" onclick="checkAll();">ALL</div>
             <div class="user-seq text_title">회원번호</div>
             <div class="user-email text_title">회원 이메일</div>
             <div class="user-name text_title">이름</div>
@@ -28,9 +28,9 @@
     
    
         <c:choose>
-				<c:when test="${not empty list}">
+				<c:when test="${not empty userList}">
 			    <!-- 리스트가 비어있지않다면 -->
-					<c:forEach  var="u" items="${list}" >
+					<c:forEach  var="u" items="${userList}" >
 	        <div class="title"> 
 	            <div class="selectuser text_normal"> <input type="checkbox" name="user" value="${u.seq}" class="check" >선택 </div>
 	            <div class="user-seq text_normal">${u.seq}</div>
@@ -48,6 +48,14 @@
 				<div class="other text_normal">등록된 회원이 없습니다</div>    
 	         </c:otherwise>
          </c:choose>
+          <div class="navi">
+                            <nav aria-label="Page navigation example">
+  							<ul class="pagination justify-content-center">
+  							${userNavi}
+						  </ul>
+						</nav>
+								
+                        </div>
             <div class="textsearch"><input type="text" name="inputName" id="inputText" placeholder="이름 검색">
 	          <button type="button" id="btn_searchh">SEARCH</button>
 	         </div>

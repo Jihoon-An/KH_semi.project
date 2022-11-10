@@ -42,23 +42,23 @@ public class GymController extends ControllerAbs {
 
 				//좋아요 추가
 			case "/reviewLikeAdd.gym":
-				this.getReLikeAdd(request, response);
+				this.reLikeAdd(request, response);
 				break;
 
 			case "/reviewLikeDel.gym":
-				this.getReLikeDel(request, response);
+				this.reLikeDel(request, response);
 				break;
 
 				//즐겨찾기 추가
 			case "/favoriteadd.gym":
 
-				this.getFavAdd(request, response);
+				this.favAdd(request, response);
 				break;
 
 				//즐겨찾기 제거
 			case "/favoriteremove.gym":
 
-				this.getFavDelete(request, response);
+				this.favDelete(request, response);
 
 				break;
 
@@ -119,7 +119,7 @@ public class GymController extends ControllerAbs {
 
 
 
-	protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void favAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		//즐겨찾기 추가
 		int user_seq = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userSeq"))); // 로그인 사용자
@@ -130,7 +130,7 @@ public class GymController extends ControllerAbs {
 
 	}
 
-	protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void favDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 즐겨찾기 삭제
 
@@ -145,7 +145,7 @@ public class GymController extends ControllerAbs {
 	}
 
 	//좋아요 추가
-	private void getReLikeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void reLikeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//
 		int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
@@ -167,7 +167,7 @@ public class GymController extends ControllerAbs {
 
 	}
 	//좋아요 삭제
-	private void getReLikeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void reLikeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));

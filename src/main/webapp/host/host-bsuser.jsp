@@ -15,7 +15,7 @@
         <div class="title">
             <div class="userm text_title">사업자 회원</div> 
 
-             <div class="selectuser text_title"><input type="checkbox" name="userchkAll"  id="allcheck" onclick="checkAll();" >선택</div>
+             <div class="selectuser text_title"><input type="checkbox" name="userchkAll"  id="allcheck" onclick="checkAll();" >ALL</div>
             <div class="user-seq text_title">회원번호</div>
             <div class="user-email text_title">회원 이메일</div>
             <div class="user-name text_title">이름</div>
@@ -29,9 +29,9 @@
     
    
         <c:choose>
-				<c:when test="${not empty list}">
+				<c:when test="${not empty bsUserList}">
 			    <!-- 리스트가 비어있지않다면 -->
-				<c:forEach  var="u" items="${list}" >
+				<c:forEach  var="u" items="${bsUserList}" >
         <div class="title"> 
             <div class="selectuser text_normal"> <input type="checkbox" name="bsuser"  value="${u.bs_seq}" >선택 </div>
             <div class="user-seq text_normal">${u.bs_seq }</div>
@@ -53,7 +53,7 @@
            <div class="navi">
                             <nav aria-label="Page navigation example">
   							<ul class="pagination justify-content-center">
-  							${navi}
+  							${bsUserNavi}
 						  </ul>
 						</nav>
 								

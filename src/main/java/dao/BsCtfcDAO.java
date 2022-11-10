@@ -104,4 +104,16 @@ public class BsCtfcDAO extends Dao {
 			con.commit();
 		}
 	}
+
+	public void deleteByBsSeq(int bsSeq) throws Exception {
+		String sql = "delete from bs_ctfc where bs_seq = ?";
+		try(Connection con = this.getConnection();
+			PreparedStatement statement = con.prepareStatement(sql);
+		){
+			statement.setInt(1, bsSeq);
+
+			statement.executeUpdate();
+			con.commit();
+		}
+	}
 }

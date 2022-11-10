@@ -26,7 +26,6 @@
 							</div>
 							<input type="file" name="user_img_in" id="user_img_in" hidden>
 						</div>
-
 					</div>
 
 					<!-- input info -->

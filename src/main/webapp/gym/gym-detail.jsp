@@ -64,7 +64,7 @@
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${gymList.gym_price }원</dd>
+					<dd>${gymList.gym_price }</dd>
 				</div>
 			</div>
 
