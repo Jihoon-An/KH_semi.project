@@ -219,7 +219,23 @@ public class GymDAO extends Dao {
 
 
     public void modifyGym(GymDTO gymDto) throws Exception {
-        String sql = "update gym ";
+        String sql = "update gym set "
+                   + "gym_name = ?, "
+                   + "gym_phone = ?, "
+                   + "gym_price = ?, "
+                   + "gym_open = ?, "
+                   + "gym_close = ?, "
+                   + "gym_location = ?, "
+                   + "gym_x = ?, "
+                   + "gym_y = ?, "
+                   + "gym_main_sysImg = ?"
+                   + "where gym_seq = ?";
+
+        try (Connection con = this.getConnection();
+                PreparedStatement pstat = con.prepareStatement(sql);) {
+
+
+        }
     }
 
 
