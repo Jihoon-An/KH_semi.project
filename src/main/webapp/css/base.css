@@ -13,6 +13,7 @@ body * {font-family:'Pretendard-Regular'}
 .containerbox {
 	width: 1200px;
 	margin: auto;
+	overflow: hidden;
 }
 
 /* header 높이 margin 85 */

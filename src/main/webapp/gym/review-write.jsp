@@ -116,9 +116,15 @@
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
-                        <h2 style="margin-bottom: 15px"><p style="margin-bottom: 5px">에이블짐 <span
-                                class="text_title">에 대한</span></p>솔직한 평가를 남겨주세요
-                        </h2>
+                        <p style="margin-bottom: 5px"><span class="text_main_title_600">에이블짐</span>
+                            <span class="text_title">에 대한</span></p>
+                        <h2 style="margin-bottom: 15px">솔직한 평가를 남겨주세요</h2>
+
+
+
+
+
+
 
                         <p class="star_value"><span class="text_main_title">만족도 <span
                                 id="slider_star_value2">0</span>점을
