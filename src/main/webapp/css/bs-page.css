@@ -9,7 +9,7 @@
 }
 
 #bs-page #profile_box{
-    margin: 150px auto;
+    margin: 60px auto;
     width: 440px;
     border: 1px solid rgb(198, 198, 198);
     border-radius: 6px;
@@ -76,9 +76,28 @@
     color: #808080;
     font-size: x-small;
 }
-#bs-page .profile_input{
+#bs-page input{
     font-family: 'Noto Sans KR', sans-serif;
     font-size:small;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 350px;
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+#bs-page input, #bs-page #file_label{
+    outline: none;
+    box-shadow: 0px 1px 0px 0px black;
+}
+
+#bs-page #file_label{
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 350px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    color: #757575;
+    transition: 1s;
 }
 #bs-page #bs-ctfc{
     padding-left: 20px;

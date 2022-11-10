@@ -50,6 +50,12 @@ public class BsPageController extends ControllerAbs {
 
     }
 
+    /**
+     * 사업자 회원 탈퇴
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     private void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
