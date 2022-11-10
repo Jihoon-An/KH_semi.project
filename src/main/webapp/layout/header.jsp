@@ -111,9 +111,7 @@
     <div class="containerbox">
 
         <div class="float-start">
-            <h1 id="header_logo">
-                <a class="header_a_tag" href="/">Fitneeds</a>
-            </h1>
+                <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
         </div>
 
         <div class="float-start">
