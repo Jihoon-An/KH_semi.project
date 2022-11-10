@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
-<main id="bs-page">
+<main id="bs-page" class="containerbox">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
             <h1>사업자 페이지</h1>
@@ -39,12 +39,12 @@
 
                 <div class="row justify-content-center">
                     <div class="col-8">
-                        <div class="row profile_title"><span>이름</span></div>
-                        <div class="row"><input id="bs_name" type="text" class="profile_input form-control"
+                        <div class="row profile_title"><span>담당자이름</span></div>
+                        <div class="row"><input id="bs_name" type="text" class="profile_input"
                                                 maxlength="15"></div>
 
-                        <div class="row profile_title pt-2"><span>전화번호</span></div>
-                        <div class="row"><input id="bs_phone" type="text" class="profile_input form-control"
+                        <div class="row profile_title pt-2"><span>담당자연락처</span></div>
+                        <div class="row"><input id="bs_phone" type="text" class="profile_input"
                                                 maxlength="11"></div>
                         <script>
                             $("#bs_phone").on("keydown", function () {
@@ -55,9 +55,9 @@
 
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업자 번호</span></div>
+                        <div class="row profile_title pt-2"><span>사업자번호</span></div>
                         <div class="row"><input id="bs_number" type="text"
-                                                class="profile_input form-control" maxlength="10"></div>
+                                                class="profile_input" maxlength="10"></div>
                         <script>
                             $("#bs_number").on("keydown", function () {
                                 $(this).val($(this).val().replace(/[^0-9]/ig, ''));
@@ -66,9 +66,10 @@
                             });
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업증</span></div>
-                        <div class="row"><input id="bs_ctfc_input" type="file"
-                                                class="px-0 form-control profile_input" id="bs_ctfc"></div>
+                        <div class="row profile_title pt-2"><span>사업자등록증</span></div>
+                        <div class="row">
+                            <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc" style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
                         </div>
@@ -86,7 +87,7 @@
 
                 <div class="row header text-center pt-5 mx-3">
                     <div class="col-3 text-start">
-                        <button class="button-6" id="account_cancel">취소</button>
+                        <button class="button-6" id="acc_cancel">취소</button>
                     </div>
                     <div class="col-6">
                         <h2>정보 수정</h2>
@@ -99,11 +100,11 @@
                 <div class="row justify-content-center">
                     <div class="col-8">
                         <%--비밀번호 입력--%>
-                        <div class="row profile_title pt-4"><span>비밀번호</span></div>
-                        <div class="row"><input id="bs_pw1" type="password" class="profile_input form-control"
+                        <div class="row profile_title pt-5"><span>비밀번호</span></div>
+                        <div class="row"><input id="bs_pw1" type="password" class="profile_input"
                                                 placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
-                        <div class="row"><input id="bs_pw2" type="password" class="profile_input form-control"
+                        <div class="row"><input id="bs_pw2" type="password" class="profile_input"
                                                 placeholder="비밀번호 재입력" maxlength="16"></div>
                         <div class="row mt-2" id="acc_cf"></div>
 
@@ -112,22 +113,42 @@
                         <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
                         <!--sd = sign down -->
                         <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
-                            <div style="color: blue">정말 탈퇴하시겠습니까?</div>
+                            <div style="color: blue; margin-bottom: 10px;">정말 탈퇴하시겠습니까?</div>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
-                        <form action="/signDown.bsPage"></form>
-
+                        <form action="/signDown.bsPage" id="sign_down_form"></form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- 매장 정보 -->
+    <div id="gym_info">
+
+        <div class="container-fluid">
+            <div class="row gym_card">
+                <div class="col-3 p-0">
+                    <img src="/resource/duck.ico" class="gym_img">
+                </div>
+                <div class="col-7 gym_text">
+                    <h3 class="gym_name">제목</h3>
+                    <p>운영시간</p>
+                    <p>주소</p>
+                    <p>전화번호</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </main>
 
 
-<%----------------------------- script   ------------------------------%>
+<!----------------------------- script   ------------------------------>
 
 
 <script>
@@ -168,6 +189,8 @@
         });
 
         pi_check = true;
+        var filename = $(this)[0].files[0].name;
+        $(this).siblings('#file_label').html(filename);
     }
 
     /**
@@ -315,7 +338,7 @@
         $("#bs_sd_cf").css("display", "none");
     });
     $("#bs_cf_sd_y").click(function () {
-
+        $("#sign_down_form").submit();
     });
 
 </script>

@@ -20,14 +20,18 @@
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-            rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <!-- font-family: 'Noto Sans KR', sans-serif; -->
-    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap" rel="stylesheet">
-    <%--    font-family: 'Black And White Picture', sans-serif;--%>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
+    <!-- font-family: 'Noto Sans KR', sans-serif; -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <!-- font-family: 'Black And White Picture', sans-serif; -->
+    <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap" rel="stylesheet">
+
+    <!-- Pretendard font -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css"/>
 
     <!-- bootstrap - icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -60,12 +64,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <!-- owl carousel -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
     <!-- sweetalert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!--  calendar -->
     <link rel="stylesheet"
@@ -81,7 +85,6 @@
     <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
-
     <!-- css -->
     <link rel="stylesheet" href="/css/base.css" type="text/css">
     <link rel="stylesheet" href="/css/index.css" type="text/css">
@@ -95,6 +98,7 @@
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
     <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
     <link rel="stylesheet" href="/css/review.css" type="text/css">
+    <link rel="stylesheet" href="/css/gym-modify.css" type="text/css">
 
 </head>
 
@@ -104,12 +108,10 @@
 
 <!-- Site header -->
 <header id="header">
-    <div class="containerbox">
+    <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
-            <h1 id="header_logo">
-                <a class="header_a_tag" href="/">Fitneeds</a>
-            </h1>
+                <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
         </div>
 
         <div class="float-start">
@@ -117,7 +119,9 @@
                 <ul id="header_nav_menu">
                     <li class="float-start"><a class="header_a_tag" href="/main.search">헬스장검색</a></li>
                     <li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
-                    <li class="float-start"><a class="header_a_tag" href="/main.personal-record">운동기록</a></li>
+                    <c:choose><c:when test="${admin}">
+                        <li class="float-start"><a class="header_a_tag" href="/main.personal-record">운동기록</a></li>
+                    </c:when></c:choose>
                 </ul>
                 <ul id="header_nav_person">
                     <c:choose>
@@ -145,7 +149,7 @@
                                    onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
                             </li>
                             <li class="float-end">
-                                <a class="header_a_tag" href="/userslist.host">관리자페이지</a>
+                                <a class="header_a_tag" href="/usersList.host?cpage=1">관리자페이지</a>
                             </li>
                         </c:when>
                         <c:otherwise>

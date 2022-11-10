@@ -17,7 +17,7 @@ import dto.GymDTO;
 import dto.GymFilterDTO;
 
 /**
- * developer : Minseop
+ * <h1 style="color: #1E90FF;">developer : Minseop</h1>
  */
 @WebServlet("*.search")
 public class SearchController extends HttpServlet {
@@ -35,24 +35,14 @@ public class SearchController extends HttpServlet {
 				this.getMainList(request, response);
 				request.getRequestDispatcher("/gym/search.jsp").forward(request,response);
 				break;
+
 			// 헬스장 검색 리스트
 			case "/gym.search":
 				this.getSearchList(request, response);
 				request.getRequestDispatcher("/gym/search.jsp").forward(request, response);
 				break;
-			//
-			case "/c.search":
-
-				break;
-			//
-			case "/d.search":
-				
-				break;
-			//
-			case "/e.search":
-				
-				break;
 			}
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,7 +54,7 @@ public class SearchController extends HttpServlet {
 	
 	
 	/**
-	 * 헬스장 검색 전 초기 헬스장 리스트 메서드
+	 * <h1>헬스장 검색 전 초기 헬스장 리스트 메서드</h1>
 	 */
 	protected void getMainList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// gym data 불러오기
@@ -81,8 +71,9 @@ public class SearchController extends HttpServlet {
 		request.setAttribute("gymFilterList", gymFilterList);
 	}
 
+
 	/**
-	 * 헬스장 리스트 검색 메서드
+	 * <h1>헬스장 리스트 검색 메서드</h1>
 	 */
 	protected void getSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 검색어 parameter 가져오기
@@ -99,7 +90,7 @@ public class SearchController extends HttpServlet {
 		request.setAttribute("filter_shower", filter_shower);
 		request.setAttribute("filter_park", filter_park);
 
-		// false 값을 다른 값으로 변환하기
+		// false 값을 다른 값으로 변환하고, true 값을 false 로 변환하기
 		if (filter_open.equals("false")){filter_open = "none";}else {filter_open = "false";}
 		if (filter_locker.equals("false")){filter_locker = "none";}else {filter_locker = "false";}
 		if (filter_shower.equals("false")){filter_shower = "none";}else {filter_shower = "false";}
@@ -110,8 +101,8 @@ public class SearchController extends HttpServlet {
 				searchInput, filter_open, filter_locker, filter_shower, filter_park
 		);
 
+		// 검색 내용에 맞는 gym_filter data 불러오기
 		List<GymFilterDTO> gymFilterList = new ArrayList<>();
-
 		for(GymDTO gym : gymList){
 			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
 		}
@@ -120,7 +111,6 @@ public class SearchController extends HttpServlet {
 		request.setAttribute("gymList", gymList);
 		request.setAttribute("gymFilterList", gymFilterList);
 	}
-
 
 
 

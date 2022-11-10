@@ -16,7 +16,7 @@ public class GymImgDTO {
         this.gym_sysimg = gym_sysimg;
     }
 
-    public GymImgDTO(ResultSet rs) {
+    public GymImgDTO(ResultSet rs) throws Exception{
         this.gym_imgseq = rs.getInt("gym_imgseq");
         this.gym_seq = rs.getInt("gym_seq");
         this.gym_sysimg = rs.getString("gym_sysimg");
