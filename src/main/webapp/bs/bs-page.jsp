@@ -39,12 +39,12 @@
 
                 <div class="row justify-content-center">
                     <div class="col-8">
-                        <div class="row profile_title"><span>이름</span></div>
-                        <div class="row"><input id="bs_name" type="text" class="profile_input form-control"
+                        <div class="row profile_title"><span>담당자이름</span></div>
+                        <div class="row"><input id="bs_name" type="text" class="profile_input"
                                                 maxlength="15"></div>
 
-                        <div class="row profile_title pt-2"><span>전화번호</span></div>
-                        <div class="row"><input id="bs_phone" type="text" class="profile_input form-control"
+                        <div class="row profile_title pt-2"><span>담당자연락처</span></div>
+                        <div class="row"><input id="bs_phone" type="text" class="profile_input"
                                                 maxlength="11"></div>
                         <script>
                             $("#bs_phone").on("keydown", function () {
@@ -55,9 +55,9 @@
 
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업자 번호</span></div>
+                        <div class="row profile_title pt-2"><span>사업자번호</span></div>
                         <div class="row"><input id="bs_number" type="text"
-                                                class="profile_input form-control" maxlength="10"></div>
+                                                class="profile_input" maxlength="10"></div>
                         <script>
                             $("#bs_number").on("keydown", function () {
                                 $(this).val($(this).val().replace(/[^0-9]/ig, ''));
@@ -66,9 +66,10 @@
                             });
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업증</span></div>
-                        <div class="row"><input id="bs_ctfc_input" type="file"
-                                                class="px-0 form-control profile_input" id="bs_ctfc"></div>
+                        <div class="row profile_title pt-2"><span>사업자등록증</span></div>
+                        <div class="row">
+                            <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc" style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
                         </div>
@@ -100,10 +101,10 @@
                     <div class="col-8">
                         <%--비밀번호 입력--%>
                         <div class="row profile_title pt-4"><span>비밀번호</span></div>
-                        <div class="row"><input id="bs_pw1" type="password" class="profile_input form-control"
+                        <div class="row"><input id="bs_pw1" type="password" class="profile_input"
                                                 placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
-                        <div class="row"><input id="bs_pw2" type="password" class="profile_input form-control"
+                        <div class="row"><input id="bs_pw2" type="password" class="profile_input"
                                                 placeholder="비밀번호 재입력" maxlength="16"></div>
                         <div class="row mt-2" id="acc_cf"></div>
 
@@ -168,6 +169,8 @@
         });
 
         pi_check = true;
+        var filename = $(this)[0].files[0].name;
+        $(this).siblings('#file_label').html(filename);
     }
 
     /**

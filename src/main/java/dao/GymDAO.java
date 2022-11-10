@@ -110,28 +110,6 @@ public class GymDAO extends Dao {
         }
     }
 
-    /*
-     * 관리자 페이지 시설 갯수 // 반복문써야될거 같은데..
-     * @param bs_seq
-     * @return
-     * @throws Exception
-     */
-//    public int gymCount(int bs_seq) throws Exception{
-//    	String sql="select count(*) from gym group by bs_seq having bs_seq = ?";
-//    	int count = 0;
-//    	 try (Connection con = this.getConnection();
-//                 PreparedStatement pstat = con.prepareStatement(sql);
-//
-//            ) {
-//    		 pstat.setInt(1, bs_seq);
-//    		 
-//    		 try(ResultSet rs = pstat.executeQuery();){
-//    			 //if(rs.next)
-//    		 }
-//    		 
-//    	 }
-//    			
-//    }
 
     /**
      * 사업자 회원가입시 시설 추가

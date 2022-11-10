@@ -1,5 +1,9 @@
 package dto;
 
+import commons.FileControl;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,6 +27,72 @@ public class ReviewDTO {
 	private String review_check4;
 	private String review_check5;
 	private int review_star;
+	private String review_photo;
+
+
+	public ReviewDTO() {
+	}
+
+    public ReviewDTO(ResultSet resultSet) throws SQLException {
+        this.review_seq = resultSet.getInt("review_seq");
+        this.user_seq = resultSet.getInt("user_seq");
+        this.gym_seq = resultSet.getInt("gym_seq");
+        this.bs_seq = resultSet.getInt("bs_seq");
+        this.review_writer = resultSet.getString("review_writer");
+        this.review_contents = resultSet.getString("review_contents");
+        this.review_star = resultSet.getInt("review_star");
+        this.review_like = resultSet.getInt("review_like");
+        this.review_writer_date = resultSet.getTimestamp("review_writer_date");
+        this.review_check1 = resultSet.getString("review_check1");
+        this.review_check2 = resultSet.getString("review_check2");
+        this.review_check3 = resultSet.getString("review_check3");
+        this.review_check4 = resultSet.getString("review_check4");
+        this.review_check5 = resultSet.getString("review_check5");
+		this.review_photo = resultSet.getString("review_photo");
+	}
+
+	public ReviewDTO(int review_seq) {
+
+		this.review_seq = review_seq;
+
+	}
+
+	public ReviewDTO(int user_seq, int gym_seq, int bs_seq, String review_writer, String review_contents, String review_check1, String review_check2, String review_check3, String review_check4, String review_check5, String review_photo) {
+		this.user_seq = user_seq;
+		this.gym_seq = gym_seq;
+		this.bs_seq = bs_seq;
+		this.review_writer = review_writer;
+		this.review_contents = review_contents;
+		this.review_check1 = review_check1;
+		this.review_check2 = review_check2;
+		this.review_check3 = review_check3;
+		this.review_check4 = review_check4;
+		this.review_check5 = review_check5;
+		this.review_photo = review_photo;
+	}
+
+	public ReviewDTO(HttpServletRequest request) throws IOException {
+		FileControl file = new FileControl();
+		this.user_seq = Integer.parseInt(request.getParameter("user_seq"));
+		this.gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+		this.bs_seq = Integer.parseInt(request.getParameter("bs_seq"));
+		this.review_writer = request.getParameter("review_writer");
+		this.review_contents = request.getParameter("review_contents");
+		this.review_check1 = request.getParameter("review_check1");
+		this.review_check2 = request.getParameter("review_check2");
+		this.review_check3 = request.getParameter("review_check3");
+		this.review_check4 = request.getParameter("review_check4");
+		this.review_check5 = request.getParameter("review_check5");
+		this.review_photo = file.save(request,"/resource/profile", "review_photo");
+	}
+
+	public String getReview_photo() {
+		return review_photo;
+	}
+
+	public void setReview_photo(String review_photo) {
+		this.review_photo = review_photo;
+	}
 
 	public int getReview_star() {
 		return review_star;
@@ -167,45 +237,5 @@ public class ReviewDTO {
 			// SimpleDateFormat sdf = new SimpleDateFormat("MM월dd일 hh시mm분");
 			return sdf.format(writeTime);
 		}
-	}
-
-	public ReviewDTO() {
-	}
-
-    public ReviewDTO(ResultSet resultSet) throws SQLException {
-        this.review_seq = resultSet.getInt("review_seq");
-        this.user_seq = resultSet.getInt("user_seq");
-        this.gym_seq = resultSet.getInt("gym_seq");
-        this.bs_seq = resultSet.getInt("bs_seq");
-        this.review_writer = resultSet.getString("review_writer");
-        this.review_contents = resultSet.getString("review_contents");
-        this.review_star = resultSet.getInt("review_star");
-        this.review_like = resultSet.getInt("review_like");
-        this.review_writer_date = resultSet.getTimestamp("review_writer_date");
-        this.review_check1 = resultSet.getString("review_check1");
-        this.review_check2 = resultSet.getString("review_check2");
-        this.review_check3 = resultSet.getString("review_check3");
-        this.review_check4 = resultSet.getString("review_check4");
-        this.review_check5 = resultSet.getString("review_check5");
-
-	}
-
-	public ReviewDTO(int review_seq) {
-	
-		this.review_seq = review_seq;
-	
-	}
-
-	public ReviewDTO(int user_seq, int gym_seq, int bs_seq, String review_writer, String review_contents, String review_check1, String review_check2, String review_check3, String review_check4, String review_check5) {
-		this.user_seq = user_seq;
-		this.gym_seq = gym_seq;
-		this.bs_seq = bs_seq;
-		this.review_writer = review_writer;
-		this.review_contents = review_contents;
-		this.review_check1 = review_check1;
-		this.review_check2 = review_check2;
-		this.review_check3 = review_check3;
-		this.review_check4 = review_check4;
-		this.review_check5 = review_check5;
 	}
 }
