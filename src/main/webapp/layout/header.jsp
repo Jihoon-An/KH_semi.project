@@ -20,16 +20,18 @@
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-	<!-- font-family: 'Noto Sans KR', sans-serif; -->
+    <!-- font-family: 'Noto Sans KR', sans-serif; -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
     <!-- font-family: 'Black And White Picture', sans-serif; -->
     <link href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&display=swap" rel="stylesheet">
 
     <!-- Pretendard font -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css" />
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css"/>
 
     <!-- bootstrap - icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
@@ -91,7 +93,7 @@
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
     <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
     <link rel="stylesheet" href="/css/review.css" type="text/css">
-	<link rel="stylesheet" href="/css/gym-modify.css" type="text/css">
+    <link rel="stylesheet" href="/css/gym-modify.css" type="text/css">
 
 </head>
 
@@ -114,7 +116,11 @@
                 <ul id="header_nav_menu">
                     <li class="float-start"><a class="header_a_tag" href="/main.search">헬스장검색</a></li>
                     <li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
-                    <li class="float-start"><a class="header_a_tag" href="/main.personal">운동기록</a></li>
+                    <c:choose>
+                        <c:when test="${!admin}">
+                            <li class="float-start"><a class="header_a_tag" href="/main.personal">운동기록</a></li>
+                        </c:when>
+                    </c:choose>
                 </ul>
                 <ul id="header_nav_person">
                     <c:choose>

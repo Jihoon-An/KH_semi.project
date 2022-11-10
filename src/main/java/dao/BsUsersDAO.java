@@ -30,7 +30,7 @@ public class BsUsersDAO extends Dao {
      */
     public List<BsUsersDTO> selectAll() throws Exception {
         List<BsUsersDTO> result = new ArrayList<>();
-        String sql = "select * from bs_users order by bs_signup desc";
+        String sql = "select * from bs_users order by bs_signup asc";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery();) {
@@ -215,7 +215,7 @@ public class BsUsersDAO extends Dao {
 
     // 아래로 네비바 로직
     public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) where rn between ? and ?";
+        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, start);

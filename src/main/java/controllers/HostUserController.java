@@ -45,12 +45,13 @@ public class HostUserController extends ControllerAbs {
         	break;
         
         //관리자 페이지 일반회원목록 출력
-        case "/userslist.host":
+        case "/usersList.host":
         	
         	this.getUserList(request, response);
         	break;
         
         case "/userSearch.host":
+        	System.out.println("검색시작");
         	this.getUserSearch(request, response);
         	break;
         case "/bsUserList.host" :
@@ -63,10 +64,10 @@ public class HostUserController extends ControllerAbs {
         	this.getBsSearch(request,response);
         	break;
         //관리자 페이지 회원 삭제
-        case "/usersDel.host":
-        	
-        	this.getUserDel(request,response);
-        	break;
+//        case "/usersDel.host":
+//        	
+//        	this.getUserDel(request,response);
+//        	break;
         	
         case "/bsUsersDel.host":
         	break;
@@ -91,36 +92,37 @@ public class HostUserController extends ControllerAbs {
 	
 	 protected void getUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-		// int capge = Integer.parseInt(request.getParameter("cpage")); //네비바 
-		 //String navi=dao.getPageNavi(capge); //네비바 dao 인자
-
-		 UserDAO dao = UserDAO.getInstance();
-    		List<UserDTO> dto = dao.selectAll();
-    	
-    		System.out.println(dto);
-    	
-    		request.setAttribute("list", dto); //user
+		 int cpage = Integer.parseInt(request.getParameter("cpage")); //네비바
 		
+
+		 UserDAO usersdao = UserDAO.getInstance();
+		 String userNavi=usersdao.getPageNavi(cpage); //네비바 dao 인자 cpage
+		 List<UserDTO> userList = UserDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+    	
+
+    	
+    		request.setAttribute("userList", userList); //user
+    		request.setAttribute("userNavi", userNavi);//네비
 			request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
 	 
 	 }
 	 
 	 protected void getBsUserList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-		// int capge = Integer.parseInt(request.getParameter("cpage")); //네비바 
+		 int cpage = Integer.parseInt(request.getParameter("cpage")); //네비바 
 		
 	
-		 int cpage=1; //임시
+		
 		 
-    		BsUsersDAO dao2 = BsUsersDAO.getInstance();
-    		 String navi=dao2.getPageNavi(cpage); //네비바 dao 인자 cpage
-    		//List<BsUsersDTO> dto2 = dao2.selectAll();
+    		BsUsersDAO bsDao = BsUsersDAO.getInstance();
+    		 String bsUsersNavi=bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
+    	
     		
-    		List<BsUsersDTO> list = BsUsersDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
-    		System.out.println(list);
+    		List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+    		
    
-			request.setAttribute("list", list); //bsuser  //네비바
-			request.setAttribute("navi", navi);
+			request.setAttribute("bsUserList",  bsUserList); 
+			request.setAttribute("bsUserNavi", bsUsersNavi); //네비바
 			request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 	 
 	 }
@@ -129,46 +131,48 @@ public class HostUserController extends ControllerAbs {
 		
 		 	
 		 	String text= request.getParameter("inputT");
-			 BsUsersDAO dao = BsUsersDAO.getInstance();
-	    		List<BsUsersDTO> dto = dao.search(text);
+			 BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
+	    		List<BsUsersDTO> bsUserDto = bsUserDao.search(text);
 	    	
-	    		System.out.println(dto);
+	    		System.out.println(bsUserDto);
 	    	
-	    		request.setAttribute("list", dto); //user
+	    		request.setAttribute("bsUserList", bsUserDto); //user
 			
 				request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 		 
 		 }
 	 
-	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			String[] useq = request.getParameterValues("userseq");
-			
-			
-			System.out.println(useq);
-		 	
-		 	String text= request.getParameter("inputT");
-			 UserDAO dao = UserDAO.getInstance();
-	    		List<UserDTO> dto = dao.searchUser(text);
-	    	
-	    		System.out.println(dto);
-	    	
-	    		request.setAttribute("list", dto); //user
-			
-				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
-		 
-		 }
+//	 
+//	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//			String[] useq = request.getParameterValues("userseq");
+//			
+//			
+//			System.out.println(useq);
+//		 	
+//		 	String text= request.getParameter("inputT");
+//			 UserDAO dao = UserDAO.getInstance();
+//	    		List<UserDTO> dto = dao.searchUser(text);
+//	    	
+//	    		System.out.println(dto);
+//	    	
+//	    		request.setAttribute("list", dto); //user
+//			
+//				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+//		 
+//		 }
 	 
 	 
 	 protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-		 	
-		 	String text= request.getParameter("inputT");
-			 UserDAO dao = UserDAO.getInstance();
-	    		List<UserDTO> dto = dao.searchUser(text);
+		 
+		 	String text= request.getParameter("inputName");
+		 	System.out.println(text);
+		 	UserDAO usersDao = UserDAO.getInstance();
+	    		List<UserDTO> userDto = usersDao.searchUser(text);
 	    	
-	    		System.out.println(dto);
+	    		System.out.println(userDto);
 	    	
-	    		request.setAttribute("list", dto); //user
+	    		request.setAttribute("userList", userDto); //user
 			
 				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
 		 

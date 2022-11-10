@@ -33,10 +33,14 @@
 					<button type="button" class="btn_base" id="btn_login">로그인</button>
 				</div>
 				<div class="col-12 gy-1">
-					<input class="form-check-input" type="checkbox" id="login_bs">
-					<label class="form-check-label" for="login_bs"
-						style="color: #404040; font-size: 14px; letter-spacing: -1px;">사업자
-						로그인</label>
+
+					<div class="checkbox-bsLogin">
+						<label class="form-check-label" for="login_bs" style="color: #404040; font-size: 14px; letter-spacing: -1px;">
+							<input class="form-check-input" type="checkbox" id="login_bs">
+							<span class="checkbox__label"></span>
+							사업자 로그인</label>
+					</div>
+
 				</div>
 				<div class="col-12 gy-4" style="letter-spacing: -1px;">
 					<span style="color: #404040;">계정이 없으신가요?</span> <a href="#"
