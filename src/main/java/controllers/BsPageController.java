@@ -42,6 +42,9 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
+                case "/modifyGym.bsPage":
+
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +54,7 @@ public class BsPageController extends ControllerAbs {
     }
 
     /**
-     * 사업자 회원 탈퇴
+     * <h1>사업자 회원 탈퇴</h1>
      * @param request
      * @param response
      * @throws Exception
@@ -169,6 +172,17 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("bsUser", bsUser);
         request.setAttribute("bsCtfc", bsCtfc);
     }
+
+
+    private  void  modifyGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+
+
+
+
+    }
+
 
 
     @Override
