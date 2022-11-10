@@ -9,7 +9,7 @@ public class ExerciseDTO {
 	private Timestamp cal_date;
 	private int user_seq;
 	private String exr_memo;
-	private String exr_how;
+	private int exr_how;
 	private String exr_intensity;
 	private String inbody_weight;
 	private String inbody_bfm;
@@ -25,7 +25,7 @@ public class ExerciseDTO {
 		this.cal_date = resultSet.getTimestamp("cal_date");
 		this.user_seq = resultSet.getInt("user_seq");
 		this.exr_memo = resultSet.getString("exr_memo");
-		this.exr_how = resultSet.getString("exr_how");
+		this.exr_how = resultSet.getInt("exr_how");
 		this.exr_intensity = resultSet.getString("exr_intensity");
 		this.inbody_weight = resultSet.getString("inbody_weight");
 		this.inbody_bfm = resultSet.getString("inbody_bfm");
@@ -33,7 +33,7 @@ public class ExerciseDTO {
 		this.inbody_sm = resultSet.getString("inbody_sm");
 	}	
 
-	public ExerciseDTO(int exr_seq, int cal_seq, Timestamp cal_date, int user_seq, String exr_sports, String exr_how,
+	public ExerciseDTO(int exr_seq, int cal_seq, Timestamp cal_date, int user_seq, String exr_sports, int exr_how,
 			String exr_intensity, String inbody_weight, String inbody_bfm, String inbody_bmi, String inbody_sm) {
 		super();
 		this.exr_seq = exr_seq;
@@ -78,10 +78,10 @@ public class ExerciseDTO {
 	public void setExr_sports(String exr_sports) {
 		this.exr_memo = exr_sports;
 	}
-	public String getExr_how() {
+	public int getExr_how() {
 		return exr_how;
 	}
-	public void setExr_how(String exr_how) {
+	public void setExr_how(int exr_how) {
 		this.exr_how = exr_how;
 	}
 	public String getExr_intensity() {
