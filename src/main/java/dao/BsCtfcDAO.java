@@ -44,9 +44,8 @@ public class BsCtfcDAO extends Dao {
 			try(ResultSet rs = statement.executeQuery();){
 				if(rs.next()) {
 					return new BsCtfcDTO(rs);
-				}else{
-					return new BsCtfcDTO();
 				}
+				return new BsCtfcDTO();
 			}
 		}
 	}
@@ -60,11 +59,15 @@ public class BsCtfcDAO extends Dao {
 	 */
 	public int uploadBsCtfc(BsCtfcDTO dto) throws Exception {
 		String sql = "insert into bs_ctfc values(?,?,?)";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);) {
+
 			pstat.setInt(1, dto.getBsSeq());
 			pstat.setString(2, dto.getBsNumber());
 			pstat.setString(3, dto.getSysName());
+
 			con.commit();
+
 			return pstat.executeUpdate();
 		}
 	}

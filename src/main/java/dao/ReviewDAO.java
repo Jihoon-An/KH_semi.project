@@ -38,12 +38,12 @@ public class ReviewDAO extends Dao {
 		String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-
 				) {
 
 			pstat.setInt(1, gym_seq);
 			List<HashMap<String, Object>> list = new ArrayList<>();
 			HashMap<String, Object> data = new HashMap<>();
+
 			try (ResultSet rs = pstat.executeQuery();) {
 
 				while (rs.next()) {
@@ -51,8 +51,8 @@ public class ReviewDAO extends Dao {
 					data.put("liked", rs.getString("liked_user_seq"));
 					list.add(data);
 				}
-				return list;
 
+				return list;
 			}
 		}
 
@@ -91,9 +91,9 @@ public class ReviewDAO extends Dao {
 
 			pstat.setInt(1, rseq);
 
-
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 	}
@@ -108,12 +108,14 @@ public class ReviewDAO extends Dao {
 	public int delReviewLike(int rseq) throws Exception {
 		String sql = "update review set review_like=review_like-1 where review_seq = ? ";
 		try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);) {
+				PreparedStatement pstat = con.prepareStatement(sql)) {
 			//seq를 직접 넣는 이유는 파일 때문에
 
 			pstat.setInt(1, rseq);
+
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 
@@ -122,15 +124,16 @@ public class ReviewDAO extends Dao {
 
 	public int add(ReviewDTO dto) throws Exception {
 		String sql = "update review set review_like=review_like+1 where seq=?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);) {
 			// seq를 직접 넣는 이유는 파일 때문에
 
 			pstat.setInt(1, dto.getUser_seq());
 			pstat.setInt(2, dto.getGym_seq());
 
-
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 	}
@@ -166,7 +169,6 @@ public class ReviewDAO extends Dao {
 				data.put("gym", new GymDTO(rs));
 				result.add(data);
 			}
-			rs.close();
 		}
 		return result;
 	}
