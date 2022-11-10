@@ -44,3 +44,53 @@
 	width:100%;
 	height:100%;
 }
+
+.ui-datepicker-calendar {
+	width: 90% !important;
+	height: 75% !important;
+}
+
+.ui-datepicker-header {
+	height: 90px !important;
+}
+
+.ui-datepicker-title {
+	font-size: 20px !important;
+}
+.ui-corner-all a {
+	transform: translate(0, 6px) !important;
+}
+
+.ui-datepicker-calendar th {
+	position: relative !important;
+	top: -10px !important;
+	font-size: 18px !important;
+}
+
+.ui-datepicker td a {
+	font-size: 20px !important;
+}
+
+.ui-datepicker-week-end:first-of-type a {
+	color: red;
+}
+
+.ui-datepicker-week-end:last-of-type a {
+	color: blue;
+}
+
+.ui-datepicker-week-end:first-of-type .ui-state-active{
+	background-color: red !important;
+}
+
+.ui-datepicker-week-end:last-of-type .ui-state-active{
+	background-color: blue !important;
+}
+
+.ui-datepicker td:not(.ui-datepicker-week-end) .ui-state-active{
+	background-color: black !important;
+}
+
+.ui-state-active {
+	color: white !important;
+}
