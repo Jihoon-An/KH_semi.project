@@ -349,19 +349,23 @@
           options: {
             elements: {
               line: {
-                borderWidth: 1,
+                borderWidth: 3,
               },
             },
             scales: {
                 r: {
                     suggestedMin: 0,
-                    // suggestedMax: 100
+          
+
                     stepSize: 1
-                }
+                },
             },
           },
           
         };   
+        
+    
+ 
         
         	//chart.js
       </script>
