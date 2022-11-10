@@ -192,7 +192,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 
 
 	<script>
@@ -308,7 +308,7 @@
         </script>
 
 	<script>
-       
+    
 
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
@@ -327,11 +327,11 @@
 
 	<script>
         const data = {
-          labels: ["친절", "청결", "시설", "기구", "편리"],
+          labels: ["PT 만족도", "상담 만족도", "시설 규모", "기구 다양성", "시설 청결"],
           datasets: [
             {
               label: "My Second Dataset",
-              data: [50, 30, 55, 50, 50],
+              data: [${checkList.check1},${checkList.check2},${checkList.check3},${checkList.check4},${checkList.check5}],
               fill: true,
               backgroundColor: "rgba(54, 162, 235, 0.2)",
               borderColor: "rgb(54, 162, 235)",
@@ -349,11 +349,20 @@
           options: {
             elements: {
               line: {
-                borderWidth: 3,
+                borderWidth: 1,
               },
             },
+            scales: {
+                r: {
+                    suggestedMin: 0,
+                    // suggestedMax: 100
+                    stepSize: 1
+                }
+            },
           },
+          
         };   
+        
         	//chart.js
       </script>
 
