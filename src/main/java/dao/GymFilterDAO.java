@@ -43,7 +43,7 @@ public class GymFilterDAO extends Dao {
 	 * @return GymFilterDTO List
 	 * @throws Exception
 	 */
-	public GymFilterDTO selectByFilter(int gym_seq) throws Exception {
+	public GymFilterDTO selectByGymSeq(int gym_seq) throws Exception {
 		String sql = "select * from gym_filter f join gym g on f.gym_seq = g.gym_seq where g.gym_seq = ?";
 
 		try(Connection con = this.getConnection();

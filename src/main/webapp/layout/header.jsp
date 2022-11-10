@@ -23,6 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
 
+    <!-- font-family: 'Jua', sans-serif; -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     <!-- font-family: 'Noto Sans KR', sans-serif; -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
@@ -112,7 +115,7 @@
     <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
-                <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
+            <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
         </div>
 
         <div class="float-start">
