@@ -2,16 +2,14 @@ package controllers;
 
 import commons.FileControl;
 import dao.*;
-import dto.BsCtfcDTO;
-import dto.BsUsersDTO;
-import dto.GymDTO;
-import dto.GymImgDTO;
+import dto.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -29,18 +27,31 @@ public class BsPageController extends ControllerAbs {
                     this.getPage(request, response);
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
+
                 case "/updateProflie.bsPage":
                     this.updateProfile(request, response);
                     break;
+
                 case "/updateCtfc.bsPage":
                     this.updateCtfc(request, response);
                     break;
+
                 case "/updatePw.bsPage":
                     this.updatePw(request, response);
                     break;
+
                 case "/signDown.bsPage":
                     this.signDown(request, response);
                     response.sendRedirect("/");
+                    break;
+
+                case "/toUpdateGym.bsPage":
+                    this.importGym(request, response);
+                    request.getRequestDispatcher("/gym.modify.jsp");
+                    break;
+                case "/deleteGym.bsPage":
+                    this.deleteGym(request, response);
+                    response.sendRedirect("/page.bsPage");
                     break;
             }
         } catch (Exception e) {
@@ -50,11 +61,26 @@ public class BsPageController extends ControllerAbs {
 
     }
 
+    private void deleteGym(HttpServletRequest request, HttpServletResponse response) {
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+        
+    }
+
     /**
-     * 사업자 회원 탈퇴
-     * @param request
-     * @param response
-     * @throws Exception
+     * <h2>gym데이터를 request에 담음</h2>
+     */
+    private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+
+        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
+        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+
+        request.setAttribute("gym", gym);
+        request.setAttribute("gymFilter", gymFilter);
+    }
+
+    /**
+     * <h2>사업자 회원 탈퇴</h2>
      */
     private void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -106,6 +132,9 @@ public class BsPageController extends ControllerAbs {
         BsUsersDAO.getInstance().deleteByBsSeq(bsSeq);
     }
 
+    /**
+     * <h2>비밀번호 변경</h2>
+     */
     private void updatePw(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
         String newPw = request.getParameter("pw");
@@ -158,16 +187,26 @@ public class BsPageController extends ControllerAbs {
 
     /**
      * <h1>사업자 페이지 데이터 불러오기</h1>
+     * session에 bsSeq만 필요
      */
     private void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getSession().setAttribute("bsSeq", 112);
 
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
 
+        List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
+        List<GymFilterDTO> gymFilterList = new ArrayList<>();
+        GymFilterDAO filterDAO = GymFilterDAO.getInstance();
+        for(GymDTO gym : gymList){
+            gymFilterList.add(filterDAO.selectByGymSeq(gym.getGym_seq()));
+        }
+
         BsUsersDTO bsUser = BsUsersDAO.getInstance().getByBsSeq(bsSeq);
         BsCtfcDTO bsCtfc = BsCtfcDAO.getInstance().getByBsSeq(bsSeq);
         request.setAttribute("bsUser", bsUser);
         request.setAttribute("bsCtfc", bsCtfc);
+        request.setAttribute("gymList", gymList);
+        request.setAttribute("gymFilterList", gymFilterList);
     }
 
 

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import commons.Common;
 import dao.GymDAO;
 import dao.GymFilterDAO;
 import dto.GymDTO;
@@ -63,7 +62,7 @@ public class SearchController extends HttpServlet {
 		List<GymFilterDTO> gymFilterList = new ArrayList<>();
 
 		for(GymDTO gym : gymList){
-			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
+			gymFilterList.add(GymFilterDAO.getInstance().selectByGymSeq(gym.getGym_seq()));
 		}
 
 		// gym data 담기
@@ -104,7 +103,7 @@ public class SearchController extends HttpServlet {
 		// 검색 내용에 맞는 gym_filter data 불러오기
 		List<GymFilterDTO> gymFilterList = new ArrayList<>();
 		for(GymDTO gym : gymList){
-			gymFilterList.add(GymFilterDAO.getInstance().selectByFilter(gym.getGym_seq()));
+			gymFilterList.add(GymFilterDAO.getInstance().selectByGymSeq(gym.getGym_seq()));
 		}
 
 		// gym data 담기

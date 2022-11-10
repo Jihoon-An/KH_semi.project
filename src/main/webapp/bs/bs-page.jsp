@@ -9,11 +9,13 @@
         </div>
         <!-- 정보 수정 버튼 -->
         <div class="text-center" id="btn_area">
-            <button type="button" id="modify_profile_btn" class="btn_base" style="display:inline-table">일반
-                정보 수정
+            <button type="button" id="modify_profile_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                일반 정보 수정
             </button>
-            <button type="button" id="modify_acc_btn" class="btn_base" style="display:inline-table">계정
-                정보 수정
+            <button type="button" id="modify_acc_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                계정 정보 수정
             </button>
         </div>
 
@@ -69,7 +71,8 @@
                         <div class="row profile_title pt-2"><span>사업자등록증</span></div>
                         <div class="row">
                             <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
-                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc" style="display: none"></div>
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc"
+                                   style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
                         </div>
@@ -129,17 +132,56 @@
     <div id="gym_info">
 
         <div class="container-fluid">
-            <div class="row gym_card">
-                <div class="col-3 p-0">
-                    <img src="/resource/duck.ico" class="gym_img">
+            <hr>
+            <!-- card -->
+            <c:forEach var="gym" items="${gymList}" varStatus="status">
+                <div class="row gym_card">
+                    <form id="gym_form">
+                    <input name="gym_seq" id="gym_seq" type="hidden">
+                    </form>
+                    <div class="col-3 p-0">
+                        <img src="/resource/main.jpg" class="gym_img">
+                    </div>
+                    <div class="col-7 gym_text">
+                        <h3 class="gym_name">${gym.gym_name}</h3>
+                        <p>${gym.gym_open} ~ ${gym.gym_close}</p>
+                        <p>${gym.gym_location}</p>
+                        <p>${gym.gym_phone}</p>
+                        <!-- 태그 -->
+                        <div class="gym_list_tagBox">
+                            <c:if test="${gymFilterList[status.index].open eq 'true'}">
+                                <div class="gym_list_tag open btn_base">#24시간</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].locker eq 'true'}">
+                                <div class="gym_list_tag locker btn_base">#라커</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].shower eq 'true'}">
+                                <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].park eq 'true'}">
+                                <div class="gym_list_tag park btn_base">#주차장</div>
+                            </c:if>
+                        </div>
+
+                    </div>
+                    <div class="col-2 justify-content-center">
+                        <button class="btn_outline" id="modify_gym_btn"
+                                style="border: 2px solid #F0F0F0;
+                                    background-color: #F0F0F0;">
+                            수정
+                        </button>
+                        <button class="btn_outline" id="delete_gym_btn"
+                                style="margin-top:70px;
+                                    border: 2px solid #F0F0F0;
+                                    background-color: #F0F0F0;">
+                            삭제
+                        </button>
+                    </div>
                 </div>
-                <div class="col-7 gym_text">
-                    <h3 class="gym_name">제목</h3>
-                    <p>운영시간</p>
-                    <p>주소</p>
-                    <p>전화번호</p>
-                </div>
-            </div>
+                <hr>
+            </c:forEach>
+
+
         </div>
 
     </div>
@@ -148,7 +190,7 @@
 </main>
 
 
-<!----------------------------- script   ------------------------------>
+<!----------------------------- script ------------------------------>
 
 
 <script>
@@ -341,5 +383,17 @@
         $("#sign_down_form").submit();
     });
 
+
+    <!-- ---------------------------------------------------- gym card ------------------------------------------------- -->
+    // gym 수정페이지로 이동
+    $("#modify_gym_btn").click(function () {
+        $("#gym_form").attr("action", "/toUpdateGym.bsPage");
+        $("#gym_form").submit();
+    });
+    // gym 삭제
+    $("#modify_gym_btn").click(function () {
+        $("#gym_form").attr("action", "/deleteGym.bsPage");
+        $("#gym_form").submit();
+    });
 </script>
 <%@ include file="/layout/footer.jsp" %>

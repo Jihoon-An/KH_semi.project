@@ -82,7 +82,7 @@ public class GymController extends ControllerAbs {
 
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
-        GymFilterDTO gymFilterDtO = filterDAO.selectByFilter(gym_seq);
+        GymFilterDTO gymFilterDtO = filterDAO.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
