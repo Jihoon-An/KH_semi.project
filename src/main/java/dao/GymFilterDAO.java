@@ -44,7 +44,7 @@ public class GymFilterDAO extends Dao {
 	 * @throws Exception
 	 */
 	public GymFilterDTO selectByFilter(int gym_seq) throws Exception {
-		String sql = "select * from gym_filter f join gym g on f.gym_seq = g.gym_seq where g.gym_seq = ?";
+		String sql = "select * from gym_filter where gym_seq = ?";
 
 		try(Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);) {
@@ -72,4 +72,32 @@ public class GymFilterDAO extends Dao {
 			con.commit();
 		}
 	}
+
+
+	/**
+	 * Gym Filter 시설 필터 수정
+	 *
+	 * @param gymFilterDTO
+	 * @throws Exception
+	 */
+	public void updateGymFilter(GymFilterDTO gymFilterDTO) throws Exception {
+		String sql = "update gym_filter set open = ?, locker = ?, shower = ?, park =? where gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setString(1, gymFilterDTO.getOpen());
+			pstat.setString(2, gymFilterDTO.getLocker());
+			pstat.setString(3, gymFilterDTO.getShower());
+			pstat.setString(4, gymFilterDTO.getPark());
+			pstat.setInt(5, gymFilterDTO.getGym_seq());
+
+			pstat.executeUpdate();
+			con.commit();
+		}
+	}
+
+
+
+
+
 }
