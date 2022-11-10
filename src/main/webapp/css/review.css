@@ -125,8 +125,9 @@
 }
 
 .checkbox-wrap .cbx {
-    width: 360px;
-    margin: 1rem 20px;
+    width: 400px;
+    height: 55px;
+    padding: 1rem 25px;
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
@@ -253,7 +254,7 @@ textarea:-ms-input-placeholder {color:#8f959a;}
 .checkIcon {
     width: 23px;
     height: 23px;
-    margin: 0px 12px 2px 20px;
+    margin: 0px 15px 2px 20px;
 }
 
 .reviw_title {
