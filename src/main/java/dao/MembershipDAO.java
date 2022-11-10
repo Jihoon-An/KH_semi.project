@@ -42,4 +42,17 @@ public class MembershipDAO extends Dao{
             connection.commit();
         }
     }
+
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from membership where gym_seq = ?";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, gymSeq);
+
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
 }

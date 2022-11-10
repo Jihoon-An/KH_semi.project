@@ -52,8 +52,8 @@
 
 #header #header_nav_person {
 	margin: 0;
-	position: relative;
-	left: 394px;
+	position: absolute;
+	right: 0px;
 }
 
 #header #header_nav_person>li {

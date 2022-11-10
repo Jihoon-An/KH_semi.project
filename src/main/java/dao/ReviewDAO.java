@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.DataInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
@@ -28,7 +30,7 @@ public class ReviewDAO extends Dao {
 
 	/**
 	 * gym-detail 페이지 불러올때 사용자가 클릭한 리뷰 좋아요 유지를 위해 hashmap 사용
-	 *
+	 *	
 	 * @param gym_seq
 	 * @return
 	 * @throws Exception
@@ -38,12 +40,12 @@ public class ReviewDAO extends Dao {
 		String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
 		try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
-
 				) {
 
 			pstat.setInt(1, gym_seq);
 			List<HashMap<String, Object>> list = new ArrayList<>();
 			HashMap<String, Object> data = new HashMap<>();
+
 			try (ResultSet rs = pstat.executeQuery();) {
 
 				while (rs.next()) {
@@ -51,27 +53,51 @@ public class ReviewDAO extends Dao {
 					data.put("liked", rs.getString("liked_user_seq"));
 					list.add(data);
 				}
-				return list;
 
+				return list;
 			}
 		}
 
 	}
 
+	/**
+	 * 리뷰 체크 카운트 기반으로 하여 출력
+	 * @param gym_seq
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object>reviewChkCount(int gym_seq)throws Exception {
 
-	//	public int reviewChkCount() {
-	//		int i;
-	//		String sql = "select count(*) from review group by  review_check"+i+" having  review_check"+i+" = 'Y'";
-	//		for( i = 0; i<=5; i++) {
-	//			
-	//		}
-	//		
-	//		
-	//		
-	//		
-	//	}
-	
-	
+		String sql = "select gym_seq, count(review_check1) check1, count(review_check2) check2, count(review_check3) check3,\r\n"
+				+ "count(review_check4) check4, count(review_check5) check5 from review group by gym_seq having gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, gym_seq);
+
+			HashMap<String, Object> date = new HashMap<>();
+			try (ResultSet rs = pstat.executeQuery();) {
+				while(rs.next()) {
+					date.put("gym_seq",rs.getString("gym_seq"));
+					date.put("check1", rs.getString("check1"));
+					date.put("check2", rs.getString("check2"));
+					date.put("check3", rs.getString("check3"));
+					date.put("check4", rs.getString("check4"));
+					date.put("check5", rs.getString("check5"));
+
+
+
+				}
+				return date;
+			}
+
+		}
+
+
+
+	}
+
+
 
 	/**
 	 * 좋아요 클릭시 리뷰테이블의 review_like 1 감소
@@ -91,9 +117,9 @@ public class ReviewDAO extends Dao {
 
 			pstat.setInt(1, rseq);
 
-
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 	}
@@ -108,12 +134,14 @@ public class ReviewDAO extends Dao {
 	public int delReviewLike(int rseq) throws Exception {
 		String sql = "update review set review_like=review_like-1 where review_seq = ? ";
 		try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);) {
+				PreparedStatement pstat = con.prepareStatement(sql)) {
 			//seq를 직접 넣는 이유는 파일 때문에
 
 			pstat.setInt(1, rseq);
+
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 
@@ -122,15 +150,16 @@ public class ReviewDAO extends Dao {
 
 	public int add(ReviewDTO dto) throws Exception {
 		String sql = "update review set review_like=review_like+1 where seq=?";
-		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);) {
 			// seq를 직접 넣는 이유는 파일 때문에
 
 			pstat.setInt(1, dto.getUser_seq());
 			pstat.setInt(2, dto.getGym_seq());
 
-
 			int result = pstat.executeUpdate();
 			con.commit();
+
 			return result;
 		}
 	}
@@ -166,7 +195,6 @@ public class ReviewDAO extends Dao {
 				data.put("gym", new GymDTO(rs));
 				result.add(data);
 			}
-			rs.close();
 		}
 		return result;
 	}
@@ -257,6 +285,34 @@ public class ReviewDAO extends Dao {
 		}
 	}
 
+	public List<ReviewDTO> getByGymSeq(int gymSeq) throws Exception {
+		String sql = "select * from review where gym_seq = ?";
+		List<ReviewDTO> reviewList = new ArrayList<>();
 
+		try (Connection con = this.getConnection();
+			 PreparedStatement statement = con.prepareStatement(sql)) {
 
+			statement.setInt(1, gymSeq);
+
+			try (ResultSet rs = statement.executeQuery();) {
+				while (rs.next()) {
+					reviewList.add(new ReviewDTO(rs));
+				}
+				return reviewList;
+			}
+		}
+	}
+
+	public void deleteByGymSeq(int gymSeq) throws Exception {
+		String sql = "delete from raview where gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+			 PreparedStatement statement = con.prepareStatement(sql)) {
+
+			statement.setInt(1, gymSeq);
+
+			statement.executeUpdate();
+			con.commit();
+		}
+	}
 }
