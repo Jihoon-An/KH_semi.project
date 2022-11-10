@@ -364,7 +364,7 @@
 	<script>
       
       $("#reviewbtn").on("click", function () {
-          location.href = "";
+          location.href = "/reviewWrite.gym?gym_seq=${gymList.gym_seq}";
         }); //리뷰작성 이동
       </script>
 

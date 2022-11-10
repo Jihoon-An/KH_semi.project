@@ -86,32 +86,31 @@ public class GymController extends ControllerAbs {
 		int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
 
-		ReviewDAO reviewdao = ReviewDAO.getInstance();
-		GymDAO gymdao = GymDAO.getInstance();
-		FavoritesDAO favdao = FavoritesDAO.getInstance();
-		LikesDAO likesDAO = LikesDAO.getInstance();
+		ReviewDAO reviewDao = ReviewDAO.getInstance();
+		GymDAO gymDao = GymDAO.getInstance();
+		FavoritesDAO favDao = FavoritesDAO.getInstance();
 		GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
 
 
 
-		List<HashMap<String, Object>> reviewdto = reviewdao.printReivew(gym_seq);
+		List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
 		GymFilterDTO gymFilterDtO= filterDAO.selectByFilter(gym_seq);
 
-		GymDTO gymdto = gymdao.printGym(gym_seq);
+		GymDTO gymDto = gymDao.printGym(gym_seq);
 
 
 		if ( request.getSession().getAttribute("userSeq") == null ) {//로그아웃 상태라면 건너뒤기
 			request.setAttribute("favresult", "check");
 		} else {
-			boolean result = favdao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+			boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
 			request.setAttribute("favresult", result);
 		}
 
 
 		request.setAttribute("gymFilter", gymFilterDtO);
-		request.setAttribute("gymList", gymdto);
-		request.setAttribute("reviewList", reviewdto);
+		request.setAttribute("gymList", gymDto);
+		request.setAttribute("reviewList", reviewDto);
 		request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
 	}
 
