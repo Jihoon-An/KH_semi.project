@@ -52,67 +52,88 @@
 									<div class="text_title" id="result_title"></div>
 									<div class="text_normal" id="result_contents">
 										데이터가 존재하지 않습니다.
-										<div><button class="btn_outline" id="btn_regRecord" onclick="showRegRecord()">등록하기</button></div>
+										<div><button class="btn_outline" id="btn_regRecord"
+												onclick="showRegRecord()">등록하기</button></div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="personal_record row">
-							<div class="col-12">
+
 								<div id="record">
 									<div class="row">
-										<div class="col-3">
-											<p>등록 일자</p>
+										<div class="col-7"
+											style="padding:0px; height:286px; border-right:1px solid #C8C8C8">
+											<div class="row" style="border:none; padding-bottom:0px">
+												<div class="text_title_600 col-12 mb-3">
+													Record
+												</div>
+												<div class="col-5 text-end">
+													<p>등록 일자</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="text" class="text-center" id="reg_date"
+														style="width:160px" readonly>
+												</div>
+												<div class="col-5 text-end">
+													<p>운동 시간</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="text" class="text-center" style="width:50px"
+														oninput="validNaturalNumRange(24)">&nbsp시간&nbsp
+													<input type="text" class="text-center" style="width:50px"
+														oninput="validNaturalNumRange(60)">&nbsp분&nbsp
+												</div>
+												<div class="col-5 text-end">
+													<p>운동 강도</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="range" class="form-range" id="reg_intens"
+														style="width:180px; height:27px" min="1" max="5">
+												</div>
+												<div class="col-5 text-end" style="padding-bottom:0px">
+													<p>메모 내용</p>
+												</div>
+												<div class="col-7 text-start" style="padding-bottom:0px">
+													<input type="text" style="width:180px" maxlength="20">
+												</div>
+											</div>
 										</div>
-										<div class="col-9">
-											<input type="text" id="reg_date" style="text-align:center" readonly>
+										<div class="col-5" style="padding:0px; height:286px">
+											<div class="row" style="border:none; padding-bottom:0px">
+												<div class="text_title_600 col-12 mb-3">
+													InBody
+												</div>
+												<div class="col-5 text-end">
+													<p>몸무게</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="text" class="text-center" style="width:70px"
+														oninput="vaildNumRange(1000)">&nbspKg
+												</div>
+												<div class="col-5 text-end">
+													<p>체지방량</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="text" class="text-center" style="width:70px"
+														oninput="vaildNumRange(1000)">&nbspKg
+												</div>
+												<div class="col-5 text-end">
+													<p>골격근량</p>
+												</div>
+												<div class="col-7 text-start">
+													<input type="text" class="text-center" style="width:70px"
+														oninput="vaildNumRange(1000)">&nbspKg
+												</div>
+												<div class="col-5 text-end" style="padding-bottom:0px">
+													<p>BMI</p>
+												</div>
+												<div class="col-7 text-start" style="padding-bottom:0px">
+													<input type="text" class="text-center" style="width:70px"
+														oninput="vaildNumRange(100)">
+												</div>
+											</div>
 										</div>
-										<div class="col-3">
-											<p>운동 시간</p>
-										</div>
-										<div class="col-9">
-											<input type="text" oninput="validHour()">
-										</div>
-										<div class="col-3">
-											<p>운동 강도</p>
-										</div>
-										<div class="col-9">
-											<input type="range">
-										</div>
-										<div class="col-3">
-											<p>메모</p>
-										</div>
-										<div class="col-9">
-											<input type="text">
-										</div>
-									</div>
-									<div class="row">
-										<div class="text_title_600 col-12">
-											인바디 결과
-										</div>
-										<div class="col-3">
-											<p>몸무게</p>
-										</div>
-										<div class="col-3">
-											<input type="text">
-										</div>
-										<div class="col-3">
-											<p>체지방량</p>
-										</div>
-										<div class="col-3">
-											<input type="text">
-										</div>
-										<div class="col-3">
-											<p>골격근량</p>
-										</div>
-										<div class="col-3">
-											<input type="text">
-										</div>
-										<div class="col-3">
-											<p>BMI</p>
-										</div>
-										<div class="col-3">
-											<input type="text">
+										<div class="col-12">
+											<button class="btn_outline">작성완료</button>
+											<button class="btn_outline" onclick="regCancel()">돌아가기</button>
 										</div>
 									</div>
 								</div>
@@ -152,17 +173,39 @@
 						$("#result_title").text(date + "의 운동기록");
 					}
 
-					function validHour() {
-          				event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
-						if (Number(event.target.value) > 24) {
-							event.target.value = 24;
+					function validNaturalNumRange(max) {
+						event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+						if (Number(event.target.value) >= max) {
+							event.target.value = max - 1;
 						}
-     			   	}
+					}
+
+					function vaildNumRange(max) {
+						event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+						if (Number(event.target.value) >= max) {
+							event.target.value = max - 1;
+						}
+					}
 
 					function showRegRecord() {
-						$(".personal_info").attr("style", "display:none");
-						$(".personal_record").attr("style", "display:flex")
+						$("#inbody")[0].style.height = "250px";
+						$("#weight")[0].style.height = "250px";
+						$("#result")[0].style.height = "400px";
+						$("#record")[0].style.height = "400px";
+						$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 					}
+
+					function regCancel() {
+						$("#record").fadeOut(0, () => { $("#result").fadeIn(500)
+						$("#inbody")[0].style.height = "350px";
+						$("#weight")[0].style.height = "350px";
+						$("#result")[0].style.height = "300px";
+						$("#record")[0].style.height = "300px";});
+					}
+
+					$("#reg_intens").on("input", e => {
+						$("#reg_intens_label").text(e.target.value);
+					});
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');

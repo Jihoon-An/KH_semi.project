@@ -15,19 +15,26 @@
 	height: 50px;
 }
 
-#personal-record #manager,
-#inbody,
-#weight {
+#personal-record #manager {
 	height: 250px;
 }
 
-#personal-record #calendar,
-#result {
+#personal-record #inbody,
+#personal-record #weight {
+	height: 350px;
+	transition: 0.5s;
+} 
+
+#personal-record #calendar {
 	height: 400px;
 }
 
-#personal-record #result {
-	padding: 20px;
+#personal-record #result,
+#personal-record #record {
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 300px;
+	transition: 0.5s;
 }
 
 #personal-record #result_contents {
@@ -36,46 +43,28 @@
 	transform: translate(0, -50%);
 }
 
-#personal-record .personal_info {
-	display: none;
-}
-
-/* #personal-record .personal_record {
-	display: none;
-} */
-
-fieldset {
-    border: 1px solid black;
-}
-
-legend {
-    display:flex;
-    justify-content:space-between;
-    width: 100%;
-    position: relative;
-}
-legend div {
-    background-color: white;
-    margin-left:0.5em;
-    margin-right:0.5em;
-}
-legend div.line {
-    flex: 1 1 auto;
-    background-color: transparent;
-}
-
-legend div.line:before {
-    position: absolute;
-    z-index: -1;
-    content: '';
-    left: 0px;
-    right: 0px;
-    top: 50%;
-    border-top: 1px solid black;
-}
-
 #personal-record #record {
-	height: 670px;
+	display: none;
+}
+
+#personal-record #record input:not([type="range"]) {
+	padding-left: 5px;
+	padding-right: 5px;
+	border: 0px;
+	border-bottom: 1px solid #808080;
+}
+
+#personal-record #record input:not([type="range"]):focus {
+	outline: none;
+	box-shadow: 0px 1px 0px 0px #808080;
+}
+
+#personal-record #record .text-start {
+	padding-left: 15px;
+}
+
+#personal-record #record .text-end {
+	padding-right: 15px;
 }
 
 #personal-record .chart_wrap {
