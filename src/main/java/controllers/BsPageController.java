@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-
+                case "/modifyGym.bsPage":
+                    this.toUpdateGym(request,response);
+                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
+                    break;
+             
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
                     request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
@@ -205,6 +210,7 @@ public class BsPageController extends ControllerAbs {
         BsCtfcDAO.getInstance().updateBsNum(new BsCtfcDTO(bsSeq, number, null));
     }
 
+
     /**
      * <h1>사업자 페이지 데이터 불러오기</h1>
      * session에 bsSeq만 필요
@@ -228,6 +234,41 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymList", gymList);
         request.setAttribute("gymFilterList", gymFilterList);
     }
+
+
+    /**
+     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
+     */
+    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+
+        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
+        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+        request.setAttribute("gym", gym);
+        request.setAttribute("gymFilter", gymFilter);
+    }
+
+
+    private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+
+        String open = request.getParameter("open");
+        String locker = request.getParameter("locker");
+        String shower = request.getParameter("shower");
+        String park = request.getParameter("park");
+
+        GymDTO gymDTO = new GymDTO(request);
+
+        GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
+
+        GymDAO.getInstance().updateGym(gymDTO);
+        GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
+
+
+    }
+
 
 
     @Override
