@@ -64,7 +64,7 @@
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${gymList.gym_price }원</dd>
+					<dd>${gymList.gym_price }</dd>
 				</div>
 			</div>
 
@@ -108,8 +108,8 @@
 												class="relike fa-solid fa-thumbs-up"></i>
 											<c:if test="${r.liked ==userSeq}">
 												<script>
-										$(".relike").attr("style", "color:#001A41")
-										</script>
+												$(".relike").attr("style", "color:#001A41")
+												</script>
 											</c:if>
 										</div>
 
@@ -364,7 +364,7 @@
 	<script>
       
       $("#reviewbtn").on("click", function () {
-          location.href = "";
+          location.href = "/reviewWrite.gym?gym_seq=${gymList.gym_seq}";
         }); //리뷰작성 이동
       </script>
 

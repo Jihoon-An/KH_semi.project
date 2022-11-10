@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import commons.Common;
-import commons.FileControl;
 import dao.*;
 import dto.*;
 
@@ -36,21 +33,21 @@ public class GymController extends ControllerAbs {
 
                 //좋아요 추가
                 case "/reviewLikeAdd.gym":
-                    this.getReLikeAdd(request, response);
+                    this.reLikeAdd(request, response);
                     break;
 
                 case "/reviewLikeDel.gym":
-                    this.getReLikeDel(request, response);
+                    this.reLikeDel(request, response);
                     break;
 
                 //즐겨찾기 추가
                 case "/favoriteadd.gym":
-                    this.getFavAdd(request, response);
+                    this.favAdd(request, response);
                     break;
 
                 //즐겨찾기 제거
                 case "/favoriteremove.gym":
-                    this.getFavDelete(request, response);
+                    this.favDelete(request, response);
                     break;
 
                 //리뷰쓰기
@@ -77,36 +74,35 @@ public class GymController extends ControllerAbs {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
 
-        ReviewDAO reviewdao = ReviewDAO.getInstance();
-        GymDAO gymdao = GymDAO.getInstance();
-        FavoritesDAO favdao = FavoritesDAO.getInstance();
-        LikesDAO likesDAO = LikesDAO.getInstance();
+        ReviewDAO reviewDao = ReviewDAO.getInstance();
+        GymDAO gymDao = GymDAO.getInstance();
+        FavoritesDAO favDao = FavoritesDAO.getInstance();
         GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
 
 
-        List<HashMap<String, Object>> reviewdto = reviewdao.printReivew(gym_seq);
+        List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
         GymFilterDTO gymFilterDtO = filterDAO.selectByFilter(gym_seq);
 
-        GymDTO gymdto = gymdao.printGym(gym_seq);
+        GymDTO gymDto = gymDao.printGym(gym_seq);
 
 
         if (request.getSession().getAttribute("userSeq") == null) {//로그아웃 상태라면 건너뒤기
             request.setAttribute("favresult", "check");
         } else {
-            boolean result = favdao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
+            boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
         }
 
 
         request.setAttribute("gymFilter", gymFilterDtO);
-        request.setAttribute("gymList", gymdto);
-        request.setAttribute("reviewList", reviewdto);
+        request.setAttribute("gymList", gymDto);
+        request.setAttribute("reviewList", reviewDto);
         request.getRequestDispatcher("/gym/gym-detail.jsp").forward(request, response);
     }
 
 
-    protected void getFavAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void favAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         //즐겨찾기 추가
         int user_seq = Integer.parseInt(String.valueOf(request.getSession().getAttribute("userSeq"))); // 로그인 사용자
@@ -117,22 +113,19 @@ public class GymController extends ControllerAbs {
 
     }
 
-    protected void getFavDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void favDelete(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // 즐겨찾기 삭제
-
-
         int user_seq = (Integer) request.getSession().getAttribute("userSeq");
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
         FavoritesDAO dao = FavoritesDAO.getInstance();
 
         int result = dao.removeByGymSeq(gym_seq, user_seq);
-
     }
 
     //좋아요 추가
-    private void getReLikeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private void reLikeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //
         int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
@@ -154,7 +147,7 @@ public class GymController extends ControllerAbs {
     }
 
     //좋아요 삭제
-    private void getReLikeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    private void reLikeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
@@ -169,15 +162,6 @@ public class GymController extends ControllerAbs {
         int result = likesDao.remove(review_seq, gym_seq, userSeq);
         System.out.println("좋아요 취소 성공");
 
-    }
-
-
-    protected int write(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
-        int result = ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
-
-        return result;
     }
 
 
