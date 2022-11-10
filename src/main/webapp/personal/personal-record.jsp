@@ -31,19 +31,19 @@
 					</div>
 					<div class="col-8">
 						<div class="personal_info row">
-							<div class="col-8">
+							<div class="col-7">
 								<div id="inbody">
 									태어나서 처음 해본 인바디 결과
 									<div class="chart_wrap">
-										<canvas id="inbody_chart" width="450" height="300"></canvas>
+										<canvas id="inbody_chart" width="400" height="300"></canvas>
 									</div>
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-5">
 								<div id="weight">
 									몸무게 변화
 									<div class="chart_wrap">
-										<canvas id="weight_chart" width="200" height="300"></canvas>
+										<canvas id="weight_chart" width="250" height="300"></canvas>
 									</div>
 								</div>
 							</div>
