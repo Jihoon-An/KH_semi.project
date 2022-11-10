@@ -35,7 +35,7 @@
 								<div id="inbody">
 									태어나서 처음 해본 인바디 결과
 									<div class="chart_wrap">
-										<canvas id="inbody_chart" height="110"></canvas>
+										<canvas id="inbody_chart" width="450" height="300"></canvas>
 									</div>
 								</div>
 							</div>
@@ -43,13 +43,13 @@
 								<div id="weight">
 									몸무게 변화
 									<div class="chart_wrap">
-										<canvas id="weight_chart" height="250"></canvas>
+										<canvas id="weight_chart" width="200" height="300"></canvas>
 									</div>
 								</div>
 							</div>
 							<div class="col-12">
 								<div id="result">
-									<div class="text_title" id="result_title"></div>
+									<div class="text_title" id="result_title" style="padding-top:10px"></div>
 									<div class="text_normal" id="result_contents">
 										데이터가 존재하지 않습니다.
 										<div><button class="btn_outline" id="btn_regRecord"
@@ -192,6 +192,8 @@
 						$("#weight")[0].style.height = "250px";
 						$("#result")[0].style.height = "400px";
 						$("#record")[0].style.height = "400px";
+						$("#inbody_chart")[0].style.height = "200";
+						$("#weight_chart")[0].style.height = "200";
 						$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 					}
 
@@ -200,7 +202,9 @@
 						$("#inbody")[0].style.height = "350px";
 						$("#weight")[0].style.height = "350px";
 						$("#result")[0].style.height = "300px";
-						$("#record")[0].style.height = "300px";});
+						$("#record")[0].style.height = "300px";
+						$("#inbody_chart")[0].style.height = "300";
+						$("#weight_chart")[0].style.height = "300"; });
 					}
 
 					$("#reg_intens").on("input", e => {
@@ -234,6 +238,7 @@
 							}]
 						},
 						options: {
+							responsive: false,
 							indexAxis: 'y',
 							scales: {
 								y: {
@@ -269,6 +274,7 @@
 								}]
 							},
 							options: {
+								responsive: false,
 								scales: {
 									y: {
 										beginAtZero: true

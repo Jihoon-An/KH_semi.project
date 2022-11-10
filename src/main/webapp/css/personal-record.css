@@ -23,7 +23,15 @@
 #personal-record #weight {
 	height: 350px;
 	transition: 0.5s;
-} 
+}
+
+#personal-record #inbody_chart {
+	transition: 0.5s;
+}
+
+#personal-record #weight_chart {
+	transition: 0.5s;
+}
 
 #personal-record #calendar {
 	height: 400px;
