@@ -6,7 +6,7 @@
 <%@ include file="/layout/header.jsp"%>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-	<form id="form_bs_sign" method="post" enctype="multipart/form-data">
+	<form id="gym-modify-form" action="/modifyGym.bsPage" method="post" enctype="multipart/form-data">
 
 		<div class="container" align="center">
 			<!-- 사업자 회원가입 폼 -->
@@ -20,13 +20,13 @@
 							<h1>시설 정보 수정 페이지</h1>
 						</div>
 
+                        <!------------------------------ 시설 정보 --------------------------->
 						<div class="col-12 gy-5">
 							<div class="text-start" style="width: 350px">
 								<p class="text_title">시설정보</p>
 							</div>
 						</div>
 
-						
 
 						<div class="col-12 gy-4">
 							<div class="text-start">
@@ -104,23 +104,77 @@
                         </div>
 						
 
+                        <!------------------------------ 시설 태그 --------------------------->
+                        <div class="col-12 gy-5">
+							<div class="text-start" style="width: 350px">
+								<p class="text_title">시설태그</p>
+							</div>
+						</div>
                         
+                        
+                        <div class="col-2 text-center">
+                            <span class="inputTitle">24시간 운영</span>
+                            <div class="checkbox-wrapper-55">
+                                <label class="rocker rocker-small">
+                                    <input type="checkbox" name="open" id="open" class="filterCheck">
+                                    <span class="switch-left">Yes</span>
+                                    <span class="switch-right">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-2 text-center">
+                            <span class="inputTitle">라커 여부</span>
+                            <div class="checkbox-wrapper-55">
+                                <label class="rocker rocker-small">
+                                    <input type="checkbox" name="locker" id="locker" class="filterCheck">
+                                    <span class="switch-left">Yes</span>
+                                    <span class="switch-right">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-2 text-center">
+                            <span class="inputTitle">샤워시설 여부</span>
+                            <div class="checkbox-wrapper-55">
+                                <label class="rocker rocker-small">
+                                    <input type="checkbox" name="shower" id="shower" class="filterCheck">
+                                    <span class="switch-left">Yes</span>
+                                    <span class="switch-right">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-2 text-center">
+                            <span class="inputTitle">주차장 여부</span>
+                            <div class="checkbox-wrapper-55">
+                                <label class="rocker rocker-small">
+                                    <input type="checkbox" name="park" id="park" class="filterCheck">
+                                    <span class="switch-left">Yes</span>
+                                    <span class="switch-right">No</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-1"></div>
 
 
-                        <div class="col-12 gy-5 gymtitle">
+    
+                        <!------------------------------ 시설 사진 --------------------------->
+                        <div class="col-12 gymtitle">
 							<div class="text-start">
 								<p class="text_title">시설사진</p>
 							</div>
 						</div>
 
-						<div class="col-12 gy-4">
+						<div class="col-12 gy-3">
 							<div class="text-start">
 								<span class="inputTitle">대표사진</span>
 							</div>
 
 
 							<div class="filebox text-start">
-								<label for="main_img" class="gym_imgFile_name">이미지를 업로드하세요</label>
+								<label for="main_img" class="gym_imgFile_name  .label">이미지를 업로드하세요</label>
                                 <input type="file" name="main_img" id="main_img" class="gym_imgFile" multiple>
 							</div>
 
@@ -134,7 +188,7 @@
 							</div>
 
 							<div class="filebox text-start">
-								<label for="gym_img" class="gym_imgFile_name">이미지를 업로드하세요</label> 
+								<label for="gym_img" class="gym_imgFile_name .label">이미지를 업로드하세요</label> 
                                 <input type="file" name="gym_img" id="gym_img" class="gym_imgFile" multiple>
 							</div>
 						</div>
