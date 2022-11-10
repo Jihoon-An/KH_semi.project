@@ -11,12 +11,13 @@
 
     <div class="containerbox">
         <section>
-            <form action="/write.review" id="write_review_frm" method="post" enctype="multipart/form-data">
-
+            <form action="/reviewWriteCmplt.gym" id="write_review_frm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="gym_seq" value="${gym_seq}">
+                <input type="hidden" name="gym_name" value="${gym_name}">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
-                        <p style="margin-bottom: 5px"><span class="text_main_title_600">에이블짐</span>
+                        <p style="margin-bottom: 5px"><span class="text_main_title_600">${gym_name}</span>
                             <span class="text_title">에 방문하셨나요?</span></p>
                         <h1>리뷰를 작성해주세요</h1>
                     </div>
@@ -116,15 +117,9 @@
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
-                        <p style="margin-bottom: 5px"><span class="text_main_title_600">에이블짐</span>
+                        <p style="margin-bottom: 5px"><span class="text_main_title_600">${gym_name}</span>
                             <span class="text_title">에 대한</span></p>
                         <h2 style="margin-bottom: 15px">솔직한 평가를 남겨주세요</h2>
-
-
-
-
-
-
 
                         <p class="star_value"><span class="text_main_title">만족도 <span
                                 id="slider_star_value2">0</span>점을
@@ -142,7 +137,7 @@
                     </div>
 
                     <div class="review_text_box">
-							<textarea id="review_text" name="review_text"
+							<textarea id="review_contents" name="review_contents"
                                       placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요"></textarea>
                         <div id="review_text_cnt">(0 / 1000자)</div>
                     </div>
@@ -159,7 +154,7 @@
                         </h2>
                         <span class="text_normal">선택 항목입니다</span>
 
-                        <div class="text_mini reviw_img_info">
+                        <div class="text_mini review_photo_info">
                             <p class="text_normal"><b>시설 회원권이나 영수증 등 시설 이용권에 대한 사진을 찍어 업로드 해주시면 <br>
                                 운영자 확인 후 인증 리뷰어 뱃지를 등록해드립니다.</b></p>
                             <ul>
@@ -171,14 +166,14 @@
                     </div>
 
                     <div>
-                        <label for="review_img" class="btn_check">
+                        <label for="review_photo" class="btn_check">
                             <i class="fa-regular fa-square-plus"></i>&nbsp; 시설 회원권 또는 영수증 첨부하기
                         </label>
-                        <input type="file" id="review_img" style="display:none">
+                        <input type="file" id="review_photo" style="display:none">
                         <div>
                             <div class="p-2">이미지 미리보기</div>
                             <div class="img_wrap">
-                                <img id="review_img_view"/>
+                                <img id="review_photo_view"/>
                             </div>
                         </div>
 
@@ -205,10 +200,28 @@
 
 <script>
 
-    // 텍스트 글자수 세기
 
+
+    // 체크박스 checked 시 'y'값 주기
+    if($("#review_check1").prop("checked")){
+        $("#review_check1").val("y");
+    }
+    if($("#review_check2").prop("checked")){
+        $("#review_check2").val("y");
+    }
+    if($("#review_check3").prop("checked")){
+        $("#review_check3").val("y");
+    }
+    if($("#review_check4").prop("checked")){
+        $("#review_check5").val("y");
+    }
+    if($("#review_check5").prop("checked")){
+        $("#review_check5").val("y");
+    }
+
+    // 텍스트 글자수 세기
     $(document).ready(function () {
-        $('#review_text').on('keyup', function () {
+        $('#review_contents').on('keyup', function () {
             $('#review_text_cnt').html("(" + $(this).val().length + " / 1000자)");
 
             if ($(this).val().length > 1000) {
@@ -219,7 +232,6 @@
     });
 
     // 별점
-
     function ShowSliderValue(sVal) {
         var obValueView1 = document.getElementById("slider_star_value1");
         var obValueView2 = document.getElementById("slider_star_value2");
@@ -252,7 +264,6 @@
         }
     }
 
-
     var RangeSlider = function () {
         var range = $('.star');
 
@@ -265,12 +276,14 @@
     RangeSlider();
 
 
+
+    //이미지 미리보기
+
     $(document).ready(function () {
-        $("#review_img").on("change", handleImgFileSelect);
+        $("#review_photo").on("change", handleImgFileSelect);
     });
 
 
-    //이미지 미리보기
     function handleImgFileSelect(e) {
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
@@ -287,7 +300,7 @@
 
             var reader = new FileReader();
             reader.onload = function (e) {
-                $("#review_img_view").attr("src", e.target.result);
+                $("#review_photo_view").attr("src", e.target.result);
             }
             reader.readAsDataURL(f);
         });
@@ -296,26 +309,6 @@
     }
 
 
-    //이미지 저장
-    function fn_submit() {
-
-        var form = new FormData();
-        form.append("review_img_in", $("#review_img_in")[0].files[0]);
-
-        $.ajax({
-            url: "/modifyPI.userMyPage"
-            , type: "POST"
-            , processData: false
-            , contentType: false
-            , data: form
-            , success: function (response) {
-                console.log("프로필 변경에 성공하였습니다.");
-            }
-            , error: function (jqXHR) {
-                alert(jqXHR.responseText);
-            }
-        });
-    }
 
 
 </script>

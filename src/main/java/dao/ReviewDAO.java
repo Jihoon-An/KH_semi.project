@@ -250,15 +250,12 @@ public class ReviewDAO extends Dao {
 			pstat.setString(8, dto.getReview_check3());
 			pstat.setString(9, dto.getReview_check4());
 			pstat.setString(10, dto.getReview_check5());
+
 			con.commit();
+
 			return pstat.executeUpdate();
 		}
 	}
-
-
-
-
-
 
 
 

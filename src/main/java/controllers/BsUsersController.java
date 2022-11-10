@@ -52,7 +52,7 @@ public class BsUsersController extends HttpServlet {
 				response.getWriter().append(String.valueOf(this.hasBsData(request, response)));
 				break;
 
-			// 회원가입 페이지 가기
+			// 회원가입 페이지 이동
 			case "/sign.bs":
 				request.getRequestDispatcher("/bs/bs-signup.jsp").forward(request,response);
 				break;
@@ -64,7 +64,7 @@ public class BsUsersController extends HttpServlet {
 					response.sendRedirect("/error.jsp");
 					return;
 				}
-				response.getWriter().append(String.valueOf(this.isBsSignUp(request, response)));
+				this.bsSignUp(request, response);
 				request.setAttribute("start", "login");
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				break;
@@ -118,7 +118,7 @@ public class BsUsersController extends HttpServlet {
 		return BsUsersDAO.getInstance().isBsEmailCheck(req_email);
 	}
 
-	protected int isBsSignUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void bsSignUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int maxSize = 1024 * 1024 * 10;
 		String savePath = request.getServletContext().getRealPath("/files");
@@ -177,10 +177,8 @@ public class BsUsersController extends HttpServlet {
 		}
 
 		// 회원가입
-		int result = BsUsersDAO.getInstance().isBsSignUp(new BsUsersDTO(bsSeqNextVal, req_number, req_email,
+		BsUsersDAO.getInstance().isBsSignUp(new BsUsersDTO(bsSeqNextVal, req_number, req_email,
 				Common.getSHA512(req_pw), req_name, req_phone, null));
-
-		return result;
 
 	}
 

@@ -50,9 +50,14 @@ public class GymController extends ControllerAbs {
                     this.favDelete(request, response);
                     break;
 
+                // 리뷰쓰기로 페이지 이동
+                case "/reviewWrite.gym":
+                    this.goGymDetail(request, response);
+                    break;
+
                 //리뷰쓰기
-                case "/revievWrite.gym":
-                    response.getWriter().append(String.valueOf(this.write(request, response)));
+                case "/reviewWriteCmplt.gym":
+                    this.write(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -164,10 +169,19 @@ public class GymController extends ControllerAbs {
 
     }
 
+    // 리뷰 글쓰기 페이지로 이동
+    protected void write(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+        ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
+        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+GymDAO.getInstance().printGym(gym_seq).getGym_name());
+    }
 
-    protected int write(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int result = ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
-        return result;
+    // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
+    protected void goGymDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+        request.setAttribute("gym_seq", gym_seq);
+        request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
+        request.getRequestDispatcher("/gym/review-write.jsp").forward(request, response);
     }
 
 
