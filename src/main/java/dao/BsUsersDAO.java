@@ -245,7 +245,7 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            if(rs.next()){
+            if(rs.next()) {
                 return rs.getInt(1); // 한줄 뽑겠다
             }
             return 0;
