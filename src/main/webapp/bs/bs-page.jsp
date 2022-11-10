@@ -2,18 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
-<main id="bs-page">
+<main id="bs-page" class="containerbox">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
             <h1>사업자 페이지</h1>
         </div>
         <!-- 정보 수정 버튼 -->
         <div class="text-center" id="btn_area">
-            <button type="button" id="modify_profile_btn" class="btn_base" style="display:inline-table">일반
-                정보 수정
+            <button type="button" id="modify_profile_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                일반 정보 수정
             </button>
-            <button type="button" id="modify_acc_btn" class="btn_base" style="display:inline-table">계정
-                정보 수정
+            <button type="button" id="modify_acc_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                계정 정보 수정
             </button>
         </div>
 
@@ -69,7 +71,8 @@
                         <div class="row profile_title pt-2"><span>사업자등록증</span></div>
                         <div class="row">
                             <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
-                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc" style="display: none"></div>
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc"
+                                   style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
                         </div>
@@ -100,7 +103,7 @@
                 <div class="row justify-content-center">
                     <div class="col-8">
                         <%--비밀번호 입력--%>
-                        <div class="row profile_title pt-4"><span>비밀번호</span></div>
+                        <div class="row profile_title pt-5"><span>비밀번호</span></div>
                         <div class="row"><input id="bs_pw1" type="password" class="profile_input"
                                                 placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
@@ -113,22 +116,81 @@
                         <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
                         <!--sd = sign down -->
                         <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
-                            <div style="color: blue">정말 탈퇴하시겠습니까?</div>
+                            <div style="color: blue; margin-bottom: 10px;">정말 탈퇴하시겠습니까?</div>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
                         <form action="/signDown.bsPage" id="sign_down_form"></form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- 매장 정보 -->
+    <div id="gym_info">
+
+        <div class="container-fluid">
+            <hr>
+            <!-- card -->
+            <c:forEach var="gym" items="${gymList}" varStatus="status">
+                <div class="row gym_card">
+                    <form id="gym_form">
+                    <input name="gym_seq" id="gym_seq" type="hidden">
+                    </form>
+                    <div class="col-3 p-0">
+                        <img src="/resource/main.jpg" class="gym_img">
+                    </div>
+                    <div class="col-7 gym_text">
+                        <h3 class="gym_name">${gym.gym_name}</h3>
+                        <p>${gym.gym_open} ~ ${gym.gym_close}</p>
+                        <p>${gym.gym_location}</p>
+                        <p>${gym.gym_phone}</p>
+                        <!-- 태그 -->
+                        <div class="gym_list_tagBox">
+                            <c:if test="${gymFilterList[status.index].open eq 'true'}">
+                                <div class="gym_list_tag open btn_base">#24시간</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].locker eq 'true'}">
+                                <div class="gym_list_tag locker btn_base">#라커</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].shower eq 'true'}">
+                                <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].park eq 'true'}">
+                                <div class="gym_list_tag park btn_base">#주차장</div>
+                            </c:if>
+                        </div>
+
+                    </div>
+                    <div class="col-2 justify-content-center">
+                        <button class="btn_outline" id="modify_gym_btn"
+                                style="border: 2px solid #F0F0F0;
+                                    background-color: #F0F0F0;">
+                            수정
+                        </button>
+                        <button class="btn_outline" id="delete_gym_btn"
+                                style="margin-top:70px;
+                                    border: 2px solid #F0F0F0;
+                                    background-color: #F0F0F0;">
+                            삭제
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </c:forEach>
+
+
+        </div>
+
+    </div>
+
+
 </main>
 
 
-<%----------------------------- script   ------------------------------%>
+<!----------------------------- script ------------------------------>
 
 
 <script>
@@ -321,5 +383,17 @@
         $("#sign_down_form").submit();
     });
 
+
+    /*                                                                         */
+    // gym 수정페이지로 이동
+    $("#modify_gym_btn").click(function () {
+        $("#gym_form").attr("action", "/toUpdateGym.bsPage");
+        $("#gym_form").submit();
+    });
+    // gym 삭제
+    $("#modify_gym_btn").click(function () {
+        $("#gym_form").attr("action", "/deleteGym.bsPage");
+        $("#gym_form").submit();
+    });
 </script>
 <%@ include file="/layout/footer.jsp" %>

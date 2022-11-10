@@ -23,6 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
 
+    <!-- font-family: 'Jua', sans-serif; -->
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
     <!-- font-family: 'Noto Sans KR', sans-serif; -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
@@ -48,8 +51,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css" rel="stylesheet">
 
     <!-- Radar Chart -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    
     <!-- daum zipcode -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- kakaomaps - ykm -->
@@ -103,12 +107,10 @@
 
 <!-- Site header -->
 <header id="header">
-    <div class="containerbox">
+    <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
-            <h1 id="header_logo">
-                <a class="header_a_tag" href="/">Fitneeds</a>
-            </h1>
+            <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
         </div>
 
         <div class="float-start">

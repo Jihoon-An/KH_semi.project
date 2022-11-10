@@ -13,7 +13,7 @@
 	overflow: hidden;
 }
 
-#header_logo {
+#header #header_logo {
 	font-family: 'Inter', sans-serif;
 	font-weight: 900;
 	font-style: italic;
@@ -21,58 +21,58 @@
 	font-size: 40px;
 	line-height: 85px;
 	display: inline;
-	margin-right: 80px;
+	margin-right: 100px;
 }
 
-nav {
+#header nav {
 	display: inline;
 }
 
-#header_nav_text>ul {
+#header #header_nav_text>ul {
 	list-style: none;
 	padding: 0;
 	display: inline;
 }
 
-#header_nav_text {
+#header #header_nav_text {
 	width: 100px;
 	height: 100px;
 	color: #FFFFFF;
-	font-size: 18px;
-	line-height: 85px;
+	font-size: 20px;
+	line-height: 88px;
 }
 
-#header_nav_menu {
+#header #header_nav_menu {
 	margin: 0;
 }
 
-#header_nav_menu>li {
+#header #header_nav_menu>li {
 	margin-right: 50px;
 }
 
-#header_nav_person {
+#header #header_nav_person {
 	margin: 0;
-	position: relative;
-	left: 300px;
+	position: absolute;
+	right: 0px;
 }
 
-#header_nav_person>li {
+#header #header_nav_person>li {
 	margin-left: 50px;
 }
 
-.header_a_tag {
+#header .header_a_tag {
 	text-decoration: none;
 	color: #FFFFFF;
 	cursor: pointer;
 }
 
-.header_a_tag:hover {
+#header .header_a_tag:hover {
 	color: #FFFFFF;
 }
 
-#header_nav_text>ul>li>a:hover {
+#header #header_nav_text>ul>li>a:hover {
 	color: #FFFFFF;
-	font-weight: 600;
+	color: #B9E0FF;
 }
 
 /* footer */
