@@ -110,6 +110,9 @@ public class BsUsersController extends HttpServlet {
 		return BsUsersDAO.getInstance().searchBsPw(req_email, req_phone);
 	}
 
+	/**
+	 *	<h2>중복확인</h2>
+	 */
 	protected boolean isBsDuplCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String req_email = request.getParameter("bs_email");
 		return BsUsersDAO.getInstance().isBsEmailCheck(req_email);
