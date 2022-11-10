@@ -148,7 +148,7 @@
                                    onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
                             </li>
                             <li class="float-end">
-                                <a class="header_a_tag" href="/userslist.host">관리자페이지</a>
+                                <a class="header_a_tag" href="/usersList.host?cpage=1">관리자페이지</a>
                             </li>
                         </c:when>
                         <c:otherwise>
