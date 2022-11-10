@@ -165,4 +165,10 @@ public class GymController extends ControllerAbs {
     }
 
 
+    protected int write(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int result = ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
+        return result;
+    }
+
+
 }
