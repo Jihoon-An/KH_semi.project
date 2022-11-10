@@ -13,6 +13,13 @@
 <link rel="stylesheet" href="/api/jquery-ui/jquery-ui.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/api/jquery-ui/images"></script>
+<style>
+	.ui-datepicker{font-size:40px; width: 500px;}
+	.ui-datepicker select.ui-datepicker-month{width:100%; font-size:50px;}
+	.ui-datepicker select.ui-datepicker-year{ width:100%; font-size:50px;}
+	
+	
+</style>
 </head>
 <body>
 	<div class="calendar"></div>
