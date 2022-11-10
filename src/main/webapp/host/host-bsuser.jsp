@@ -11,7 +11,7 @@
     <div class="containerbox" style="overflow:hidden">
     <div class="board">
     
-    <form action="" id="frm">
+    
         <div class="title">
             <div class="userm text_title">사업자 회원</div> 
 
@@ -60,7 +60,7 @@
                         </div>
                         
           <div class="textsearch"><input type="text" name="inputT" id="inputText" placeholder="이름 검색">
-          <button type="submit" id="btn_search">SEARCH</button>
+          <button type="submit" id="btn_searchh">SEARCH</button>
           </div>
          <div class="btn_div"><button class="btn_base deleteuser" id="btn_del">삭제하기</button></div>
     
@@ -103,7 +103,7 @@
     
     
     <!-- 사업자 회원 검샏-->
-    	$("#btn_search").on("click", function(){
+    	$("#btn_searchh").on("click", function(){
     	  let input = $("#inputText").val();
     	  
     	  if(input==""){

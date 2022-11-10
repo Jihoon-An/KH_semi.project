@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,12 +172,28 @@ public class UserDAO extends Dao {
             try (ResultSet rs = pstat.executeQuery();) {
                 List<UserDTO> list = new ArrayList<>();
                 while (rs.next()) {
-                    list.add(new UserDTO(rs));
+                	UserDTO dto = new UserDTO();
+				
+					
+					dto.setSeq(rs.getInt("users_seq"));
+					dto.setEmail(rs.getString("users_email"));
+					dto.setPw(rs.getString("users_pw"));
+					dto.setName(rs.getString("users_name"));
+					dto.setPhone(rs.getString("users_phone"));
+					dto.setBirthday(rs.getString("users_birthday"));
+					dto.setSignup(rs.getTimestamp("users_signup"));
+			        dto.setSex(rs.getString("sex"));
+			        dto.setInterest(rs.getString("interest"));
+					list.add(dto);
                 }
                 return list;
             }
         }
     }
+    
+   
+  
+
 
     /**
      * 프로필 수정

@@ -51,6 +51,7 @@ public class HostUserController extends ControllerAbs {
         	break;
         
         case "/userSearch.host":
+        	System.out.println("검색시작");
         	this.getUserSearch(request, response);
         	break;
         case "/bsUserList.host" :
@@ -63,10 +64,10 @@ public class HostUserController extends ControllerAbs {
         	this.getBsSearch(request,response);
         	break;
         //관리자 페이지 회원 삭제
-        case "/usersDel.host":
-        	
-        	this.getUserDel(request,response);
-        	break;
+//        case "/usersDel.host":
+//        	
+//        	this.getUserDel(request,response);
+//        	break;
         	
         case "/bsUsersDel.host":
         	break;
@@ -140,30 +141,32 @@ public class HostUserController extends ControllerAbs {
 		 
 		 }
 	 
-	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
-			String[] useq = request.getParameterValues("userseq");
-			
-			
-			System.out.println(useq);
-		 	
-		 	String text= request.getParameter("inputT");
-			 UserDAO dao = UserDAO.getInstance();
-	    		List<UserDTO> dto = dao.searchUser(text);
-	    	
-	    		System.out.println(dto);
-	    	
-	    		request.setAttribute("list", dto); //user
-			
-				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
-		 
-		 }
+//	 
+//	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//			String[] useq = request.getParameterValues("userseq");
+//			
+//			
+//			System.out.println(useq);
+//		 	
+//		 	String text= request.getParameter("inputT");
+//			 UserDAO dao = UserDAO.getInstance();
+//	    		List<UserDTO> dto = dao.searchUser(text);
+//	    	
+//	    		System.out.println(dto);
+//	    	
+//	    		request.setAttribute("list", dto); //user
+//			
+//				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+//		 
+//		 }
 	 
 	 
 	 protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
-		 	
-		 	String text= request.getParameter("inputT");
-			 UserDAO dao = UserDAO.getInstance();
+		 
+		 	String text= request.getParameter("inputName");
+		 	System.out.println(text);
+		 	UserDAO dao = UserDAO.getInstance();
 	    		List<UserDTO> dto = dao.searchUser(text);
 	    	
 	    		System.out.println(dto);

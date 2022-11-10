@@ -108,8 +108,8 @@
 												class="relike fa-solid fa-thumbs-up"></i>
 											<c:if test="${r.liked ==userSeq}">
 												<script>
-										$(".relike").attr("style", "color:#001A41")
-										</script>
+												$(".relike").attr("style", "color:#001A41")
+												</script>
 											</c:if>
 										</div>
 

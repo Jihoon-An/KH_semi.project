@@ -57,6 +57,17 @@ public class ReviewDAO extends Dao {
 		}
 
 	}
+//	public int reviewChkCount() {
+//		int i;
+//		String sql = "select count(*) from review group by  review_check"+i+" having  review_check"+i+" = 'Y'";
+//		for( i = 0; i<=5; i++) {
+//			
+//		}
+//		
+//		
+//		
+//		
+//	}
 
 
 
