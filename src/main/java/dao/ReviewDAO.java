@@ -59,17 +59,23 @@ public class ReviewDAO extends Dao {
 	}
 
 
-	//	public int reviewChkCount() {
-	//		int i;
-	//		String sql = "select count(*) from review group by  review_check"+i+" having  review_check"+i+" = 'Y'";
-	//		for( i = 0; i<=5; i++) {
-	//			
-	//		}
-	//		
-	//		
-	//		
-	//		
-	//	}
+//		public int[] reviewChkCount() {
+//			
+//			String sql = "select count(review_check1) check1, count(review_check2) check2, count(review_check3) check3,\r\n"
+//					+ "count(review_check4) check4, count(review_check5) check5 from review";
+//			
+//			try (Connection con = this.getConnection();
+//					PreparedStatement pstat = con.prepareStatement(sql);) {
+//			
+//				try (ResultSet rs = pstat.executeQuery();) {
+//				
+//				}
+//			}
+//			}
+//			
+//			
+//			
+//		}
 	
 	
 
