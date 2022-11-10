@@ -49,6 +49,7 @@ public class BsPageController extends ControllerAbs {
                     this.importGym(request, response);
                     request.getRequestDispatcher("/gym.modify.jsp");
                     break;
+
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -63,24 +64,26 @@ public class BsPageController extends ControllerAbs {
 
     /**
      * <h2>gymSeq로 관련된 데이터를 지움</h2>
+     *
      * @param request for gym_seq
      */
-    private void deleteGym(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
 
         // 시설 필터 gym_filter table 지우기
-
+        GymFilterDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 이미지 gym_img 지우기
-
+        GymImgDAO.getInstance().deleteByGymSeq(gymSeq);
         // 즐겨찾기 favorite table 지우기
-
-        // 리뷰 좋아요 likes 지우기 by review_seq
-
+        FavoritesDAO.getInstance().deleteByGymSeq(gymSeq);
+        // 리뷰 좋아요 likes 지우기
+        LikesDAO.getInstance().deleteByGymSeq(gymSeq);
         // 리뷰 review table 지우기
-
+        ReviewDAO.getInstance().deleteByGymSeq(gymSeq);
         // 헬스장 회원 membership table 지우기
-
+        MembershipDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 gym table 지우기
+        GymDAO.getInstance().deleteByGymSeq(gymSeq);
     }
 
     /**
@@ -214,7 +217,7 @@ public class BsPageController extends ControllerAbs {
         List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
         List<GymFilterDTO> gymFilterList = new ArrayList<>();
         GymFilterDAO filterDAO = GymFilterDAO.getInstance();
-        for(GymDTO gym : gymList){
+        for (GymDTO gym : gymList) {
             gymFilterList.add(filterDAO.selectByGymSeq(gym.getGym_seq()));
         }
 
