@@ -13,7 +13,9 @@
 					<div class="col-12">
 						<div class="row">
 							<div class="col-12">
-								<div id="notice">운동을 하지 않은지 30년 지났습니다.</div>
+								<div class="text_title_600" id="notice">
+									<p>운동을 하지 않은지 30년 지났습니다.</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -28,7 +30,7 @@
 						</div>
 					</div>
 					<div class="col-8">
-						<div class="row">
+						<div class="personal_info row">
 							<div class="col-8">
 								<div id="inbody">
 									태어나서 처음 해본 인바디 결과
@@ -47,11 +49,72 @@
 							</div>
 							<div class="col-12">
 								<div id="result">
+									<div class="text_title" id="result_title"></div>
+									<div class="text_normal" id="result_contents">
+										데이터가 존재하지 않습니다.
+										<div><button class="btn_outline" id="btn_regRecord" onclick="showRegRecord()">등록하기</button></div>
+									</div>
 								</div>
 							</div>
+						</div>
+						<div class="personal_record row">
 							<div class="col-12">
 								<div id="record">
-									기록 작성
+									<div class="row">
+										<div class="col-3">
+											<p>등록 일자</p>
+										</div>
+										<div class="col-9">
+											<input type="text" id="reg_date" style="text-align:center" readonly>
+										</div>
+										<div class="col-3">
+											<p>운동 시간</p>
+										</div>
+										<div class="col-9">
+											<input type="text" oninput="validHour()">
+										</div>
+										<div class="col-3">
+											<p>운동 강도</p>
+										</div>
+										<div class="col-9">
+											<input type="range">
+										</div>
+										<div class="col-3">
+											<p>메모</p>
+										</div>
+										<div class="col-9">
+											<input type="text">
+										</div>
+									</div>
+									<div class="row">
+										<div class="text_title_600 col-12">
+											인바디 결과
+										</div>
+										<div class="col-3">
+											<p>몸무게</p>
+										</div>
+										<div class="col-3">
+											<input type="text">
+										</div>
+										<div class="col-3">
+											<p>체지방량</p>
+										</div>
+										<div class="col-3">
+											<input type="text">
+										</div>
+										<div class="col-3">
+											<p>골격근량</p>
+										</div>
+										<div class="col-3">
+											<input type="text">
+										</div>
+										<div class="col-3">
+											<p>BMI</p>
+										</div>
+										<div class="col-3">
+											<input type="text">
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -61,14 +124,14 @@
 					$(() => {
 						initCalendar();
 						$(".calendar").datepicker();
-						$("#result").text($.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate")) + "의 운동 기록");
+						$("#result_title").text($.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate")) + "의 운동 기록");
 					});
 
 					// calendar 초기화
 					function initCalendar() {
 						$.datepicker.setDefaults({
 							onSelect: onSelect,
-							dateFormat: 'yy/mm/dd',
+							dateFormat: 'yy / mm / dd',
 							prevText: '이전 달',
 							nextText: '다음 달',
 							monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
@@ -80,12 +143,25 @@
 							dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 							showMonthAfterYear: true,
 							yearSuffix: '년',
+							altField: "#reg_date"
 						});
 					}
 
 					function onSelect() {
 						let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
-						$("#result").text(date + "의 운동기록");
+						$("#result_title").text(date + "의 운동기록");
+					}
+
+					function validHour() {
+          				event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+						if (Number(event.target.value) > 24) {
+							event.target.value = 24;
+						}
+     			   	}
+
+					function showRegRecord() {
+						$(".personal_info").attr("style", "display:none");
+						$(".personal_record").attr("style", "display:flex")
 					}
 
 					// inbody chart

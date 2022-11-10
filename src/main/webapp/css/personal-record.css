@@ -11,86 +11,140 @@
 }
 
 #personal-record #notice {
-	height:50px;
+	padding: 10px;
+	height: 50px;
 }
 
-#personal-record #manager, #inbody, #weight {
-	height:250px;
+#personal-record #manager,
+#inbody,
+#weight {
+	height: 250px;
 }
 
-#personal-record #calendar, #result {
+#personal-record #calendar,
+#result {
 	height: 400px;
 }
 
+#personal-record #result {
+	padding: 20px;
+}
+
+#personal-record #result_contents {
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
+#personal-record .personal_info {
+	display: none;
+}
+
+/* #personal-record .personal_record {
+	display: none;
+} */
+
+fieldset {
+    border: 1px solid black;
+}
+
+legend {
+    display:flex;
+    justify-content:space-between;
+    width: 100%;
+    position: relative;
+}
+legend div {
+    background-color: white;
+    margin-left:0.5em;
+    margin-right:0.5em;
+}
+legend div.line {
+    flex: 1 1 auto;
+    background-color: transparent;
+}
+
+legend div.line:before {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    left: 0px;
+    right: 0px;
+    top: 50%;
+    border-top: 1px solid black;
+}
+
 #personal-record #record {
-	height: 540px;
-	visibility: hidden;
+	height: 670px;
 }
 
 #personal-record .chart_wrap {
 	padding: 5px;
-	width:100%;
+	width: 100%;
 }
 
+
+/* 캘린더 부분 */
 #personal-record #calendar {
-	position : relative;
+	position: relative;
 	padding: 0px;
 	top: -10px;
 	border: none;
-	
+
 }
 
 #personal-record #calendar>* {
-	width:100%;
-	height:100%;
+	width: 100%;
+	height: 100%;
 }
 
-.ui-datepicker-calendar {
+#personal-record .ui-datepicker-calendar {
 	width: 90% !important;
 	height: 75% !important;
 }
 
-.ui-datepicker-header {
+#personal-record .ui-datepicker-header {
 	height: 90px !important;
 }
 
-.ui-datepicker-title {
+#personal-record .ui-datepicker-title {
 	font-size: 20px !important;
 }
-.ui-corner-all a {
+
+#personal-record .ui-corner-all a {
 	transform: translate(0, 6px) !important;
 }
 
-.ui-datepicker-calendar th {
+#personal-record .ui-datepicker-calendar th {
 	position: relative !important;
 	top: -10px !important;
 	font-size: 18px !important;
 }
 
-.ui-datepicker td a {
+#personal-record .ui-datepicker td a {
 	font-size: 20px !important;
 }
 
-.ui-datepicker-week-end:first-of-type a {
+#personal-record .ui-datepicker-week-end:first-of-type a {
 	color: red;
 }
 
-.ui-datepicker-week-end:last-of-type a {
+#personal-record .ui-datepicker-week-end:last-of-type a {
 	color: blue;
 }
 
-.ui-datepicker-week-end:first-of-type .ui-state-active{
+#personal-record .ui-datepicker-week-end:first-of-type .ui-state-active {
 	background-color: red !important;
 }
 
-.ui-datepicker-week-end:last-of-type .ui-state-active{
+#personal-record .ui-datepicker-week-end:last-of-type .ui-state-active {
 	background-color: blue !important;
 }
 
-.ui-datepicker td:not(.ui-datepicker-week-end) .ui-state-active{
+#personal-record .ui-datepicker td:not(.ui-datepicker-week-end) .ui-state-active {
 	background-color: black !important;
 }
 
-.ui-state-active {
+#personal-record .ui-state-active {
 	color: white !important;
 }
