@@ -44,9 +44,11 @@
 		</div>
 	</div>
 	<script>
+
 	// inbody chart
 	const ctx1 = document.getElementById('inbody_chart').getContext('2d');
 	const myChart1 = new Chart(ctx1, {
+
 		type : 'bar',
 		data : {
 			labels : [ '체중', '골격근량', '체지방량', 'BMI', '체지방률'
@@ -82,6 +84,7 @@
 		// weight change chart
 		const ctx2 = document.getElementById('weight_chart').getContext('2d');
 		const myChart2 = new Chart(ctx2,
+
 				{
 					type : 'bar',
 					data : {
@@ -114,6 +117,7 @@
 					}
 				});
 		
+
 		// calendar
 		$.datepicker.setDefaults({
 			dateFormat : 'yy/mm/dd',
@@ -132,7 +136,7 @@
 
 		$(function() {
 			$('.calendar').datepicker();
-		});
+		}); 
 	</script>
 </main>
 

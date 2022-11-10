@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.DataInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class ReviewDAO extends Dao {
 
 	/**
 	 * gym-detail 페이지 불러올때 사용자가 클릭한 리뷰 좋아요 유지를 위해 hashmap 사용
-	 *
+	 *	
 	 * @param gym_seq
 	 * @return
 	 * @throws Exception
@@ -58,20 +59,44 @@ public class ReviewDAO extends Dao {
 
 	}
 
+	/**
+	 * 리뷰 체크 카운트 기반으로 하여 출력
+	 * @param gym_seq
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object>reviewChkCount(int gym_seq)throws Exception {
 
-	//	public int reviewChkCount() {
-	//		int i;
-	//		String sql = "select count(*) from review group by  review_check"+i+" having  review_check"+i+" = 'Y'";
-	//		for( i = 0; i<=5; i++) {
-	//			
-	//		}
-	//		
-	//		
-	//		
-	//		
-	//	}
-	
-	
+		String sql = "select gym_seq, count(review_check1) check1, count(review_check2) check2, count(review_check3) check3,\r\n"
+				+ "count(review_check4) check4, count(review_check5) check5 from review group by gym_seq having gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, gym_seq);
+
+			HashMap<String, Object> date = new HashMap<>();
+			try (ResultSet rs = pstat.executeQuery();) {
+				while(rs.next()) {
+					date.put("gym_seq",rs.getString("gym_seq"));
+					date.put("check1", rs.getString("check1"));
+					date.put("check2", rs.getString("check2"));
+					date.put("check3", rs.getString("check3"));
+					date.put("check4", rs.getString("check4"));
+					date.put("check5", rs.getString("check5"));
+
+
+
+				}
+				return date;
+			}
+
+		}
+
+
+
+	}
+
+
 
 	/**
 	 * 좋아요 클릭시 리뷰테이블의 review_like 1 감소
