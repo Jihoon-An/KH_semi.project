@@ -266,18 +266,20 @@ public class ReviewDAO extends Dao {
 	 * @throws Exception
 	 */
 	public int writeReview(ReviewDTO dto) throws Exception {
-		String sql = "insert into review values(review.nextval,?,?,?,?,?,0,0,sysdate,?,?,?,?,?)";
+		String sql = "insert into review values(REVIEW_SEQ.NEXTVAL,?,?,?,?,?,?,0,sysdate,?,?,?,?,?,?)";
 		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 			pstat.setInt(1, dto.getUser_seq());
 			pstat.setInt(2, dto.getGym_seq());
 			pstat.setInt(3, dto.getBs_seq());
 			pstat.setString(4, dto.getReview_writer());
 			pstat.setString(5, dto.getReview_contents());
-			pstat.setString(6, dto.getReview_check1());
-			pstat.setString(7, dto.getReview_check2());
-			pstat.setString(8, dto.getReview_check3());
-			pstat.setString(9, dto.getReview_check4());
-			pstat.setString(10, dto.getReview_check5());
+			pstat.setInt(6, dto.getReview_star());
+			pstat.setString(7, dto.getReview_check1());
+			pstat.setString(8, dto.getReview_check2());
+			pstat.setString(9, dto.getReview_check3());
+			pstat.setString(10, dto.getReview_check4());
+			pstat.setString(11, dto.getReview_check5());
+			pstat.setString(12, dto.getReview_photo());
 
 			con.commit();
 

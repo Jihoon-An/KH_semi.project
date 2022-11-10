@@ -121,8 +121,7 @@ public class BsUsersController extends HttpServlet {
 	protected void bsSignUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int maxSize = 1024 * 1024 * 10;
-		String savePath = request.getServletContext().getRealPath("/files");
-		System.out.println(savePath);
+		String savePath = request.getServletContext().getRealPath("/resource/ctfc");
 
 		File fileSavePath = new File(savePath);
 		if (!fileSavePath.exists()) {
@@ -166,7 +165,7 @@ public class BsUsersController extends HttpServlet {
 
 		while (e.hasMoreElements()) { // 하나만 받아서 이거 필요없긴함..
 			String name = e.nextElement();
-			String sysName = multi.getFilesystemName(name);
+			String sysName = multi.getFilesystemName("bs_sign_ctfc");
 
 			if (name != null) { // 프론트에서 onsubmit 만나면 서브밋 안되게 값 삭제하기
 				if (sysName == null) {

@@ -71,10 +71,13 @@
 }
 
 #header #header_nav_text>ul>li>a:hover {
-	color: #FFFFFF;
-	color: #B9E0FF;
+	color: #85b6ff;
+	transition: 1s ease-out;
 }
-
+#header #header_nav_text>ul>li>a:not(:hover) {
+	 color: #FFFFFF;
+	transition: 1s ease-out;
+ }
 /* footer */
 
 #footer {
@@ -189,18 +192,18 @@
 
 #index .mainimg {
 	background-image: url("/resource/main.jpg");
-  	width: 100%;
+	width: 100%;
 	background-size: cover;
-	background-attachment: fixed;  	
+	background-attachment: fixed;
 	background-position: center;
 }
 
 #index .bg{
-  position: absolute;
-  height: 100vh;
-  min-width : 1200px;
-  top: 0px;
-  left: 0px;
+	position: absolute;
+	height: 100vh;
+	min-width : 1200px;
+	top: 0px;
+	left: 0px;
 }
 
 @-webkit-keyframes zoom-b {
@@ -273,7 +276,7 @@
 }
 
 #index .search_main>.search_main_span>span {
-	font-size: 1.5em;
+	font-size: 1.7em;
 	color: white;
 	font-style: oblique;
 }
@@ -285,18 +288,24 @@
 	right: 0px;
 	top: 15px;
 	text-align: center;
-	opacity: 0.9;
+	opacity: 1;
 }
 
 #index .search_main>.search_main_input>input {
 	width: 404px;
 	height: 45px;
 	font-size: large;
-	text-align: left;
+	text-align: center;
 	position: relative;
 	border-radius: 100px;
 	border: none;
 	box-shadow: 3px 4px 5px rgb(150, 12, 12);
+}
+
+#index .search_main>.search_main_input>input::placeholder {
+	position: absolute;
+	top:11px;
+	left: 55px;
 }
 
 #index .search_main>#btn_search {

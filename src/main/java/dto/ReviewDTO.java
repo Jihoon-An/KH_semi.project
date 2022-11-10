@@ -1,9 +1,13 @@
 package dto;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import commons.FileControl;
+import dao.BsCtfcDAO;
 import dao.GymDAO;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,19 +63,31 @@ public class ReviewDTO {
 		this.review_seq = review_seq;
 	}
 
+
 	public ReviewDTO(HttpServletRequest request) throws Exception {
-		FileControl file = new FileControl();
+
+		String savePath = request.getServletContext().getRealPath("/resource/review"); //런타임 webapp 폴더를 불러옴.
+		File fileSavePath = new File(savePath);
+
+		// 폴더 생성
+		if (!fileSavePath.exists()) { //find directory
+			fileSavePath.mkdir();//make directory
+		}
+		// 파일 생성
+		MultipartRequest multi = new MultipartRequest(request, savePath, 1024 * 1024 * 10, "UTF8", new DefaultFileRenamePolicy());
+
 		this.user_seq = (Integer) request.getSession().getAttribute("userSeq");
-		this.gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+		this.gym_seq = Integer.parseInt(multi.getParameter("gym_seq"));
 		this.bs_seq = GymDAO.getInstance().printGym(this.gym_seq).getBs_seq();
 		this.review_writer = randomNickName();
-		this.review_contents = request.getParameter("review_contents");
-		this.review_check1 = request.getParameter("review_check1");
-		this.review_check2 = request.getParameter("review_check2");
-		this.review_check3 = request.getParameter("review_check3");
-		this.review_check4 = request.getParameter("review_check4");
-		this.review_check5 = request.getParameter("review_check5");
-		this.review_photo = file.save(request,"/resource/review_photo", "review_photo");
+		this.review_contents = multi.getParameter("review_contents");
+		this.review_star = Integer.parseInt(multi.getParameter("review_star"));
+		this.review_check1 = multi.getParameter("review_check1");
+		this.review_check2 = multi.getParameter("review_check2");
+		this.review_check3 = multi.getParameter("review_check3");
+		this.review_check4 = multi.getParameter("review_check4");
+		this.review_check5 = multi.getParameter("review_check5");
+		this.review_photo = multi.getFilesystemName("review_photo");
 	}
 
 	public String getReview_photo() {
