@@ -108,7 +108,7 @@
 
 <!-- Site header -->
 <header id="header">
-    <div class="containerbox">
+    <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
                 <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
-<main id="bs-page">
+<main id="bs-page" class="containerbox">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
             <h1>사업자 페이지</h1>
@@ -100,7 +100,7 @@
                 <div class="row justify-content-center">
                     <div class="col-8">
                         <%--비밀번호 입력--%>
-                        <div class="row profile_title pt-4"><span>비밀번호</span></div>
+                        <div class="row profile_title pt-5"><span>비밀번호</span></div>
                         <div class="row"><input id="bs_pw1" type="password" class="profile_input"
                                                 placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
@@ -113,22 +113,42 @@
                         <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
                         <!--sd = sign down -->
                         <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
-                            <div style="color: blue">정말 탈퇴하시겠습니까?</div>
+                            <div style="color: blue; margin-bottom: 10px;">정말 탈퇴하시겠습니까?</div>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
                         <form action="/signDown.bsPage" id="sign_down_form"></form>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- 매장 정보 -->
+    <div id="gym_info">
+
+        <div class="container-fluid">
+            <div class="row gym_card">
+                <div class="col-3 p-0">
+                    <img src="/resource/duck.ico" class="gym_img">
+                </div>
+                <div class="col-7 gym_text">
+                    <h3 class="gym_name">제목</h3>
+                    <p>운영시간</p>
+                    <p>주소</p>
+                    <p>전화번호</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </main>
 
 
-<%----------------------------- script   ------------------------------%>
+<!----------------------------- script   ------------------------------>
 
 
 <script>
