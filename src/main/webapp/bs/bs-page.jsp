@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
-<main id="bs-page" class="containerbox">
+<main id="bs-page" class="containerbox" style="overflow: visible;">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
             <h1>사업자 페이지</h1>
@@ -133,20 +133,55 @@
 
         <div class="container-fluid">
             <hr>
+            <div class="row gym_card">
+                <form class="gym_form">
+                    <input name="gym_seq" id="gym_seq" type="hidden">
+                </form>
+                <div class="col-3 p-0">
+                    <img src="/resource/main.jpg" class="gym_img">
+                </div>
+                <div class="col-7 gym_text">
+                    <div class="row"><h3 class="gym_name">바디챌린지</h3></div>
+                    <div class="row pt-2"><div class="col-2 gym_content">주소</div> 경기도 의정부시 용민로419 라디언트캐슬 1206동 1702호</div>
+                    <div class="row pt-2"><div class="col-2 gym_content">연락처</div>  01027044651</div>
+                    <div class="row pt-2"><div class="col-2 gym_content">오픈시간</div> 오후1시부터 새벽3시</div>
+                    <!-- 태그 -->
+                    <div class="gym_list_tagBox">
+                        <div class="gym_list_tag">#24시간</div>
+
+                        <div class="gym_list_tag">#라커</div>
+
+                        <div class="gym_list_tag">#샤워실</div>
+
+                        <div class="gym_list_tag">#주차장</div>
+                    </div>
+
+                </div>
+                <div class="col-2 justify-content-center">
+                    <button class="btn_outline modify_gym_btn"
+                            style="border: 2px solid #F0F0F0;
+                                    background-color: #ffffff;
+                                    scale: 0.75;">
+                        수정
+                    </button>
+                </div>
+            </div>
+            <hr>
+
             <!-- card -->
             <c:forEach var="gym" items="${gymList}" varStatus="status">
                 <div class="row gym_card">
-                    <form id="gym_form">
-                    <input name="gym_seq" id="gym_seq" type="hidden">
+                    <form class="gym_form">
+                        <input name="gym_seq" class="gym_seq" type="hidden">
                     </form>
                     <div class="col-3 p-0">
                         <img src="/resource/main.jpg" class="gym_img">
                     </div>
                     <div class="col-7 gym_text">
-                        <h3 class="gym_name">${gym.gym_name}</h3>
-                        <p>${gym.gym_open} ~ ${gym.gym_close}</p>
-                        <p>${gym.gym_location}</p>
-                        <p>${gym.gym_phone}</p>
+                        <div class="row"><h3 class="gym_name">${gym.gym_name}</h3></div>
+                        <div class="row pt-2"><div class="col-2 gym_content">주소</div> ${gym.gym_location}</div>
+                        <div class="row pt-2"><div class="col-2 gym_content">연락처</div>  ${gym.gym_phone}</div>
+                        <div class="row pt-2"><div class="col-2 gym_content">오픈시간</div> ${gym.gym_open} ${gym.gym_close}</div>
                         <!-- 태그 -->
                         <div class="gym_list_tagBox">
                             <c:if test="${gymFilterList[status.index].open eq 'true'}">
@@ -165,32 +200,31 @@
 
                     </div>
                     <div class="col-2 justify-content-center">
-                        <button class="btn_outline" id="modify_gym_btn"
+                        <button class="btn_outline modify_gym_btn"
                                 style="border: 2px solid #F0F0F0;
-                                    background-color: #F0F0F0;">
+                                    background-color: #ffffff;
+                                    scale: 0.75">
                             수정
-                        </button>
-                        <button class="btn_outline" id="delete_gym_btn"
-                                style="margin-top:70px;
-                                    border: 2px solid #F0F0F0;
-                                    background-color: #F0F0F0;">
-                            삭제
                         </button>
                     </div>
                 </div>
                 <hr>
             </c:forEach>
 
+            <div class="text-center">
+                <a href="/addGym.bsPage" style="text-decoration-line:none">
+                    <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
+                </a>
+            </div>
 
         </div>
 
     </div>
 
-
 </main>
 
 
-<!----------------------------- script ------------------------------>
+<!------------------------------------------------------- script -------------------------------------------------------->
 
 
 <script>
@@ -258,7 +292,7 @@
         });
     }
 
-    /*
+    /**
      * 프로필 저장
      */
     $("#profile_save").click(function () {
@@ -267,7 +301,7 @@
         let bs_number = $("#bs_number").val();
         // 정보 저장
         $.ajax({
-            url: "/updateProflie.bsPage",
+            url: "/updateProfile.bsPage",
             data: {
                 name: bs_name,
                 phone: bs_phone,
@@ -384,16 +418,20 @@
     });
 
 
-    /*                                                                         */
     // gym 수정페이지로 이동
-    $("#modify_gym_btn").click(function () {
-        $("#gym_form").attr("action", "/toUpdateGym.bsPage");
-        $("#gym_form").submit();
+    $(".modify_gym_btn").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/toUpdateGym.bsPage");
+        $(this).closest(".gym_card").find(".gym_form").submit();
     });
-    // gym 삭제
-    $("#modify_gym_btn").click(function () {
-        $("#gym_form").attr("action", "/deleteGym.bsPage");
-        $("#gym_form").submit();
+
+    // 상세페이지 이동
+    $(".gym_img").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/");
+        $(this).closest(".gym_card").find(".gym_form").submit();
+    });
+    $(".gym_name").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/");
+        $(this).closest(".gym_card").find(".gym_form").submit();
     });
 </script>
 <%@ include file="/layout/footer.jsp" %>

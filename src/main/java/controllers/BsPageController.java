@@ -28,7 +28,7 @@ public class BsPageController extends ControllerAbs {
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
 
-                case "/updateProflie.bsPage":
+                case "/updateProfile.bsPage":
                     this.updateProfile(request, response);
                     break;
 
@@ -47,7 +47,7 @@ public class BsPageController extends ControllerAbs {
 
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym.modify.jsp");
+                    request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
                     break;
 
                 case "/deleteGym.bsPage":
