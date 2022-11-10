@@ -59,39 +59,44 @@ public class ReviewDAO extends Dao {
 
 	}
 
+	/**
+	 * 리뷰 체크 카운트 기반으로 하여 출력
+	 * @param gym_seq
+	 * @return
+	 * @throws Exception
+	 */
+	public HashMap<String, Object>reviewChkCount(int gym_seq)throws Exception {
 
-		public HashMap<String, Object>reviewChkCount(int gym_seq)throws Exception {
-			
-			String sql = "select gym_seq, count(review_check1) check1, count(review_check2) check2, count(review_check3) check3,\r\n"
-					+ "count(review_check4) check4, count(review_check5) check5 from review group by gym_seq having gym_seq = ?";
-			
-			try (Connection con = this.getConnection();
-					PreparedStatement pstat = con.prepareStatement(sql);) {
-				pstat.setInt(1, gym_seq);
-			
-				HashMap<String, Object> date = new HashMap<>();
-				try (ResultSet rs = pstat.executeQuery();) {
-					while(rs.next()) {
-						date.put("gym_seq",rs.getString("gym_seq"));
-						date.put("check1", rs.getString("check1"));
-						date.put("check2", rs.getString("check2"));
-						date.put("check3", rs.getString("check3"));
-						date.put("check4", rs.getString("check4"));
-						date.put("check5", rs.getString("check5"));
-						
-						
-					
+		String sql = "select gym_seq, count(review_check1) check1, count(review_check2) check2, count(review_check3) check3,\r\n"
+				+ "count(review_check4) check4, count(review_check5) check5 from review group by gym_seq having gym_seq = ?";
+
+		try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);) {
+			pstat.setInt(1, gym_seq);
+
+			HashMap<String, Object> date = new HashMap<>();
+			try (ResultSet rs = pstat.executeQuery();) {
+				while(rs.next()) {
+					date.put("gym_seq",rs.getString("gym_seq"));
+					date.put("check1", rs.getString("check1"));
+					date.put("check2", rs.getString("check2"));
+					date.put("check3", rs.getString("check3"));
+					date.put("check4", rs.getString("check4"));
+					date.put("check5", rs.getString("check5"));
+
+
+
 				}
-					return date;
+				return date;
 			}
-				
-			}
-			
-			
-			
+
 		}
-	
-	
+
+
+
+	}
+
+
 
 	/**
 	 * 좋아요 클릭시 리뷰테이블의 review_like 1 감소
