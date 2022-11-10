@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,4 +214,38 @@ public class ReviewDAO extends Dao {
             connection.commit();
         }
     }
+
+
+    /**
+     * GYM 리뷰 작성 등록
+     *
+     * @param dto
+     * @return
+     * @throws Exception
+     */
+    public int writeReview(ReviewDTO dto) throws Exception {
+        String sql = "insert into review values(review.nextval,?,?,?,?,?,0,0,sysdate,?,?,?,?,?)";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, dto.getUser_seq());
+            pstat.setInt(2, dto.getGym_seq());
+            pstat.setInt(3, dto.getBs_seq());
+            pstat.setString(4, dto.getReview_writer());
+            pstat.setString(5, dto.getReview_contents());
+            pstat.setString(6, dto.getReview_check1());
+            pstat.setString(7, dto.getReview_check2());
+            pstat.setString(8, dto.getReview_check3());
+            pstat.setString(9, dto.getReview_check4());
+            pstat.setString(10, dto.getReview_check5());
+            con.commit();
+            return pstat.executeUpdate();
+        }
+    }
+
+
+
+
+
+
+
+
 }

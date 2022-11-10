@@ -195,7 +195,17 @@ public class ReviewDTO {
 		this.review_seq = review_seq;
 	
 	}
-    
-    
 
+	public ReviewDTO(int user_seq, int gym_seq, int bs_seq, String review_writer, String review_contents, String review_check1, String review_check2, String review_check3, String review_check4, String review_check5) {
+		this.user_seq = user_seq;
+		this.gym_seq = gym_seq;
+		this.bs_seq = bs_seq;
+		this.review_writer = review_writer;
+		this.review_contents = review_contents;
+		this.review_check1 = review_check1;
+		this.review_check2 = review_check2;
+		this.review_check3 = review_check3;
+		this.review_check4 = review_check4;
+		this.review_check5 = review_check5;
+	}
 }
