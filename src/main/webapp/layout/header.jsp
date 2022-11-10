@@ -109,12 +109,10 @@
 
 <!-- Site header -->
 <header id="header">
-    <div class="containerbox">
+    <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
-            <h1 id="header_logo">
-                <a class="header_a_tag" href="/">Fitneeds</a>
-            </h1>
+                <a class="header_a_tag" href="/"><h1 id="header_logo">Fitneeds</h1></a>
         </div>
 
         <div class="float-start">
@@ -152,7 +150,7 @@
                                    onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
                             </li>
                             <li class="float-end">
-                                <a class="header_a_tag" href="/userslist.host">관리자페이지</a>
+                                <a class="header_a_tag" href="/usersList.host?cpage=1">관리자페이지</a>
                             </li>
                         </c:when>
                         <c:otherwise>
