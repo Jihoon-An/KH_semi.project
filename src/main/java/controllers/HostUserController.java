@@ -67,10 +67,20 @@ public class HostUserController extends ControllerAbs {
 //        	
 //        	this.getUserDel(request,response);
 //        	break;
+        	
+        case "/bsUsersDel.host":
+        	break;
+        
 
-                case "/bsUsersDel.host":
-                    break;
-
+		// 관리자페이지 - 리뷰목록 출력
+		case "/reviewList.host":
+//			int cpage = Integer.parseInt(request.getParameter("cpage"));
+//			List<BoardDTO> list = BoardDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+//			request.setAttribute("list", list);
+//			String navi = BoardDAO.getInstance().getPageNavi(cpage);
+//			request.setAttribute("navi", navi);
+//			request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+		
 
                 default:
                     break;
