@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import dao.*;
 import dto.*;
 
@@ -50,9 +53,14 @@ public class GymController extends ControllerAbs {
                     this.favDelete(request, response);
                     break;
 
+                // 리뷰쓰기로 페이지 이동
+                case "/reviewWrite.gym":
+                    this.goGymDetail(request, response);
+                    break;
+
                 //리뷰쓰기
-                case "/revievWrite.gym":
-                    response.getWriter().append(String.valueOf(this.write(request, response)));
+                case "/reviewWriting.gym":
+                    this.write(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -77,14 +85,15 @@ public class GymController extends ControllerAbs {
         ReviewDAO reviewDao = ReviewDAO.getInstance();
         GymDAO gymDao = GymDAO.getInstance();
         FavoritesDAO favDao = FavoritesDAO.getInstance();
-        GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
-        
-        HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
+        GymFilterDAO filterDao = GymFilterDAO.getInstance();
+   //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
+       
+   //    	List<GymImgDTO> gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+               HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
         System.out.println(check);
-
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
-        GymFilterDTO gymFilterDtO = filterDAO.selectByGymSeq(gym_seq);
+        GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
@@ -95,7 +104,8 @@ public class GymController extends ControllerAbs {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
         }
-
+        
+      //  request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);
         request.setAttribute("gymList", gymDto);
@@ -167,10 +177,23 @@ public class GymController extends ControllerAbs {
     }
 
 
-    protected int write(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int result = ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
-        return result;
+    // 리뷰 글쓰기 페이지로 이동
+    protected void goGymDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
+        request.setAttribute("gym_seq", gym_seq);
+        request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
+        request.getRequestDispatcher("/gym/review-write.jsp").forward(request, response);
     }
+
+
+    // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
+    protected void write(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ReviewDTO review = new ReviewDTO(request);
+        ReviewDAO.getInstance().writeReview(review);
+        int gymSeq = review.getGym_seq();
+        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+gymSeq);
+    }
+
 
 
 }
