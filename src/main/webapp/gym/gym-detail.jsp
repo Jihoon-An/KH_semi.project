@@ -28,8 +28,8 @@
 						<c:if test="${userSeq !=null}">
 							<!-- list사용자 로그인만 보이게끔 -->
 							<i class="fa-solid fa-heart" check="${favresult }" id="heart"></i>
-								
-							</c:if>
+
+						</c:if>
 
 						<span class="button gray medium"> <a
 							onclick="clip(); return false;" class="shareicon"> <i
@@ -50,66 +50,15 @@
 				<div class="placemap" id="map"></div>
 
 				<script>
-					let gym_x = "${gymList.gym_x}";
-					let gym_y = "${gymList.gym_y}";
+              var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+                mapOption = {
+                  center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                  level: 3, // 지도의 확대 레벨
+                };
 
-					var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-						mapOption = {
-						center: new kakao.maps.LatLng(gym_x, gym_y), // 지도의 중심좌표
-						level: 3, // 지도의 확대 레벨
-						};
-
-					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-					var map = new kakao.maps.Map(mapContainer, mapOption);
-
-					function createMarker(name, x, y){
-						var positions =
-							{
-								content: "<div class=info><img src='/resource/fitneeds.ico'>"+name+"</div>", 
-								latlng: new kakao.maps.LatLng(x, y)
-							}
-						
-						// 마커 이미지의 이미지 주소입니다
-						var imageSrc = "/resource/ping.png"; 
-							
-							
-							// 마커 이미지의 이미지 크기 입니다
-							var imageSize = new kakao.maps.Size(64, 69);
-							
-							// 마커 이미지를 생성합니다    
-							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-							
-							// 마커를 생성합니다
-							var marker = new kakao.maps.Marker({
-								map: map, // 마커를 표시할 지도
-								position: positions.latlng, // 마커를 표시할 위치
-								image : markerImage // 마커 이미지 
-							});
-							// 마커에 표시할 인포윈도우를 생성합니다 
-							var infowindow = new kakao.maps.InfoWindow({
-								content: positions.content // 인포윈도우에 표시할 내용
-							});
-							// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-							// 이벤트 리스너로는 클로저를 만들어 등록합니다 
-							// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-							kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-							kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-					};
-					// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
-					function makeOverListener(map, marker, infowindow) {
-						return function() {
-							infowindow.open(map, marker);
-						};
-					}
-					// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
-					function makeOutListener(infowindow) {
-						return function() {
-							infowindow.close();
-						};
-					}
-
-					createMarker("${gymList.gym_name}","${gymList.gym_x}","${gymList.gym_y}");
-				</script>
+              // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+              var map = new kakao.maps.Map(mapContainer, mapOption);
+            </script>
 
 
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
@@ -125,10 +74,10 @@
 					<p class="text_title">리뷰</p>
 				</div>
 				<c:if test="${userSeq !=null}">
-				<div class="reviewr">
-					<button type="button" class="btn_base" id="reviewbtn"
-						type="button">리뷰작성</button>
-				</div>
+					<div class="reviewr">
+						<button type="button" class="btn_base" id="reviewbtn"
+							type="button">리뷰작성</button>
+					</div>
 				</c:if>
 
 				<c:choose>
@@ -136,7 +85,6 @@
 						<!-- 리스트가 비어있지않다면 -->
 						<c:forEach var="r" items="${reviewList }">
 							<div class="review2">
-
 
 								<div
 									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
@@ -169,12 +117,9 @@
 
 									</c:if>
 
-
 									<div class="reviewcon">${r.review.review_contents }</div>
 								</div>
-
 							</div>
-
 						</c:forEach>
 						<div class="newmore">
 							<a href="#" class="btn btn_outline" data-bs-toggle="button"
@@ -186,7 +131,9 @@
 					</c:otherwise>
 				</c:choose>
 
-
+					<div>
+					${reviewList.review.review_contents}
+					</div>
 
 
 
@@ -238,8 +185,7 @@
 						<div class="infopicture">
 
 							<figure class="figure">
-								<img src=""
-									class="figure-img img-fluid rounded" alt="..." />
+								<img src="/resource/gym/${r.gym_sysimg}.jpg" class="figure-img img-fluid rounded" alt="..." />
 								<figcaption class="figure-caption"></figcaption>
 							</figure>
 						</div>
@@ -314,14 +260,9 @@
 	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
 	$(document).ready(function() {
 		
-	
-		
-		
-		
 		let fav = $("#heart").attr("check") == "true" ? true : false;
 		
 		console.log(fav);
-//			if( ${favresult}!== "check" ){
 		    	if(fav){
 		    		console.log(fav + ": 빨강")
 			    	$("#heart").css("color", "#CF0C00");
@@ -329,7 +270,7 @@
 			    	console.log(fav + ": 회색")
 			    	$("#heart").css("color", "#8f959a")
 			    }
-//			}
+
 		
 	}); 
 	

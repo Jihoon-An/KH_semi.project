@@ -93,6 +93,12 @@ public class GymController extends ControllerAbs {
         System.out.println(check);
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
+        System.out.println(reviewDto);
+        
+        System.out.println(reviewDto.get(1));
+        System.out.println(reviewDto.get(3));
+       
+        
         GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);

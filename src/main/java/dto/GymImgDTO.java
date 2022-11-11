@@ -3,32 +3,25 @@ package dto;
 import java.sql.ResultSet;
 
 public class GymImgDTO {
-    private int gym_imgseq;
+   
     private int gym_seq;
     private String gym_sysimg;
 
     public GymImgDTO() {
     }
 
-    public GymImgDTO(int gym_imgseq, int gym_seq, String gym_sysimg) {
-        this.gym_imgseq = gym_imgseq;
+    public GymImgDTO(int gym_seq, String gym_sysimg) {
+      
         this.gym_seq = gym_seq;
         this.gym_sysimg = gym_sysimg;
     }
 
     public GymImgDTO(ResultSet rs) throws Exception{
-        this.gym_imgseq = rs.getInt("gym_imgseq");
+      
         this.gym_seq = rs.getInt("gym_seq");
         this.gym_sysimg = rs.getString("gym_sysimg");
     }
 
-    public int getGym_imgseq() {
-        return gym_imgseq;
-    }
-
-    public void setGym_imgseq(int gym_imgseq) {
-        this.gym_imgseq = gym_imgseq;
-    }
 
     public int getGym_seq() {
         return gym_seq;
