@@ -147,15 +147,17 @@
 	padding-left: 70px;
 }
 
+
 #footer .footer_list>li {
 	margin-right: 10px;
-	z-index: 3;
 }
 
 #footer .footer_sns {
+	width: 200px;
 	position: relative;
 	top: -39px;
-	z-index: 3;
+	left: 550px;
+	margin: 0px;
 }
 
 #footer .footer_sns>li>a {

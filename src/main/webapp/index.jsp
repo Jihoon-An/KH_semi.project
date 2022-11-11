@@ -27,7 +27,7 @@
 									</div>
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
-											name="searchInput">
+											name="searchInput" maxlength="12">
 									</div>
 									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
@@ -86,42 +86,42 @@
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 
 					</section>
