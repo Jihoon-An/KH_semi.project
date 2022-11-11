@@ -132,7 +132,11 @@
 				</c:choose>
 
 					<div>
-					${reviewList.review.review_contents}
+					여기다
+					${reviewList[1].review.review_contents}
+					${reviewList[2].review.review_contents}
+					${reviewList[6].review.review_contents}
+					
 					</div>
 
 
