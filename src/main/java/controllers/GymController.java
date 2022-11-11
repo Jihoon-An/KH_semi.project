@@ -93,13 +93,19 @@ public class GymController extends ControllerAbs {
         System.out.println(check);
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
+        System.out.println(reviewDto);
+        
+        System.out.println(reviewDto.get(1));
+        System.out.println(reviewDto.get(3));
+       
+        
         GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
 
         if (request.getSession().getAttribute("userSeq") == null) {//로그아웃 상태라면 건너뒤기
-            request.setAttribute("favresult", "check");
+            request.setAttribute("favresult", "chk");
         } else {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);

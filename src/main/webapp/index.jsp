@@ -90,42 +90,42 @@
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 
 					</section>
