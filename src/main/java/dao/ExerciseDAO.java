@@ -9,8 +9,13 @@ public class ExerciseDAO extends Dao{
         super();
     }
 
-    public static ExerciseDAO getInstance(){
-        return (ExerciseDAO) Dao.getInstance();
+    private static ExerciseDAO instance;
+
+    synchronized public static ExerciseDAO getInstance() {
+        if (instance == null) {
+            instance = new ExerciseDAO();
+        }
+        return instance;
     }
 
     /**

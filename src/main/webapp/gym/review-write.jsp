@@ -11,28 +11,30 @@
 
     <div class="containerbox">
         <section>
-            <form action="/write.review" id="write_review_frm" method="post" enctype="multipart/form-data">
-
+            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="gym_seq" value="${gym_seq}">
+                <input type="hidden" name="gym_name" value="${gym_name}">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
-                        <p style="margin-bottom: 5px"><span class="text_main_title_600">에이블짐</span>
+                        <p style="margin-bottom: 5px"><span class="text_main_title_600">${gym_name}</span>
                             <span class="text_title">에 방문하셨나요?</span></p>
-                        <h1>리뷰를 작성해주세요</h1>
+                        <h1 style="margin: 0px">리뷰를 작성해주세요</h1>
+                        <p style="margin-top: 15px" class="text_normal">필수 항목입니다</p>
                     </div>
 
 
                     <div class="reviw_content reviw_content_star">
                         <div class="star-rating space-x-4 mx-auto">
-                            <input type="radio" id="5-stars" class="star" name="rating" value="5">
+                            <input type="radio" id="5-stars" class="star" name="review_star" value="5">
                             <label for="5-stars" class="startext pr-4">★</label>
-                            <input type="radio" id="4-stars" class="star" name="rating" value="4">
+                            <input type="radio" id="4-stars" class="star" name="review_star" value="4">
                             <label for="4-stars" class="startext">★</label>
-                            <input type="radio" id="3-stars" class="star" name="rating" value="3">
+                            <input type="radio" id="3-stars" class="star" name="review_star" value="3">
                             <label for="3-stars" class="startext">★</label>
-                            <input type="radio" id="2-stars" class="star" name="rating" value="2">
+                            <input type="radio" id="2-stars" class="star" name="review_star" value="2">
                             <label for="2-stars" class="startext">★</label>
-                            <input type="radio" id="1-star" class="star" name="rating" value="1">
+                            <input type="radio" id="1-star" class="star" name="review_star" value="1">
                             <label for="1-star" class="startext">★</label>
                         </div>
                         <div class="mx-auto p-2 " style="text-align: center;">
@@ -42,70 +44,68 @@
                     </div>
                 </div>
 
-                <hr class="line">
+                <hr class="line2">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
                         <span class="text_main_title">이 장소에 어울리는 <br>
                             <h2 style="display: inline-flex">키워드는 어떤건가요?</h2> <span
                                     class="text_normal">(1~5개)</span></span>
+                        <p style="margin-top: 15px" class="text_normal">선택 항목입니다</p>
                     </div>
 
 
                     <div class="reviw_content reviw_content_keyword">
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check1" type="checkbox">
+                            <input class="inp-cbx" id="review_check1" type="checkbox" name="review_check1">
                             <label class="cbx" for="review_check1"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
 										</svg></span><span>
-										<img src="/resource/review/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히
+										<img src="/resource/img/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히
 										봐주세요</span>
                             </label>
                         </div>
-
-
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check2" type="checkbox">
+                            <input class="inp-cbx" id="review_check2" type="checkbox" name="review_check2">
                             <label class="cbx" for="review_check2"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-										</svg></span><span><img src="/resource/review/review_check2_icon.png"
+										</svg></span><span><img src="/resource/img/review_check2_icon.png"
                                                                 class="checkIcon"> 상담이 자세해요</span>
                             </label>
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check3" type="checkbox">
+                            <input class="inp-cbx" id="review_check3" type="checkbox" name="review_check3">
                             <label class="cbx" for="review_check3"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-										</svg></span><span><img src="/resource/review/review_check3_icon.png"
+										</svg></span><span><img src="/resource/img/review_check3_icon.png"
                                                                 class="checkIcon"> 공간이 넓어요</span>
                             </label>
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check4" type="checkbox">
+                            <input class="inp-cbx" id="review_check4" type="checkbox" name="review_check4">
                             <label class="cbx" for="review_check4"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-										</svg></span><span><img src="/resource/review/review_check4_icon.png"
+										</svg></span><span><img src="/resource/img/review_check4_icon.png"
                                                                 class="checkIcon"> 기구가 다양해요</span>
                             </label>
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="cbx-46" type="checkbox">
-                            <label class="cbx" for="cbx-46"><span>
+                            <input class="inp-cbx" id="review_check5" type="checkbox" name="review_check5">
+                            <label class="cbx" for="review_check5"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-										</svg></span><span><img src="/resource/review/review_check5_icon.png"
+										</svg></span><span><img src="/resource/img/review_check5_icon.png"
                                                                 class="checkIcon"> 시설이 깔끔해요</span>
                             </label>
                         </div>
-
                     </div>
 
 
@@ -116,16 +116,11 @@
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
-                        <p style="margin-bottom: 5px"><span class="text_main_title_600">에이블짐</span>
+                        <p style="margin-bottom: 5px"><span class="text_main_title_600">${gym_name}</span>
                             <span class="text_title">에 대한</span></p>
                         <h2 style="margin-bottom: 15px">솔직한 평가를 남겨주세요</h2>
 
-
-
-
-
-
-
+                        <p style="margin-top: 15px" class="text_normal">필수 항목입니다</p>
                         <p class="star_value"><span class="text_main_title">만족도 <span
                                 id="slider_star_value2">0</span>점을
                             주셨습니다. </span><span id="slider_star_value_text2"></span></p>
@@ -142,7 +137,7 @@
                     </div>
 
                     <div class="review_text_box">
-							<textarea id="review_text" name="review_text"
+							<textarea id="review_contents" name="review_contents"
                                       placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요"></textarea>
                         <div id="review_text_cnt">(0 / 1000자)</div>
                     </div>
@@ -159,7 +154,7 @@
                         </h2>
                         <span class="text_normal">선택 항목입니다</span>
 
-                        <div class="text_mini reviw_img_info">
+                        <div class="text_mini review_photo_info">
                             <p class="text_normal"><b>시설 회원권이나 영수증 등 시설 이용권에 대한 사진을 찍어 업로드 해주시면 <br>
                                 운영자 확인 후 인증 리뷰어 뱃지를 등록해드립니다.</b></p>
                             <ul>
@@ -171,14 +166,14 @@
                     </div>
 
                     <div>
-                        <label for="review_img" class="btn_check">
+                        <label for="review_photo" class="btn_check">
                             <i class="fa-regular fa-square-plus"></i>&nbsp; 시설 회원권 또는 영수증 첨부하기
                         </label>
-                        <input type="file" id="review_img" style="display:none">
+                        <input type="file" id="review_photo" style="display:none" name="review_photo">
                         <div>
                             <div class="p-2">이미지 미리보기</div>
                             <div class="img_wrap">
-                                <img id="review_img_view"/>
+                                <img id="review_photo_view"/>
                             </div>
                         </div>
 
@@ -205,21 +200,90 @@
 
 <script>
 
-    // 텍스트 글자수 세기
+    // 별점 무조건 선택해야 submit 되기
+    function checkSubmit(){
+        if(!$("input[name=review_star]").is(":checked")) {
+            Swal.fire({
+                icon: 'error',
+                title: '별점 미선택',
+                text: '시설에 대한 별점을 꼭 선택해주세요',
+                confirmButtonText: '확인'
+            })
+            return false;
+        }
+        if($("#review_contents").html()=="") {
+            Swal.fire({
+                icon: 'error',
+                title: '리뷰 미입력',
+                text: '시설에 대한 리뷰를 꼭 남겨주세요',
+                confirmButtonText: '확인'
+            })
+            return false;
+        }
+        return true;
+    }
 
+    // 취소버튼 뒤로가기
+    $("#btn_cancle").on("click", ()=> {
+        history.back();
+    })
+
+
+    // review_check checked 값 바꾸기
+    $('#review_check1').on("click", function () {
+        if ($("#review_check1").is(":checked") == true) {
+            $('#review_check1').val("Y");
+        } else {
+            $('#review_check1').val("");
+        }
+    });
+
+    $('#review_check2').on("click", function () {
+        if ($("#review_check2").is(":checked") == true) {
+            $('#review_check2').val("Y");
+        } else {
+            $('#review_check2').val("");
+        }
+    });
+
+    $('#review_check3').on("click", function () {
+        if ($("#review_check3").is(":checked") == true) {
+            $('#review_check3').val("Y");
+        } else {
+            $('#review_check3').val("");
+        }
+    });
+
+    $('#review_check4').on("click", function () {
+        if ($("#review_check4").is(":checked") == true) {
+            $('#review_check4').val("Y");
+        } else {
+            $('#review_check4').val("");
+        }
+    });
+
+    $('#review_check5').on("click", function () {
+        if ($("#review_check5").is(":checked") == true) {
+            $('#review_check5').val("Y");
+        } else {
+            $('#review_check5').val("");
+        }
+    });
+
+
+    // 텍스트 글자수 세기
     $(document).ready(function () {
-        $('#review_text').on('keyup', function () {
-            $('#review_text_cnt').html("(" + $(this).val().length + " / 1000자)");
+        $('#review_contents').on('keyup', function () {
+            $('#review_text_cnt').html("(" + $(this).val().length + "/1000자)");
 
             if ($(this).val().length > 1000) {
                 $(this).val($(this).val().substring(0, 1000));
-                $('#review_text_cnt').html("(1000 / 1000)");
+                $('#review_text_cnt').html("(1000/1000)");
             }
         });
     });
 
     // 별점
-
     function ShowSliderValue(sVal) {
         var obValueView1 = document.getElementById("slider_star_value1");
         var obValueView2 = document.getElementById("slider_star_value2");
@@ -252,7 +316,6 @@
         }
     }
 
-
     var RangeSlider = function () {
         var range = $('.star');
 
@@ -265,12 +328,13 @@
     RangeSlider();
 
 
+    //이미지 미리보기
+
     $(document).ready(function () {
-        $("#review_img").on("change", handleImgFileSelect);
+        $("#review_photo").on("change", handleImgFileSelect);
     });
 
 
-    //이미지 미리보기
     function handleImgFileSelect(e) {
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
@@ -287,36 +351,13 @@
 
             var reader = new FileReader();
             reader.onload = function (e) {
-                $("#review_img_view").attr("src", e.target.result);
+                $("#review_photo_view").attr("src", e.target.result);
             }
             reader.readAsDataURL(f);
         });
 
         pi_check = true;
     }
-
-
-    //이미지 저장
-    function fn_submit() {
-
-        var form = new FormData();
-        form.append("review_img_in", $("#review_img_in")[0].files[0]);
-
-        $.ajax({
-            url: "/modifyPI.userMyPage"
-            , type: "POST"
-            , processData: false
-            , contentType: false
-            , data: form
-            , success: function (response) {
-                console.log("프로필 변경에 성공하였습니다.");
-            }
-            , error: function (jqXHR) {
-                alert(jqXHR.responseText);
-            }
-        });
-    }
-
 
 </script>
 

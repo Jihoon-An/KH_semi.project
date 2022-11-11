@@ -7,7 +7,7 @@
 <!-- Search main -->
 <main id="search">
 	<div class="mapContainer">
-		<div id="map" class="fuck">
+		<div id="map">
 			<!-- 메인 검색창 -->
 			<form onsubmit="searchPlaces(); return false;" id="mainForm">
 				<div class="search_main">
