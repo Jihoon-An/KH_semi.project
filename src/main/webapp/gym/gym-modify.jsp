@@ -6,7 +6,7 @@
 <%@ include file="/layout/header.jsp"%>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-	<form id="gym-modify-form" action="/modifyGym.bsPage" method="post" enctype="multipart/form-data">
+	<form id="gym-modify-form" action="/updateGym.bsPage?gymSeq=${gym.gym_seq}" method="post" enctype="multipart/form-data">
 
 		<div class="container" align="center">
 			<!-- 사업자 회원가입 폼 -->

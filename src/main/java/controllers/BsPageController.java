@@ -49,10 +49,13 @@ public class BsPageController extends ControllerAbs {
                     this.toUpdateGym(request,response);
                     request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
-             
+                case "/updateGym.bsPage":
+                    this.updateGymInfo(request, response);
+                    response.sendRedirect("/page.bsPage");
+                    break;
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym.modify.jsp");
+                    request.getRequestDispatcher("/gym/gym-modify.jsp");
                     break;
 
                 case "/deleteGym.bsPage":
@@ -249,7 +252,9 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymFilter", gymFilter);
     }
 
-
+    /**
+     *<h1>시설정보 및 시설필터 수정하기</h1>
+     */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
@@ -265,8 +270,6 @@ public class BsPageController extends ControllerAbs {
 
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
-
-
     }
 
 
