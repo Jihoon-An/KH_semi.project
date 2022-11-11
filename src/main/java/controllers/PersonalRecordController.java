@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 
 @WebServlet("*.personal")
@@ -33,7 +32,7 @@ public class PersonalRecordController extends ControllerAbs {
 
 				case "/record.personal":
                     this.sendRecord(request, response);
-                    response.getWriter().append(new Gson().toJson(this.getRecordByDate(request, response)));
+                    response.getWriter().append(new Gson().toJson(ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")) , request.getParameter("date"))));
 					break;
 
                 case "/date.personal":
@@ -71,13 +70,4 @@ public class PersonalRecordController extends ControllerAbs {
         request.setAttribute("recordByDay", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")), sdf.format(new Date())));
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
-
-    protected HashMap<String, Object> getRecordByDate(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("record", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")) , request.getParameter("date")));
-        return data;
-    }
-
-
-
 }

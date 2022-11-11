@@ -237,10 +237,10 @@
 							"muscle": $("#reg_muscle").val(),
 							"bmi": $("#reg_bmi").val(),
 						}
-						$.post("/record.personal", data)
+						$.post("/record.personal", data, null, "json")
 							.done(res => {
 								console.log(res);
-								console.log(res.record);
+								console.log(res.exr_date);
 							})
 					}
 
