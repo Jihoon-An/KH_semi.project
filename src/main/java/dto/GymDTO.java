@@ -37,12 +37,12 @@ public class GymDTO {
         String gym_location = gym_address1 + " " + gym_address2;
 
         this.gym_seq = Integer.parseInt(request.getParameter("gymSeq"));;
-        this.bs_seq = (Integer) request.getSession().getAttribute("bsSeq");;
+        this.bs_seq = Integer.parseInt(request.getParameter("bsSeq"));;
         this.gym_name = request.getParameter("gym_name");;
         this.gym_phone = request.getParameter("gym_phone");;
         this.gym_location = gym_location;
         this.gym_price = request.getParameter("gym_price");;
-        this.gym_main_sysImg = null;
+        this.gym_main_sysImg = "null";
         this.gym_open = request.getParameter("gym_open");;
         this.gym_close = request.getParameter("gym_close");;
         this.gym_x = request.getParameter("gym_x");;

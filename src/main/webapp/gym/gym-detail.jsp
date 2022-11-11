@@ -72,10 +72,12 @@
 				<div class="reviewn">
 					<p class="text_title">리뷰</p>
 				</div>
+				<c:if test="${userSeq !=null}">
 				<div class="reviewr">
-					<button type="button" class="btn btn_base" id="reviewbtn"
+					<button type="button" class="btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
+				</c:if>
 
 				<c:choose>
 					<c:when test="${not empty reviewList }">
@@ -177,22 +179,24 @@
 				</c:choose>
 			</div>
 
+			<c:choose>
+				<c:when test="${not empty gymImg }">
+					<!-- 리스트가 비어있지않다면 -->
+					<c:forEach var="r" items="${gymImg }">
+						<div class="infopicture">
 
-			<div class="infopicture">
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="..." />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="" />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-			</div>
+							<figure class="figure">
+								<img src=""
+									class="figure-img img-fluid rounded" alt="..." />
+								<figcaption class="figure-caption"></figcaption>
+							</figure>
+						</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
-	
+
 
 
 	<script>
@@ -349,19 +353,23 @@
           options: {
             elements: {
               line: {
-                borderWidth: 1,
+                borderWidth: 3,
               },
             },
             scales: {
                 r: {
                     suggestedMin: 0,
-                    // suggestedMax: 100
+          
+
                     stepSize: 1
-                }
+                },
             },
           },
           
         };   
+        
+    
+ 
         
         	//chart.js
       </script>
