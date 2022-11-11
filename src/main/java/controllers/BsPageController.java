@@ -29,7 +29,7 @@ public class BsPageController extends ControllerAbs {
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
 
-                case "/updateProflie.bsPage":
+                case "/updateProfile.bsPage":
                     this.updateProfile(request, response);
                     break;
 
@@ -51,11 +51,11 @@ public class BsPageController extends ControllerAbs {
                     break;
                 case "/updateGym.bsPage":
                     this.updateGymInfo(request, response);
-                    response.sendRedirect("/page.bsPage");
+                    response.sendRedirect("/");
                     break;
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym/gym-modify.jsp");
+                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
 
                 case "/deleteGym.bsPage":
@@ -258,13 +258,17 @@ public class BsPageController extends ControllerAbs {
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-
-        String open = request.getParameter("open");
-        String locker = request.getParameter("locker");
-        String shower = request.getParameter("shower");
-        String park = request.getParameter("park");
+//        int bsSeq = Integer.parseInt(request.getParameter("bsSeq"));
+        String open = request.getParameter("open_result");
+        String locker = request.getParameter("locker_result");
+        String shower = request.getParameter("shower_result");
+        String park = request.getParameter("park_result");
 
         GymDTO gymDTO = new GymDTO(request);
+        if(request.getParameter("address1") == null){
+            GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
+            gymDTO.setGym_location(beforeGym.getGym_location());
+        }
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
