@@ -217,10 +217,10 @@
 						$("#reg_intens_label").text(e.target.value);
 					});
 
-					$("#reg_range").on("change", () => {
+					$("#reg_range").on("change", e => {
 						let element, width, point, place;
 						let intens = ["최하", "하", "중", "상", "최상"];
-						element = $(this);
+						element = $(e.target);
 						width = element.width();
 						point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
 
@@ -229,7 +229,7 @@
 						else { place = width * point }
 
 						$("#reg_range_label").css({ left: (place * 0.9) - 6, }).text(intens[element.val() - 1]);
-					}).trigger('change');
+					}).trigger("change");
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
