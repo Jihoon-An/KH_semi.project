@@ -52,7 +52,7 @@
 				</div>
 				<div class="search_sub_filter">
 					<div class="search_tag_icon" style="margin-left: 37px;">
-						<img src="/resource/filter.png" alt="">
+						<img src="/resource/img/filter.png" alt="">
 					</div>
 					<div class="search_tag" id="openTagDiv" style="margin-left: 5px;">
 						<label for="filter_open" class="filter_open filter">#24시간</label>
