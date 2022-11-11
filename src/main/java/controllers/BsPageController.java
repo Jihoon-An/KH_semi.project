@@ -92,7 +92,6 @@ public class BsPageController extends ControllerAbs {
      */
     private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
 
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);

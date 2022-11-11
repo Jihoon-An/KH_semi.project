@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+#bs-page {
+    min-height: 600px;
+}
+
 #bs-page #modify_profile {
     display: none;
     width: 100%;
