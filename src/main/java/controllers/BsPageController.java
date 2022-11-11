@@ -91,6 +91,8 @@ public class BsPageController extends ControllerAbs {
      * <h2>gym데이터를 request에 담음</h2>
      */
     private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
 
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
@@ -212,7 +214,6 @@ public class BsPageController extends ControllerAbs {
      * session에 bsSeq만 필요
      */
     private void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().setAttribute("bsSeq", 112);
 
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
 
