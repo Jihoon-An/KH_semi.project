@@ -65,7 +65,7 @@
 				</div>
 				<div class="col-12 gy-3">
 					<input type="text" name="phone" id="searchPw_phone"
-						placeholder="핸드폰 번호" maxlength="14">
+						placeholder="핸드폰 번호" maxlength="14" oninput="validNum()">
 					<div class="text-start mt-1 mb-1" style="width: 250px">
 						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
 							핸드폰 번호를 입력하세요.</span>

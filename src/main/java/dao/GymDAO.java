@@ -3,14 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import dto.*;
-
-import javax.xml.transform.Result;
 
 
 public class GymDAO extends Dao {
@@ -198,7 +194,7 @@ public class GymDAO extends Dao {
      * @param gymDto
      * @throws Exception
      */
-    public void modifyGym(GymDTO gymDto) throws Exception {
+    public void updateGym(GymDTO gymDto) throws Exception {
         String sql = "update gym set "
                    + "gym_name = ?, "
                    + "gym_phone = ?, "
@@ -228,33 +224,21 @@ public class GymDAO extends Dao {
         }
     }
 
-    /**
-     * Gym Filter 시설 필터 수정
-     *
-     * @param gymFilterDTO
-     * @throws Exception
-     */
-    public void modifyGymFilter(GymFilterDTO gymFilterDTO) throws Exception {
-        String sql = "update gym_filter set open = ?, locker = ?, shower = ?, park =? where gym_seq = ?";
+
+
+
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from gym where gym_seq = ?";
 
         try (Connection con = this.getConnection();
-                PreparedStatement pstat = con.prepareStatement(sql);) {
-            pstat.setString(1, gymFilterDTO.getOpen());
-            pstat.setString(2, gymFilterDTO.getLocker());
-            pstat.setString(3, gymFilterDTO.getShower());
-            pstat.setString(4, gymFilterDTO.getPark());
-            pstat.setInt(5, gymFilterDTO.getGym_seq());
+             PreparedStatement statement = con.prepareStatement(sql)) {
 
-            pstat.executeUpdate();
+            statement.setInt(1, gymSeq);
+
+            statement.executeUpdate();
             con.commit();
         }
     }
-
-
-
-
-
-
 }
 
 

@@ -177,7 +177,7 @@
 	<script>
 		// input 칸에 숫자 외에 입력 안되게 막기
 		function validNum() {
-			event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+			event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 		}
 
 		// 시설 추가

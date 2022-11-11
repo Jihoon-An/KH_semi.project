@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class BsPageController extends ControllerAbs {
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
 
-                case "/updateProflie.bsPage":
+                case "/updateProfile.bsPage":
                     this.updateProfile(request, response);
                     break;
 
@@ -44,11 +45,16 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-
+                case "/modifyGym.bsPage":
+                    this.toUpdateGym(request,response);
+                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
+                    break;
+             
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym.modify.jsp");
+                    request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
                     break;
+
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -63,24 +69,26 @@ public class BsPageController extends ControllerAbs {
 
     /**
      * <h2>gymSeq로 관련된 데이터를 지움</h2>
+     *
      * @param request for gym_seq
      */
-    private void deleteGym(HttpServletRequest request, HttpServletResponse response) {
+    private void deleteGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
 
         // 시설 필터 gym_filter table 지우기
-
+        GymFilterDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 이미지 gym_img 지우기
-
+        GymImgDAO.getInstance().deleteByGymSeq(gymSeq);
         // 즐겨찾기 favorite table 지우기
-
-        // 리뷰 좋아요 likes 지우기 by review_seq
-
+        FavoritesDAO.getInstance().deleteByGymSeq(gymSeq);
+        // 리뷰 좋아요 likes 지우기
+        LikesDAO.getInstance().deleteByGymSeq(gymSeq);
         // 리뷰 review table 지우기
-
+        ReviewDAO.getInstance().deleteByGymSeq(gymSeq);
         // 헬스장 회원 membership table 지우기
-
+        MembershipDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 gym table 지우기
+        GymDAO.getInstance().deleteByGymSeq(gymSeq);
     }
 
     /**
@@ -202,6 +210,7 @@ public class BsPageController extends ControllerAbs {
         BsCtfcDAO.getInstance().updateBsNum(new BsCtfcDTO(bsSeq, number, null));
     }
 
+
     /**
      * <h1>사업자 페이지 데이터 불러오기</h1>
      * session에 bsSeq만 필요
@@ -214,7 +223,7 @@ public class BsPageController extends ControllerAbs {
         List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
         List<GymFilterDTO> gymFilterList = new ArrayList<>();
         GymFilterDAO filterDAO = GymFilterDAO.getInstance();
-        for(GymDTO gym : gymList){
+        for (GymDTO gym : gymList) {
             gymFilterList.add(filterDAO.selectByGymSeq(gym.getGym_seq()));
         }
 
@@ -225,6 +234,41 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymList", gymList);
         request.setAttribute("gymFilterList", gymFilterList);
     }
+
+
+    /**
+     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
+     */
+    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+
+        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
+        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+        request.setAttribute("gym", gym);
+        request.setAttribute("gymFilter", gymFilter);
+    }
+
+
+    private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+
+        String open = request.getParameter("open");
+        String locker = request.getParameter("locker");
+        String shower = request.getParameter("shower");
+        String park = request.getParameter("park");
+
+        GymDTO gymDTO = new GymDTO(request);
+
+        GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
+
+        GymDAO.getInstance().updateGym(gymDTO);
+        GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
+
+
+    }
+
 
 
     @Override

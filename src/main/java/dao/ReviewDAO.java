@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
@@ -282,11 +283,34 @@ public class ReviewDAO extends Dao {
 		}
 	}
 
+	public List<ReviewDTO> getByGymSeq(int gymSeq) throws Exception {
+		String sql = "select * from review where gym_seq = ?";
+		List<ReviewDTO> reviewList = new ArrayList<>();
 
+		try (Connection con = this.getConnection();
+			 PreparedStatement statement = con.prepareStatement(sql)) {
 
+			statement.setInt(1, gymSeq);
 
+			try (ResultSet rs = statement.executeQuery();) {
+				while (rs.next()) {
+					reviewList.add(new ReviewDTO(rs));
+				}
+				return reviewList;
+			}
+		}
+	}
 
+	public void deleteByGymSeq(int gymSeq) throws Exception {
+		String sql = "delete from raview where gym_seq = ?";
 
+		try (Connection con = this.getConnection();
+			 PreparedStatement statement = con.prepareStatement(sql)) {
 
+			statement.setInt(1, gymSeq);
 
+			statement.executeUpdate();
+			con.commit();
+		}
+	}
 }

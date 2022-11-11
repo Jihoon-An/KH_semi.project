@@ -14,8 +14,13 @@ public class GymImgDAO extends Dao {
         super();
     }
 
+    private static GymImgDAO instance;
+
     public static GymImgDAO getInstance() {
-        return (GymImgDAO) Dao.getInstance();
+        if (instance == null) {
+            instance = new GymImgDAO();
+        }
+        return instance;
     }
 
     /**
