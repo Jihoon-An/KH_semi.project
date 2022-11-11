@@ -121,6 +121,8 @@ public class HostUserController extends ControllerAbs {
 
         BsUsersDAO bsDao = BsUsersDAO.getInstance();
         String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
+        
+        
 
 
         List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
