@@ -236,7 +236,8 @@
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         
 		
-  
+
+
 		
 		function createMarker(name, x, y){
 			var positions =
