@@ -96,6 +96,7 @@ public class GymController extends ControllerAbs {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
         }
+        
       //  request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);

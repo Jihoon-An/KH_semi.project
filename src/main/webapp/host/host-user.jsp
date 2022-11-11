@@ -109,7 +109,7 @@
     });
     
   
-   
+   	//유저삭제
     $("#btn_dell").on("click", function(){
     	var userseq = [];
     
@@ -127,7 +127,11 @@
     		url : "/usersDel.host",
     		type:"post",
     	
-    		data:{"userseq":JSON.stringify(userseq)}
+    		data:{"userseq":JSON.stringify(userseq)},
+    		  success: function (data){
+    			  location.reload();
+    		  }
+    	
     	})
     })
     

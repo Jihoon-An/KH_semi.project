@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.List;
 
+import javax.naming.InterruptedNamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+
 import dao.BsUsersDAO;
 import dao.UserDAO;
 import dto.BsUsersDTO;
 import dto.UserDTO;
+import oracle.net.aso.a;
 
-import dto.UserDTO;
 
 
 @WebServlet("*.host")
@@ -63,10 +65,11 @@ public class HostUserController extends ControllerAbs {
         //관리자 페이지 회원 삭제
         case "/usersDel.host":
         	
-        	this.getUserDel(request,response);
+        	this.userDel(request,response);
         	break;
-        	
+        //관리자 페이지 사업자회원 삭제
         case "/bsUsersDel.host":
+        	this.bsUserDel(request,response);
         	break;
         
 			
@@ -140,29 +143,46 @@ public class HostUserController extends ControllerAbs {
 		 }
 	 
 //	 
-	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	 protected void userDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String use = request.getParameter("userseq");
-		System.out.println(use);
-//			
-//		Type type = new TypeToken<List<String>>() {}.getType();
-//	
-//		Gson gson = new Gson();
-//			List<String> a = gson.fromJson("userseq", type);
-		//System.out.println(a);
-			
-			//System.out.println(useq);
-		 	
-		 	String text= request.getParameter("inputT");
-			 UserDAO dao = UserDAO.getInstance();
-	    		List<UserDTO> dto = dao.searchUser(text);
-	    	
-	    		System.out.println(dto);
-	    	
-	    		request.setAttribute("list", dto); //user
-			
-				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+		 UserDAO userDao = UserDAO.getInstance();
 		 
+		 
+		String jsonstr = request.getParameter("userseq");
+		System.out.println(jsonstr);
+			
+		Gson gson = new Gson();
+		java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+	
+	
+		List<Integer>  seqList = gson.fromJson(jsonstr, type);
+		System.out.println(seqList);
+
+		for(int i = 0; i<seqList.size(); i++) {
+				userDao.deleteByUserSeq(seqList.get(i));
+		}
+
+		
+		 }
+	 
+	 protected void bsUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		BsUsersDAO bsUsersDAO= BsUsersDAO.getInstance();
+		 
+		 
+		String jsonstr = request.getParameter("userseq");
+		System.out.println(jsonstr);
+			
+		Gson gson = new Gson();
+		java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+		List<Integer>  seqList = gson.fromJson(jsonstr, type);
+		System.out.println(seqList);
+
+		for(int i = 0; i<seqList.size(); i++) {
+				bsUsersDAO.deleteByBsSeq(seqList.get(i));
+		}
+
+		
 		 }
 	 
 	 

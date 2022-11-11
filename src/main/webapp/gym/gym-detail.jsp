@@ -72,10 +72,12 @@
 				<div class="reviewn">
 					<p class="text_title">리뷰</p>
 				</div>
+				<c:if test="${userSeq !=null}">
 				<div class="reviewr">
-					<button type="button" class="btn btn_base" id="reviewbtn"
+					<button type="button" class="btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
+				</c:if>
 
 				<c:choose>
 					<c:when test="${not empty reviewList }">
