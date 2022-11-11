@@ -315,6 +315,7 @@
 	border-radius: 100px;
 	border: none;
 	box-shadow: 3px 4px 5px rgb(150, 12, 12);
+	padding-right: 50px;
 }
 
 #index .search_main>.search_main_input>input::placeholder {
