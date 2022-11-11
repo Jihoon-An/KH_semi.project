@@ -7,15 +7,6 @@
 <!-- Search main -->
   <main id="host-user">
 
-<div class="main_margin_155" style="text-align: center; font-size: 30px; padding: 30px;">
-    회원관리 (
-    <a href="/usersList.host?cpage=1">일반회원관리</a> /
-    <a href="/bsUserList.host?cpage=1">사업자회원관리</a> )<br>
-    <a href="#">리뷰관리</a> /
-    <a href="#">시설관리</a> /
-    <a href="#">광고관리</a>
-
-</div>
      <form action="" id="frm">
     <div class="containerbox" style="overflow:hidden">
     <div class="board">

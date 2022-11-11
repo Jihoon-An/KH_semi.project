@@ -41,11 +41,15 @@
     <!-- sweetalert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <!-- css -->
     <link rel="stylesheet" href="/css/base.css" type="text/css">
     <link rel="stylesheet" href="/css/host.css" type="text/css">
     <link rel="stylesheet" href="/css/host-user.css" type="text/css">
     <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
+    <link rel="stylesheet" href="/css/host-review.css" type="text/css">
 
 </head>
 
@@ -87,7 +91,7 @@
                             시설관리
                         </div>
                     </a></li>
-                    <li><a class="a_tag" href="/host/host.jsp">
+                    <li><a class="a_tag" href="/host/host-review.jsp">
                         <div class="d-flex justify-content-start">
                             <div class="i_margin"><i class="fa-regular fa-pen-to-square"></i></div>
                             리뷰관리

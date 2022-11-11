@@ -1,0 +1,131 @@
+
+:root {
+    --animate-duration: 2s;
+    --animate-delay: 0.9s;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.writer:hover {
+    color: #666666;
+    cursor: pointer;
+}
+
+.alert {
+    background: #fff;
+    vertical-align: middle;
+}
+
+.titleline>div {
+    font-size: 15px;
+    font-weight: 900;
+}
+
+div {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+i {
+    margin-top: 15px;
+}
+
+.bg-secondary {
+    - -badge-color: #999999;
+}
+
+.btn-bd-secondary {
+    - -bs-btn-font-weight: 500;
+    - -bs-btn-font-size: 12px;
+    - -bs-btn-padding-x: 10px;
+    - -bs-btn-padding-y: 3px;
+    - -bs-btn-border-color: #333333;
+    - -bs-btn-color: #333333;
+    - -bs-btn-bg: white;
+    - -bs-btn-hover-bg: #999999;
+    - -bs-btn-hover-color: white;
+}
+
+.pagination {
+    - -bs-pagination-color: #333333;
+    - -bs-pagination-active-bg: #999999;
+    - -bs-pagination-active-border-color: #999999;
+    - -bs-pagination-hover-color: #333333;
+    - -bs-pagination-font-size: 14px;
+}
+
+.cate {
+    margin-top: 20px;
+}
+
+.board {
+    margin-top: 10px;
+}
+
+.nav {
+    - -bs-nav-link-color: #666666;
+    - -bs-nav-link-hover-color: #222222;
+    - -bs-nav-link-font-size: 14px;
+}
+
+.nav-pills {
+    - -bs-nav-pills-link-active-bg: #999999;
+}
+
+h5 {
+    text-align: center;
+    font-weight: 900;
+}
+
+.align {
+    text-align: right;
+    margin-bottom: 100px;
+}
+
+
+.page-link {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+
+}
+
+.page-link:focus, .page-link:hover {
+    color: #000;
+    background-color: #fafafa;
+    border-color: #ccc;
+}
+
+a{
+    text-decoration:none;
+    color:#222222;
+}
+
+
+#title {
+    text-align: left;
+}
+
+a:hover {
+    font-weight: 700;
+    color:#222222;
+}
+
+.bg-danger{margin-left:10px;
+    position: relative;
+    top: -1px;}
+
+.gray{color: #666666;
+    font-size:13px;
+    margin-left:3px;}
