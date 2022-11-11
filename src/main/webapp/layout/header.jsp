@@ -75,8 +75,6 @@
     <link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
     <link rel="stylesheet" href="/css/users.css" type="text/css">
     <link rel="stylesheet" href="/css/bs.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-user.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
     <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
     <link rel="stylesheet" href="/css/review.css" type="text/css">
