@@ -6,8 +6,9 @@
 <%@ include file="/layout/header.jsp"%>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-	<form id="gym-modify-form" action="/modifyGym.bsPage" method="post" enctype="multipart/form-data">
-
+	<form id="gym-modify-form" action="/updateGym.bsPage" method="post">
+        <input type="hidden" name="gymSeq" value="${gym.gym_seq}">
+        <input type="hidden" name="bsSeq" value="777">
 		<div class="container" align="center">
 			<!-- 사업자 회원가입 폼 -->
 
@@ -69,7 +70,7 @@
                             <div class="text-start">
 								<span class="inputTitle">시설 CLOSE 시간</span>
 							</div>
-							<input type="text" name="gym_name" id="gym_name" placeholder="시설 CLOSE 시간을 입력하세요" value="${gym.gym_close}">
+							<input type="text" name="gym_close" id="gym_close" placeholder="시설 CLOSE 시간을 입력하세요" value="${gym.gym_close}">
                         </div>
 
 
@@ -81,18 +82,15 @@
 							<div class="zipcodebox text-start" class="text-start" style="width: 350px">
 								<label className="gym_address1-button" for="gym_address1" class="lb_gym_address1 label">우편번호를 검색하세요</label> 
                                 <input type="text" name="gym_address1" class="gym_address1" style="display: none">
-								<input type="text" name="gym_x" style="display: none">
-                                <input type="text" name="gym_y" style="display: none">
+								<input type="hidden" name="gym_x" value="${gym.gym_x}">
+                                <input type="hidden" name="gym_y" value="${gym.gym_y}">
 							</div>
                             
 							<div class="text-start" style="width: 350px">
 								<span style="color: #808080; font-size: x-small">시설상세주소</span>
 							</div>
-							<input type="text" name="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요" maxlength="40">
+							<input type="text" name="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요" maxlength="40" value="${gym.gym_location}">
                             
-                            <div class="text-start" class="text-start" style="width: 350px">
-								<span style="color: #808080; font-size: x-small">기존주소 : ${gym.gym_location}</span>
-							</div>
                             
                             <div class="col-12 gy-2">
                                 <div class="error_msg text_mini text-start" style="width: 350px">
@@ -176,7 +174,18 @@
 
                         <div class="col-1"></div>
 
-
+                        <input type="hidden" name="open_result" id="open_result" value="false">
+						<input type="hidden" name="locker_result" id="locker_result" value="false">
+						<input type="hidden" name="shower_result" id="shower_result" value="false">
+						<input type="hidden" name="park_result" id="park_result" value="false">
+                        <script>
+                            $(".filterCheck").change(function(){
+                                $("#open_result").val($("#open").is(":checked"));
+                                $("#locker_result").val($("#locker").is(":checked"));
+                                $("#shower_result").val($("#shower").is(":checked"));
+                                $("#park_result").val($("#park").is(":checked"));
+                            });
+                        </script>
     
                         <!------------------------------ 시설 사진 --------------------------->
                         <div class="col-12 gymtitle">
@@ -230,33 +239,31 @@
 	<script>
 
         $("#btn_modify_complete").on("click", function () {
-            console.log(submitCheck());
-            if (submitCheck()) {
+            console.log('시발');
+            console.log(gymSubmitCheck());
+            if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
         })
         
         
         // 회원가입 함수
-        function submitCheck() {
-
+        function gymSubmitCheck() {
             if(!isFilled($("#gym_name, #gym_phone, #gym_address1, #gym_address2, #gym_x, #gym_y"))) {
+                console.log('1 뻑큐');
                 return false;
-
-            }else if (isFilled($("#gym_name"))) {
+            }else if (!isFilled($("#gym_name"))) {
+                console.log('2 뻑큐');
                 wobble($("#gym_name"));
                 $("#gym_name").focus();
                 return false;
-
-            } else if (isFilled($("#gym_phone"))) {
+            } else if (!isFilled($("#gym_phone"))) {
+                console.log('3 뻑큐');
                 wobble($("#gym_phone"));
                 $("#gym_phone").focus();
                 return false;
-            } else if (isFilledZip($("#gym_address1"))) {
-                wobble($("#gym_address1"));
-                $("#gym_address1").focus();
-                return false;
-            } else if (isFilled($("#gym_address2"))){
+            }else if (!isFilled($("#gym_address2"))){
+                console.log('4 뻑큐');
                 wobble($("#gym_address2"));
                 $("#gym_address2").focus();
                 return false;
@@ -274,7 +281,7 @@
 
 
         // 유효성 검사 Regex
-        let phoneRegex = /^0[\d]{8,10}$/;
+        let gym_phoneRegex = /^0[\d]{8,10}$/;
 
 
         // 시설번호 - 값 입력 유효성 검사 display
@@ -283,7 +290,7 @@
                 $("#gym_phone_msg").css("display", "block");
                 $("#gym_phone_msg").css("color", "#001A41");
                 $("#gym_phone_msg").html("연락처는 - 를 제외한 숫자만 입력해주세요");
-            } else if (!phoneRegex.test(element.val())) {
+            } else if (!gym_phoneRegex.test(element.val())) {
                 $("#gym_phone_msg").css("display", "block");
                 $("#gym_phone_msg").css("color", "red");
                 $("#gym_phone_msg").html("옳바른 번호 형식을 입력해주세요");
@@ -304,7 +311,7 @@
 
 
 
-        // 엔터 = 버튼 클릭
+        // 엔터 = 버튼 클릭 
         $("#gym_name, #gym_phone, #gym_price, #gym_open, #gym_close, #gym_address1, #gym_address2").on("keyup", (e) => {
              if (e.keyCode == 13) {
                 $("#btn_modify_complete").click()

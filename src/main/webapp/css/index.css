@@ -184,8 +184,8 @@
 /* main */
 
 #index .wrap {
-	width: 100%;
-	min-width: 1200px;
+	width:100%;
+	min-width : 1200px;
 	height: 950px;
 	overflow: hidden;
 	position: relative;
@@ -193,7 +193,7 @@
 
 
 #index .mainimg {
-	background-image: url("/resource/main.jpg");
+	background-image: url("/resource/img/main.jpg");
 	width: 100%;
 	background-size: cover;
 	background-attachment: fixed;

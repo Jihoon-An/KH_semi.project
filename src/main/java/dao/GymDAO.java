@@ -214,10 +214,11 @@ public class GymDAO extends Dao {
             pstat.setString(3, gymDto.getGym_price());
             pstat.setString(4, gymDto.getGym_open());
             pstat.setString(5, gymDto.getGym_close());
-            pstat.setString(6, gymDto.getGym_x());
-            pstat.setString(7, gymDto.getGym_y());
-            pstat.setString(8, gymDto.getGym_main_sysImg());
-            pstat.setInt(9, gymDto.getGym_seq());
+            pstat.setString(6, gymDto.getGym_location());
+            pstat.setString(7, gymDto.getGym_x());
+            pstat.setString(8, gymDto.getGym_y());
+            pstat.setString(9, gymDto.getGym_main_sysImg());
+            pstat.setInt(10, gymDto.getGym_seq());
 
             pstat.executeUpdate();
             con.commit();

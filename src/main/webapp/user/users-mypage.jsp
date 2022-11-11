@@ -170,7 +170,7 @@
 							개인정보 수정
 						</span>
 					</div>
-					<div id="pw">
+					<div id="pw" class="text-center">
 						<!-- 1차 비밀번호 입력 -->
 						<div class="input_pw">
 							<span>새 비밀번호</span>

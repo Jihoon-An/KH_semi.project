@@ -45,16 +45,14 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-                case "/modifyGym.bsPage":
-                    this.toUpdateGym(request,response);
-                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
-                    break;
-             
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
+                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
-
+                case "/updateGym.bsPage":
+                    this.updateGymInfo(request, response);
+                    response.sendRedirect("/");
+                    break;
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -94,9 +92,10 @@ public class BsPageController extends ControllerAbs {
     /**
      * <h2>gym데이터를 request에 담음</h2>
      */
-    private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+    public void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
+        request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
 
@@ -216,7 +215,6 @@ public class BsPageController extends ControllerAbs {
      * session에 bsSeq만 필요
      */
     private void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().setAttribute("bsSeq", 112);
 
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
 
@@ -249,24 +247,28 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymFilter", gymFilter);
     }
 
-
+    /**
+     *<h1>시설정보 및 시설필터 수정하기</h1>
+     */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-
-        String open = request.getParameter("open");
-        String locker = request.getParameter("locker");
-        String shower = request.getParameter("shower");
-        String park = request.getParameter("park");
+//        int bsSeq = Integer.parseInt(request.getParameter("bsSeq"));
+        String open = request.getParameter("open_result");
+        String locker = request.getParameter("locker_result");
+        String shower = request.getParameter("shower_result");
+        String park = request.getParameter("park_result");
 
         GymDTO gymDTO = new GymDTO(request);
+        if(request.getParameter("address1") == null){
+            GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
+            gymDTO.setGym_location(beforeGym.getGym_location());
+        }
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
-
-
     }
 
 

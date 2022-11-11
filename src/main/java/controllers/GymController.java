@@ -85,14 +85,15 @@ public class GymController extends ControllerAbs {
         ReviewDAO reviewDao = ReviewDAO.getInstance();
         GymDAO gymDao = GymDAO.getInstance();
         FavoritesDAO favDao = FavoritesDAO.getInstance();
-        GymFilterDAO filterDAO = new GymFilterDAO().getInstance();
-        
-        HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
+        GymFilterDAO filterDao = GymFilterDAO.getInstance();
+   //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
+       
+   //    	List<GymImgDTO> gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+               HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
         System.out.println(check);
-
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
-        GymFilterDTO gymFilterDtO = filterDAO.selectByGymSeq(gym_seq);
+        GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
@@ -103,7 +104,8 @@ public class GymController extends ControllerAbs {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
         }
-
+        
+      //  request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);
         request.setAttribute("gymList", gymDto);
@@ -189,7 +191,7 @@ public class GymController extends ControllerAbs {
         ReviewDTO review = new ReviewDTO(request);
         ReviewDAO.getInstance().writeReview(review);
         int gymSeq = review.getGym_seq();
-        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+gymSeq);
+        response.sendRedirect("/detail.gym?gym_seq="+gymSeq);
     }
 
 
