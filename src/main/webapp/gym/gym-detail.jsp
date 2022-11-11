@@ -27,9 +27,10 @@
 					<div class="icon1">
 						<c:if test="${userSeq !=null}">
 							<!-- list사용자 로그인만 보이게끔 -->
-							<i class="fa-solid fa-heart" id="heart"></i>
+							<i class="fa-solid fa-heart" check="${favresult }" id="heart"></i>
+								
+							</c:if>
 
-						</c:if>
 						<span class="button gray medium"> <a
 							onclick="clip(); return false;" class="shareicon"> <i
 								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
@@ -261,15 +262,25 @@
 
 	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
 	$(document).ready(function() {
-
-	    if(${favresult}!== "check"){
-	    	if(${favresult}){
-		    	$("#heart").css("color", "#CF0C00");
-		    }else{
-		    	$("#heart").css("color", "#8f959a")
-		    }
-	    }
-	});
+		
+	
+		
+		
+		
+		let fav = $("#heart").attr("check") == "true" ? true : false;
+		
+		console.log(fav);
+//			if( ${favresult}!== "check" ){
+		    	if(fav){
+		    		console.log(fav + ": 빨강")
+			    	$("#heart").css("color", "#CF0C00");
+			    }else{
+			    	console.log(fav + ": 회색")
+			    	$("#heart").css("color", "#8f959a")
+			    }
+//			}
+		
+	}); 
 	
 
 

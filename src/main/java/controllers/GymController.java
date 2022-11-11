@@ -99,7 +99,7 @@ public class GymController extends ControllerAbs {
 
 
         if (request.getSession().getAttribute("userSeq") == null) {//로그아웃 상태라면 건너뒤기
-            request.setAttribute("favresult", "check");
+            request.setAttribute("favresult", "chk");
         } else {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
