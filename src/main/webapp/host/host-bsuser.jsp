@@ -44,7 +44,7 @@
 			    <!-- 리스트가 비어있지않다면 -->
 				<c:forEach  var="u" items="${bsUserList}" >
         <div class="title"> 
-            <div class="selectuser text_normal"> <input type="checkbox" name="bsuser"  value="${u.bs_seq}" >선택 </div>
+            <div class="selectuser text_normal"> <input type="checkbox" name="bsuser"  class="check" value="${u.bs_seq}" >선택 </div>
             <div class="user-seq text_normal">${u.bs_seq }</div>
             <div class="user-email text_normal">${u.bs_email }</div>
             <div class="user-name text_normal">${u.bs_name}</div>
@@ -73,7 +73,7 @@
           <div class="textsearch"><input type="text" name="inputT" id="inputText" placeholder="이름 검색">
           <button type="submit" id="btn_searchh">SEARCH</button>
           </div>
-         <div class="btn_div"><button class="btn_base deleteuser" id="btn_del">삭제하기</button></div>
+         <div class="btn_div"><button type="button" class="btn_base deleteuser" id="btn_dell">삭제하기</button></div>
     
     </div>
     </div>
@@ -129,9 +129,32 @@
     	})	
     	
     
-        $(".deleteuser").on("click", function(){
-            
-        })
+    
+        //사업자 회원 삭제
+          $("#btn_dell").on("click", function(){
+    	var userseq = [];
+    
+    	console.log(document.querySelectorAll(".check:checked")[0].value)
+    	
+    	let a = document.querySelectorAll(".check:checked")
+    	for(let i = 0; i<a.length; i++){
+    		console.log(a[i]);
+    		userseq.push(a[i].value);
+    		
+    		}
+    	console.log(userseq)
+    	
+    	$.ajax({
+    		url : "/bsUsersDel.host",
+    		type:"post",
+    	
+    		data:{"userseq":JSON.stringify(userseq)},
+    		  success: function (data){
+    			  location.reload();
+    		  }
+    	
+    	})
+    })
     </script>
     </main>
 
