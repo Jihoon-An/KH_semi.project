@@ -49,22 +49,73 @@
 				<div class="placemap" id="map"></div>
 
 				<script>
-              var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-                mapOption = {
-                  center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                  level: 3, // 지도의 확대 레벨
-                };
+					let gym_x = "${gymList.gym_x}";
+					let gym_y = "${gymList.gym_y}";
 
-              // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-              var map = new kakao.maps.Map(mapContainer, mapOption);
-            </script>
+					var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+						mapOption = {
+						center: new kakao.maps.LatLng(gym_x, gym_y), // 지도의 중심좌표
+						level: 3, // 지도의 확대 레벨
+						};
+
+					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+					var map = new kakao.maps.Map(mapContainer, mapOption);
+
+					function createMarker(name, x, y){
+						var positions =
+							{
+								content: "<div class=info><img src='/resource/fitneeds.ico'>"+name+"</div>", 
+								latlng: new kakao.maps.LatLng(x, y)
+							}
+						
+						// 마커 이미지의 이미지 주소입니다
+						var imageSrc = "/resource/ping.png"; 
+							
+							
+							// 마커 이미지의 이미지 크기 입니다
+							var imageSize = new kakao.maps.Size(64, 69);
+							
+							// 마커 이미지를 생성합니다    
+							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+							
+							// 마커를 생성합니다
+							var marker = new kakao.maps.Marker({
+								map: map, // 마커를 표시할 지도
+								position: positions.latlng, // 마커를 표시할 위치
+								image : markerImage // 마커 이미지 
+							});
+							// 마커에 표시할 인포윈도우를 생성합니다 
+							var infowindow = new kakao.maps.InfoWindow({
+								content: positions.content // 인포윈도우에 표시할 내용
+							});
+							// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+							// 이벤트 리스너로는 클로저를 만들어 등록합니다 
+							// for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+							kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+							kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+					};
+					// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+					function makeOverListener(map, marker, infowindow) {
+						return function() {
+							infowindow.open(map, marker);
+						};
+					}
+					// 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+					function makeOutListener(infowindow) {
+						return function() {
+							infowindow.close();
+						};
+					}
+
+					createMarker("${gymList.gym_name}","${gymList.gym_x}","${gymList.gym_y}");
+				</script>
 
 
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${gymList.gym_price }원</dd>
+					<dd>${gymList.gym_price }</dd>
 				</div>
 			</div>
 
@@ -72,10 +123,12 @@
 				<div class="reviewn">
 					<p class="text_title">리뷰</p>
 				</div>
+				<c:if test="${userSeq !=null}">
 				<div class="reviewr">
-					<button type="button" class="btn btn_base" id="reviewbtn"
+					<button type="button" class="btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
+				</c:if>
 
 				<c:choose>
 					<c:when test="${not empty reviewList }">
@@ -108,8 +161,8 @@
 												class="relike fa-solid fa-thumbs-up"></i>
 											<c:if test="${r.liked ==userSeq}">
 												<script>
-										$(".relike").attr("style", "color:#001A41")
-										</script>
+												$(".relike").attr("style", "color:#001A41")
+												</script>
 											</c:if>
 										</div>
 
@@ -177,19 +230,21 @@
 				</c:choose>
 			</div>
 
+			<c:choose>
+				<c:when test="${not empty gymImg }">
+					<!-- 리스트가 비어있지않다면 -->
+					<c:forEach var="r" items="${gymImg }">
+						<div class="infopicture">
 
-			<div class="infopicture">
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="..." />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="" />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-			</div>
+							<figure class="figure">
+								<img src=""
+									class="figure-img img-fluid rounded" alt="..." />
+								<figcaption class="figure-caption"></figcaption>
+							</figure>
+						</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
 
@@ -308,7 +363,7 @@
         </script>
 
 	<script>
-       
+    
 
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
@@ -327,11 +382,11 @@
 
 	<script>
         const data = {
-          labels: ["친절", "청결", "시설", "기구", "편리"],
+          labels: ["PT 만족도", "상담 만족도", "시설 규모", "기구 다양성", "시설 청결"],
           datasets: [
             {
               label: "My Second Dataset",
-              data: [50, 30, 55, 50, 50],
+              data: [${checkList.check1},${checkList.check2},${checkList.check3},${checkList.check4},${checkList.check5}],
               fill: true,
               backgroundColor: "rgba(54, 162, 235, 0.2)",
               borderColor: "rgb(54, 162, 235)",
@@ -352,8 +407,21 @@
                 borderWidth: 3,
               },
             },
+            scales: {
+                r: {
+                    suggestedMin: 0,
+          
+
+                    stepSize: 1
+                },
+            },
           },
+          
         };   
+        
+    
+ 
+        
         	//chart.js
       </script>
 
@@ -364,7 +432,7 @@
 	<script>
       
       $("#reviewbtn").on("click", function () {
-          location.href = "";
+          location.href = "/reviewWrite.gym?gym_seq=${gymList.gym_seq}";
         }); //리뷰작성 이동
       </script>
 

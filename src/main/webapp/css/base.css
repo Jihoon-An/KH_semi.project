@@ -7,7 +7,7 @@
 	font-style: normal;
 }
 
-body *{font-family:'Pretendard-Regular'}
+body * {font-family:'Pretendard-Regular'}
 
 /* 전 컨텐츠를 감싸는 div */
 .containerbox {
@@ -35,6 +35,13 @@ h1 {
 }
 
 /* 컨텐츠 메인 제목 */
+h2 {
+	font-size: 28px;
+	font-weight: 800;
+	margin: 0;
+}
+
+
 .text_main_title {
 	font-size: 24px;
 }
@@ -85,23 +92,29 @@ h1 {
 
 /* 버튼 디자인 - 일반 주요 버튼 */
 .btn_base {
-	height: 50px;
+	height: 52px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: 0;
 	margin: 10px;
 	padding: 15px 30px;
 	text-align: center;
+	border-radius: 10px;
+	font-weight: 500;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+
 	text-transform: uppercase;
 	transition: 0.5s;
 	background-size: 200% auto;
 	color: white;
-	border-radius: 10px;
-	display: block;
 	border: 0px;
 	box-shadow: 0px 0px 14px -7px #013d98;
 	background-image: linear-gradient(45deg, #001A41 0%, #013d98 51%, #001A41 100%);
-	cursor: pointer;
-	user-select: none;
-	-webkit-user-select: none;
-	touch-action: manipulation;
 }
 
 .btn_base:hover {
@@ -113,32 +126,33 @@ h1 {
 
 .btn_base:active {
 	transform: scale(0.95);
+	color: #fff;
+	text-decoration: none;
 }
 
 
 /* 버튼 디자인 - 아웃라인버튼 */
 .btn_outline {
-	height: 48px;
-	align-items: center;
+	height: 52px;
 	background-color: #fff;
 	border: 2px solid rgb(1,61,152, 0.15);
-	box-sizing: border-box;
 	color: #001A41;
+	box-sizing: border-box;
 	cursor: pointer;
 	display: inline-flex;
+	align-items: center;
 	justify-content: center;
 	outline: 0;
 	margin: 10px;
 	padding: 15px 30px;
 	text-align: center;
-	text-align: center;
+	border-radius: 10px;
+	font-weight: 600;
 	text-decoration: none;
-	transition: all .3s;
 	user-select: none;
 	-webkit-user-select: none;
 	touch-action: manipulation;
-	border-radius: 10px;
-	font-weight: 700;
+	transition: all .3s;
 	/* box-shadow: 0px 0px 14px -7px #013d98; */
 }
 

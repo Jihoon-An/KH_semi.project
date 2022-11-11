@@ -2,22 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
-<main id="bs-page">
+<main id="bs-page" class="containerbox" style="overflow: visible;">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
             <h1>사업자 페이지</h1>
         </div>
         <!-- 정보 수정 버튼 -->
         <div class="text-center" id="btn_area">
-            <button type="button" id="modify_profile_btn" class="btn_base" style="display:inline-table">일반
-                정보 수정
+            <button type="button" id="modify_profile_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                일반 정보 수정
             </button>
-            <button type="button" id="modify_acc_btn" class="btn_base" style="display:inline-table">계정
-                정보 수정
+            <button type="button" id="modify_acc_btn" class="btn_outline"
+                    style="display:inline-table; line-height: 10px;">
+                계정 정보 수정
             </button>
         </div>
-
-
+        
     </div>
 
     <!-- 일반 정보 수정 폼 -->
@@ -39,12 +40,12 @@
 
                 <div class="row justify-content-center">
                     <div class="col-8">
-                        <div class="row profile_title"><span>이름</span></div>
-                        <div class="row"><input id="bs_name" type="text" class="profile_input form-control"
+                        <div class="row profile_title"><span>담당자이름</span></div>
+                        <div class="row"><input id="bs_name" type="text" class="profile_input"
                                                 maxlength="15"></div>
 
-                        <div class="row profile_title pt-2"><span>전화번호</span></div>
-                        <div class="row"><input id="bs_phone" type="text" class="profile_input form-control"
+                        <div class="row profile_title pt-2"><span>담당자연락처</span></div>
+                        <div class="row"><input id="bs_phone" type="text" class="profile_input"
                                                 maxlength="11"></div>
                         <script>
                             $("#bs_phone").on("keydown", function () {
@@ -55,9 +56,9 @@
 
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업자 번호</span></div>
+                        <div class="row profile_title pt-2"><span>사업자번호</span></div>
                         <div class="row"><input id="bs_number" type="text"
-                                                class="profile_input form-control" maxlength="10"></div>
+                                                class="profile_input" maxlength="10"></div>
                         <script>
                             $("#bs_number").on("keydown", function () {
                                 $(this).val($(this).val().replace(/[^0-9]/ig, ''));
@@ -66,9 +67,11 @@
                             });
                         </script>
 
-                        <div class="row profile_title pt-2"><span>사업증</span></div>
-                        <div class="row"><input id="bs_ctfc_input" type="file"
-                                                class="px-0 form-control profile_input" id="bs_ctfc"></div>
+                        <div class="row profile_title pt-2"><span>사업자등록증</span></div>
+                        <div class="row">
+                            <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc"
+                                   style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
                         </div>
@@ -86,7 +89,7 @@
 
                 <div class="row header text-center pt-5 mx-3">
                     <div class="col-3 text-start">
-                        <button class="button-6" id="account_cancel">취소</button>
+                        <button class="button-6" id="acc_cancel">취소</button>
                     </div>
                     <div class="col-6">
                         <h2>정보 수정</h2>
@@ -99,11 +102,11 @@
                 <div class="row justify-content-center">
                     <div class="col-8">
                         <%--비밀번호 입력--%>
-                        <div class="row profile_title pt-4"><span>비밀번호</span></div>
-                        <div class="row"><input id="bs_pw1" type="password" class="profile_input form-control"
+                        <div class="row profile_title pt-5"><span>비밀번호</span></div>
+                        <div class="row"><input id="bs_pw1" type="password" class="profile_input"
                                                 placeholder="영어,숫자,특수문자 8~16글자" maxlength="16"></div>
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
-                        <div class="row"><input id="bs_pw2" type="password" class="profile_input form-control"
+                        <div class="row"><input id="bs_pw2" type="password" class="profile_input"
                                                 placeholder="비밀번호 재입력" maxlength="16"></div>
                         <div class="row mt-2" id="acc_cf"></div>
 
@@ -112,22 +115,82 @@
                         <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
                         <!--sd = sign down -->
                         <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
-                            <div style="color: blue">정말 탈퇴하시겠습니까?</div>
+                            <div style="color: blue; margin-bottom: 10px;">정말 탈퇴하시겠습니까?</div>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
-                        <form action="/signDown.bsPage"></form>
-
+                        <form action="/signDown.bsPage" id="sign_down_form"></form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- 매장 정보 -->
+    <div id="gym_info">
+
+        <div class="container-fluid">
+            <hr>
+
+            <!-- card -->
+            <c:forEach var="gym" items="${gymList}" varStatus="status">
+                <div class="row gym_card">
+                    <form class="gym_form">
+                        <input name="gym_seq" class="gym_seq" type="hidden">
+                    </form>
+                    <div class="col-3 p-0">
+                        <img src="/resource/img/main.jpg" class="gym_img">
+                    </div>
+                    <div class="col-7 gym_text">
+                        <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">주소</div><div class="col-8 gym_content">${gym.gym_location}</div></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">연락처</div><div class="col-8 gym_content">${gym.gym_phone}</div></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">오픈시간</div><div class="col-8 gym_content">${gym.gym_open} ~ ${gym.gym_close}</div></div>
+
+                        <!-- 태그 -->
+                        <div class="gym_list_tagBox">
+                            <c:if test="${gymFilterList[status.index].open eq 'true'}">
+                                <div class="gym_list_tag open btn_base">#24시간</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].locker eq 'true'}">
+                                <div class="gym_list_tag locker btn_base">#라커</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].shower eq 'true'}">
+                                <div class="gym_list_tag shower btn_base">#샤워실</div>
+                            </c:if>
+                            <c:if test="${gymFilterList[status.index].park eq 'true'}">
+                                <div class="gym_list_tag park btn_base">#주차장</div>
+                            </c:if>
+                        </div>
+
+                    </div>
+                    <div class="col-2 justify-content-center">
+                        <button class="btn_outline modify_gym_btn"
+                                style="border: 2px solid #F0F0F0;
+                                    background-color: #ffffff;
+                                    scale: 0.75">
+                            수정
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </c:forEach>
+
+            <div class="text-center">
+                <a href="/addGym.bsPage" style="text-decoration-line:none">
+                    <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
 </main>
 
 
-<%----------------------------- script   ------------------------------%>
+<!------------------------------------------------------- script -------------------------------------------------------->
 
 
 <script>
@@ -168,6 +231,8 @@
         });
 
         pi_check = true;
+        var filename = $(this)[0].files[0].name;
+        $(this).siblings('#file_label').html(filename);
     }
 
     /**
@@ -193,7 +258,7 @@
         });
     }
 
-    /*
+    /**
      * 프로필 저장
      */
     $("#profile_save").click(function () {
@@ -202,7 +267,7 @@
         let bs_number = $("#bs_number").val();
         // 정보 저장
         $.ajax({
-            url: "/updateProflie.bsPage",
+            url: "/updateProfile.bsPage",
             data: {
                 name: bs_name,
                 phone: bs_phone,
@@ -315,8 +380,24 @@
         $("#bs_sd_cf").css("display", "none");
     });
     $("#bs_cf_sd_y").click(function () {
-
+        $("#sign_down_form").submit();
     });
 
+
+    // gym 수정페이지로 이동
+    $(".modify_gym_btn").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/toUpdateGym.bsPage");
+        $(this).closest(".gym_card").find(".gym_form").submit();
+    });
+
+    // 상세페이지 이동
+    $(".gym_img").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
+        $(this).closest(".gym_card").find(".gym_form").submit();
+    });
+    $(".gym_name").click(function () {
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
+        $(this).closest(".gym_card").find(".gym_form").submit();
+    });
 </script>
 <%@ include file="/layout/footer.jsp" %>

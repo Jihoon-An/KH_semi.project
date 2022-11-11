@@ -10,8 +10,13 @@ public class AdDAO extends Dao{
         super();
     }
 
-    public static AdDAO getInstance(){
-        return (AdDAO) Dao.getInstance();
+    private static AdDAO instance;
+
+    synchronized public static AdDAO getInstance() {
+        if (instance == null) {
+            instance = new AdDAO();
+        }
+        return instance;
     }
 
 

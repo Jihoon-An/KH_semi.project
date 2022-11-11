@@ -12,7 +12,10 @@ public class MembershipDAO extends Dao{
     private static MembershipDAO instance;
 
     public static MembershipDAO getInstance() {
-        return (MembershipDAO) Dao.getInstance();
+        if (instance == null) {
+            instance = new MembershipDAO();
+        }
+        return instance;
     }
 
 
@@ -38,6 +41,19 @@ public class MembershipDAO extends Dao{
             PreparedStatement statement = connection.prepareStatement(sql);
         ){
             statement.setInt(1, bsSeq);
+            statement.executeUpdate();
+            connection.commit();
+        }
+    }
+
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from membership where gym_seq = ?";
+
+        try(Connection connection = this.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, gymSeq);
+
             statement.executeUpdate();
             connection.commit();
         }

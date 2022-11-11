@@ -1,5 +1,7 @@
 package dto;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 
 public class GymDTO {
@@ -27,6 +29,24 @@ public class GymDTO {
         this.gym_close = gym_close;
         this.gym_x = gym_x;
         this.gym_y = gym_y;
+    }
+
+    public GymDTO(HttpServletRequest request) {
+        String gym_address1 = request.getParameter("gym_address1");
+        String gym_address2 = request.getParameter("gym_address2");
+        String gym_location = gym_address1 + " " + gym_address2;
+
+        this.gym_seq = Integer.parseInt(request.getParameter("gymSeq"));;
+        this.bs_seq = Integer.parseInt(request.getParameter("bsSeq"));;
+        this.gym_name = request.getParameter("gym_name");;
+        this.gym_phone = request.getParameter("gym_phone");;
+        this.gym_location = gym_location;
+        this.gym_price = request.getParameter("gym_price");;
+        this.gym_main_sysImg = "null";
+        this.gym_open = request.getParameter("gym_open");;
+        this.gym_close = request.getParameter("gym_close");;
+        this.gym_x = request.getParameter("gym_x");;
+        this.gym_y = request.getParameter("gym_y");;
     }
 
     public GymDTO() {

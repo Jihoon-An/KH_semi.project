@@ -33,10 +33,14 @@
 					<button type="button" class="btn_base" id="btn_login">로그인</button>
 				</div>
 				<div class="col-12 gy-1">
-					<input class="form-check-input" type="checkbox" id="login_bs">
-					<label class="form-check-label" for="login_bs"
-						style="color: #404040; font-size: 14px; letter-spacing: -1px;">사업자
-						로그인</label>
+
+					<div class="checkbox-bsLogin">
+						<label class="form-check-label" for="login_bs" style="color: #404040; font-size: 14px; letter-spacing: -1px;">
+							<input class="form-check-input" type="checkbox" id="login_bs">
+							<span class="checkbox__label"></span>
+							사업자 로그인</label>
+					</div>
+
 				</div>
 				<div class="col-12 gy-4" style="letter-spacing: -1px;">
 					<span style="color: #404040;">계정이 없으신가요?</span> <a href="#"
@@ -61,7 +65,7 @@
 				</div>
 				<div class="col-12 gy-3">
 					<input type="text" name="phone" id="searchPw_phone"
-						placeholder="핸드폰 번호" maxlength="14">
+						placeholder="핸드폰 번호" maxlength="14" oninput="validNum()">
 					<div class="text-start mt-1 mb-1" style="width: 250px">
 						<span style="color: #808080; font-size: x-small">회원 가입시 사용한
 							핸드폰 번호를 입력하세요.</span>

@@ -30,7 +30,7 @@ public class BsUsersDAO extends Dao {
      */
     public List<BsUsersDTO> selectAll() throws Exception {
         List<BsUsersDTO> result = new ArrayList<>();
-        String sql = "select * from bs_users order by bs_signup desc";
+        String sql = "select * from bs_users order by bs_signup asc";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery();) {
@@ -110,8 +110,10 @@ public class BsUsersDAO extends Dao {
      */
     public int deleteBySeq(int seq) throws Exception {  //byseq
         String sql = "delete from bs_users where seq = ?";
+
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
+
             pstat.setInt(1, seq);
             int result = pstat.executeUpdate();
             con.commit();
@@ -133,10 +135,9 @@ public class BsUsersDAO extends Dao {
 
             pstat.setString(1, email);
 
-            try (ResultSet rs = pstat.executeQuery();) {
+            try (ResultSet rs = pstat.executeQuery()) {
                 return rs.next();
             }
-
         }
     }
 
@@ -152,9 +153,10 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-
-            return rs.getInt(1);
+            if(rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
         }
 
     }
@@ -215,7 +217,7 @@ public class BsUsersDAO extends Dao {
 
     // 아래로 네비바 로직
     public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) where rn between ? and ?";
+        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, start);
@@ -243,10 +245,11 @@ public class BsUsersDAO extends Dao {
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1); // 한줄 뽑겠다
+            if(rs.next()) {
+                return rs.getInt(1); // 한줄 뽑겠다
+            }
+            return 0;
         }
-
     }
 
     public String getPageNavi(int currentPage) throws Exception { // 페이지 네비
@@ -382,9 +385,8 @@ public class BsUsersDAO extends Dao {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return new BsUsersDTO(rs);
-                } else {
-                    return new BsUsersDTO();
                 }
+                return new BsUsersDTO();
             }
         }
     }

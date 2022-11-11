@@ -3,17 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import dto.FavoritesDTO;
-import dto.GymDTO;
-import dto.ReviewDTO;
-import dto.UserDTO;
-
-import javax.xml.transform.Result;
+import dto.*;
 
 
 public class GymDAO extends Dao {
@@ -113,28 +106,6 @@ public class GymDAO extends Dao {
         }
     }
 
-    /*
-     * 관리자 페이지 시설 갯수 // 반복문써야될거 같은데..
-     * @param bs_seq
-     * @return
-     * @throws Exception
-     */
-//    public int gymCount(int bs_seq) throws Exception{
-//    	String sql="select count(*) from gym group by bs_seq having bs_seq = ?";
-//    	int count = 0;
-//    	 try (Connection con = this.getConnection();
-//                 PreparedStatement pstat = con.prepareStatement(sql);
-//
-//            ) {
-//    		 pstat.setInt(1, bs_seq);
-//    		 
-//    		 try(ResultSet rs = pstat.executeQuery();){
-//    			 //if(rs.next)
-//    		 }
-//    		 
-//    	 }
-//    			
-//    }
 
     /**
      * 사업자 회원가입시 시설 추가
@@ -217,15 +188,59 @@ public class GymDAO extends Dao {
     }
 
 
+    /**
+     * Gym 시설 정보 수정
+     *
+     * @param gymDto
+     * @throws Exception
+     */
+    public void updateGym(GymDTO gymDto) throws Exception {
+        String sql = "update gym set "
+                   + "gym_name = ?, "
+                   + "gym_phone = ?, "
+                   + "gym_price = ?, "
+                   + "gym_open = ?, "
+                   + "gym_close = ?, "
+                   + "gym_location = ?, "
+                   + "gym_x = ?, "
+                   + "gym_y = ?, "
+                   + "gym_main_sysImg = ? "
+                   + "where gym_seq = ?";
 
-    public void modifyGym(GymDTO gymDto) throws Exception {
-        String sql = "update gym ";
+        try (Connection con = this.getConnection();
+                PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setString(1, gymDto.getGym_name());
+            pstat.setString(2, gymDto.getGym_phone());
+            pstat.setString(3, gymDto.getGym_price());
+            pstat.setString(4, gymDto.getGym_open());
+            pstat.setString(5, gymDto.getGym_close());
+            pstat.setString(6, gymDto.getGym_location());
+            pstat.setString(7, gymDto.getGym_x());
+            pstat.setString(8, gymDto.getGym_y());
+            pstat.setString(9, gymDto.getGym_main_sysImg());
+            pstat.setInt(10, gymDto.getGym_seq());
+
+            pstat.executeUpdate();
+            con.commit();
+        }
     }
 
 
 
 
+    public void deleteByGymSeq(int gymSeq) throws Exception {
+        String sql = "delete from gym where gym_seq = ?";
 
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
 
+            statement.setInt(1, gymSeq);
+
+            statement.executeUpdate();
+            con.commit();
+        }
+    }
 }
+
+
 
