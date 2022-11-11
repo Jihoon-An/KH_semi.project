@@ -55,8 +55,10 @@
 
 											<div class="text_normal" id="result_contents">
 												데이터가 존재하지 않습니다.
-												<div><button class="btn_outline" id="btn_showRecord"
-														onclick="showRecord()">등록하기</button></div>
+												<div>
+													<button class="btn_outline" id="btn_showRecord" onclick="showRecord()">등록하기</button>
+												</div>
+											</div>
 										</c:when>
 
 										<c:otherwise>
@@ -163,6 +165,12 @@
 						initCalendar();
 						$(".calendar").datepicker();
 						$("#result_title").text($.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate")) + "의 운동 기록");
+
+						let data = { "date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate")) }
+						$.getJSON("/datepick.personal", data)
+							.done(res => {
+								getMarker(res.recordList);
+							});
 					});
 
 					// calendar 초기화
@@ -170,14 +178,7 @@
 						$.datepicker.setDefaults({
 							onSelect: onSelect,
 							dateFormat: 'yy / mm / dd',
-							prevText: '이전 달',
-							nextText: '다음 달',
-							monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-								'9월', '10월', '11월', '12월'],
-							monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
-								'9월', '10월', '11월', '12월'],
-							dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-							dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+							monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 							dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 							showMonthAfterYear: true,
 							yearSuffix: '년',
@@ -188,6 +189,42 @@
 					function onSelect() {
 						let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
 						$("#result_title").text(date + "의 운동기록");
+
+						let data = {
+							"date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))
+						}
+
+						$.getJSON("/datepick.personal", data)
+							.done(res => {
+								getMarker(res.recordList);
+								
+								if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
+									$("#result_contents").empty();
+									$("#result_contents").html(res.record.exr_memo);
+								} else {
+									$("#result_contents").empty();
+									let output = "데이터가 존재하지 않습니다. <div><button class='btn_outline' id='btn_showRecord' onclick='showRecord()'>등록하기</button></div>"
+									$("#result_contents").html(output);
+								}
+								console.log(res);
+							});
+					}
+
+					// 운동한 날짜 표시
+					function getMarker(resData) {
+						let arrDate = document.querySelectorAll(".calendar .ui-state-default");
+						year = $(".calendar .ui-datepicker-year").text();
+						month = $(".calendar .ui-datepicker-month").text().slice(0, -1);
+						for (i = 0; i < arrDate.length; i++) {
+							for (j = 0; j < resData.length; j++) {
+								let calDate = getDateFormat(new Date(year + "-" + month + "-" + $(arrDate[i]).text())).slice(0, 10);
+								let exrDate = getDateFormat(new Date(resData[j].exr_date)).slice(0, 10);
+								if (calDate == exrDate) {
+									$(arrDate[i]).text("🔥");
+									break;
+								}
+							}
+						}
 					}
 
 					function validNaturalNumRange(max) {
@@ -240,8 +277,7 @@
 						$.post("/record.personal", data, null, "json")
 							.done(res => {
 								console.log(res);
-								console.log(res.exr_date);
-							})
+							});
 					}
 
 					$("#reg_intens").on("input", e => {
@@ -250,7 +286,7 @@
 
 					$("#reg_range").on("change", e => {
 						let element, width, point, place;
-						let intens = ["최하", "하", "중", "상", "최상"];
+						let intens = ["😰", "🙁", "🤔", "😊", "😆"];
 						element = $(e.target);
 						width = element.width();
 						point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
@@ -259,7 +295,7 @@
 						else if (point > 1) { place = width; }
 						else { place = width * point }
 
-						$("#reg_range_label").css({ left: (place * 0.9) - 6, }).text(intens[element.val() - 1]);
+						$("#reg_range_label").css({ left: (place * 0.9) - 5, }).text(intens[element.val() - 1]);
 					}).trigger("change");
 
 					$("#btn_regRecord").on("click", () => {

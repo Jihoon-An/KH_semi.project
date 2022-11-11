@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
+import commons.Common;
 import dao.ExerciseDAO;
 import dto.ExerciseDTO;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 @WebServlet("*.personal")
@@ -21,8 +23,8 @@ public class PersonalRecordController extends ControllerAbs {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Common.setUtf8(request, response);
         String uri = request.getRequestURI();
-
 
         try {
             switch (uri) {
@@ -32,10 +34,11 @@ public class PersonalRecordController extends ControllerAbs {
 
 				case "/record.personal":
                     this.sendRecord(request, response);
-                    response.getWriter().append(new Gson().toJson(ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")) , request.getParameter("date"))));
+                    response.getWriter().append(new Gson().toJson(this.getRecordData(request, response)));
 					break;
 
-                case "/date.personal":
+                case "/datepick.personal":
+                    response.getWriter().append(new Gson().toJson(this.getRecordData(request, response)));
                     break;
 
                 case "/something.personal":
@@ -67,7 +70,17 @@ public class PersonalRecordController extends ControllerAbs {
     }
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", String.valueOf(request.getSession().getAttribute("userSeq"))));
-        request.setAttribute("recordByDay", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")), sdf.format(new Date())));
+        request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")), sdf.format(new Date())));
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
+
+    protected HashMap<String, Object> getRecordData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", String.valueOf(request.getSession().getAttribute("userSeq"))));
+        data.put("record", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")) , request.getParameter("date")));
+        return data;
+    }
+
+
+
 }

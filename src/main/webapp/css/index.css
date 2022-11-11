@@ -419,6 +419,24 @@
 	-webkit-box-orient: vertical;
 }
 
+#index .item_filledStar {
+    -webkit-text-fill-color: red;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(236, 0, 0);
+	font-size: x-large;
+	padding: 1px;
+}
+
+#index .item_emptyStar {
+    -webkit-text-fill-color: #ddd;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(209, 213, 219);
+	font-size: x-large;
+	padding: 1px;
+}
+
 #index .preview>.imgBox {
 	position: relative;
 	padding: 3px;

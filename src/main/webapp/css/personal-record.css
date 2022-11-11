@@ -69,15 +69,13 @@
 
 #personal-record #record #reg_range_label {
 	position: absolute;
-	background-color: #0D6EFD;
-	width: 30px;
+	width: 20px;
 	height: 20px;
 	text-align: center;
 	color: white;
-	border-radius: 10px;
 	display: inline-block;
 	bottom: 175%;
-	font-size: 12px;
+	font-size: 20px;
 	line-height: 20px;
 	transform: translate(0, 20px);
 }
