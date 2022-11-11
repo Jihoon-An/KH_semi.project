@@ -12,7 +12,10 @@ public class MembershipDAO extends Dao{
     private static MembershipDAO instance;
 
     public static MembershipDAO getInstance() {
-        return (MembershipDAO) Dao.getInstance();
+        if (instance == null) {
+            instance = new MembershipDAO();
+        }
+        return instance;
     }
 
 
