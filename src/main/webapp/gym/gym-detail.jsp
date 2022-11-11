@@ -177,22 +177,24 @@
 				</c:choose>
 			</div>
 
+			<c:choose>
+				<c:when test="${not empty gymImg }">
+					<!-- 리스트가 비어있지않다면 -->
+					<c:forEach var="r" items="${gymImg }">
+						<div class="infopicture">
 
-			<div class="infopicture">
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="..." />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-				<figure class="figure">
-					<img src="/resource/health.png"
-						class="figure-img img-fluid rounded" alt="" />
-					<figcaption class="figure-caption"></figcaption>
-				</figure>
-			</div>
+							<figure class="figure">
+								<img src=""
+									class="figure-img img-fluid rounded" alt="..." />
+								<figcaption class="figure-caption"></figcaption>
+							</figure>
+						</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
-	
+
 
 
 	<script>

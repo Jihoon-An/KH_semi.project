@@ -1,25 +1,22 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect.Type;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import dao.BsUsersDAO;
-
 import dao.UserDAO;
 import dto.BsUsersDTO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import dao.UserDAO;
+import dto.UserDTO;
 
 import dto.UserDTO;
 
@@ -64,10 +61,10 @@ public class HostUserController extends ControllerAbs {
         	this.getBsSearch(request,response);
         	break;
         //관리자 페이지 회원 삭제
-//        case "/usersDel.host":
-//        	
-//        	this.getUserDel(request,response);
-//        	break;
+        case "/usersDel.host":
+        	
+        	this.getUserDel(request,response);
+        	break;
         	
         case "/bsUsersDel.host":
         	break;
@@ -143,23 +140,30 @@ public class HostUserController extends ControllerAbs {
 		 }
 	 
 //	 
-//	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//			String[] useq = request.getParameterValues("userseq");
+	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String use = request.getParameter("userseq");
+		System.out.println(use);
 //			
-//			
-//			System.out.println(useq);
-//		 	
-//		 	String text= request.getParameter("inputT");
-//			 UserDAO dao = UserDAO.getInstance();
-//	    		List<UserDTO> dto = dao.searchUser(text);
-//	    	
-//	    		System.out.println(dto);
-//	    	
-//	    		request.setAttribute("list", dto); //user
-//			
-//				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
-//		 
-//		 }
+//		Type type = new TypeToken<List<String>>() {}.getType();
+//	
+//		Gson gson = new Gson();
+//			List<String> a = gson.fromJson("userseq", type);
+		//System.out.println(a);
+			
+			//System.out.println(useq);
+		 	
+		 	String text= request.getParameter("inputT");
+			 UserDAO dao = UserDAO.getInstance();
+	    		List<UserDTO> dto = dao.searchUser(text);
+	    	
+	    		System.out.println(dto);
+	    	
+	    		request.setAttribute("list", dto); //user
+			
+				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+		 
+		 }
 	 
 	 
 	 protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
