@@ -183,10 +183,10 @@
 
 #index .wrap {
 	width:100%;
-	 min-width : 1200px;
-	 height: 950px;
-	 overflow: hidden;
-	 position: relative;
+	min-width : 1200px;
+	height: 950px;
+	overflow: hidden;
+	position: relative;
 }
 
 
