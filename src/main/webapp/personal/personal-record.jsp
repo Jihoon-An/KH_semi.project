@@ -56,7 +56,7 @@
 			datasets : [ {
 				axis:'y',
 				label : '# inbody_chart',
-				data : [ ${}],
+				data : [ ${inbodyInfo.weight},${inbodyInfo.bfm},${inbodyInfo.bmi},${inbodyInfo.sm}],
 				backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 						'rgba(54, 162, 235, 0.2)',
 						'rgba(255, 206, 86, 0.2)',

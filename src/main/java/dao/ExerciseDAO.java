@@ -52,7 +52,12 @@ public class ExerciseDAO extends Dao{
     		return list;
     	}
     }
-    
+    /**
+     * 입력한 inbody데이터 차트로 변환
+     * @param exr_seq
+     * @return
+     * @throws Exception
+     */
     public HashMap<String, Object>InbodyChartInfo(int exr_seq)throws Exception{
     	String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where exr_seq = ?;";
     

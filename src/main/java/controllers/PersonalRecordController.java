@@ -1,11 +1,14 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.ExerciseDAO;
 
 
 @WebServlet("*.personal")
@@ -36,4 +39,15 @@ public class PersonalRecordController extends ControllerAbs {
         this.doGet(request, response);
     }
 
+    protected void getInbodyChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	
+    	int exr_seq = Integer.parseInt(request.getParameter("exr_seq"));
+    	
+    	HashMap<String, Object> inbody = ExerciseDAO.getInstance().InbodyChartInfo(exr_seq);
+    	System.out.println(inbody);
+    	
+    	request.setAttribute("inbodyInfo", inbody);
+    	 
+    }
+    
 }
