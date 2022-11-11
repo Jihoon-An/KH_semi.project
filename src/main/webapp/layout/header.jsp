@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/api/jquery-ui/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="/api/jquery-ui/images"></script>
+    
 
     <!-- Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -75,8 +75,6 @@
     <link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
     <link rel="stylesheet" href="/css/users.css" type="text/css">
     <link rel="stylesheet" href="/css/bs.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-user.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
     <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
     <link rel="stylesheet" href="/css/review.css" type="text/css">
