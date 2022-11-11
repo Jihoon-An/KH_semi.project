@@ -6,6 +6,7 @@ public class FavoritesDTO {
     private int fav_seq;
     private int user_seq;
     private int gym_seq;
+    private int count;
 
     public int getFav_seq() {
         return fav_seq;
@@ -29,6 +30,14 @@ public class FavoritesDTO {
 
     public void setGym_seq(int gym_seq) {
         this.gym_seq = gym_seq;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public FavoritesDTO(int fav_seq, int user_seq, int gym_seq) {

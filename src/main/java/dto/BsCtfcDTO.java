@@ -1,21 +1,27 @@
 package dto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class BsCtfcDTO {
 	private int bsSeq;
 	private String bsNumber;
-	private String oriName;
 	private String sysName;
 
 	public BsCtfcDTO() {
 		super();
 	}
 
-	public BsCtfcDTO(int bsSeq, String bsNumber, String oriName, String sysName) {
-		super();
+	public BsCtfcDTO(int bsSeq, String bsNumber, String sysName) {
 		this.bsSeq = bsSeq;
 		this.bsNumber = bsNumber;
-		this.oriName = oriName;
 		this.sysName = sysName;
+	}
+
+	public BsCtfcDTO(ResultSet rs) throws SQLException {
+		this.bsSeq = rs.getInt("bs_seq");
+		this.bsNumber = rs.getString("bs_Number");
+		this.sysName = rs.getString("bs_regi_sys");
 	}
 
 	public int getBsSeq() {
@@ -32,14 +38,6 @@ public class BsCtfcDTO {
 
 	public void setBsNumber(String bsNumber) {
 		this.bsNumber = bsNumber;
-	}
-
-	public String getOriName() {
-		return oriName;
-	}
-
-	public void setOriName(String oriName) {
-		this.oriName = oriName;
 	}
 
 	public String getSysName() {

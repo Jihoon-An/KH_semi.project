@@ -3,7 +3,6 @@
 /* header */
 
 #header {
-	width: 100vw;
 	min-width : 1200px;
 	height: 85px;
 	background: #001A41;
@@ -16,7 +15,7 @@
 
 #header_logo {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #FFFFFF;
 	font-size: 40px;
@@ -81,7 +80,7 @@ nav {
 #footer {
 	background-color: #f5f5f7;
 	height: 270px;
-	min-width : 1280px;
+	min-width : 1200px;
 }
 
 #footer .footer_line {
@@ -114,7 +113,7 @@ nav {
 
 #footer #footer_logo {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #C7D3DC;
 	font-size: 40px;
@@ -129,7 +128,7 @@ nav {
 
 #footer #footer_call {
 	font-family: 'Inter', sans-serif;
-	font-weight: Extra Bold;
+	font-weight: 900;
 	font-style: italic;
 	color: #001A41;
 	font-size: 40px;
@@ -180,7 +179,7 @@ nav {
 /* main */
 
 #index .wrap {
-	 width: 100vw;
+	width:100%;
 	 min-width : 1200px;
 	 height: 950px;
 	 overflow: hidden;
@@ -190,17 +189,14 @@ nav {
 
 #index .mainimg {
 	background-image: url("/resource/main.jpg");
-	/* background-size: cover;
-  	background-position: center; */
-  	
-  	height: 100vh;
-	  background-size: cover;
-	  background-attachment: fixed;
+  	width: 100%;
+	background-size: cover;
+	background-attachment: fixed;  	
+	background-position: center;
 }
 
 #index .bg{
   position: absolute;
-  width: 100vw;
   height: 100vh;
   min-width : 1200px;
   top: 0px;
@@ -210,7 +206,7 @@ nav {
 @-webkit-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -220,7 +216,7 @@ nav {
 @-moz-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -230,7 +226,7 @@ nav {
 @-o-keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -240,7 +236,7 @@ nav {
 @keyframes zoom-b {
   0% {
     -ms-transform: scale(1, 1);
-    transform: scale(1, 1) translateZ(1px);
+    transform: scale(1.1, 1.1) translateZ(1px);
   }
   100% {
     -ms-transform: scale(1.2, 1.2);
@@ -261,7 +257,7 @@ nav {
 	border-radius: 100px;
 	margin: auto;
 	position: relative;
-	top: 450px;
+	top: 400px;
 	z-index: 2;
 	background-color: #CF0C00;
 	opacity: 0.9;
@@ -314,7 +310,7 @@ nav {
 }
 
 #index hr {
-	color: #C8C8C8
+	color: #808080
 }
 
 #index .review {
@@ -332,11 +328,11 @@ nav {
 
 #index .item {
 	position: relative;
-	padding: 10px;
+	padding: 15px;
 	top: 50px;
 	width: 300px;
 	height: 300px;
-	box-shadow: 1px 1px 5px 1px #C8C8C8;
+	box-shadow: 1px 1px 3px 1px #C8C8C8;
 	border-radius: 6px;
 	transition: 0.5s
 }
@@ -344,16 +340,22 @@ nav {
 #index .item td {
 	padding-left: 10px;
 	padding-right: 10px;
+	overflow: hidden;
+}
+
+#index .item a {
+	text-decoration: none;
+	color:#003584
 }
 
 #index .item:hover {
-	transform: scale(1.15);
+	transform: scale(1.1);
 }
 
 #index .prevBox,
 #index .nextBox {
 	position: absolute;
-	width: 100px;
+	width: 50px;
 	height: 300px;
 	top: 50%;
 	transform: translate(0, -50%);
@@ -361,54 +363,76 @@ nav {
 }
 
 #index .prevBox {
-	left: 13px;
+	left: 0px;
 }
 
 #index .nextBox {
-	left: 1113px;
+	right: 0px;
 }
 
-#index .prev {
-	rotate: 180deg;
-}
-
-#index .prev,
-#index .next {
+#index .angle {
 	position: relative;
 	padding-left: 3px;
 	width: 50px;
 	height: 50px;
-	top: 45%;
-	border-radius: 50px;
+	line-height: 75px;
+	top: 50%;
+	transform: translate(0, -50%);
 	transition: 0.5s;
-	background-color: #C8C8C8;
-	font-size: x-large;
-	color: white;
+	font-size: 48px;
+	color: #C8C8C8;
 	cursor: pointer;
 }
 
-#index .prev::before,
-#index .next::before {
-	line-height: 50px;
+#index .preview> .imgBox {
+	position: relative;
+	padding: 3px;
+	height: 300px;
 }
 
-#index .prev:hover,
-#index .next:hover {
-	scale: 1.15;
+#index .preview .imgBox .imgFilter {
+	position: absolute;
+	width: 402px;
+	height: 294px;
+	background-color: #181818C8;
+	color: #EEEEEE;
+	-webkit-box-shadow: 1x 1px 3px 1px #808080;
+	box-shadow: 1px 1px 3px 1px #C8C8C8;
+	border-radius: 6px;
+	transition: 0.5s;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
-#index .prev:active,
-#index .next:active {
-	scale: 0.95;
+#index .preview .imgBox .imgFilter p {
+	position: relative;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
+#index .preview .imgBox img {
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+}
+
+#index .preview .imgBox .imgFilter:hover {
+	background-color: #00000000;
+	color: #00000000;
+	cursor: pointer;
 }
 
 #index .ads{
 	margin: 120px 0px;
 }
 
-#index .ads>.banner {
+#index .ads .banner {
+	width: 95%;
 	height: 200px;
-	-webkit-box-shadow: 1x 1px 5px 1px #C8C8C8;
+	-webkit-box-shadow: 1x 1px 3px 1px #808080;
 	box-shadow: 1px 1px 5px 1px #C8C8C8;
 	border-radius: 6px;
 }

@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+#personal-record div[class^='col'] {
+	padding: 10px;
+}
+
+#personal-record div[class^='col']>div {
+	padding: 10px;
+	border: solid #808080 1px;
+	border-radius: 6px;
+}
+
+#personal-record #notice {
+	height:50px;
+}
+
+#personal-record #manager, #inbody, #weight {
+	height:250px;
+}
+
+#personal-record #calendar, #result {
+	height: 290px;
+}
+
+#personal-record .chart_wrap {
+	padding: 5px;
+	width:100%;
+}
+
+#personal-record #calendar {
+	padding-top: 0px;
+}
+
+#personal-record #calendar>* {
+	width:100%;
+}

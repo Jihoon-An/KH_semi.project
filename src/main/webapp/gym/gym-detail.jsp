@@ -7,35 +7,43 @@
 <%@ include file="/layout/header.jsp"%>
 
 
-
 <main id="gym-detail">
-	<div class="main_margin_155"></div>
+	<div style="height: 70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
 			<div class="placebox1">
 				<div>
 					<div class="placename">
-						<h1>${list.gym_name}</h1>
+						<h1>${gymList.gym_name}</h1>
 					</div>
 
+					<c:if test="${bsSeq !=null }">
+						<div class="bs_modify">
+							<button type="button" class="btn btn-outline-secondary">수정하기</button>
+						</div>
+					</c:if>
+					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
+
 					<div class="icon1">
-				
-						<i class="fa-solid fa-heart" id="heart"></i> 
-					
-						<span class="button gray medium">
-						<a onclick="clip(); return false;" class="shareicon"> 
-						<i 	class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-						style="cursor: pointer;" aria-hidden="true"></i></a></span>
+						<c:if test="${userSeq !=null}">
+							<!-- list사용자 로그인만 보이게끔 -->
+							<i class="fa-solid fa-heart" id="heart"></i>
+
+						</c:if>
+						<span class="button gray medium"> <a
+							onclick="clip(); return false;" class="shareicon"> <i
+								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
+								style="cursor: pointer;" aria-hidden="true"></i></a></span>
 					</div>
 				</div>
 				<div class="place">
 					<dt class="text_normal">위치</dt>
-					<dd>${list.gym_location}</dd>
+					<dd>${gymList.gym_location}</dd>
 				</div>
 
 				<div class="place">
 					<dt class="text_normal">연락처</dt>
-					<dd>${list.gym_phone}</dd>
+					<dd>${gymList.gym_phone}</dd>
 				</div>
 
 				<div class="placemap" id="map"></div>
@@ -51,17 +59,12 @@
               var map = new kakao.maps.Map(mapContainer, mapOption);
             </script>
 
-				<div class="machine_info shadow-none p-3 mb-3 bg-light rounded">
-					<dt>
-						<p class="text_normal">기구정보</p>
-					</dt>
-					<dd>sd</dd>
-				</div>
+
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
 						<p class="text_normal">시설가격</p>
 					</dt>
-					<dd>${list.gym_price }원</dd>
+					<dd>${gymList.gym_price }원</dd>
 				</div>
 			</div>
 
@@ -73,90 +76,214 @@
 					<button type="button" class="btn btn_base" id="reviewbtn"
 						type="button">리뷰작성</button>
 				</div>
-				
+
 				<c:choose>
-						<c:when test="${not empty list2 }">
-							<!-- 리스트가 비어있지않다면 -->
-							<c:forEach var="r" items="${list2 }">
-				<div class="review2">
-					
-							
-								<div class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-									
-									<div class="authmark" ><i class="fa-solid fa-user-shield"></i></div>
-									<div class="ranwriter">${r.review_writer}</div>
-									<div class="writerd">${r.formDate}</div>
-									<div class="starc">star</div>
-									${r.review_contents }
+					<c:when test="${not empty reviewList }">
+						<!-- 리스트가 비어있지않다면 -->
+						<c:forEach var="r" items="${reviewList }">
+							<div class="review2">
+
+
+								<div
+									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
+
+									<div class="authmark">
+										<i class="fa-solid fa-user-shield"></i>
 									</div>
-						
+									<div class="ranwriter">${r.review.review_writer}</div>
+									<div class="writerd">${r.review.formDate}</div>
+									<div class="starc">
+										<input type="hidden" name="review_seq" class="star"
+											value="${r.review.review_star}">
+
+									</div>
+
+									<c:if test="${userSeq !=null}">
+										<div class="reviewlike">
+											<input type="hidden" name="review_seq" class="rseq"
+												value="${r.review.review_seq}"> <input type="hidden"
+												name="gym_seq" class="gym" value="${r.review.gym_seq}">
+											<input type="hidden" name="review_like" class="rlike"
+												value="${r.review.review_like}"> <i
+												class="relike fa-solid fa-thumbs-up"></i>
+											<c:if test="${r.liked ==userSeq}">
+												<script>
+										$(".relike").attr("style", "color:#001A41")
+										</script>
+											</c:if>
+										</div>
+
+									</c:if>
+
+
+									<div class="reviewcon">${r.review.review_contents }</div>
 								</div>
-				
-							</c:forEach>
-								<div class="newmore">
-							<a href="#" class="btn btn_outline" data-bs-toggle="button" id="load">NEW MORE</a>
+
+							</div>
+
+						</c:forEach>
+						<div class="newmore">
+							<a href="#" class="btn btn_outline" data-bs-toggle="button"
+								id="load">NEW MORE</a>
 						</div>
-						</c:when>
-						<c:otherwise>
-							<div class="other">작성된 리뷰가 없습니다</div>
-						</c:otherwise>
-					</c:choose>
-				
-		
-	
-							
+					</c:when>
+					<c:otherwise>
+						<div class="other">작성된 리뷰가 없습니다</div>
+					</c:otherwise>
+				</c:choose>
+
+
+
+
 
 			</div>
 		</div>
-		
+
+
+
+
 
 		<div class="rcontents">
 			<div class="chart1">
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="gym_info_open">
-				<span>OPEN : AM 09:00</span><br /> <span>CLOSE : PM 22:30</span>
+				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE :
+					${gymList.gym_close}</span>
 			</div>
-			
 
 
 			<div class="gym_info_tagBox">
-				<div class="gym_info_tag open">#24시간</div>
-				<div class="gym_info_tag locker">#라커</div>
-				<div class="gym_info_tag shower">#샤워실</div>
-				<div class="gym_info_tag park">#주차장</div>
+
+				<c:choose>
+					<c:when test="${gymFilter.open == 'true'}">
+						<div class="gym_info_tag open">#24시간</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.locker == 'true'}">
+						<div class="gym_info_tag locker">#라커</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.shower == 'true'}">
+						<div class="gym_info_tag shower">#샤워실</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.park == 'true'}">
+						<div class="gym_info_tag park">#주차장</div>
+					</c:when>
+				</c:choose>
 			</div>
-		
+
+
 			<div class="infopicture">
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
-						alt="..." />
+					<img src="/resource/health.png"
+						class="figure-img img-fluid rounded" alt="..." />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 				<figure class="figure">
-					<img src="" class="figure-img img-fluid rounded"
-						alt="..." />
+					<img src="/resource/health.png"
+						class="figure-img img-fluid rounded" alt="" />
 					<figcaption class="figure-caption"></figcaption>
 				</figure>
 			</div>
 		</div>
 	</div>
-	
+
+
+
 	<script>
+	
+	
+	$(document).ready(function() {
+			if($(".star").val()==1){
+				$(".starc").html("★")
+			}if($(".star").val()==2){
+				$(".starc").html("★★")
+			}if($(".star").val()==3){
+				$(".starc").html("★★★")
+			}
+			if($(".star").val()==4){
+				$(".starc").html("★★★★")
+			}
+			if($(".star").val()==5){
+				$(".starc").html("★★★★★")
+			}
+			
+	})
+
+	$(".relike").on("click", function(){
+	
+		if($(this).css("color")=="rgb(143, 149, 154)" ){
+
+			$.ajax({
+				url:"/reviewLikeAdd.gym",
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+					"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+					
+				},
+				type:"post",
+				success:()=> {$(this).css("color", "#001A41")
+					
+					console.log($(this).closest(".reviewlike").find(".gym").val())
+					console.log($(this).closest(".reviewlike").find(".rlike").val())
+					console.log("좋아요 추가")}
+				
+			})
+		} else {
+
+			$.ajax({
+				url:"/reviewLikeDel.gym",
+				
+				data:{
+					"review_seq":$(this).closest(".reviewlike").find(".rseq").val(),
+					"gym_seq":$(this).closest(".reviewlike").find(".gym").val(),
+					"review_like":$(this).closest(".reviewlike").find(".rlike").val()
+						},	
+				type:"post",
+				success:()=> {$(this).css("color", "#8f959a")
+					console.log("좋아요 취소")}
+			})
+		}
+	})
+
+	
+
+
+	// 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
+	$(document).ready(function() {
+
+	    if(${favresult}!== "check"){
+	    	if(${favresult}){
+		    	$("#heart").css("color", "#CF0C00");
+		    }else{
+		    	$("#heart").css("color", "#8f959a")
+		    }
+	    }
+	});
+	
+
+
+	
 	$("#heart").on("click", function(){
 		
-		if($("#heart").css("color")=="rgb(143, 149, 154)"){
+		if($("#heart").css("color")=="rgb(143, 149, 154)" ){
 			$("#heart").css("color", "#CF0C00");
 			console.log("즐찾추가")
 			$.ajax({
-				url:"/favoriteadd.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteadd.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		} else {
 			$("#heart").css("color", "#8f959a")
 			console.log("즐찾삭제")
 			$.ajax({
-				url:"/favoriteremove.gym?gym_seq="+${list.gym_seq},
+				url:"/favoriteremove.gym?gym_seq="+${gymList.gym_seq},
 				type:"get"
 			})
 		}
@@ -178,7 +305,7 @@
             document.body.removeChild(textarea);
            $(".fa-sharp fa-solid fa-share-nodes").tooltip();  //URL 주소 복사 가능 TOOLTIP
           })//아이콘 클릭시 주소복사 버튼
-        </script>  
+        </script>
 
 	<script>
        
@@ -233,15 +360,15 @@
 	<script>
         const myChart = new Chart(document.getElementById("myChart"), config);
       </script>
-      
-      <script>
+
+	<script>
       
       $("#reviewbtn").on("click", function () {
           location.href = "";
         }); //리뷰작성 이동
       </script>
-      
-   
+
+
 </main>
 
 <%@ include file="/layout/footer.jsp"%>

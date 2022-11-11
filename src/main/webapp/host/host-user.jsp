@@ -14,7 +14,7 @@
         <div class="title">
             <div class="userm text_title">일반회원</div> 
 
-            <div class="selectuser text_title">선택</div>
+            <div class="selectuser text_title"><input type="checkbox" name="userchkAll"  id="allcheck" onclick="checkAll();" >선택</div>
             <div class="user-seq text_title">회원번호</div>
             <div class="user-email text_title">회원 이메일</div>
             <div class="user-name text_title">이름</div>
@@ -32,7 +32,7 @@
 			    <!-- 리스트가 비어있지않다면 -->
 				<c:forEach  var="u" items="${list}" >
         <div class="title"> 
-            <div class="selectuser text_normal"> <input type="checkbox" name="user" >선택 </div>
+            <div class="selectuser text_normal"> <input type="checkbox" name="user" value="${u.seq}" class="check" >선택 </div>
             <div class="user-seq text_normal">${u.seq}</div>
             <div class="user-email text_normal">${u.email}</div>
             <div class="user-name text_normal">${u.name}</div>
@@ -52,15 +52,64 @@
             <div class="textsearch"><input type="text" name="inputT" id="inputText" placeholder="이름 검색">
           <button type="submit" id="btn_search">SEARCH</button>
           </div>
-         <div class="btn_div"><button class="btn_base deleteuser" id="btn_del">삭제하기</button></div>
+         <div class="btn_div"><button type = "button" class="btn_base deleteuser" id="btn_del">삭제하기</button></div>
     
     </div>
     </div>
     </form>
 
     <script>
+
+    <!-- 전체 선택, 해제 -->
+    function checkAll() {
+    	if($("#allcheck").is(':checked')) {
+    		$("input[name=user]").prop("checked", true);
+    	} else {
+    		$("input[name=user]").prop("checked", false);
+    	}
+    }
     
     
+    <!-- 전체 체크중 하나 체크 취소하면 전체체크 풀림-->
+    $(document).on("click", "input:checkbox[name=user]", function(e) {
+    	
+    	var chks = document.getElementsByName("user");
+    	var chksChecked = 0;
+    	
+    	for(var i=0; i<chks.length; i++) {
+    		var cbox = chks[i];
+    		
+    		if(cbox.checked) {
+    			chksChecked++;
+    		}
+    	}
+    	
+    	if(chks.length == chksChecked){
+    		$("#allcheck").prop("checked", true);
+    	}else{
+    		$("#allcheck").prop("checked",false);
+    	}
+    	
+    });
+    
+    <!-- 삭제 -->
+    $("#btn_del").on("click", function(){
+    	var userseq = [];
+    	
+    	$("input[name=user]:checked").each(function(i){
+    		userseq.push($(this).val()); //userseq배열에  값 넣기
+    		console.log(userseq);
+    	})
+    	
+    	$.ajax({
+    		url : "/usersDel.host",
+    		type:"get",
+    		datatype="json"
+    		data:userseq
+    	})
+    })
+    
+    <!--검색기능 -->
     $("#btn_search").on("click", function(){
   	  let input = $("#inputText").val();
   	  

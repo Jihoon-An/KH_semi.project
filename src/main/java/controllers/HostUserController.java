@@ -37,6 +37,13 @@ public class HostUserController extends ControllerAbs {
         try {
         switch (uri) {
 		
+        // 관리자 임시 로그인용
+        case "/admin.host":
+        	request.getSession().invalidate();
+        	request.getSession().setAttribute("admin", true);
+        	response.sendRedirect("/index.jsp");
+        	break;
+        
         //관리자 페이지 일반회원목록 출력
         case "/userslist.host":
         	
@@ -57,6 +64,8 @@ public class HostUserController extends ControllerAbs {
         	break;
         //관리자 페이지 회원 삭제
         case "/usersDel.host":
+        	
+        	this.getUserDel(request,response);
         	break;
         	
         case "/bsUsersDel.host":
@@ -130,6 +139,25 @@ public class HostUserController extends ControllerAbs {
 				request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 		 
 		 }
+	 
+	 protected void getUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			String[] useq = request.getParameterValues("userseq");
+			
+			
+			System.out.println(useq);
+		 	
+		 	String text= request.getParameter("inputT");
+			 UserDAO dao = UserDAO.getInstance();
+	    		List<UserDTO> dto = dao.searchUser(text);
+	    	
+	    		System.out.println(dto);
+	    	
+	    		request.setAttribute("list", dto); //user
+			
+				request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
+		 
+		 }
+	 
 	 
 	 protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 			
