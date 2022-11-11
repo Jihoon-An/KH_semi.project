@@ -189,7 +189,7 @@
                 </div>
 
                 <hr class="line2">
-
+                <button type="button" id="tq">ㅅㅂ</button>
             </form>
         </section>
 
@@ -211,7 +211,7 @@
             })
             return false;
         }
-        if($("#review_contents").html()=="") {
+        if($("#review_contents").val()=="") {
             Swal.fire({
                 icon: 'error',
                 title: '리뷰 미입력',
@@ -339,11 +339,16 @@
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
 
-        var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+        var reg = /(.*?)\/(jpg|jpeg|png|bmp|gif|pdf)$/;
 
         filesArr.forEach(function (f) {
             if (!f.type.match(reg)) {
-                alert("확장자는 이미지 확장자만 가능합니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '이미지 업로드 불가',
+                    text: '이미지 파일만 업로드 가능합니다.',
+                    confirmButtonText: '확인'
+                })
                 return;
             }
 

@@ -191,7 +191,7 @@ public class GymController extends ControllerAbs {
         ReviewDTO review = new ReviewDTO(request);
         ReviewDAO.getInstance().writeReview(review);
         int gymSeq = review.getGym_seq();
-        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+gymSeq);
+        response.sendRedirect("/detail.gym?gym_seq="+gymSeq);
     }
 
 
