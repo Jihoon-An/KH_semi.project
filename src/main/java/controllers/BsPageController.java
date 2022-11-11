@@ -45,19 +45,14 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-                case "/modifyGym.bsPage":
-                    this.toUpdateGym(request,response);
+                case "/toUpdateGym.bsPage":
+                    this.importGym(request, response);
                     request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
                 case "/updateGym.bsPage":
                     this.updateGymInfo(request, response);
                     response.sendRedirect("/");
                     break;
-                case "/toUpdateGym.bsPage":
-                    this.importGym(request, response);
-                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
-                    break;
-
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -98,6 +93,8 @@ public class BsPageController extends ControllerAbs {
      * <h2>gym데이터를 request에 담음</h2>
      */
     private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
 
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
@@ -219,7 +216,6 @@ public class BsPageController extends ControllerAbs {
      * session에 bsSeq만 필요
      */
     private void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().setAttribute("bsSeq", 112);
 
         int bsSeq = (Integer) request.getSession().getAttribute("bsSeq");
 

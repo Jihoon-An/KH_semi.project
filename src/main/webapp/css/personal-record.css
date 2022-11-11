@@ -23,7 +23,15 @@
 #personal-record #weight {
 	height: 350px;
 	transition: 0.5s;
-} 
+}
+
+#personal-record #inbody_chart {
+	transition: 0.5s;
+}
+
+#personal-record #weight_chart {
+	transition: 0.5s;
+}
 
 #personal-record #calendar {
 	height: 400px;
@@ -57,6 +65,25 @@
 #personal-record #record input:not([type="range"]):focus {
 	outline: none;
 	box-shadow: 0px 1px 0px 0px #808080;
+}
+
+#personal-record #record #reg_range_label {
+	position: absolute;
+	background-color: #0D6EFD;
+	width: 30px;
+	height: 20px;
+	text-align: center;
+	color: white;
+	border-radius: 10px;
+	display: inline-block;
+	bottom: 175%;
+	font-size: 12px;
+	line-height: 20px;
+	transform: translate(0, 20px);
+}
+
+#personal-record #record form {
+	position: relative;
 }
 
 #personal-record #record .text-start {
