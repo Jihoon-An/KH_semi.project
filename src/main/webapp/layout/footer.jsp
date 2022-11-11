@@ -8,7 +8,7 @@
         <div class="containerbox">
 
             <div class="leftbox float-start" style="transform: translate(20px,0);">
-                <h2 id="footer_logo">Fitneeds</h2>
+                <a class="footer_a_tag" href="/"><h2 id="footer_logo">Fitneeds</h2></a>
                 <h6 id="footer_contact" class="text_mini">제휴 및 서비스 이용문의</h6>
                 <h3 id="footer_call"><a class="footer_a_tag" href="tel:1577-1000">1577-1000</a></h3>
             </div>

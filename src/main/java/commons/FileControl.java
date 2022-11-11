@@ -6,11 +6,15 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 
 public class FileControl {
 
     private int maxSize = 1024 * 1024 * 10;
+    private MultipartRequest multi;
 
     /**
      * 기본 최대 파일 사이즈는 10Mb입니다.
@@ -38,6 +42,14 @@ public class FileControl {
         this.maxSize = 1024 * 1024 * maxSize;
     }
 
+    public MultipartRequest getMulti() {
+        return multi;
+    }
+
+    public void setMulti(MultipartRequest multi) {
+        this.multi = multi;
+    }
+
     /**
      * 파일을 저장함.
      * @param request File을 불러오는 request
@@ -57,11 +69,41 @@ public class FileControl {
             fileSavePath.mkdir();//make directory
         }
         // 파일 생성
-        MultipartRequest multi = new MultipartRequest(request, savePath, this.maxSize, "UTF8", new DefaultFileRenamePolicy());
+        this.multi = new MultipartRequest(request, savePath, this.maxSize, "UTF8", new DefaultFileRenamePolicy());
         String sysName = multi.getFilesystemName(paramName);
 
         return sysName;
     }
+
+
+    public List<String> saves(HttpServletRequest request, String path) throws IOException {
+
+        List<String> sysNames = new ArrayList<>();
+
+        //경로 저장
+        String savePath = request.getServletContext().getRealPath(path); //런타임 webapp 폴더를 불러옴.
+        File fileSavePath = new File(savePath);
+
+        // 폴더 생성
+        if (!fileSavePath.exists()) { //find directory
+            fileSavePath.mkdir();//make directory
+        }
+        // 파일 생성
+        this.multi = new MultipartRequest(request, savePath, this.maxSize, "UTF8", new DefaultFileRenamePolicy());
+
+        Enumeration fileNames = multi.getFileNames();
+        while (fileNames.hasMoreElements()) {
+            String parameter = (String) fileNames.nextElement();
+            String sysName = multi.getFilesystemName(parameter);
+            sysNames.add(sysName);
+
+            if (sysName == null) {
+                continue;
+            }
+            return sysNames;
+        }
+    }
+
 
     /**
      * 기존에 있는 파일 지우기

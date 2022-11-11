@@ -1,13 +1,21 @@
 package dto;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import commons.FileControl;
+import dao.BsCtfcDAO;
+import dao.GymDAO;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ReviewDTO {
 
@@ -33,7 +41,7 @@ public class ReviewDTO {
 	public ReviewDTO() {
 	}
 
-    public ReviewDTO(ResultSet resultSet) throws SQLException {
+    public ReviewDTO(ResultSet resultSet) throws Exception {
         this.review_seq = resultSet.getInt("review_seq");
         this.user_seq = resultSet.getInt("user_seq");
         this.gym_seq = resultSet.getInt("gym_seq");
@@ -52,38 +60,34 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(int review_seq) {
-
 		this.review_seq = review_seq;
-
 	}
 
-	public ReviewDTO(int user_seq, int gym_seq, int bs_seq, String review_writer, String review_contents, String review_check1, String review_check2, String review_check3, String review_check4, String review_check5, String review_photo) {
-		this.user_seq = user_seq;
-		this.gym_seq = gym_seq;
-		this.bs_seq = bs_seq;
-		this.review_writer = review_writer;
-		this.review_contents = review_contents;
-		this.review_check1 = review_check1;
-		this.review_check2 = review_check2;
-		this.review_check3 = review_check3;
-		this.review_check4 = review_check4;
-		this.review_check5 = review_check5;
-		this.review_photo = review_photo;
-	}
 
-	public ReviewDTO(HttpServletRequest request) throws IOException {
-		FileControl file = new FileControl();
-		this.user_seq = Integer.parseInt(request.getParameter("user_seq"));
-		this.gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
-		this.bs_seq = Integer.parseInt(request.getParameter("bs_seq"));
-		this.review_writer = request.getParameter("review_writer");
-		this.review_contents = request.getParameter("review_contents");
-		this.review_check1 = request.getParameter("review_check1");
-		this.review_check2 = request.getParameter("review_check2");
-		this.review_check3 = request.getParameter("review_check3");
-		this.review_check4 = request.getParameter("review_check4");
-		this.review_check5 = request.getParameter("review_check5");
-		this.review_photo = file.save(request,"/resource/profile", "review_photo");
+	public ReviewDTO(HttpServletRequest request) throws Exception {
+
+		String savePath = request.getServletContext().getRealPath("/resource/review"); //런타임 webapp 폴더를 불러옴.
+		File fileSavePath = new File(savePath);
+
+		// 폴더 생성
+		if (!fileSavePath.exists()) { //find directory
+			fileSavePath.mkdir();//make directory
+		}
+		// 파일 생성
+		MultipartRequest multi = new MultipartRequest(request, savePath, 1024 * 1024 * 10, "UTF8", new DefaultFileRenamePolicy());
+
+		this.user_seq = (Integer) request.getSession().getAttribute("userSeq");
+		this.gym_seq = Integer.parseInt(multi.getParameter("gym_seq"));
+		this.bs_seq = GymDAO.getInstance().printGym(this.gym_seq).getBs_seq();
+		this.review_writer = randomNickName();
+		this.review_contents = multi.getParameter("review_contents");
+		this.review_star = Integer.parseInt(multi.getParameter("review_star"));
+		this.review_check1 = multi.getParameter("review_check1");
+		this.review_check2 = multi.getParameter("review_check2");
+		this.review_check3 = multi.getParameter("review_check3");
+		this.review_check4 = multi.getParameter("review_check4");
+		this.review_check5 = multi.getParameter("review_check5");
+		this.review_photo = multi.getFilesystemName("review_photo");
 	}
 
 	public String getReview_photo() {
@@ -238,4 +242,18 @@ public class ReviewDTO {
 			return sdf.format(writeTime);
 		}
 	}
+
+	private String randomNickName() {
+		List<String> adjective = Arrays.asList("귀여운", "너그러운", "동그란", "뛰어난", "멋진", "무서운", "반가운", "밝은", "부드러운", "힘찬", "한결같은",
+				"짓궂은", "조그만", "점잖은", "젊은", "재미있는", "잘생긴", "예쁜", "작은", "큰", "커다란", "언짢은", "올바른", "외로운", "어린", "아름다운", "빠른",
+				"수다스러운", "쏜살같은", "수줍은", "서툰", "가냘픈", "정직한", "다정한", "사려깊은", "로맨틱한", "느긋한", "자신감있는", "다감한", "애교있는", "친절한",
+				"이해심많은", "순진한", "긍정적인");
+		List<String> name = Arrays.asList("너구리", "코끼리", "호랑이", "사자", "기린", "고양이", "강아지", "송아지", "뱀", "파랑새", "앵무새", "다람쥐",
+				"타조", "악어", "개구리", "공룡", "원숭이", "곰", "하마", "여우", "늑대", "얼룩말", "표범", "토끼", "사슴", "양", "팬더", "캥거루", "낙타",
+				"쥐", "독수리", "고슴도치", "펭귄", "나비", "개미", "고래", "거북이", "부엉이", "오리", "병아리");
+		Collections.shuffle(adjective);
+		Collections.shuffle(name);
+		return adjective.get(0) + " " + name.get(0);
+	}
+
 }
