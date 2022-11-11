@@ -6,7 +6,4 @@
 <%@ include file="/host/host-header.jsp" %>
 
 
-메인
-
-
 <%@ include file="/host/host-footer.jsp" %>
