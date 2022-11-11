@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/api/jquery-ui/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="/api/jquery-ui/images"></script>
+    
 
     <!-- Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
