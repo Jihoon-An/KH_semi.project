@@ -186,11 +186,10 @@ public class GymController extends ControllerAbs {
 
     // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
     protected void write(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 파일이 있다면 이거
-        ReviewDAO.getInstance().writeReview(new ReviewDTO(request));
-        response.sendRedirect("/main.search");
-
-//        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+GymDAO.getInstance().printGym(gym_seq).getGym_name());
+        ReviewDTO review = new ReviewDTO(request);
+        ReviewDAO.getInstance().writeReview(review);
+        int gymSeq = review.getGym_seq();
+        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+gymSeq);
     }
 
 
