@@ -22,7 +22,8 @@ public class PersonalRecordController extends ControllerAbs {
 					response.sendRedirect("/personal/personal-record.jsp");
 					break;
 
-				case "/something.personal":
+				case "/record.personal":
+                    response.getWriter().append(request.getParameter("date"));
 					break;
             }
         } catch (Exception e) {

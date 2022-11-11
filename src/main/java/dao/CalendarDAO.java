@@ -9,8 +9,13 @@ public class CalendarDAO extends Dao{
     private CalendarDAO() {
         super();
     }
-    public static CalendarDAO getInstance(){
-        return (CalendarDAO)Dao.getInstance();
+    private static CalendarDAO instance;
+
+    synchronized public static CalendarDAO getInstance() {
+        if (instance == null) {
+            instance = new CalendarDAO();
+        }
+        return instance;
     }
 
     /**

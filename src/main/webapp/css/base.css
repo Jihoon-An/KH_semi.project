@@ -13,7 +13,6 @@ body * {font-family:'Pretendard-Regular'}
 .containerbox {
 	width: 1200px;
 	margin: auto;
-	overflow: hidden;
 }
 
 /* header 높이 margin 85 */
@@ -127,6 +126,8 @@ h2 {
 
 .btn_base:active {
 	transform: scale(0.95);
+	color: #fff;
+	text-decoration: none;
 }
 
 

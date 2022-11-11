@@ -68,7 +68,7 @@
             <div class="textsearch"><input type="text" name="inputName" id="inputText" placeholder="이름 검색">
 	          <button type="button" id="btn_searchh">SEARCH</button>
 	         </div>
-         <div class="btn_div"><button type = "button" class="btn_base deleteuser" id="btn_del">삭제하기</button></div>
+         <div class="btn_div"><button type = "button" class="btn_base deleteuser" id="btn_dell">삭제하기</button></div>
     
     </div>
     </div>
@@ -108,24 +108,33 @@
     	
     });
     
-    /*
-    <!-- 삭제 -->
-    $("#btn_del").on("click", function(){
+  
+   	//유저삭제
+    $("#btn_dell").on("click", function(){
     	var userseq = [];
+    
+    	console.log(document.querySelectorAll(".check:checked")[0].value)
     	
-    	$("input[name=user]:checked").each(function(i){
-    		userseq.push($(this).val()); //userseq배열에  값 넣기
-    		console.log(userseq);
-    	})
+    	let a = document.querySelectorAll(".check:checked")
+    	for(let i = 0; i<a.length; i++){
+    		console.log(a[i]);
+    		userseq.push(a[i].value);
+    		
+    		}
+    	console.log(userseq)
     	
     	$.ajax({
     		url : "/usersDel.host",
-    		type:"get",
-    		datatype="json"
-    		data:userseq
+    		type:"post",
+    	
+    		data:{"userseq":JSON.stringify(userseq)},
+    		  success: function (data){
+    			  location.reload();
+    		  }
+    	
     	})
     })
-    */
+    
     
  	//검색기능
     $("#btn_searchh").on("click", function(){
@@ -143,9 +152,7 @@
   	})	
     
     
-        $(".deleteuser").on("click", function(){
-            
-        })
+     
     </script>
     </main>
 

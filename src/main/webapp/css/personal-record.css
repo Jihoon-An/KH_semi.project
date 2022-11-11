@@ -86,6 +86,10 @@
 	position: relative;
 }
 
+#personal-record #record sup {
+	color: red;
+}
+
 #personal-record #record .text-start {
 	padding-left: 15px;
 }
