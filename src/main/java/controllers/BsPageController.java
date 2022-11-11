@@ -92,11 +92,10 @@ public class BsPageController extends ControllerAbs {
     /**
      * <h2>gym데이터를 request에 담음</h2>
      */
-    private void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+    public void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
-
+        request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
 
