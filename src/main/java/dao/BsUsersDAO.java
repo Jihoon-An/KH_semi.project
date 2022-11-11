@@ -102,7 +102,16 @@ public class BsUsersDAO extends Dao {
     }
 
     /**
-     * 삭제 기능 미완성
+     * 시설갯수
+     * 
+     */
+//    public int countGymByBsSeq(int seq)  throws Exception{
+//    	String sql = "    public\r\n"
+//    			+ "    select count(*) from gym where bs_seq = ?"
+//    }
+    
+    /**
+     * 삭제기능
      *
      * @param seq
      * @return

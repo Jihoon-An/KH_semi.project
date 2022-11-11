@@ -103,8 +103,3 @@
             </nav>
     </header>
     <div id="nav_margin"></div>
-
-    <main>
-
-
-    <h1>ㅇ</h1>
