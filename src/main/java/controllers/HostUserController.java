@@ -40,7 +40,7 @@ public class HostUserController extends ControllerAbs {
         case "/admin.host":
         	request.getSession().invalidate();
         	request.getSession().setAttribute("admin", true);
-        	response.sendRedirect("/index.jsp");
+        	response.sendRedirect("/host/host.jsp");
         	break;
         
         //관리자 페이지 일반회원목록 출력
