@@ -317,4 +317,43 @@ public class ReviewDAO extends Dao {
 			con.commit();
 		}
 	}
+
+
+
+
+
+	public int delete(int seq) throws Exception {
+
+		String sql = "delete from board where seq= ?";
+
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+			pstat.setInt(1, seq);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+
+			return result;
+		}
+	}
+
+	public int modifyBySeq(String title, String contents, int seq) throws Exception {
+		String sql = "update board set title=?, contents=? where seq=?";
+
+		try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+			pstat.setString(1, title);
+			pstat.setString(2, contents);
+			pstat.setInt(3, seq);
+
+			int result = pstat.executeUpdate();
+			con.commit();
+
+			return result;
+
+		}
+	}
+
+
+
 }
