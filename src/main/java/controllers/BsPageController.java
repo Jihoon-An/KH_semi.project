@@ -1,5 +1,8 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.oreilly.servlet.MultipartRequest;
 import commons.FileControl;
 import dao.*;
 import dto.*;
@@ -9,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -98,6 +103,7 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+        GymImgDTO gymImg = GymImgDAO.getInstance().getByGymSeq(gymSeq);
 
         request.setAttribute("gym", gym);
         request.setAttribute("gymFilter", gymFilter);
@@ -142,10 +148,11 @@ public class BsPageController extends ControllerAbs {
         GymImgDAO gymImgDAO = GymImgDAO.getInstance();
 
         for (GymDTO gym : gymList) {
-            List<GymImgDTO> gymImgList = gymImgDAO.getByGymSeq(gym.getGym_seq());
-
-            for (GymImgDTO gymImg : gymImgList) {
-                file.delete(request, "/resource/gym", gymImg.getGym_sysimg());
+            GymImgDTO gymImg = gymImgDAO.getByGymSeq(gym.getGym_seq());
+            Gson gson = new Gson();
+            String[] gymImgList = gson.fromJson(gymImg.getGym_sysimg(), String[].class);
+            for (String gymName : gymImgList) {
+                file.delete(request, "/resource/gym", gymName);
             }
 
             GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
@@ -227,6 +234,7 @@ public class BsPageController extends ControllerAbs {
 
         BsUsersDTO bsUser = BsUsersDAO.getInstance().getByBsSeq(bsSeq);
         BsCtfcDTO bsCtfc = BsCtfcDAO.getInstance().getByBsSeq(bsSeq);
+
         request.setAttribute("bsUser", bsUser);
         request.setAttribute("bsCtfc", bsCtfc);
         request.setAttribute("gymList", gymList);
@@ -243,6 +251,12 @@ public class BsPageController extends ControllerAbs {
 
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<String>> (){}.getType();
+        List<String> gymImg = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
+
+        request.setAttribute("gymImg", gymImg);
         request.setAttribute("gym", gym);
         request.setAttribute("gymFilter", gymFilter);
     }
@@ -252,21 +266,39 @@ public class BsPageController extends ControllerAbs {
      */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-//        int bsSeq = Integer.parseInt(request.getParameter("bsSeq"));
-        String open = request.getParameter("open_result");
-        String locker = request.getParameter("locker_result");
-        String shower = request.getParameter("shower_result");
-        String park = request.getParameter("park_result");
+        FileControl file = new FileControl();
+        // gymImg data
+        file.saves(request, "/resource/gym");
+        MultipartRequest multi = file.getMulti();
 
-        GymDTO gymDTO = new GymDTO(request);
-        if(request.getParameter("address1") == null){
+        int gymSeq = Integer.parseInt(multi.getParameter("gymSeq"));
+        Gson gson = new Gson();
+
+        // 선택한 파일 지우기
+        Type type = new TypeToken<List<String>> (){}.getType();
+        List<String>delImgList = gson.fromJson(multi.getParameter("del_file_name_list"), type);
+        for(String delImg : delImgList) {
+            file.delete(request, "/resource/gym", delImg);
+        }
+        // 새로운파일 리스트
+        String newImgList = multi.getParameter("new_file_name_list");
+
+        // gymFilter data
+        String open = multi.getParameter("open_result");
+        String locker = multi.getParameter("locker_result");
+        String shower = multi.getParameter("shower_result");
+        String park = multi.getParameter("park_result");
+
+        // gym data
+        GymDTO gymDTO = new GymDTO(file);
+        if(multi.getParameter("address1") == null){
             GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
             gymDTO.setGym_location(beforeGym.getGym_location());
         }
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
+        GymImgDAO.getInstance().update(gymSeq, newImgList);
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
     }

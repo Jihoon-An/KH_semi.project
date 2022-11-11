@@ -18,7 +18,7 @@
                 계정 정보 수정
             </button>
         </div>
-        
+
     </div>
 
     <!-- 일반 정보 수정 폼 -->
@@ -323,6 +323,7 @@
         $("#bs_sd").css("display", "block");
         $("#bs_sd_cf").css("display", "none");
         $("#modify_acc").css("display", "none");
+        $("#acc_cf").html("");
     }
 
     /*
@@ -399,5 +400,7 @@
         $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
+
+
 </script>
 <%@ include file="/layout/footer.jsp" %>

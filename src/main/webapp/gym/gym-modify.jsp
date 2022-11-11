@@ -6,7 +6,7 @@
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-    <form id="gym-modify-form" action="/updateGym.bsPage" method="post">
+    <form id="gym-modify-form" action="/updateGym.bsPage" method="post" enctype="multipart/form-data">
         <input type="hidden" name="gymSeq" value="${gym.gym_seq}">
         <input type="hidden" name="bsSeq" value="777">
         <div class="container" align="center">
@@ -212,23 +212,37 @@
 
                             <div class="filebox text-start">
                                 <label for="main_img" class="gym_imgFile_name label">이미지를 업로드하세요</label>
-                                <input type="file" name="main_img" id="main_img" class="gym_imgFile" multiple>
+                                <input type="file" name="main_img" id="main_img" class="gym_imgFile">
                             </div>
 
                         </div>
-
 
                         <div class="col-12 gy-4 imgesBox">
                             <div class="text-start">
-                                <span class="inputTitle">시설사진</span>
+                                <span class="inputTitle">시설사진추가</span>
                             </div>
 
-                            <div class="filebox text-start">
+                            <div class="filebox text-start mb-4">
                                 <label for="gym_img" class="gym_imgFile_name label">이미지를 업로드하세요</label>
-                                <input type="file" name="gym_img" id="gym_img" class="gym_imgFile" multiple>
+                                <input type="file" name="gym_img" id="gym_img" class="gym_imgFiles"
+                                       style="display: none" multiple>
+                                <input type="hidden" name="new_file_name_list" id="gym_img_names">
                             </div>
                         </div>
 
+                        <input type="hidden" name="del_file_name_list" id="del_img_names" val="">
+
+                        <c:forEach var="gymImg" items="gymImg">
+                        <div class="row exist_gym text-start">
+                            <div class="exist_gym_img" style="width: 200px; position:relative;">
+                                <img src="/resource/gym/${gymImg.}" style="width: 100%;">
+                                <button class="button-38 del_exist_btn"
+                                        style="padding: 5px; position:absolute; right:5px; top:4px; scale: 0.7;">이미지 지우기
+                                </button>
+                            </div>
+                            <span class="exist_gym_img_name">default04.png</span>
+                        </div>
+                        </c:forEach>
 
                     </div>
 
@@ -244,6 +258,7 @@
         </div>
 
     </form>
+
 
     <script>
 
@@ -502,7 +517,6 @@
                     $(this).val("");
                     return;
                 }
-
             }
 
             // 추출한 파일명 삽입
@@ -512,9 +526,62 @@
         };
 
 
+        // 파일 업로드시 파일명 삽입 기능
+        $('.filebox .gym_imgFiles').on('change', function () {
+            filesTest($(this)[0]);
+        })
+
+        function filesTest(element) {  // 값이 변경되면
+            const files = element.files;
+
+            var names = [];
+
+            for (const file of files) {
+                var filename = file.name.split('/').pop().split('\\').pop();
+                console.log(filename);
+                var ext = filename.split('.').pop().toLowerCase(); //확장자분리
+                //아래 확장자가 있는지 체크
+
+                if ($.inArray(ext, ['jpg', 'jpeg', 'gif', 'png', 'pdf']) == -1) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '파일 형식 오류',
+                        text: 'jpg, jpeg, gif, png, pdf 파일만 업로드할 수 있습니다.',
+                    })
+                    element.value = "";
+
+                    return;
+                } else {
+                    names.push(filename);
+                }
+                $("#fileNameList").val(JSON.stringify(names));
+                $(element).siblings('.gym_imgFile_name').html("" + names.length + "개의 파일이 선택되었습니다.");
+            }
+        };
+
+        // 기존 이미지 삭제 데이터
+        var del_file_name_list = [];
+
+        $(".del_exist_btn").click(function () {
+            $(this).closest(".exist_gym").remove();
+            del_file_name_list.push($(this).closest(".exist_gym").find(".exist_gym_img_name").html());
+            $("#del_img_names").val(JSON.stringify(del_file_name_list));
+        });
+
+        // 기존 이미지 호버
+        $(".exist_gym").hover(function () {
+                $(this).find(".exist_gym_img").css("display", "block");
+                $(this).find(".exist_gym_img_name").css("display", "none");
+            }, function () {
+                $(this).find(".exist_gym_img").css("display", "none");
+                $(this).find(".exist_gym_img_name").css("display", "block");
+            }
+        );
+
     </script>
 
 
 </main>
 
 <%@ include file="/layout/footer.jsp" %>
+

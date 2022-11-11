@@ -28,8 +28,7 @@ public class GymImgDAO extends Dao {
      * @param gymSeq
      * @throws Exception
      */
-    public List<GymImgDTO> getByGymSeq(int gymSeq) throws Exception {
-        List<GymImgDTO> gymImgList = new ArrayList<>();
+    public GymImgDTO getByGymSeq(int gymSeq) throws Exception {
         String sql = "select * from gym_img where gym_seq = ?";
 
         try (Connection con = this.getConnection();
@@ -37,10 +36,10 @@ public class GymImgDAO extends Dao {
             statement.setInt(1, gymSeq);
 
             try(ResultSet rs = statement.executeQuery();) {
-                while (rs.next()) {
-                    gymImgList.add(new GymImgDTO(rs));
+                if (rs.next()) {
+                    return new GymImgDTO(rs);
                 }
-                return gymImgList;
+                return new GymImgDTO();
             }
         }
     }
@@ -56,6 +55,30 @@ public class GymImgDAO extends Dao {
 
             statement.setInt(1, gymSeq);
             statement.executeUpdate();
+
+            con.commit();
+        }
+    }
+
+    public void update(int gymSeq, String gymImg) throws Exception {
+        String sql = "update gym_img set gym_sysimg = ? where gym_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setString(1, gymImg);
+            statement.setInt(2, gymSeq);
+
+            con.commit();
+        }
+    }
+
+    public void insert(int gymSeq, String gymImg) throws Exception {
+        String sql = "insert into gym_img values(?, ?)";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, gymSeq);
+            statement.setString(2, gymImg);
 
             con.commit();
         }

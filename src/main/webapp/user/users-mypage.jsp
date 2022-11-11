@@ -232,7 +232,7 @@
 						var files = e.target.files;
 						var filesArr = Array.prototype.slice.call(files);
 
-						var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf)$/;
+						var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
 
 						filesArr.forEach(function (f) {
 							if (!f.type.match(reg)) {
