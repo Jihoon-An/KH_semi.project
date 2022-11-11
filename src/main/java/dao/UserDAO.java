@@ -133,8 +133,8 @@ public class UserDAO extends Dao {
 
 
     /**
-     * 유저 회원가입
-     *
+     * <h1>유저 회원가입</h1>
+     * 
      * @param email
      * @param pw
      * @param phone
