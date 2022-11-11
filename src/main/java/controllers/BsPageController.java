@@ -45,12 +45,14 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
-                    request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
+                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
-
+                case "/updateGym.bsPage":
+                    this.updateGymInfo(request, response);
+                    response.sendRedirect("/");
+                    break;
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -233,23 +235,41 @@ public class BsPageController extends ControllerAbs {
     }
 
 
-    private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    /**
+     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
+     */
+    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
 
-        String open = request.getParameter("open");
-        String locker = request.getParameter("locker");
-        String shower = request.getParameter("shower");
-        String park = request.getParameter("park");
+        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
+        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+        request.setAttribute("gym", gym);
+        request.setAttribute("gymFilter", gymFilter);
+    }
+
+    /**
+     *<h1>시설정보 및 시설필터 수정하기</h1>
+     */
+    private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
+//        int bsSeq = Integer.parseInt(request.getParameter("bsSeq"));
+        String open = request.getParameter("open_result");
+        String locker = request.getParameter("locker_result");
+        String shower = request.getParameter("shower_result");
+        String park = request.getParameter("park_result");
 
         GymDTO gymDTO = new GymDTO(request);
+        if(request.getParameter("address1") == null){
+            GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
+            gymDTO.setGym_location(beforeGym.getGym_location());
+        }
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
-
-
     }
 
 
