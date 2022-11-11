@@ -175,7 +175,6 @@
 					let minute = date.getMinutes();
 					let minuteFormat = minute < 10 ? "0" + minute : minute;
 					let dateFormat = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + minuteFormat;
-					
 					let star = "<img src='/resource/ratingImg/rating_" + data.review.review_star + ".png' style='width:80%'>";
 					let gymName = "<div class='col-12 text_title_600 text-truncate item_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></div>";
 					let score = "<div class='col-12 gy-2 item_score' align=center>" + star + "</div>";

@@ -1,5 +1,7 @@
 package dao;
 
+import dto.ExerciseDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -34,4 +36,19 @@ public class ExerciseDAO extends Dao{
             connection.commit();
         }
     }
+
+//    public void insertRecord(ExerciseDTO dto) throws Exception {
+//        String sql = "insert into exercise values(exr_seq.nextval, cal_seq.nextval, ?,null,?,null,sysdate,null,null,null)";
+//
+//        try (Connection con = this.getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql);) {
+//
+//            pstat.setString(1, dto.);
+//            pstat.setString(2, dto.);
+//            pstat.setString(3, dto.);
+//
+//            int result = pstat.executeUpdate();
+//            con.commit();
+//        }
+//    }
 }

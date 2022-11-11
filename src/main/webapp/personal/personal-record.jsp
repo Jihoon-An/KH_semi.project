@@ -52,8 +52,8 @@
 									<div class="text_title" id="result_title" style="padding-top:10px"></div>
 									<div class="text_normal" id="result_contents">
 										데이터가 존재하지 않습니다.
-										<div><button class="btn_outline" id="btn_regRecord"
-												onclick="showRegRecord()">등록하기</button></div>
+										<div><button class="btn_outline" id="btn_showRecord"
+												onclick="showRecord()">등록하기</button></div>
 									</div>
 								</div>
 
@@ -73,12 +73,14 @@
 														style="width:160px" readonly>
 												</div>
 												<div class="col-5 text-end">
-													<p>운동 시간</p>
+													<p>운동 시간<sup>*</sup></p>
 												</div>
 												<div class="col-7 text-start">
-													<input type="text" class="text-center" style="width:50px"
+													<input type="text" class="text-center" id="reg_hour"
+														style="width:50px" value="0"
 														oninput="validNaturalNumRange(24)">&nbsp시간&nbsp
-													<input type="text" class="text-center" style="width:50px"
+													<input type="text" class="text-center" id="reg_minute"
+														style="width:50px" value="0"
 														oninput="validNaturalNumRange(60)">&nbsp분&nbsp
 												</div>
 												<div class="col-5 text-end">
@@ -93,10 +95,11 @@
 													</form>
 												</div>
 												<div class="col-5 text-end" style="padding-bottom:0px">
-													<p>메모 내용</p>
+													<p>메모 내용<sup>*</sup></p>
 												</div>
 												<div class="col-7 text-start" style="padding-bottom:0px">
-													<input type="text" style="width:180px" maxlength="20">
+													<input type="text" id="reg_memo" style="width:180px"
+														placeholder="20자 이내로 입력하세요." maxlength="20">
 												</div>
 											</div>
 										</div>
@@ -109,34 +112,34 @@
 													<p>몸무게</p>
 												</div>
 												<div class="col-7 text-start">
-													<input type="text" class="text-center" style="width:70px"
-														oninput="vaildNumRange(1000)">&nbspKg
+													<input type="text" class="text-center" id="reg_weight"
+														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
 												</div>
 												<div class="col-5 text-end">
 													<p>체지방량</p>
 												</div>
 												<div class="col-7 text-start">
-													<input type="text" class="text-center" style="width:70px"
-														oninput="vaildNumRange(1000)">&nbspKg
+													<input type="text" class="text-center" id="reg_fat"
+														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
 												</div>
 												<div class="col-5 text-end">
 													<p>골격근량</p>
 												</div>
 												<div class="col-7 text-start">
-													<input type="text" class="text-center" style="width:70px"
-														oninput="vaildNumRange(1000)">&nbspKg
+													<input type="text" class="text-center" id="reg_muscle"
+														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
 												</div>
 												<div class="col-5 text-end" style="padding-bottom:0px">
 													<p>BMI</p>
 												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
+												<div class="col-7 text-start" id="reg_bmi" style="padding-bottom:0px">
 													<input type="text" class="text-center" style="width:70px"
 														oninput="vaildNumRange(100)">
 												</div>
 											</div>
 										</div>
 										<div class="col-12">
-											<button class="btn_outline">작성완료</button>
+											<button class="btn_outline" id="btn_regRecord">작성완료</button>
 											<button class="btn_outline" onclick="regCancel()">돌아가기</button>
 										</div>
 									</div>
@@ -191,7 +194,7 @@
 						}
 					}
 
-					function showRegRecord() {
+					function showRecord() {
 						$("#inbody")[0].style.height = "250px";
 						$("#weight")[0].style.height = "250px";
 						$("#result")[0].style.height = "400px";
@@ -213,6 +216,23 @@
 						});
 					}
 
+					function tryRegist() {
+						data = { 
+							"date": $("#reg_date").val(),
+							"how": ($("#reg_hour").val() * 60) + $("#reg_minute").val(),
+							"intens": $("#reg_range").val(),
+							"memo": $("#reg_memo").val(),
+							"weight": $("#reg_weight").val(),
+							"fat": $("#reg_fat").val(),
+							"muscle": $("#reg_muscle").val(),
+							"bmi": $("#reg_bmi").val(),
+						}
+						$.post("/record.personal", data)
+						.done(res => {
+							alert("값 :" +res);
+						})
+					}
+
 					$("#reg_intens").on("input", e => {
 						$("#reg_intens_label").text(e.target.value);
 					});
@@ -230,6 +250,10 @@
 
 						$("#reg_range_label").css({ left: (place * 0.9) - 6, }).text(intens[element.val() - 1]);
 					}).trigger("change");
+
+					$("#btn_regRecord").on("click", () => {
+						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) { tryRegist(); }
+					});
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
