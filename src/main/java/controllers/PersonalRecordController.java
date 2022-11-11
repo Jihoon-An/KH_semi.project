@@ -16,16 +16,21 @@ public class PersonalRecordController extends ControllerAbs {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    	super.doGet(request, response);
         String uri = request.getRequestURI();
 
         try {
             switch (uri) {
                 case "/main.personal":
-					response.sendRedirect("/personal/personal-record.jsp");
+                	System.out.println("Test");
+                
+                	this.getInbodyChart(request, response);
+                	
 					break;
-
-				case "/something.personal":
+					
+				// inbody chart
+				case "/infoinbody.personal":
+				
 					break;
             }
         } catch (Exception e) {
@@ -43,10 +48,15 @@ public class PersonalRecordController extends ControllerAbs {
     	
     	int exr_seq = Integer.parseInt(request.getParameter("exr_seq"));
     	
-    	HashMap<String, Object> inbody = ExerciseDAO.getInstance().InbodyChartInfo(exr_seq);
+    	ExerciseDAO exerciseDao = ExerciseDAO.getInstance();
+    	HashMap<String, Object> inbody = exerciseDao.InbodyChartInfo(exr_seq);
+    	//HashMap<String, Object> inbody = ExerciseDAO.getInstance().InbodyChartInfo(exr_seq);
     	System.out.println(inbody);
     	
-    	request.setAttribute("inbodyInfo", inbody);
+    	
+    	
+    	request.setAttribute("main", inbody);
+    	request.getRequestDispatcher("personal/personal-record.jsp").forward(request, response);
     	 
     }
     

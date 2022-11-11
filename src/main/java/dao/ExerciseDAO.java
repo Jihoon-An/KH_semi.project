@@ -64,7 +64,7 @@ public class ExerciseDAO extends Dao{
      * @throws Exception
      */
     public HashMap<String, Object>InbodyChartInfo(int exr_seq)throws Exception{
-    	String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where exr_seq = ?;";
+    	String sql = "select exr_seq,inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where exr_seq = ?";
     
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -72,16 +72,18 @@ public class ExerciseDAO extends Dao{
     		pstat.setInt(1, exr_seq);
     		
     		HashMap<String, Object> date = new HashMap<>();
-    		ResultSet rs = pstat.executeQuery();
-    		while(rs.next()) {
-    			date.put("exr_seq", rs.getString("exr_seq"));
-    			date.put("weight",rs.getString("inbody_weight"));
-    			date.put("bfm",rs.getString("inbody_bfm"));
-    			date.put("bmi",rs.getString("inbody_bmi"));
-    			date.put("sm",rs.getString("inbody_sm"));
+    		try(ResultSet rs = pstat.executeQuery();){
     			
+    			while(rs.next()) {
+    				date.put("exr_seq", rs.getString("exr_seq"));
+    				date.put("weight",rs.getString("inbody_weight"));
+    				date.put("bfm",rs.getString("inbody_bfm"));
+    				date.put("bmi",rs.getString("inbody_bmi"));
+    				date.put("sm",rs.getString("inbody_sm"));
+    			
+    		}    			
+    			return date;
     		}
-    		return date;
     	}
     }
     /**

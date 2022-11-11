@@ -146,76 +146,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div id="weight">
-				몸무게 변화
-				<div class="chart_wrap">
-				<canvas id="weight_chart" height="250"></canvas>
-				</div>
-			</div>
-		</div>
-		<div class="col-3">
-			<div class="calendar" id="calendar">
-			</div>
-		</div>
-		<div class="col-9">
-			<div id="result">
-				운동 결과
-			</div>
-		</div>
-	</div>
 	<script>
-
-	// inbody chart
-	const ctx1 = document.getElementById('inbody_chart').getContext('2d');
-	const myChart1 = new Chart(ctx1, {
-
-		type : 'bar',
-		data : {
-			labels : [ '체중', '골격근량', '체지방량', 'BMI', '체지방률'
-					],
-			datasets : [ {
-				axis:'y',
-				label : '# inbody_chart',
-				data : [ ${inbodyInfo.weight},${inbodyInfo.bfm},${inbodyInfo.bmi},${inbodyInfo.sm}],
-				backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-						'rgba(54, 162, 235, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)',
-						],
-				borderColor : [ 'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						],
-				borderWidth : 1
-			} ]
-		},
-		options : {
-			indexAxis:'y',
-			scales : {
-				y : {
-					beginAtZero : true,
-				}
-			}
-		}
-	});
-		// weight change chart
-		const ctx2 = document.getElementById('weight_chart').getContext('2d');
-		const myChart2 = new Chart(ctx2,
-				{
-					type : 'bar',
-					data : {
-						labels : [ '09/01', '10/01', '11/01', '12/01', '01/01',
-								'02/01' ],
-						datasets : [ {
-							label : '# weight change',
-							data : [ 54, 52, 49, 51, 50, 46 ],
-							backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 					function validNaturalNumRange(max) {
 						event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 						if (Number(event.target.value) >= max) {
@@ -280,7 +211,7 @@
 							datasets: [{
 								axis: 'y',
 								label: '# inbody_chart',
-								data: [74, 39, 16, 24, 21,],
+								data: [${list.inbody_weight},${list.inbody_bfm},${list.inbody_bmi},${list.inbody_sm}],
 								backgroundColor: ['rgba(255, 99, 132, 0.2)',
 									'rgba(54, 162, 235, 0.2)',
 									'rgba(255, 206, 86, 0.2)',
@@ -293,20 +224,6 @@
 									'rgba(75, 192, 192, 1)',
 									'rgba(153, 102, 255, 1)',
 									'rgba(255, 159, 64, 1)' ],
-							borderWidth : 1
-						} ]
-					},
-					options : {
-						scales : {
-							y : {
-								beginAtZero : true
-							}
-						}
-					}
-				});
-		
-
-								],
 								borderWidth: 1
 							}]
 						},
