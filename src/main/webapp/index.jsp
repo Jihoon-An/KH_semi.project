@@ -28,6 +28,10 @@
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
 											name="searchInput">
+										<input type="hidden" value="none" name="open_result">
+										<input type="hidden" value="none" name="locker_result">
+										<input type="hidden" value="none" name="shower_result">
+										<input type="hidden" value="none" name="park_result">
 									</div>
 									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
