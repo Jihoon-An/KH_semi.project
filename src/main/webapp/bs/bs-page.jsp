@@ -138,7 +138,7 @@
                     <input name="gym_seq" id="gym_seq" type="hidden">
                 </form>
                 <div class="col-3 p-0">
-                    <img src="/resource/main.jpg" class="gym_img">
+                    <img src="/resource/img/main.jpg" class="gym_img">
                 </div>
                 <div class="col-7 gym_text">
                     <div class="row"><h3 class="gym_name">바디챌린지</h3></div>
@@ -175,7 +175,7 @@
                         <input name="gym_seq" class="gym_seq" type="hidden">
                     </form>
                     <div class="col-3 p-0">
-                        <img src="/resource/main.jpg" class="gym_img">
+                        <img src="/resource/img/main.jpg" class="gym_img">
                     </div>
                     <div class="col-7 gym_text">
                         <div class="row"><h3 class="gym_name">${gym.gym_name}</h3></div>

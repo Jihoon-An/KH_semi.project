@@ -106,7 +106,7 @@
 								<input type="hidden" name="fav_seq" value="${favs[status.index]}">
 								<input type="hidden" name="gym_seq" value="${gym.gym_seq}">
 								<a href="/detail.gym?gym_seq=${gym.gym_seq}">
-									<img class="gym_img" src="/resource/main.jpg">
+									<img class="gym_img" src="/resource/img/main.jpg">
 									<span class="gym_text p-2 ellipsis">
 										<span class="pb-2 ellipsis">${gym.gym_name}</span><br>
 										<span class="ellipsis">${gym.gym_phone}</span><br>
