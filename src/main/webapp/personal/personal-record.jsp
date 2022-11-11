@@ -85,8 +85,12 @@
 													<p>운동 강도</p>
 												</div>
 												<div class="col-7 text-start">
-													<input type="range" class="form-range" id="reg_intens"
-														style="width:180px; height:27px" min="1" max="5">
+													<form>
+														<input type="range" class="form-range" id="reg_range" min="1"
+															max="5" style="width:180px; height:27px">
+														<label id="reg_range_label"
+															onforminput="value = foo.valueAsNumber;"></label>
+													</form>
 												</div>
 												<div class="col-5 text-end" style="padding-bottom:0px">
 													<p>메모 내용</p>
@@ -198,18 +202,34 @@
 					}
 
 					function regCancel() {
-						$("#record").fadeOut(0, () => { $("#result").fadeIn(500)
-						$("#inbody")[0].style.height = "350px";
-						$("#weight")[0].style.height = "350px";
-						$("#result")[0].style.height = "300px";
-						$("#record")[0].style.height = "300px";
-						$("#inbody_chart")[0].style.height = "300";
-						$("#weight_chart")[0].style.height = "300"; });
+						$("#record").fadeOut(0, () => {
+							$("#result").fadeIn(500)
+							$("#inbody")[0].style.height = "350px";
+							$("#weight")[0].style.height = "350px";
+							$("#result")[0].style.height = "300px";
+							$("#record")[0].style.height = "300px";
+							$("#inbody_chart")[0].style.height = "300";
+							$("#weight_chart")[0].style.height = "300";
+						});
 					}
 
 					$("#reg_intens").on("input", e => {
 						$("#reg_intens_label").text(e.target.value);
 					});
+
+					$("#reg_range").on("change", () => {
+						let element, width, point, place;
+						let intens = ["최하", "하", "중", "상", "최상"];
+						element = $(this);
+						width = element.width();
+						point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
+
+						if (point < 0) { place = 0; }
+						else if (point > 1) { place = width; }
+						else { place = width * point }
+
+						$("#reg_range_label").css({ left: (place * 0.9) - 6, }).text(intens[element.val() - 1]);
+					}).trigger('change');
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
