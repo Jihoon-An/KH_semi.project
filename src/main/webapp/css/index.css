@@ -71,12 +71,12 @@
 }
 
 #header #header_nav_text>ul>li>a:hover {
-	color: #85b6ff;
-	transition: 1s ease-out;
+	color: #ffe92d;
+	transition: 0.3s ease-out;
 }
 #header #header_nav_text>ul>li>a:not(:hover) {
 	 color: #FFFFFF;
-	transition: 1s ease-out;
+	transition: 0.3s ease-out;
  }
 /* footer */
 
