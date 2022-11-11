@@ -45,11 +45,7 @@ public class BsPageController extends ControllerAbs {
                     this.signDown(request, response);
                     response.sendRedirect("/");
                     break;
-                case "/modifyGym.bsPage":
-                    this.toUpdateGym(request,response);
-                    request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
-                    break;
-             
+
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
                     request.getRequestDispatcher("/gym/gym.modify.jsp").forward(request, response);
@@ -233,20 +229,6 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("bsCtfc", bsCtfc);
         request.setAttribute("gymList", gymList);
         request.setAttribute("gymFilterList", gymFilterList);
-    }
-
-
-    /**
-     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
-     */
-    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-
-        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
-        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
-        request.setAttribute("gym", gym);
-        request.setAttribute("gymFilter", gymFilter);
     }
 
 

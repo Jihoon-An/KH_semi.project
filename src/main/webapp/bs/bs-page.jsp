@@ -133,40 +133,6 @@
 
         <div class="container-fluid">
             <hr>
-            <div class="row gym_card">
-                <form class="gym_form">
-                    <input name="gym_seq" id="gym_seq" type="hidden">
-                </form>
-                <div class="col-3 p-0">
-                    <img src="/resource/main.jpg" class="gym_img">
-                </div>
-                <div class="col-7 gym_text">
-                    <div class="row"><h3 class="gym_name">바디챌린지</h3></div>
-                    <div class="row pt-2"><div class="col-2 gym_content">주소</div> 경기도 의정부시 용민로419 라디언트캐슬 1206동 1702호</div>
-                    <div class="row pt-2"><div class="col-2 gym_content">연락처</div>  01027044651</div>
-                    <div class="row pt-2"><div class="col-2 gym_content">오픈시간</div> 오후1시부터 새벽3시</div>
-                    <!-- 태그 -->
-                    <div class="gym_list_tagBox">
-                        <div class="gym_list_tag">#24시간</div>
-
-                        <div class="gym_list_tag">#라커</div>
-
-                        <div class="gym_list_tag">#샤워실</div>
-
-                        <div class="gym_list_tag">#주차장</div>
-                    </div>
-
-                </div>
-                <div class="col-2 justify-content-center">
-                    <button class="btn_outline modify_gym_btn"
-                            style="border: 2px solid #F0F0F0;
-                                    background-color: #ffffff;
-                                    scale: 0.75;">
-                        수정
-                    </button>
-                </div>
-            </div>
-            <hr>
 
             <!-- card -->
             <c:forEach var="gym" items="${gymList}" varStatus="status">
@@ -175,13 +141,14 @@
                         <input name="gym_seq" class="gym_seq" type="hidden">
                     </form>
                     <div class="col-3 p-0">
-                        <img src="/resource/main.jpg" class="gym_img">
+                        <img src="/resource/img/main.jpg" class="gym_img">
                     </div>
                     <div class="col-7 gym_text">
-                        <div class="row"><h3 class="gym_name">${gym.gym_name}</h3></div>
-                        <div class="row pt-2"><div class="col-2 gym_content">주소</div> ${gym.gym_location}</div>
-                        <div class="row pt-2"><div class="col-2 gym_content">연락처</div>  ${gym.gym_phone}</div>
-                        <div class="row pt-2"><div class="col-2 gym_content">오픈시간</div> ${gym.gym_open} ${gym.gym_close}</div>
+                        <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">주소</div><div class="col-8 gym_content">${gym.gym_location}</div></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">연락처</div><div class="col-8 gym_content">${gym.gym_phone}</div></div>
+                        <div class="row pt-2"><div class="col-2 gym_label">오픈시간</div><div class="col-8 gym_content">${gym.gym_open} ~ ${gym.gym_close}</div></div>
+
                         <!-- 태그 -->
                         <div class="gym_list_tagBox">
                             <c:if test="${gymFilterList[status.index].open eq 'true'}">
@@ -426,11 +393,11 @@
 
     // 상세페이지 이동
     $(".gym_img").click(function () {
-        $(this).closest(".gym_card").find(".gym_form").attr("action", "/");
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
     $(".gym_name").click(function () {
-        $(this).closest(".gym_card").find(".gym_form").attr("action", "/");
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
 </script>

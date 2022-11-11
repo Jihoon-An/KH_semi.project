@@ -197,7 +197,6 @@
 }
 
 #bs-page .gym_name {
-    border-bottom: 1px solid #d0d1d5;
     width: 400px;
     font-weight: 800;
     cursor: pointer;
@@ -216,7 +215,7 @@
 #bs-page .gym_list_tag {
     border-radius: 100px;
     width: fit-content;
-    font-size: 12px;
+    font-size: 13px;
     float: left;
     margin-top: 3px;
     margin-right: 10px;
@@ -339,6 +338,13 @@
     box-shadow: none;
 }
 
-#bs-page .gym_content{
+#bs-page .gym_label{
+    font-size: 11px;
     font-weight: bold;
+}
+
+#bs-page .gym_content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
