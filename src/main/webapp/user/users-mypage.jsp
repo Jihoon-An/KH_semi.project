@@ -15,7 +15,7 @@
 					<div class="col-3 text-center">
 						<div class="row justify-content-center">
 							<div class="row justify-content-center mb-2">
-								<img class="p-0" id="user_img" src="/resource/default_profile.png" alt="">
+								<img class="p-0" id="user_img" src="/resource/img/default_profile.png" alt="">
 							</div>
 							<div class="row justify-content-center">
 								<label class="" id="profile_upload" for="user_img_in">
