@@ -45,11 +45,12 @@ public class ReviewDAO extends Dao {
 			pstat.setInt(1, gym_seq);
 			List<HashMap<String, Object>> list = new ArrayList<>();
 			HashMap<String, Object> data = new HashMap<>();
-
+		
 			try (ResultSet rs = pstat.executeQuery();) {
 
 				while (rs.next()) {
-					data.put("review", new ReviewDTO(rs));
+			
+					data.put("review",new ReviewDTO(rs));
 					data.put("liked", rs.getString("liked_user_seq"));
 					list.add(data);
 				}
