@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+#bs-page {
+    min-height: 600px;
+}
+
 #bs-page #modify_profile {
     display: none;
     width: 100%;
@@ -131,7 +135,6 @@
 #bs-page #acc_cf {
     height: 35px;
     color: red;
-    font-family: 'Black And White Picture', sans-serif;
 }
 
 #bs-page .bs_sd {

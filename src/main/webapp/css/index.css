@@ -191,7 +191,7 @@
 
 
 #index .mainimg {
-	background-image: url("/resource/main.jpg");
+	background-image: url("/resource/img/main.jpg");
 	width: 100%;
 	background-size: cover;
 	background-attachment: fixed;
