@@ -11,7 +11,8 @@
 
     <div class="containerbox">
         <section>
-            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post" enctype="multipart/form-data">
+            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post"
+                  enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
 
@@ -189,7 +190,6 @@
                 </div>
 
                 <hr class="line2">
-                <button type="button" id="tq">ㅅㅂ</button>
             </form>
         </section>
 
@@ -201,8 +201,8 @@
 <script>
 
     // 별점 무조건 선택해야 submit 되기
-    function checkSubmit(){
-        if(!$("input[name=review_star]").is(":checked")) {
+    function checkSubmit() {
+        if (!$("input[name=review_star]").is(":checked")) {
             Swal.fire({
                 icon: 'error',
                 title: '별점 미선택',
@@ -211,7 +211,7 @@
             })
             return false;
         }
-        if($("#review_contents").val()=="") {
+        if ($("#review_contents").val() == "") {
             Swal.fire({
                 icon: 'error',
                 title: '리뷰 미입력',
@@ -220,11 +220,10 @@
             })
             return false;
         }
-        return true;
     }
 
     // 취소버튼 뒤로가기
-    $("#btn_cancle").on("click", ()=> {
+    $("#btn_cancle").on("click", () => {
         history.back();
     })
 
