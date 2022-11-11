@@ -50,103 +50,113 @@
 							<div class="col-12">
 								<div id="result">
 									<div class="text_title" id="result_title" style="padding-top:10px"></div>
-									<div class="text_normal" id="result_contents">
-										데이터가 존재하지 않습니다.
-										<div><button class="btn_outline" id="btn_showRecord"
-												onclick="showRecord()">등록하기</button></div>
-									</div>
-								</div>
+									<c:choose>
+										<c:when test="${recordByDay == null}">
 
-								<div id="record">
-									<div class="row">
-										<div class="col-7"
-											style="padding:0px; height:286px; border-right:1px solid #C8C8C8">
-											<div class="row" style="border:none; padding-bottom:0px">
-												<div class="text_title_600 col-12 mb-3">
-													Record
-												</div>
-												<div class="col-5 text-end">
-													<p>등록 일자</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_date"
-														style="width:160px" readonly>
-												</div>
-												<div class="col-5 text-end">
-													<p>운동 시간<sup>*</sup></p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_hour"
-														style="width:50px" value="0"
-														oninput="validNaturalNumRange(24)">&nbsp시간&nbsp
-													<input type="text" class="text-center" id="reg_minute"
-														style="width:50px" value="0"
-														oninput="validNaturalNumRange(60)">&nbsp분&nbsp
-												</div>
-												<div class="col-5 text-end">
-													<p>운동 강도</p>
-												</div>
-												<div class="col-7 text-start">
-													<form>
-														<input type="range" class="form-range" id="reg_range" min="1"
-															max="5" style="width:180px; height:27px">
-														<label id="reg_range_label"
-															onforminput="value = foo.valueAsNumber;"></label>
-													</form>
-												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
-													<p>메모 내용<sup>*</sup></p>
-												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
-													<input type="text" id="reg_memo" style="width:180px"
-														placeholder="20자 이내로 입력하세요." maxlength="20">
-												</div>
+											<div class="text_normal" id="result_contents">
+												데이터가 존재하지 않습니다.
+												<div><button class="btn_outline" id="btn_showRecord"
+														onclick="showRecord()">등록하기</button></div>
+										</c:when>
+
+										<c:otherwise>
+											${recordByDay}
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+							<div id="record">
+								<div class="row">
+									<div class="col-7"
+										style="padding:0px; height:286px; border-right:1px solid #C8C8C8">
+										<div class="row" style="border:none; padding-bottom:0px">
+											<div class="text_title_600 col-12 mb-3">
+												Record
+											</div>
+											<div class="col-5 text-end">
+												<p>등록 일자</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_date" style="width:160px"
+													readonly>
+											</div>
+											<div class="col-5 text-end">
+												<p>운동 시간<sup>*</sup></p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_hour" style="width:50px"
+													value="0" oninput="validNaturalNumRange(24)">&nbsp시간&nbsp
+												<input type="text" class="text-center" id="reg_minute"
+													style="width:50px" value="0"
+													oninput="validNaturalNumRange(60)">&nbsp분&nbsp
+											</div>
+											<div class="col-5 text-end">
+												<p>운동 강도</p>
+											</div>
+											<div class="col-7 text-start">
+												<form>
+													<input type="range" class="form-range" id="reg_range" min="1"
+														max="5" style="width:180px; height:27px">
+													<label id="reg_range_label"
+														onforminput="value = foo.valueAsNumber;"></label>
+												</form>
+											</div>
+											<div class="col-5 text-end" style="padding-bottom:0px">
+												<p>메모 내용<sup>*</sup></p>
+											</div>
+											<div class="col-7 text-start" style="padding-bottom:0px">
+												<input type="text" id="reg_memo" style="width:180px"
+													placeholder="20자 이내로 입력하세요." maxlength="20">
 											</div>
 										</div>
-										<div class="col-5" style="padding:0px; height:286px">
-											<div class="row" style="border:none; padding-bottom:0px">
-												<div class="text_title_600 col-12 mb-3">
-													InBody
-												</div>
-												<div class="col-5 text-end">
-													<p>몸무게</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_weight"
-														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
-												</div>
-												<div class="col-5 text-end">
-													<p>체지방량</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_fat"
-														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
-												</div>
-												<div class="col-5 text-end">
-													<p>골격근량</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_muscle"
-														style="width:70px" oninput="vaildNumRange(1000)">&nbspKg
-												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
-													<p>BMI</p>
-												</div>
-												<div class="col-7 text-start" id="reg_bmi" style="padding-bottom:0px">
-													<input type="text" class="text-center" style="width:70px"
-														oninput="vaildNumRange(100)">
-												</div>
+									</div>
+									<div class="col-5" style="padding:0px; height:286px">
+										<div class="row" style="border:none; padding-bottom:0px">
+											<div class="text_title_600 col-12 mb-3">
+												InBody
+											</div>
+											<div class="col-5 text-end">
+												<p>몸무게</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_weight"
+													style="width:70px" oninput="vaildNumRange(1000)"
+													maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end">
+												<p>체지방량</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_fat" style="width:70px"
+													oninput="vaildNumRange(1000)" maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end">
+												<p>골격근량</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_muscle"
+													style="width:70px" oninput="vaildNumRange(1000)"
+													maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end" style="padding-bottom:0px">
+												<p>BMI</p>
+											</div>
+											<div class="col-7 text-start" id="reg_bmi" style="padding-bottom:0px">
+												<input type="text" class="text-center" style="width:70px"
+													oninput="vaildNumRange(100)" maxlength="5">
 											</div>
 										</div>
-										<div class="col-12">
-											<button class="btn_outline" id="btn_regRecord">작성완료</button>
-											<button class="btn_outline" onclick="regCancel()">돌아가기</button>
-										</div>
+									</div>
+									<div class="col-12">
+										<button class="btn_outline" id="btn_regRecord">작성완료</button>
+										<button class="btn_outline" onclick="regCancel()">돌아가기</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 				</div>
 				<script>
 					$(() => {
@@ -217,9 +227,9 @@
 					}
 
 					function tryRegist() {
-						data = { 
-							"date": $("#reg_date").val(),
-							"how": ($("#reg_hour").val() * 60) + $("#reg_minute").val(),
+						data = {
+							"date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate")),
+							"how": Number(($("#reg_hour").val() * 60)) + Number($("#reg_minute").val()),
 							"intens": $("#reg_range").val(),
 							"memo": $("#reg_memo").val(),
 							"weight": $("#reg_weight").val(),
@@ -228,9 +238,10 @@
 							"bmi": $("#reg_bmi").val(),
 						}
 						$.post("/record.personal", data)
-						.done(res => {
-							alert("값 :" +res);
-						})
+							.done(res => {
+								console.log(res);
+								console.log(res.record);
+							})
 					}
 
 					$("#reg_intens").on("input", e => {
@@ -293,39 +304,38 @@
 					});
 					// weight change chart
 					let weightCtx = document.getElementById('weight_chart').getContext('2d');
-					let weightChart = new Chart(weightCtx,
-						{
-							type: 'bar',
-							data: {
-								labels: ['09/01', '10/01', '11/01', '12/01', '01/01',
-									'02/01'],
-								datasets: [{
-									label: '# weight change',
-									data: [54, 52, 49, 51, 50, 46],
-									backgroundColor: ['rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)'],
-									borderColor: ['rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'],
-									borderWidth: 1
-								}]
-							},
-							options: {
-								responsive: false,
-								scales: {
-									y: {
-										beginAtZero: true
-									}
+					let weightChart = new Chart(weightCtx, {
+						type: 'bar',
+						data: {
+							labels: ['09/01', '10/01', '11/01', '12/01', '01/01',
+								'02/01'],
+							datasets: [{
+								label: '# weight change',
+								data: [54, 52, 49, 51, 50, 46],
+								backgroundColor: ['rgba(255, 99, 132, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(255, 206, 86, 0.2)',
+									'rgba(75, 192, 192, 0.2)',
+									'rgba(153, 102, 255, 0.2)',
+									'rgba(255, 159, 64, 0.2)'],
+								borderColor: ['rgba(255, 99, 132, 1)',
+									'rgba(54, 162, 235, 1)',
+									'rgba(255, 206, 86, 1)',
+									'rgba(75, 192, 192, 1)',
+									'rgba(153, 102, 255, 1)',
+									'rgba(255, 159, 64, 1)'],
+								borderWidth: 1
+							}]
+						},
+						options: {
+							responsive: false,
+							scales: {
+								y: {
+									beginAtZero: true
 								}
 							}
-						});
+						}
+					});
 
 				</script>
 			</main>
