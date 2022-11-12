@@ -313,3 +313,7 @@
     transform: scale(0.96);
 }
 
+#img_layout {
+    position:absolute; left:50%; top:50%; width:300px;
+    height:300px; z-index:1; display:none; overflow: hidden;
+}
