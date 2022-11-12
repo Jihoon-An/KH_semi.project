@@ -86,12 +86,6 @@
                         </ul>
                     <li>
 
-<%--                    <li><a class="a_tag" href="/bsUserList.host?cpage=1">--%>
-<%--                        <div class="d-flex justify-content-start">--%>
-<%--                            <div class="i_margin"><i class="fa-solid fa-user-tie"></i></div>--%>
-<%--                            사업자회원관리--%>
-<%--                        </div>--%>
-<%--                    </a></li>--%>
 
                     <li><a class="a_tag" href="/host/host.jsp">
                         <div class="d-flex justify-content-start" id="li_gym">
