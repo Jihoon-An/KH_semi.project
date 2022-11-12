@@ -70,7 +70,7 @@
                         <div class="row profile_title pt-2"><span>사업자등록증</span></div>
                         <div class="row">
                             <label for="bs_ctfc_input" id="file_label" class="bs_regl_name">이미지를 업로드하세요</label>
-                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input" id="bs_ctfc"
+                            <input id="bs_ctfc_input" type="file" class="px-0 profile_input"
                                    style="display: none"></div>
                         <div class="row">
                             <img id="bs_ctfc_img" src="" alt="">
@@ -217,7 +217,12 @@
 
         filesArr.forEach(function (f) {
             if (!f.type.match(reg)) {
-                alert("확장자는 이미지 확장자만 가능합니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '이미지 업로드 불가',
+                    text: '이미지 파일만 업로드 가능합니다.',
+                    confirmButtonText: '확인'
+                })
                 return;
             }
 
@@ -298,7 +303,6 @@
         $("#bs_name").val("${bsUser.bs_name}");
         $("#bs_phone").val("${bsUser.bs_phone}");
         $("#bs_number").val("${bsUser.bs_number}");
-        $("#bs_ctfc").attr("src", "${bsCtfc.sysName}");
         $("#bs_ctfc_img").attr("src", "/resource/ctfc/${bsCtfc.sysName}");
     }
 
