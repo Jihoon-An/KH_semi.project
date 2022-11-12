@@ -96,6 +96,12 @@
 </main>
 
 <script>
+    // 페이지 선택 확인용
+    $(function(){
+        $("#li_user").css("color","#ffe92d")
+    });
+
+
 
     // 성멸 M, W에서 남자 여자로 바꿔서 출력
     // $(document).ready(function() {
