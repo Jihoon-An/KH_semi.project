@@ -214,6 +214,11 @@
 	<script>
 		let main_x = "${gymList[0].gym_x}";
 		let main_y = "${gymList[0].gym_y}";
+
+		if(main_x&&main_y == null){
+			main_x= "37.56795117442769";
+			main_y= "126.98314567042291";
+		}
 		
 		var markers = [];
 		
@@ -245,9 +250,9 @@
 					content: "<div class=info><img src='/resource/fitneeds.ico'>"+name+"</div>", 
 					latlng: new kakao.maps.LatLng(x, y)
 				}
-			
+				console.log(main_x, main_y);
 			// 마커 이미지의 이미지 주소입니다
-			var imageSrc = "/resource/ping.png"; 
+			var imageSrc = "/resource/img/ping.png";
 				
 				
 				// 마커 이미지의 이미지 크기 입니다
