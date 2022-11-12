@@ -6,14 +6,18 @@ body {
     background: #F2F2F2;
 }
 header {
-    position: absolute;
-    width: 330px;
+    width: 310px;
     height: 100%;
     min-height: 950px;
     background: #001A41;
 }
 
+main {
+    min-height: 950px;
+}
+
 .logoDiv {
+    width: 310px;
     text-align: center;
     margin-top: 70px;
     margin-bottom: 100px;
