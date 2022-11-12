@@ -175,17 +175,13 @@
 
 				// Review 폼 구성 함수
 				function reviewBuilder(data) {
-					let date = new Date(data.review.review_writer_date);
-					let minute = date.getMinutes();
-					let minuteFormat = minute < 10 ? "0" + minute : minute;
-					let dateFormat = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + minuteFormat;
-					
-					let star = "<img src='/resource/ratingImg/rating_" + data.review.review_star + ".png' style='width:80%'>";
 					let gymName = "<div class='col-12 text_title_600 text-truncate item_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></div>";
-					let score = "<div class='col-12 gy-2 item_score' align=center>" + star + "</div>";
+					let star = "";
+					for (j = 1; j < 6; j++) {star += j <= data.review.review_star ? "<label class='item_filledStar'>★</label>" : "<label class='item_emptyStar'>★</label>";}
+					let score = "<div class='col-12 gy-2' align=center>" + star + "</div>";
 					let space = "<div class='col-1 gy-3'></div><hr class='col-10 gy-3'><div class='col-1 gy-3'></div>";
 					let writer = "<div class='col-6 text-start text-truncate item_writer' style='padding-left:15px'><img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp" + data.review.review_writer + "</div>";
-					let writeDate = "<div class='col-6 text_mini text-end text item_date' style='color:#808080; padding-right:15px'>" + dateFormat + "</div>";
+					let writeDate = "<div class='col-6 text_mini text-end text item_date' style='color:#808080; padding-right:15px'>" + getDateFormat(new Date(data.review.review_writer_date)).slice(0, -3) + "</div>";
 					let likes = "<div class='col-6'></div><div class='col-6 text_mini text-end item_likes' style='color:#808080; padding-right:15px'>추천수 : " + data.review.review_like + "</div>";
 					let contents = "<div class='col-12 gy-3 item_contents'>" + data.review.review_contents + "</div>";
 					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>";
@@ -212,7 +208,8 @@
 						for (i = 0; i < res.gymList.length; i++) {
 							let item = item_list[i];
 							let data = res.gymList[i];
-							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>❤️&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>💕&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+							$(item).find(".imgFilter").attr("seq", data.gym.gym_seq);
 						}
 					});
 				}
