@@ -121,7 +121,7 @@ public class FileControl {
         while (fileNames.hasMoreElements()) {
             String parameter = (String) fileNames.nextElement();
             String sysName = multi.getFilesystemName(parameter);
-            System.out.println(sysName);
+
             if (sysName == null) {
                 continue;
             }

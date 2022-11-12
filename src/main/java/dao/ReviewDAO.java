@@ -282,9 +282,10 @@ public class ReviewDAO extends Dao {
 			pstat.setString(11, dto.getReview_check5());
 			pstat.setString(12, dto.getReview_photo());
 
+			int result = pstat.executeUpdate();
 			con.commit();
 
-			return pstat.executeUpdate();
+			return result;
 		}
 	}
 
@@ -307,7 +308,7 @@ public class ReviewDAO extends Dao {
 	}
 
 	public void deleteByGymSeq(int gymSeq) throws Exception {
-		String sql = "delete from raview where gym_seq = ?";
+		String sql = "delete from review where gym_seq = ?";
 
 		try (Connection con = this.getConnection();
 			 PreparedStatement statement = con.prepareStatement(sql)) {

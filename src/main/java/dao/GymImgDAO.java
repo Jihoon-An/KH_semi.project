@@ -68,6 +68,7 @@ public class GymImgDAO extends Dao {
             statement.setString(1, gymImg);
             statement.setInt(2, gymSeq);
 
+            statement.executeUpdate();
             con.commit();
         }
     }
@@ -79,6 +80,7 @@ public class GymImgDAO extends Dao {
 
             statement.setInt(1, gymSeq);
             statement.setString(2, gymImg);
+            statement.executeUpdate();
 
             con.commit();
         }
@@ -90,6 +92,7 @@ public class GymImgDAO extends Dao {
              PreparedStatement statement = con.prepareStatement(sql)) {
 
             statement.setInt(1, gymSeqNextVal);
+            statement.executeUpdate();
 
             con.commit();
         }

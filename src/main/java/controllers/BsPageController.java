@@ -100,7 +100,6 @@ public class BsPageController extends ControllerAbs {
      * <h2>gym데이터를 request에 담음</h2>
      */
     public void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
         request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
@@ -108,9 +107,10 @@ public class BsPageController extends ControllerAbs {
 
         GymImgDTO gymImg = GymImgDAO.getInstance().getByGymSeq(gymSeq);
         Gson gson = new Gson();
-        Type type = new TypeToken<List<String>>() {
+
+        Type type = new TypeToken<String[]>() {
         }.getType();
-        List<String> gymImgList = gson.fromJson(gymImg.getGym_sysimg(), type);
+        String[] gymImgList = gson.fromJson(gymImg.getGym_sysimg(), type);
 
         request.setAttribute("gymImgList", gymImgList);
         request.setAttribute("gym", gym);
@@ -160,8 +160,9 @@ public class BsPageController extends ControllerAbs {
             Gson gson = new Gson();
             List<String> gymImgList;
 
-            gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {}.getType());
-            if(gymImgList == null) {
+            gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {
+            }.getType());
+            if (gymImgList == null) {
                 gymImgList = new ArrayList<>();
             }
 
@@ -282,29 +283,20 @@ public class BsPageController extends ControllerAbs {
 
         FileControl file = new FileControl();
         // gymImg data
-        file.saves(request, "/resource/gym");
+        List<String> newImg = file.saves(request, "/resource/gym");
         MultipartRequest multi = file.getMulti();
 
         int gymSeq = Integer.parseInt(multi.getParameter("gymSeq"));
-        Type type = new TypeToken<List<String>>() {
+        Type type = new TypeToken<String[]>() {
         }.getType();
         Gson gson = new Gson();
-
-        // 기존 이미지 리스트
-        List<String> beforeImgList = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
-
-        // 선택한 파일 지우기
-        List<String> delImgList = gson.fromJson(multi.getParameter("del_file_name_list"), type);
-        for (String delImg : delImgList) {
+        // 기존 이미지 리스트 지우기
+        String[] beforeImgList;
+        beforeImgList = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
+        for (String delImg : beforeImgList) {
             file.delete(request, "/resource/gym", delImg);
-            beforeImgList.remove(delImg);
         }
-        // 새로운파일 리스트
-        List<String> newImgList = gson.fromJson(multi.getParameter("new_file_name_list"), type);
 
-        List<String> afterImgList = new ArrayList<>();
-        afterImgList.addAll(beforeImgList);
-        afterImgList.addAll(newImgList);
         // gymFilter data
         String open = multi.getParameter("open_result");
         String locker = multi.getParameter("locker_result");
@@ -320,7 +312,9 @@ public class BsPageController extends ControllerAbs {
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
-        GymImgDAO.getInstance().update(gymSeq, gson.toJson(afterImgList));
+        String json = gson.toJson(newImg);
+
+        GymImgDAO.getInstance().update(gymSeq, json);
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
     }

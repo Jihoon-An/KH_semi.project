@@ -65,6 +65,7 @@ public class BsCtfcDAO extends Dao {
 			pstat.setInt(1, dto.getBsSeq());
 			pstat.setString(2, dto.getBsNumber());
 			pstat.setString(3, dto.getSysName());
+			pstat.executeUpdate();
 
 			con.commit();
 
