@@ -65,6 +65,8 @@ public class BsUsersController extends HttpServlet {
 					return;
 				}
 				this.bsSignUp(request, response);
+//				response.sendRedirect("/");
+
 				request.setAttribute("start", "login");
 				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				break;
