@@ -296,8 +296,16 @@
 }
 
 
-#gym-modify .exist_gym_img {
+#gym-modify .gym_img {
+    width: 150px;
+    height: 150px;
+    background-color: #2C3E50;
+    border-radius: 10px;
+}
 
+#gym-modify .gym_img > img{
+    width: 100%;
+    height: 100%;
 }
 
 
