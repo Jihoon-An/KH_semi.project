@@ -187,7 +187,7 @@
 #index .wrap {
 	width:100%;
 	min-width : 1200px;
-	height: 950px;
+	height: px;
 	overflow: hidden;
 	position: relative;
 }
