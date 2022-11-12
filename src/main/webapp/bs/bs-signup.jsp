@@ -557,7 +557,6 @@
 
 		
 		$("#btn_bs_sign").on("click", function () {
-			console.log(submitCheck());
 			if (submitCheck()) {
 				$("#form_bs_sign").submit();
 			}
