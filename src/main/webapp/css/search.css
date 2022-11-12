@@ -349,6 +349,14 @@
     padding-left: 10px;
     padding-right: 10px;
 }
+#search .nullListBox{
+    margin: auto;
+    margin-top: 50px;
+    width: 430px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
 /* -------------------------- 지도 마커 인포윈도우 -------------------------- */
 #search .info{
     width: 200px;
