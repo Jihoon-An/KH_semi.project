@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -105,10 +106,28 @@ public class BsUsersDAO extends Dao {
      * 시설갯수
      * 
      */
-//    public int countGymByBsSeq(int seq)  throws Exception{
-//    	String sql = "    public\r\n"
-//    			+ "    select count(*) from gym where bs_seq = ?"
-//    }
+    public HashMap<String, Object> countGymByseq()  throws Exception{
+    	String sql = "select bs_seq, count(*) gym_count from gym group by bs_seq";
+    	
+    	try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);) {
+    		
+    		
+    		HashMap<String, Object> data = new HashMap<String, Object>();
+    		try(ResultSet rs = pstat.executeQuery();){
+    			while(rs.next()){
+    			
+    		
+    			data.put("bsseq", "bs_seq");
+    			data.put("gymcount", "count");
+    			
+    			
+    			}
+    			return data;
+    		}
+    	
+    	}
+    }
     
     /**
      * 삭제기능

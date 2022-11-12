@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InterruptedNamingException;
@@ -126,8 +127,9 @@ public class HostUserController extends ControllerAbs {
 
 
         List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
-
-
+        HashMap<String, Object> countGym =bsDao.countGymByseq();
+        
+        request.setAttribute("countGym", countGym);
         request.setAttribute("bsUserList", bsUserList);
         request.setAttribute("bsUserNavi", bsUsersNavi); //네비바
         request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
