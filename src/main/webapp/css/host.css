@@ -39,7 +39,7 @@ header {
 }
 
 #nav a:hover {
-    color: #ffe92d;
+    color: #fff6ab;
     transition: 0.3s ease-out;
 }
 #nav a:hover:not(:hover) {
@@ -136,8 +136,8 @@ a{
     text-decoration:none;
     color: #C7D3DC;
 }
+
 a:hover{
-    font-weight: 600;
     color: #003584;
 }
 
