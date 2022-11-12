@@ -142,7 +142,16 @@
 						if (res == "true") {
 							Swal.fire({ title: "Success!", icon: "success", text: "로그인에 성공했습니다." })
 								.then((result) => {
-									if (result.isConfirmed) { location.reload(); }
+									if (result.isConfirmed) {
+										//사업자회원가입 후 index페이지 열기
+										if (${start!=null}||${start!=undefind}) {
+											if (${start == "login"}) {
+												location.href= "/";
+											}
+										} else {
+											location.reload();
+										}
+									}
 								});
 						} else {
 							Swal.fire({ title: "Error", icon: "error", text: "ID가 등록되지 않았거나 비밀번호가 올바르지 않습니다." });

@@ -55,7 +55,7 @@
 
 
 <body>
-<div class="d-flex justify-content-start">
+<div id="wrap_host" class="d-flex justify-content-start">
     <header id="nav">
             <div class="logoDiv">
                 <a class="a_tag" href="/host/host.jsp"><h2 class="logo">Fitneeds</h2>

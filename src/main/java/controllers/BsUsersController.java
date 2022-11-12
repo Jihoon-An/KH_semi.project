@@ -65,10 +65,10 @@ public class BsUsersController extends HttpServlet {
 					return;
 				}
 				this.bsSignUp(request, response);
-				response.sendRedirect("/");
+//				response.sendRedirect("/");
 
-//				request.setAttribute("start", "login");
-//				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.setAttribute("start", "login");
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 				break;
 
 			// 아이디 중복체크 요청
