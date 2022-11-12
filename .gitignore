@@ -2,6 +2,8 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,eclipse,intellij,git
 
 ### Eclipse ###
+*.iml
+classes/
 .metadata
 bin/
 tmp/
