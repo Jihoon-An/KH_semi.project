@@ -108,7 +108,9 @@
 											<input type="hidden" name="review_like" class="rlike"
 												value="${r.review.review_like}"> <i
 												class="relike fa-solid fa-thumbs-up"></i>
+												<span class = "reviewcnt" id ="recnt"> ${r.review.review_like}</span>
 											<c:if test="${r.liked ==userSeq}">
+												
 												<script>
 												$(".relike").attr("style", "color:#001A41")
 												</script>
@@ -121,10 +123,12 @@
 								</div>
 							</div>
 						</c:forEach>
-						<div class="newmore">
-							<a href="#" class="btn btn_outline" data-bs-toggle="button"
-								id="load">NEW MORE</a>
-						</div>
+						<c:if test="${reviewList !=null}">
+							<div class="newmore">
+								<a href="#" class="btn btn_outline" data-bs-toggle="button"
+									id="load">NEW MORE</a>
+							</div>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<div class="other">작성된 리뷰가 없습니다</div>
@@ -182,7 +186,8 @@
 						<div class="infopicture">
 
 							<figure class="figure">
-								<img src="/resource/gym/${r.gym_sysimg}.jpg" class="figure-img img-fluid rounded" alt="..." />
+								<img src="/resource/gym/${r.gym_sysimg}.jpg"
+									class="figure-img img-fluid rounded" alt="..." />
 								<figcaption class="figure-caption"></figcaption>
 							</figure>
 						</div>
@@ -229,6 +234,7 @@
 				type:"post",
 				success:()=> {$(this).css("color", "#001A41")
 					
+					 location.reload();
 					console.log($(this).closest(".reviewlike").find(".gym").val())
 					console.log($(this).closest(".reviewlike").find(".rlike").val())
 					console.log("좋아요 추가")}
@@ -246,6 +252,8 @@
 						},	
 				type:"post",
 				success:()=> {$(this).css("color", "#8f959a")
+
+					 location.reload();
 					console.log("좋아요 취소")}
 			})
 		}
@@ -316,6 +324,7 @@
 
         $(function () {
           $(".review2").slice(0, 1).show(); // 초기갯수
+         
          
           $("#load").click(function (e) {
             // 클릭시 more
