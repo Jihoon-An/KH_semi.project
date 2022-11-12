@@ -83,4 +83,15 @@ public class GymImgDAO extends Dao {
             con.commit();
         }
     }
+
+    public void newTable(int gymSeqNextVal) throws Exception {
+        String sql = "insert into gym_img values(?, null)";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)) {
+
+            statement.setInt(1, gymSeqNextVal);
+
+            con.commit();
+        }
+    }
 }

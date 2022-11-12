@@ -3,12 +3,18 @@ package commons;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.MulticastChannel;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class FileControl {
@@ -99,8 +105,6 @@ public class FileControl {
      */
     public List<String> saves(HttpServletRequest request, String path) throws IOException {
 
-        this.sysNameList = new ArrayList<>();
-
         //경로 저장
         String savePath = request.getServletContext().getRealPath(path); //런타임 webapp 폴더를 불러옴.
         File fileSavePath = new File(savePath);
@@ -113,10 +117,11 @@ public class FileControl {
         this.multi = new MultipartRequest(request, savePath, this.maxSize, "UTF8", new DefaultFileRenamePolicy());
 
         Enumeration fileNames = multi.getFileNames();
+
         while (fileNames.hasMoreElements()) {
             String parameter = (String) fileNames.nextElement();
             String sysName = multi.getFilesystemName(parameter);
-
+            System.out.println(sysName);
             if (sysName == null) {
                 continue;
             }
