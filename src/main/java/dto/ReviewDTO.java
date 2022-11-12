@@ -24,6 +24,8 @@ public class ReviewDTO {
 	private int gym_seq;
 	private String gym_name;
 
+	private String user_email;
+
 	private int bs_seq;
 	private String review_writer;
 	private String review_contents;
@@ -113,6 +115,9 @@ public class ReviewDTO {
 	public void setGym_name(String gym_name) {
 		this.gym_name = gym_name;
 	}
+
+
+	public void setUser_email(String user_email) { this.user_email = user_email; }
 
 	public int getReview_seq() {
 		return review_seq;
