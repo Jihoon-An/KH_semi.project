@@ -1,5 +1,8 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.oreilly.servlet.MultipartRequest;
 import commons.FileControl;
 import dao.*;
 import dto.*;
@@ -9,8 +12,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -43,6 +48,7 @@ public class BsPageController extends ControllerAbs {
 
                 case "/signDown.bsPage":
                     this.signDown(request, response);
+                    request.getSession().removeAttribute("bsSeq");
                     response.sendRedirect("/");
                     break;
                 case "/toUpdateGym.bsPage":
@@ -64,6 +70,7 @@ public class BsPageController extends ControllerAbs {
         }
 
     }
+
 
     /**
      * <h2>gymSeq로 관련된 데이터를 지움</h2>
@@ -93,12 +100,19 @@ public class BsPageController extends ControllerAbs {
      * <h2>gym데이터를 request에 담음</h2>
      */
     public void importGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         int gymSeq = Integer.parseInt(request.getParameter("gym_seq"));
         request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
 
+        GymImgDTO gymImg = GymImgDAO.getInstance().getByGymSeq(gymSeq);
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<String[]>() {
+        }.getType();
+        String[] gymImgList = gson.fromJson(gymImg.getGym_sysimg(), type);
+
+        request.setAttribute("gymImgList", gymImgList);
         request.setAttribute("gym", gym);
         request.setAttribute("gymFilter", gymFilter);
     }
@@ -142,12 +156,19 @@ public class BsPageController extends ControllerAbs {
         GymImgDAO gymImgDAO = GymImgDAO.getInstance();
 
         for (GymDTO gym : gymList) {
-            List<GymImgDTO> gymImgList = gymImgDAO.getByGymSeq(gym.getGym_seq());
+            GymImgDTO gymImg = gymImgDAO.getByGymSeq(gym.getGym_seq());
+            Gson gson = new Gson();
+            List<String> gymImgList;
 
-            for (GymImgDTO gymImg : gymImgList) {
-                file.delete(request, "/resource/gym", gymImg.getGym_sysimg());
+            gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {
+            }.getType());
+            if (gymImgList == null) {
+                gymImgList = new ArrayList<>();
             }
 
+            for (String gymName : gymImgList) {
+                file.delete(request, "/resource/gym", gymName);
+            }
             GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
         }
         //시설 지우기
@@ -227,6 +248,7 @@ public class BsPageController extends ControllerAbs {
 
         BsUsersDTO bsUser = BsUsersDAO.getInstance().getByBsSeq(bsSeq);
         BsCtfcDTO bsCtfc = BsCtfcDAO.getInstance().getByBsSeq(bsSeq);
+
         request.setAttribute("bsUser", bsUser);
         request.setAttribute("bsCtfc", bsCtfc);
         request.setAttribute("gymList", gymList);
@@ -235,7 +257,7 @@ public class BsPageController extends ControllerAbs {
 
 
     /**
-     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
+     * <h1>시설 수정 페이지 기존 데이터 불러오기</h1>
      */
     private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -243,34 +265,59 @@ public class BsPageController extends ControllerAbs {
 
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        List<String> gymImg = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
+
+        request.setAttribute("gymImg", gymImg);
         request.setAttribute("gym", gym);
         request.setAttribute("gymFilter", gymFilter);
     }
 
     /**
-     *<h1>시설정보 및 시설필터 수정하기</h1>
+     * <h1>시설정보 및 시설필터 수정하기</h1>
      */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-//        int bsSeq = Integer.parseInt(request.getParameter("bsSeq"));
-        String open = request.getParameter("open_result");
-        String locker = request.getParameter("locker_result");
-        String shower = request.getParameter("shower_result");
-        String park = request.getParameter("park_result");
+        FileControl file = new FileControl();
+        // gymImg data
+        List<String> newImg = file.saves(request, "/resource/gym");
+        MultipartRequest multi = file.getMulti();
 
-        GymDTO gymDTO = new GymDTO(request);
-        if(request.getParameter("address1") == null){
+        int gymSeq = Integer.parseInt(multi.getParameter("gymSeq"));
+        Type type = new TypeToken<String[]>() {
+        }.getType();
+        Gson gson = new Gson();
+        // 기존 이미지 리스트 지우기
+        String[] beforeImgList;
+        beforeImgList = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
+        for (String delImg : beforeImgList) {
+            file.delete(request, "/resource/gym", delImg);
+        }
+
+        // gymFilter data
+        String open = multi.getParameter("open_result");
+        String locker = multi.getParameter("locker_result");
+        String shower = multi.getParameter("shower_result");
+        String park = multi.getParameter("park_result");
+
+        // gym data
+        GymDTO gymDTO = new GymDTO(file);
+        if (multi.getParameter("address1") == null) {
             GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
             gymDTO.setGym_location(beforeGym.getGym_location());
         }
 
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
+        String json = gson.toJson(newImg);
+
+        GymImgDAO.getInstance().update(gymSeq, json);
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
     }
-
 
 
     @Override

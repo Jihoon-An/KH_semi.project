@@ -192,9 +192,10 @@ public class BsUsersDAO extends Dao {
             pstat.setString(5, dto.getBs_name());
             pstat.setString(6, dto.getBs_phone());
 
+            int result = pstat.executeUpdate();
             con.commit();
 
-            return pstat.executeUpdate();
+            return result;
         }
     }
 
@@ -218,9 +219,10 @@ public class BsUsersDAO extends Dao {
             pstat.setString(5, dto.getBs_name());
             pstat.setString(6, dto.getBs_phone());
 
+            int result = pstat.executeUpdate();
             con.commit();
 
-            return pstat.executeUpdate();
+            return result;
         }
     }
 
