@@ -16,8 +16,10 @@ import com.google.gson.reflect.TypeToken;
 
 
 import dao.BsUsersDAO;
+import dao.ReviewDAO;
 import dao.UserDAO;
 import dto.BsUsersDTO;
+import dto.ReviewDTO;
 import dto.UserDTO;
 import oracle.net.aso.a;
 
@@ -74,12 +76,18 @@ public class HostUserController extends ControllerAbs {
 
                 // 관리자페이지 - 리뷰목록 출력
                 case "/reviewList.host":
-//			int cpage = Integer.parseInt(request.getParameter("cpage"));
-//			List<BoardDTO> list = BoardDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
-//			request.setAttribute("list", list);
-//			String navi = BoardDAO.getInstance().getPageNavi(cpage);
-//			request.setAttribute("navi", navi);
-//			request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+					int cpage = Integer.parseInt(request.getParameter("cpage"));
+					List<ReviewDTO> list = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+					request.setAttribute("list", list);
+					String navi = ReviewDAO.getInstance().getPageNavi(cpage);
+					request.setAttribute("navi", navi);
+					request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+					break;
+
+                // 관리자페이지 - 리뷰관리 리뷰 삭제
+                case "/delReview.userMyPage":
+                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
+                    break;
 
 
                 default:

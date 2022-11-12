@@ -220,6 +220,30 @@
             })
             return false;
         }
+
+        if (!response($("#review_contents").val())){
+            return false;
+        }
+    }
+
+    // 리뷰 글쓰기에 욕설 필터링
+    function response(msg) {
+        var words = ["씨발","시발","ㅅㅂ","tq","병신","멍청이","바보",
+            "새끼","미친","존나","좆같네","좆같다","지랄","염병","썅",
+            "개같은","새키","족같네","씨팔","죽어","죽여","자살"];
+
+        for (let n = 0; n < words.length; n++) {
+            if (msg.includes(words[n])) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '필터 감지',
+                    text: words[n] + ' 해당 단어는 사용 불가입니다',
+                    confirmButtonText: '확인'
+                })
+                return false;
+            }
+        }
+        return true;
     }
 
     // 취소버튼 뒤로가기
