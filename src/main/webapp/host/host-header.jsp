@@ -93,15 +93,6 @@
 <%--                        </div>--%>
 <%--                    </a></li>--%>
 
-
-
-
-
-
-
-
-
-
                     <li><a class="a_tag" href="/host/host.jsp">
                         <div class="d-flex justify-content-start">
                             <div class="i_margin"><i class="fa-solid fa-building"></i></div>
