@@ -72,13 +72,13 @@
                     <li>
                         <ul style="list-style-type: circle; margin-top: -7px;">
                             <li><a class="a_tag" href="/usersList.host?cpage=1">
-                                <div class="d-flex justify-content-start">
+                                <div class="d-flex justify-content-start" id="li_user">
                                     <div class="in_i_margin"><i class="fa-solid fa-circle"></i></div>
                                     일반회원
                                 </div>
                             </a></li>
                             <li><a class="a_tag" href="/bsUserList.host?cpage=1">
-                                <div class="d-flex justify-content-start">
+                                <div class="d-flex justify-content-start" id="li_bsuser">
                                     <div class="in_i_margin"><i class="fa-solid fa-circle"></i></div>
                                     사업자회원
                                 </div>
@@ -94,13 +94,13 @@
 <%--                    </a></li>--%>
 
                     <li><a class="a_tag" href="/host/host.jsp">
-                        <div class="d-flex justify-content-start">
+                        <div class="d-flex justify-content-start" id="li_gym">
                             <div class="i_margin"><i class="fa-solid fa-building"></i></div>
                             시설관리
                         </div>
                     </a></li>
                     <li><a class="a_tag" href="/host/host-review.jsp">
-                        <div class="d-flex justify-content-start">
+                        <div class="d-flex justify-content-start" id="li_review">
                             <div class="i_margin"><i class="fa-regular fa-pen-to-square"></i></div>
                             리뷰관리
                         </div>
