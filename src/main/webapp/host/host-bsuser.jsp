@@ -24,7 +24,7 @@
 
 
         <div class="btn_function_box">
-            <button class="btn_function" role="button" type="button" class="btn_base deleteuser" id="btn_dell">삭제하기
+            <button class="btn_function" role="button" type="button" id="btn_dell">삭제하기
             </button>
         </div>
 
@@ -59,7 +59,7 @@
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
                                     <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
                                           class="translate-middle badge rounded-pill bg-danger animate__animated animate__flash animate__infinite">
-                                        <span style="position: absolute; top: 4px; left: 4px">NEW</span>
+                                        <span style="position: absolute; top: 2px; left: 4px">NEW</span>
                                     </span>
                                     </c:if>
                                 </span>

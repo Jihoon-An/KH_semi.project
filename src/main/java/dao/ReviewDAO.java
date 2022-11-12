@@ -338,68 +338,50 @@ public class ReviewDAO extends Dao {
 
 
     public String getPageNavi(int currentPage) throws Exception {
-
         int recordTotalCount = this.getRecordCount();
-
-        int recordCountPerPage = 10; // 게시판 한 페이지당 10개의 글씩 보여주기로 설정
-        int naviCountPerPage = 10; // 게시판 하단의 Page Navigator 가 한번에 몇 개씩 보여질지 설정
-
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
         int pageTotalCount = 0;
-
         if (recordTotalCount % recordCountPerPage > 0) {
             pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
-
         } else {
             pageTotalCount = (recordTotalCount / recordCountPerPage);
         }
-
-
         if (currentPage < 1) {
             currentPage = 1;
         }
-
         if (currentPage > pageTotalCount) {
             currentPage = pageTotalCount;
         }
-
         int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
-
         int endNavi = startNavi + naviCountPerPage - 1;
-
         if (endNavi > pageTotalCount) {
             endNavi = pageTotalCount;
         }
-
         boolean needPrev = true;
         boolean needNext = true;
-
         if (startNavi == 1) {
             needPrev = false;
         }
-
         if (endNavi == pageTotalCount) {
             needNext = false;
         }
-
-        StringBuilder sb = new StringBuilder(); // 문자열 연결해주는 용도로 사용하는 클래스이다.
-
+        StringBuilder sb = new StringBuilder();
         if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (startNavi - 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
         }
-
         for (int i = startNavi; i <= endNavi; i++) {
             if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             }
         }
-
         if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (endNavi + 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
         }
         return sb.toString();
@@ -417,7 +399,7 @@ public class ReviewDAO extends Dao {
     }
 
     public List<ReviewDTO> selectByRange(int start, int end) throws Exception {
-        String sql = "select * from (select review.*, row_number() over(order by seq desc) rn from board) where rn between ? and ?";
+        String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review) where rn between ? and ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setInt(1, start);
@@ -428,7 +410,7 @@ public class ReviewDAO extends Dao {
 
                 while (rs.next()) {
                     ReviewDTO dto = new ReviewDTO(rs);
-                    dto.setUser_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
+                    dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
                     dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
                     list.add(dto);
                 }
