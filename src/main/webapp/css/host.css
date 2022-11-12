@@ -5,15 +5,19 @@
 body {
     background: #F2F2F2;
 }
+
+#wrap_host{
+    height: 100%;
+}
+
 header {
-    position: absolute;
-    width: 330px;
     height: 100%;
     min-height: 950px;
     background: #001A41;
 }
 
 .logoDiv {
+    width: 285px;
     text-align: center;
     margin-top: 70px;
     margin-bottom: 100px;
@@ -57,17 +61,12 @@ nav > ul > li {
 
 nav > ul > li > ul > li {
     font-size: 20px;
-    margin-left: 50px;
+    margin-left: 40px;
     margin-bottom: 10px;
 }
 
-#nav_margin {
-    width: 330px;
-    height: 100%;
-}
-
 .i_margin {
-    margin-left: 20px;
+    margin-left: 10px;
     width: 50px;
 }
 

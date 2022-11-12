@@ -557,7 +557,6 @@
 
 		
 		$("#btn_bs_sign").on("click", function () {
-			console.log(submitCheck());
 			if (submitCheck()) {
 				$("#form_bs_sign").submit();
 			}
@@ -605,8 +604,8 @@
 				$("#bs_number").focus();
 				return false;
 			} else {
-				Swal.fire({title: "회원가입 성공", icon: "success", text: "회원가입이 되었습니다"});
-				return true;
+				// Swal.fire({title: "회원가입 성공", icon: "success", text: "회원가입이 되었습니다"});
+				 return true;
 			}
 			Swal.fire({title: "회원가입 실패", icon: "error", text: "회원가입에 실패하였습니다. 관리자에게 문의해주세요"});
 			$("#bs_email_msg, #bs_pw_re_msg, #bs_phone_msg, .lb_gym_address1, .gym_msg").html("");
@@ -615,10 +614,6 @@
 			$("#bs_email, #bs_pw, #bs_pw_re, #bs_name, #bs_phone, #bs_number, .gym_name, .gym_phone, .gym_address2").val("");
 			return false;
 		}
-
-
-
-
 
 	</script>
 </main>

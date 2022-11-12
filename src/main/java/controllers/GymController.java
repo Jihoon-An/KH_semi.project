@@ -82,9 +82,13 @@ public class GymController extends ControllerAbs {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
 
+        //리뷰, 좋아요
         ReviewDAO reviewDao = ReviewDAO.getInstance();
+        //시설 테이블
         GymDAO gymDao = GymDAO.getInstance();
+        //즐겨찾기 테이블
         FavoritesDAO favDao = FavoritesDAO.getInstance();
+        //시설 필터 출력
         GymFilterDAO filterDao = GymFilterDAO.getInstance();
    //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
        
@@ -95,8 +99,7 @@ public class GymController extends ControllerAbs {
 
         System.out.println(reviewDto);
         
-        System.out.println(reviewDto.get(1));
-        System.out.println(reviewDto.get(3));
+       
        
         
         GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
