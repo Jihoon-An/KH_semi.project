@@ -69,15 +69,19 @@ public class PersonalRecordController extends ControllerAbs {
         ExerciseDAO.getInstance().insertRecord(exr);
     }
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", String.valueOf(request.getSession().getAttribute("userSeq"))));
-        request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")), sdf.format(new Date())));
+        String userSeq = String.valueOf(request.getSession().getAttribute("userSeq"));
+        userSeq = userSeq.equals("null") ? "-1" : userSeq;
+        request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
+        request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(userSeq, sdf.format(new Date())));
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
 
     protected HashMap<String, Object> getRecordData(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap<String, Object> data = new HashMap<>();
-        data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", String.valueOf(request.getSession().getAttribute("userSeq"))));
-        data.put("record", ExerciseDAO.getInstance().selectByDate(String.valueOf(request.getSession().getAttribute("userSeq")) , request.getParameter("date")));
+        String userSeq = String.valueOf(request.getSession().getAttribute("userSeq"));
+        userSeq = userSeq.equals("null") ? "-1" : userSeq;
+        data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
+        data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
         return data;
     }
 

@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+
 #personal-record div[class^='col'] {
 	padding: 10px;
 }
@@ -39,6 +40,7 @@
 
 #personal-record #result,
 #personal-record #record {
+	position: relative;
 	padding-left: 20px;
 	padding-right: 20px;
 	height: 300px;
@@ -49,6 +51,19 @@
 	position: relative;
 	top: 50%;
 	transform: translate(0, -50%);
+}
+
+#personal-record .filter {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	font-size: x-large;
+	background-color: #18181840;
+	border-radius: 6px;
+	line-height: 300px;
+	z-index: 5;
 }
 
 #personal-record #record {
