@@ -137,7 +137,7 @@
             <c:forEach var="gym" items="${gymList}" varStatus="status">
                 <div class="row gym_card">
                     <form class="gym_form">
-                        <input name="gym_seq" class="gym_seq" type="hidden">
+                        <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
                     </form>
                     <div class="col-3 p-0">
                         <img src="/resource/img/main.jpg" class="gym_img">
@@ -391,17 +391,17 @@
 
     // gym 수정페이지로 이동
     $(".modify_gym_btn").click(function () {
-        $(this).closest(".gym_card").find(".gym_form").attr("action", "/toUpdateGym.bsPage");
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/toUpdateGym.bsPage").attr("method", "post");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
 
     // 상세페이지 이동
     $(".gym_img").click(function () {
-        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym").attr("method", "post");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
     $(".gym_name").click(function () {
-        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym");
+        $(this).closest(".gym_card").find(".gym_form").attr("action", "/detail.gym").attr("method", "post");
         $(this).closest(".gym_card").find(".gym_form").submit();
     });
 

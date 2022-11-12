@@ -211,7 +211,14 @@
 
 
                             <div class="filebox text-start">
+                                <c:choose>
+                                    <c:when test="${gym.gym_main_sysImg == null}">
                                 <label for="main_img" class="gym_imgFile_name label">이미지를 업로드하세요</label>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <label for="main_img" class="gym_imgFile_name label">${gym.gym_main_sysImg}</label>
+                                    </c:otherwise>
+                                </c:choose>
                                 <input type="file" name="main_img" id="main_img" class="gym_imgFile">
                             </div>
 
@@ -232,15 +239,18 @@
 
                         <input type="hidden" name="del_file_name_list" id="del_img_names" val="">
 
-                        <c:forEach var="gymImg" items="gymImg">
+                        <c:forEach var="gymImg" items="${gymImgList}">
                         <div class="row exist_gym text-start">
+                            <script>
+                                console.log("${gymImg}");
+                            </script>
                             <div class="exist_gym_img" style="width: 200px; position:relative;">
-                                <img src="/resource/gym/${gymImg.}" style="width: 100%;">
+                                <img src="/resource/gym/${gymImg}" style="width: 100%;">
                                 <button class="button-38 del_exist_btn"
                                         style="padding: 5px; position:absolute; right:5px; top:4px; scale: 0.7;">이미지 지우기
                                 </button>
                             </div>
-                            <span class="exist_gym_img_name">default04.png</span>
+                            <span class="exist_gym_img_name">${gymImg}</span>
                         </div>
                         </c:forEach>
 

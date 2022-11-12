@@ -48,6 +48,7 @@ public class BsPageController extends ControllerAbs {
 
                 case "/signDown.bsPage":
                     this.signDown(request, response);
+                    request.getSession().removeAttribute("bsSeq");
                     response.sendRedirect("/");
                     break;
                 case "/toUpdateGym.bsPage":
@@ -103,8 +104,14 @@ public class BsPageController extends ControllerAbs {
         request.setAttribute("gymSeq", gymSeq);
         GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
-        GymImgDTO gymImg = GymImgDAO.getInstance().getByGymSeq(gymSeq);
 
+        GymImgDTO gymImg = GymImgDAO.getInstance().getByGymSeq(gymSeq);
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        List<String> gymImgList = gson.fromJson(gymImg.getGym_sysimg(), type);
+
+        request.setAttribute("gymImgList", gymImgList);
         request.setAttribute("gym", gym);
         request.setAttribute("gymFilter", gymFilter);
     }
@@ -150,11 +157,16 @@ public class BsPageController extends ControllerAbs {
         for (GymDTO gym : gymList) {
             GymImgDTO gymImg = gymImgDAO.getByGymSeq(gym.getGym_seq());
             Gson gson = new Gson();
-            String[] gymImgList = gson.fromJson(gymImg.getGym_sysimg(), String[].class);
+            List<String> gymImgList;
+
+            gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {}.getType());
+            if(gymImgList == null) {
+                gymImgList = new ArrayList<>();
+            }
+
             for (String gymName : gymImgList) {
                 file.delete(request, "/resource/gym", gymName);
             }
-
             GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
         }
         //시설 지우기
@@ -243,7 +255,7 @@ public class BsPageController extends ControllerAbs {
 
 
     /**
-     *<h1>시설 수정 페이지 기존 데이터 불러오기</h1>
+     * <h1>시설 수정 페이지 기존 데이터 불러오기</h1>
      */
     private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -253,7 +265,8 @@ public class BsPageController extends ControllerAbs {
         GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
 
         Gson gson = new Gson();
-        Type type = new TypeToken<List<String>> (){}.getType();
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
         List<String> gymImg = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
 
         request.setAttribute("gymImg", gymImg);
@@ -262,7 +275,7 @@ public class BsPageController extends ControllerAbs {
     }
 
     /**
-     *<h1>시설정보 및 시설필터 수정하기</h1>
+     * <h1>시설정보 및 시설필터 수정하기</h1>
      */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -275,9 +288,10 @@ public class BsPageController extends ControllerAbs {
         Gson gson = new Gson();
 
         // 선택한 파일 지우기
-        Type type = new TypeToken<List<String>> (){}.getType();
-        List<String>delImgList = gson.fromJson(multi.getParameter("del_file_name_list"), type);
-        for(String delImg : delImgList) {
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        List<String> delImgList = gson.fromJson(multi.getParameter("del_file_name_list"), type);
+        for (String delImg : delImgList) {
             file.delete(request, "/resource/gym", delImg);
         }
         // 새로운파일 리스트
@@ -291,7 +305,7 @@ public class BsPageController extends ControllerAbs {
 
         // gym data
         GymDTO gymDTO = new GymDTO(file);
-        if(multi.getParameter("address1") == null){
+        if (multi.getParameter("address1") == null) {
             GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
             gymDTO.setGym_location(beforeGym.getGym_location());
         }
@@ -302,7 +316,6 @@ public class BsPageController extends ControllerAbs {
         GymDAO.getInstance().updateGym(gymDTO);
         GymFilterDAO.getInstance().updateGymFilter(gymFilterDTO);
     }
-
 
 
     @Override
