@@ -178,7 +178,7 @@
             </c:forEach>
 
             <div class="text-center">
-                <a href="/addGym.bsPage" style="text-decoration-line:none">
+                <a href="/add.addGym" style="text-decoration-line:none">
                     <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
                 </a>
             </div>

@@ -11,6 +11,7 @@ import java.util.List;
 import commons.Common;
 import dto.BsUsersDTO;
 import dto.ReviewDTO;
+import dto.UserDTO;
 
 public class BsUsersDAO extends Dao {
 
@@ -441,4 +442,30 @@ public class BsUsersDAO extends Dao {
             con.commit();
         }
     }
+
+    /**
+     * 신규 사업자 회원 데이터 출력
+     * @param start
+     * @param end
+     *
+     */
+    public List<BsUsersDTO> SelectByRangeForHost(int start, int end) throws Exception {
+        String sql = "select  * from " +
+                "(select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) " +
+                "where rn between ? and ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, start);
+            pstat.setInt(2, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
+                while (rs.next()) {
+                    list.add(new BsUsersDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
+
 }

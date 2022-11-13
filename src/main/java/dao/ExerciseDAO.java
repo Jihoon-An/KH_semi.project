@@ -61,6 +61,19 @@ public class ExerciseDAO extends Dao{
         }
     }
 
+    public void deleteByDate(String userSeq, String date) throws Exception{
+        String sql = "delete from exercise where user_seq = ? and exr_date = ?";
+        try(Connection connection = this.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setString(1, userSeq);
+            statement.setString(2, date);
+            statement.executeUpdate();
+
+            connection.commit();
+        }
+    }
+
     public List<ExerciseDTO> selectByOption(String option, String value) throws Exception {
         List<ExerciseDTO> result = new ArrayList<>();
         String sql = "select * from exercise where " + option + " = ?";
@@ -68,6 +81,23 @@ public class ExerciseDAO extends Dao{
              PreparedStatement pstat = con.prepareStatement(sql);)
         {
             pstat.setString(1, value);
+            try(ResultSet rs = pstat.executeQuery();) {
+                while (rs.next()) {
+                    result.add(new ExerciseDTO(rs));
+                }
+                return result;
+            }
+        }
+    }
+
+    public List<ExerciseDTO> selectRecentByDate(String userSeq, String date) throws Exception {
+        List<ExerciseDTO> result = new ArrayList<>();
+        String sql = "select * from (select * from exercise order by exr_date desc) where rownum <= 7 and user_seq = ? and exr_date <= ? order by exr_date";
+        try (Connection con = getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);)
+        {
+            pstat.setString(1, userSeq);
+            pstat.setString(2, date);
             try(ResultSet rs = pstat.executeQuery();) {
                 while (rs.next()) {
                     result.add(new ExerciseDTO(rs));
