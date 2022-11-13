@@ -78,33 +78,34 @@ public class GymDAO extends Dao {
     }
 
     
-    /**
-     * 시설갯수
-     * 
-     */
-    public List<HashMap<String, Object>> countGymByseq()  throws Exception{
-    	String sql = "select bs_seq, count(*) gym_count from gym group by bs_seq";
-    	
-    	try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);) {
-    		
-    		List<HashMap<String, Object>> list = new ArrayList<>();
-   
-    		try(ResultSet rs = pstat.executeQuery();){
-    			
-    			while(rs.next()){
-    			
-    				HashMap<String, Object> data = new HashMap<String, Object>();
-    			data.put("bsseq", rs.getString("bs_seq"));
-    			data.put("gymcount", rs.getString("gym_count"));
-    			
-    			list.add(data);
-    			}
-    			return list;
-    		}
-    	
-    	}
-    }
+//    /**
+//     * 시설갯수
+//     * 
+//     */
+//    public List<HashMap<String, Object>> countGymByseq()  throws Exception{
+//    	String sql = "select bs_seq, count(*) gym_count from gym group by bs_seq";
+//    	
+//    	try (Connection con = this.getConnection();
+//				PreparedStatement pstat = con.prepareStatement(sql);) {
+//    		
+//    		List<HashMap<String, Object>> list = new ArrayList<>();
+//   
+//    		try(ResultSet rs = pstat.executeQuery();){
+//    			
+//    			while(rs.next()){
+//    		
+//   				HashMap<String, Object> data = new HashMap<String, Object>();
+////    			data.put("gdto", new GymDTO(rs));
+//    			data.put("bsseq", rs.getString("bs_seq"));
+//    			data.put("gymcount", rs.getString("gym_count"));
+//    			
+//    			list.add(data);
+//    			}
+//    			return list;
+//    		}
+//    	
+//    	}
+//    }
     
 
     /**

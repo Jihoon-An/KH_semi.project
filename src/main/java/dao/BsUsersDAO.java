@@ -221,56 +221,56 @@ public class BsUsersDAO extends Dao {
     }
 
     
-//    public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-//        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
-//        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
-//        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-//
-//            pstat.setInt(1, start);
-//            pstat.setInt(2, end);
-//
-//        	List<HashMap<String, Object>> list = new ArrayList<>();
-//            try (ResultSet rs = pstat.executeQuery();) {
-//            
-//                while (rs.next()) {
-//                	HashMap<String, Object> data = new HashMap<>();
-//                    BsUsersDTO dto = new BsUsersDTO();
-//                    data.put("bsuser", new BsUsersDTO(rs));
-//                    data.put("count", rs.getString("gym_count"));
-//
-//                    // 하나의 dto만 나오기떄문에 while문 필요x
-//
-//                	list.add(data);
-//                }
-//                return list;
-//            }
-//
-//        }
-//    }
-    
-    // 아래로 네비바 로직
-    public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
+    public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
+        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
+        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, start);
             pstat.setInt(2, end);
 
+        	List<HashMap<String, Object>> list = new ArrayList<>();
             try (ResultSet rs = pstat.executeQuery();) {
-
-                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
-
+            
                 while (rs.next()) {
+                	HashMap<String, Object> data = new HashMap<>();
+                    BsUsersDTO dto = new BsUsersDTO();
+                    data.put("bsuser", new BsUsersDTO(rs));
+                    data.put("count", rs.getString("gym_count"));
 
                     // 하나의 dto만 나오기떄문에 while문 필요x
 
-                    list.add(new BsUsersDTO(rs));
+                	list.add(data);
                 }
                 return list;
             }
 
         }
     }
+    
+    // 아래로 네비바 로직
+//    public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
+//        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
+//        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+//
+//            pstat.setInt(1, start);
+//            pstat.setInt(2, end);
+//
+//            try (ResultSet rs = pstat.executeQuery();) {
+//
+//                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
+//
+//                while (rs.next()) {
+//
+//                    // 하나의 dto만 나오기떄문에 while문 필요x
+//                	BsUsersDTO dto = new BsUsersDTO(rs);
+//                    list.add(new BsUsersDTO(rs));
+//                }
+//                return list;
+//            }
+//
+//        }
+//    }
 
     public int getRecordCount() throws Exception { // 게시글 갯수반환
         String sql = "select count(*) from bs_users";
