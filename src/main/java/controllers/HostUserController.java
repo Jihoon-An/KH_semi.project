@@ -17,9 +17,11 @@ import com.google.gson.reflect.TypeToken;
 
 
 import dao.BsUsersDAO;
+import dao.GymDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
 import dto.BsUsersDTO;
+import dto.GymDTO;
 import dto.ReviewDTO;
 import dto.UserDTO;
 import oracle.net.aso.a;
@@ -42,7 +44,8 @@ public class HostUserController extends ControllerAbs {
                 case "/admin.host":
                     request.getSession().invalidate();
                     request.getSession().setAttribute("admin", true);
-                    response.sendRedirect("/host/host.jsp");
+                    this.getAllList(request, response);
+                    request.getRequestDispatcher("/host/host.jsp").forward(request, response);
                     break;
 
                 //관리자 페이지 일반회원목록 출력
@@ -244,6 +247,21 @@ public class HostUserController extends ControllerAbs {
 
         request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
 
+    }
+
+    /**
+     *<h1>호스트용 신규 요소 리스트 메서드</h1>
+     */
+    protected void getAllList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        List<UserDTO> newUsersList = UserDAO.getInstance().selectByRange(1, 5);
+        List<BsUsersDTO> newBsUsersList = BsUsersDAO.getInstance().SelectByRangeForHost(1, 5);
+        List<GymDTO> newGymList = GymDAO.getInstance().SelectByRange(1, 5);
+        List<ReviewDTO> newReviewList = ReviewDAO.getInstance().selectByRange(1, 5);
+
+        request.setAttribute("users", newUsersList);
+        request.setAttribute("bsUsers", newBsUsersList);
+        request.setAttribute("gym", newGymList);
+        request.setAttribute("review", newReviewList); 
     }
 
 }
