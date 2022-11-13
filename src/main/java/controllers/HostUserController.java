@@ -132,7 +132,7 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int cpageSearch = 1;
+        int cpageSearch = 1; // 잘못짠거같음. 1-1 cpage만 나올 듯
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
         int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
@@ -248,14 +248,14 @@ public class HostUserController extends ControllerAbs {
 
     protected void getBsSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
         String text = request.getParameter("inputT");
         BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
         List<HashMap<String, Object>> bsUserDto = bsUserDao.search(text);
         System.out.println(bsUserDto);
+        request.setAttribute("bsUserList", bsUserDto);
 
-        request.setAttribute("bsUserList", bsUserDto); //user
-
+        String bsUsersNavi = BsUsersDAO.getInstance().getPageNavi2(1, BsUsersDAO.getInstance().getRecordCountByBsUsersName(text));
+        request.setAttribute("bsUserNavi", bsUsersNavi);
         request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 
     }
@@ -306,7 +306,6 @@ public class HostUserController extends ControllerAbs {
 
     protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
         String text = request.getParameter("inputName");
         System.out.println(text);
         UserDAO usersDao = UserDAO.getInstance();
@@ -315,6 +314,8 @@ public class HostUserController extends ControllerAbs {
         System.out.println(userDto);
 
         request.setAttribute("userList", userDto); //user
+        String userNavi = UserDAO.getInstance().getPageNavi2(1, UserDAO.getInstance().getRecordCountByUsersName(text));
+        request.setAttribute("userNavi", userNavi);
 
         request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
 

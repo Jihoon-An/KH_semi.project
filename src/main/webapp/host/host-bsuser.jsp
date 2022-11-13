@@ -106,11 +106,11 @@
 
 
     // 엔터 = 버튼 클릭
-   // $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+   $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
 
 
 
-    <!-- 전체 선택, 해제 -->
+    // 전체 선택, 해제
     function checkAll() {
         if($("#allcheck").is(':checked')) {
             $("input[name=bsuser]").prop("checked", true);
@@ -119,7 +119,7 @@
         }
     }
 
-    <!-- 전체 체크중 하나 체크 취소하면 전체체크 풀림-->
+    // 전체 체크중 하나 체크 취소하면 전체체크 풀림
     $(document).on("click", "input:checkbox[name=bsuser]", function(e) {
 
         var chks = document.getElementsByName("bsuser");
@@ -142,7 +142,7 @@
     });
 
 
-    <!-- 사업자 회원 검색-->
+    // 사업자 회원 검색
     $("#btn_searchh").on("click", function click(){
         let input = $("#inputText").val();
 
@@ -151,7 +151,7 @@
             return false;
         }else{
 
-            $("#frm").attr("action", "/bsUserSearch.host")
+            $("#frm").attr("action", "/bsUserSearch.host?cpage=1")
             $("#frm").submit();
         }
 
@@ -159,7 +159,7 @@
 
 
 
-    //사업자 회원 삭제
+    // 사업자 회원 삭제
     $("#btn_dell").on("click", function(){
         var userseq = [];
 

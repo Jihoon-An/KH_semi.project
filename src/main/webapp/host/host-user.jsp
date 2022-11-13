@@ -71,7 +71,10 @@
                             <div class="sign-date p-1">
                                 <fmt:formatDate value="${u.signup}" type="both" dateStyle="short" timeStyle="short" />
                             </div>
-                            <div class="user-gender p-1">${u.sex}</div>
+                            <div class="user-gender p-1">
+                                <c:if test="${u.sex == 'W'}">여성</c:if>
+                                <c:if test="${u.sex == 'M'}">남성</c:if>
+                            </div>
                         </div>
 
                     </c:forEach>
@@ -100,16 +103,6 @@
     $(function(){
         $("#li_user").css("color","#ffe92d")
     });
-
-
-
-    // 성멸 M, W에서 남자 여자로 바꿔서 출력
-    // $(document).ready(function() {
-    //     console.log($(".user-gender").html())
-    //     if($(".user-gender").html()=="M"){
-    //         this.html("남자");
-    //     }
-    // })
 
     // 엔터 = 버튼 클릭
     $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
@@ -183,7 +176,7 @@
             alert("입력된 내용이 없습니다");
             return false;
         } else {
-            $("#frm").attr("action", "/userSearch.host");
+            $("#frm").attr("action", "/userSearch.host?cpage=1");
             $("#frm").submit();
         }
     })
