@@ -268,8 +268,11 @@
 
                 </div>
 
-                <div class="col-12 gy-4">
-                    <button type="button" class="btn_base" id="btn_modify_complete">정보 수정</button>
+                <div class="row gy-4 justify-content-center">
+                    <div class="col-4">
+                        <button type="button" class="btn_base" id="btn_modify_complete">정보 수정</button>
+                        <button type="button" class="btn_outline" id="del_btn">삭제</button>
+                    </div>
                 </div>
 
             </div>
@@ -278,6 +281,18 @@
         </div>
 
     </form>
+
+    <form id="del_form" action="/deleteGym.bsPage" method="post">
+        <input type="hidden" name="gym_seq" value="${gym.gym_seq}">
+    </form>
+
+
+
+
+
+
+
+
 
 
     <script>
@@ -598,7 +613,27 @@
         });
 
 
-
+        // 시설 지우기 이벤트
+        $("#del_btn").click(function () {
+            Swal.fire({
+                title: '정말 지우시겠습니까?',
+                text: "지우면 되돌릴 수 없습니다!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '여기 이제 필요 없어요~',
+                cancelButton: '어! 이게 아닌데...'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'success'
+                    );
+                    $("#del_form").submit();
+                }
+            })
+        });
 
     </script>
 
