@@ -2,10 +2,13 @@ package dto;
 
 import com.oreilly.servlet.MultipartRequest;
 import commons.FileControl;
+import dao.GymDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.List;
 
 public class GymDTO {
     private int gym_seq;
@@ -20,6 +23,7 @@ public class GymDTO {
     private String gym_x;
     private String gym_y;
 
+
     public GymDTO(int gym_seq, int bs_seq, String gym_name, String gym_phone, String gym_location, String gym_price, String gym_main_sysImg, String gym_open, String gym_close, String gym_x, String gym_y) {
         this.gym_seq = gym_seq;
         this.bs_seq = bs_seq;
@@ -32,6 +36,7 @@ public class GymDTO {
         this.gym_close = gym_close;
         this.gym_x = gym_x;
         this.gym_y = gym_y;
+        
     }
 
     public GymDTO(FileControl file) {
@@ -46,7 +51,7 @@ public class GymDTO {
         this.gym_phone = multi.getParameter("gym_phone");;
         this.gym_location = gym_location;
         this.gym_price = multi.getParameter("gym_price");;
-        this.gym_main_sysImg = file.getSysNameList().get(0);
+        this.gym_main_sysImg = null;
         this.gym_open = multi.getParameter("gym_open");;
         this.gym_close = multi.getParameter("gym_close");;
         this.gym_x = multi.getParameter("gym_x");;
@@ -92,6 +97,7 @@ public class GymDTO {
         this.gym_close = resultSet.getString("gym_close");
         this.gym_x = resultSet.getString("gym_x");
         this.gym_y = resultSet.getString("gym_y");
+
     }
 
     public int getGym_seq() {

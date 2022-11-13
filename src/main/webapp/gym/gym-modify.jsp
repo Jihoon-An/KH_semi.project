@@ -204,59 +204,65 @@
                             </div>
                         </div>
 
-                        <div class="col-12 gy-3">
-                            <div class="text-start">
-                                <span class="inputTitle">대표사진</span>
+                        <div class="col-12 gy-3" id="gym_img_box">
+                            <div class="row justify-content-center">
+                                <div class="col-5 p-1 text-center inputTitle">대표사진</div>
+                                <div class="col-5 p-1"></div>
                             </div>
 
-                            <div class="row px-2">
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img1">
+                            <div class="row px-2 justify-content-center">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img1" id="gym_img1_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img2">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img2"  id="gym_img2_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img3">
+                            </div>
+
+                            <div class="row px-2 justify-content-center">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img3" id="gym_img3_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img3" id="gym_img3" type="file" class="gym_imgFile">
                                 </div>
-                            </div>
-                            <div class="row px-2">
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img4">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img4" id="gym_img4_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img5">
+                            </div>
+
+                            <div class="row px-2 justify-content-center">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img5" id="gym_img5_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
-                                    <label class="gym_img" for="gym_img6">
+                                <div class="col-5 p-1 text-center">
+                                    <label class="gym_img" for="gym_img6" id="gym_img6_label">
                                         <img src="/resource/gym/default04.png">
+                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img6" id="gym_img6" type="file" class="gym_imgFile">
                                 </div>
                             </div>
-
+                            <input type="hidden" name="del_img_list" id="del_img_list">
                         </div>
 
-
-
-                        <c:forEach var="gymImg" items="${gymImgList}">
-
-                        </c:forEach>
 
                     </div>
 
@@ -565,6 +571,32 @@
             });
 
         }
+
+        /**
+         * input file 초기화
+         */
+
+        <c:forEach var="gymImg" items="${gymImgList}" varStatus="status">
+        $($(".del_img_btn")[${status.index}]).siblings("img").attr("src","/resource/gym/${gymImg}");
+        $($(".del_img_btn")[${status.index}]).css("display","block");
+        </c:forEach>
+
+
+
+
+        // 이미지 지우기 이벤트
+        var delImgList = [];
+        $(".del_img_btn").click(function () {
+            // 지울 리스트 넣기
+            let img_name = $(this).siblings("img").attr("src");
+            delImgList.push(img_name);
+            $("#del_img_list").val(JSON.stringify(delImgList));
+            console.log($("#del_img_list").val());
+            // div초기화
+            $(this).siblings("img").attr("src","/resource/gym/default04.png");
+            $(this).css("display","none");
+        });
+
 
 
 

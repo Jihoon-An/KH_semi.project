@@ -12,6 +12,7 @@ import dto.ReviewDTO;
 
 public class ReviewDAO extends Dao {
 
+
     private ReviewDAO() {
     }
 
@@ -35,6 +36,7 @@ public class ReviewDAO extends Dao {
      */
     public List<HashMap<String, Object>> printReivew(int gym_seq) throws Exception {
 
+
         String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
@@ -49,21 +51,7 @@ public class ReviewDAO extends Dao {
                 while (rs.next()) {
                     HashMap<String, Object> data = new HashMap<>();
                     ReviewDTO dto = new ReviewDTO();
-//					dto.setReview_seq(rs.getInt("review_seq"));
-//					dto.setUser_seq(rs.getInt("user_seq"));
-//					dto.setGym_seq(rs.getInt("gym_seq"));
-//					dto.setBs_seq(rs.getInt("bs_seq"));
-//					dto.setReview_writer(rs.getString("review_writer"));
-//					dto.setReview_contents(rs.getString("review_contents"));
-//					dto.setReview_like(rs.getInt("review_like")); 
-//					dto.setReview_star(rs.getInt("review_star"));
-//					dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
-//					dto.setReview_check1(rs.getString("review_check1"));
-//					dto.setReview_check2(rs.getString("review_check2"));
-//					dto.setReview_check3(rs.getString("review_check3"));
-//					dto.setReview_check4(rs.getString("review_check4"));
-//					dto.setReview_check5(rs.getString("review_check5"));
-//					dto.setReview_photo(rs.getString("review_photo"));
+
 
                     data.put("review", new ReviewDTO(rs));
                     data.put("liked", rs.getString("liked_user_seq"));
@@ -101,8 +89,6 @@ public class ReviewDAO extends Dao {
                     date.put("check3", rs.getString("check3"));
                     date.put("check4", rs.getString("check4"));
                     date.put("check5", rs.getString("check5"));
-
-
                 }
                 return date;
             }
@@ -118,7 +104,7 @@ public class ReviewDAO extends Dao {
      * <p>
      * 좋아요 클릭시 리뷰 1 증가 계정당 1회
      *
-     * @param dto
+     * @param
      * @return
      * @th)rows Exception
      */
@@ -321,7 +307,7 @@ public class ReviewDAO extends Dao {
     }
 
     public void deleteByGymSeq(int gymSeq) throws Exception {
-        String sql = "delete from review where gym_seq = ?";
+        String sql = "delete from raview where gym_seq = ?";
 
         try (Connection con = this.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -334,32 +320,64 @@ public class ReviewDAO extends Dao {
     }
 
 
-    // 리뷰 총 게시글의 개수를 반환하는 코드
-    public int getRecordCount() throws Exception {
-        String sql = "select count(*) from review";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1);
+    public int delete(int seq) throws Exception {
+
+        String sql = "delete from board where seq= ?";
+
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setInt(1, seq);
+
+            int result = pstat.executeUpdate();
+            con.commit();
+
+            return result;
         }
     }
 
-    // User_seq로 검색한 총 게시글의 개수를 반환하는 코드
-    public int getRecordCountByUserSeq(int user_seq) throws Exception {
-        String sql = "select count(*) from review where user_seq = ?";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            pstat.setInt(1, user_seq);
-            rs.next();
-            return rs.getInt(1);
+    public int modifyBySeq(String title, String contents, int seq) throws Exception {
+        String sql = "update board set title=?, contents=? where seq=?";
+
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setString(1, title);
+            pstat.setString(2, contents);
+            pstat.setInt(3, seq);
+
+            int result = pstat.executeUpdate();
+            con.commit();
+
+            return result;
+
         }
     }
 
+	// User_seq로 검색한 총 게시글의 개수를 반환하는 코드
+	public int getRecordCountByUserSeq(int user_seq) throws Exception {
+		String sql = "select count(*) from review where user_seq = ?";
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);
+			 ResultSet rs = pstat.executeQuery()) {
+			pstat.setInt(1, user_seq);
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
 
-    // 페이지 네비
-    public String getPageNavi(int currentPage, int recordTotalCount) throws Exception {
+	// 리뷰 총 게시글의 개수를 반환하는 코드
+	public int getRecordCount() throws Exception {
+		String sql = "select count(*) from review";
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);
+			 ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
+
+
+	// 페이지 네비
+	public String getPageNavi(int currentPage, int recordTotalCount) throws Exception {
         int recordCountPerPage = 10;
         int naviCountPerPage = 10;
         int pageTotalCount = 0;
@@ -455,8 +473,7 @@ public class ReviewDAO extends Dao {
     }
 
 
-
-    public List<ReviewDTO> search(String text) throws Exception{
+    public List<ReviewDTO> search(String text) throws Exception {
         String sql = "select * from review where bs_name like ?";
 
         try (Connection con = this.getConnection();
@@ -472,5 +489,6 @@ public class ReviewDAO extends Dao {
             }
         }
     }
+
 
 }
