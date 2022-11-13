@@ -485,9 +485,19 @@
 }
 
 #index .ads .banner {
-	width: 95%;
-	height: 200px;
+	width: 97%;
+	height: 160px;
 	-webkit-box-shadow: 1x 1px 3px 1px #808080;
 	box-shadow: 1px 1px 5px 1px #C8C8C8;
 	border-radius: 6px;
+}
+
+#index .ads .banner img {
+	width:100%;
+	height:100%;
+	border-radius: 6px;
+}
+
+#index .ads .banner img:hover {
+	cursor: pointer;
 }
