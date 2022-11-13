@@ -64,9 +64,6 @@ public class BsPageController extends ControllerAbs {
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
                     break;
-                case "/addGym.bsPage":
-
-                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
