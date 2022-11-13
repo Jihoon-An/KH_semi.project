@@ -205,7 +205,6 @@
 						initCalendar();
 						$(".calendar").datepicker();
 						onSelect();
-						console.log()
 					});
 
 					// calendar 초기화
@@ -248,7 +247,7 @@
 											+"<p>메모 내용 : " + res.record.exr_memo + "</p></div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
 												+"<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
 									$("#result_contents").html(output);
-									setRecordChart(res);
+									setRecordChart(res.recentRecord);
 								} else {
 									$("#result_contents").empty();
 									let output = "<div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
@@ -333,7 +332,7 @@
 					function tryDelRecord() {
 						Swal.fire({
 							title: 'Are you sure?',
-							text: "기록을 삭제합니까?",
+							text: "기록을 삭제합니다.",
 							icon: 'warning',
 							showCancelButton: true,
 							confirmButtonColor: '#d33',
@@ -350,14 +349,20 @@
 							});
 					}
 
-					function setRecordChart(data) {
+					function setRecordChart(recentRecord) {
 						let recordCtx = document.getElementById('recordChart').getContext('2d');
+						let arrDate = [];
+						let arrHow = [];
+						for (j=0; j< recentRecord.length; j++) {
+							arrDate.push(getDateFormat(new Date(recentRecord[j].exr_date)).slice(5, 10));
+							arrHow.push(recentRecord[j].exr_how);
+						}
 						let recordData = {
-							labels: ["${recentRecord[0].exr_date}".slice(5, 10)],
+							labels: arrDate,
 							datasets: [{
 								type: 'line',
 								label: '운동 시간',
-								data: [90],
+								data: arrHow,
 								borderColor: 'rgb(255, 99, 132)',
 								backgroundColor: 'rgba(255, 99, 132, 0.2)'
 							}]
