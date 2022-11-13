@@ -58,7 +58,7 @@
 <div id="wrap_host" class="d-flex justify-content-start">
     <header id="nav">
             <div class="logoDiv">
-                <a class="a_tag" href="/host/host.jsp"><h2 class="logo">Fitneeds</h2>
+                <a class="a_tag" href="/admin.host"><h2 class="logo">Fitneeds</h2>
                     <h2 class="logo">ADMIN</h2></a>
             </div>
             <nav>
@@ -87,7 +87,7 @@
                     <li>
 
 
-                    <li><a class="a_tag" href="/host/host.jsp">
+                    <li><a class="a_tag" href="/admin.host">
                         <div class="d-flex justify-content-start" id="li_gym">
                             <div class="i_margin"><i class="fa-solid fa-building"></i></div>
                             시설관리
@@ -99,7 +99,7 @@
                             리뷰관리
                         </div>
                     </a></li>
-                    <li><a class="a_tag" href="/host/host.jsp">
+                    <li><a class="a_tag" href="/admin.host">
                         <div class="d-flex justify-content-start">
                             <div class="i_margin"><i class="fa-solid fa-rectangle-ad"></i></div>
                             광고관리
