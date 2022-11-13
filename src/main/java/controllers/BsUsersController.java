@@ -15,10 +15,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import commons.Common;
-import dao.BsCtfcDAO;
-import dao.BsUsersDAO;
-import dao.GymDAO;
-import dao.GymFilterDAO;
+import dao.*;
 import dto.BsCtfcDTO;
 import dto.BsUsersDTO;
 import dto.GymDTO;
@@ -68,7 +65,7 @@ public class BsUsersController extends HttpServlet {
 //				response.sendRedirect("/");
 
 				request.setAttribute("start", "login");
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				request.getRequestDispatcher("/").forward(request, response);
 				break;
 
 			// 아이디 중복체크 요청
@@ -160,6 +157,9 @@ public class BsUsersController extends HttpServlet {
 					null, null, null, null, gym_x[i], gym_y[i]));
 			// 필터추가
 			GymFilterDAO.getInstance().addGymFilter(gymSeqNextVal);
+
+			// 시설 이미지 테이블 생성
+			GymImgDAO.getInstance().newTable(gymSeqNextVal);
 		}
 
 		// 사업자등록증 업로드

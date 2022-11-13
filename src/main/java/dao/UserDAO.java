@@ -382,23 +382,23 @@ public class UserDAO extends Dao {
 
         StringBuilder sb = new StringBuilder();
 
-        if (needPrev) { // 왼쪽 화살표가 필요한 상황이면
+        if (needPrev) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
-            // System.out.println("<");
-        } // 이전페이지
-
-        for (int i = startNavi; i <= endNavi; i++) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + i + "'>" + i
-                    + "</a></li>");
-            // System.out.println(i+" ");
         }
-
+        for (int i = startNavi; i <= endNavi; i++) {
+            if (currentPage == i) {
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/usersList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            } else {
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/usersList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            }
+        }
         if (needNext) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
-            // System.out.println(">");
-        } // 다음페이지
+        }
 
         return sb.toString();
         /*
@@ -413,4 +413,31 @@ public class UserDAO extends Dao {
         // 게시글의 갯수 / 한페이지당 보여줄게시글+1=전체페에지 갯수
 
     }
+
+
+    /**
+     * 유저이메일 일부만 검색해서 유저테이블 내용 찾기
+     *
+     * @param users_email
+     * @return
+     * @throws Exception
+     */
+    public UserDTO searchUserByUserEmail(String users_email) throws Exception {
+        String sql = "select * from users where users_email like ? order by 1";
+
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setString(1, "%" + users_email + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                UserDTO dto = new UserDTO();
+                return dto;
+            }
+        }
+    }
+
+
+
+
+
 }
