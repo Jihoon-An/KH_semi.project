@@ -56,6 +56,7 @@
 
 <body>
 <div id="wrap_host" class="d-flex justify-content-start">
+    <div id="headerMarginBox"></div>
     <header id="nav">
             <div class="logoDiv">
                 <a class="a_tag" href="/admin.host"><h2 class="logo">Fitneeds</h2>
