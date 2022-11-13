@@ -131,10 +131,12 @@ public class HostUserController extends ControllerAbs {
         String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
 
 
-        List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
-        HashMap<String, Object> countGym =bsDao.countGymByseq();
+       // List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
+       List<HashMap<String, Object>> bsUserList = bsDao.selectByRange(cpage * 10 - 9, cpage * 10);
+        // List<HashMap<String, Object>> countGym =bsDao.countGymByseq();
+      //  System.out.println(countGym);
         
-        request.setAttribute("countGym", countGym);
+       // request.setAttribute("countGym", countGym);
         request.setAttribute("bsUserList", bsUserList);
         request.setAttribute("bsUserNavi", bsUsersNavi); //네비바
         request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
@@ -166,8 +168,7 @@ public class HostUserController extends ControllerAbs {
         System.out.println(jsonstr);
 
         Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {
-        }.getType();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
 
 
         List<Integer> seqList = gson.fromJson(jsonstr, type);
@@ -189,8 +190,7 @@ public class HostUserController extends ControllerAbs {
         System.out.println(jsonstr);
 
         Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {
-        }.getType();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
         List<Integer> seqList = gson.fromJson(jsonstr, type);
         System.out.println(seqList);
 

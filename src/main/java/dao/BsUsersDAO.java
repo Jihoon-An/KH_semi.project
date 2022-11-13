@@ -102,32 +102,7 @@ public class BsUsersDAO extends Dao {
         }
     }
 
-    /**
-     * 시설갯수
-     * 
-     */
-    public HashMap<String, Object> countGymByseq()  throws Exception{
-    	String sql = "select bs_seq, count(*) gym_count from gym group by bs_seq";
-    	
-    	try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);) {
-    		
-    		
-    		HashMap<String, Object> data = new HashMap<String, Object>();
-    		try(ResultSet rs = pstat.executeQuery();){
-    			while(rs.next()){
-    			
-    		
-    			data.put("bsseq", "bs_seq");
-    			data.put("gymcount", "count");
-    			
-    			
-    			}
-    			return data;
-    		}
-    	
-    	}
-    }
+   
     
     /**
      * 삭제기능
@@ -243,6 +218,34 @@ public class BsUsersDAO extends Dao {
         }
     }
 
+    
+//    public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
+//        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
+//        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
+//        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+//
+//            pstat.setInt(1, start);
+//            pstat.setInt(2, end);
+//
+//        	List<HashMap<String, Object>> list = new ArrayList<>();
+//            try (ResultSet rs = pstat.executeQuery();) {
+//            
+//                while (rs.next()) {
+//                	HashMap<String, Object> data = new HashMap<>();
+//                    BsUsersDTO dto = new BsUsersDTO();
+//                    data.put("bsuser", new BsUsersDTO(rs));
+//                    data.put("count", rs.getString("gym_count"));
+//
+//                    // 하나의 dto만 나오기떄문에 while문 필요x
+//
+//                	list.add(data);
+//                }
+//                return list;
+//            }
+//
+//        }
+//    }
+    
     // 아래로 네비바 로직
     public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
         String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
