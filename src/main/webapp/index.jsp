@@ -4,7 +4,11 @@
 
 
 <script>history.scrollRestoration = "manual"</script>
+<%
 
+
+
+%>
 			<!-- Site Main -->
 			<main id="index">
 				<section>
@@ -24,6 +28,10 @@
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
 											name="searchInput">
+										<input type="hidden" value="none" name="open_result">
+										<input type="hidden" value="none" name="locker_result">
+										<input type="hidden" value="none" name="shower_result">
+										<input type="hidden" value="none" name="park_result">
 									</div>
 									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
@@ -82,42 +90,42 @@
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
 								<p></p>
 								<input type="hidden">
 							</div>
-							<img src="/resource/health.png">
+							<img src="/resource/img/health.png">
 						</div>
 
 					</section>
@@ -156,7 +164,6 @@
 				// Review DB 가져온 뒤 Carousel 연결 함수
 				function getReviewData() {
 					$.getJSON("/review.index", res => {
-						console.log(res.reviewList);
 						let item_list = document.querySelectorAll(".item");
 						for (i = 0; i < item_list.length / 2; i++) {
 							let review = reviewBuilder(res.reviewList[i]);
@@ -168,16 +175,16 @@
 
 				// Review 폼 구성 함수
 				function reviewBuilder(data) {
-					let date = new Date(data.review.review_writer_date);
-					let dateFormat = date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + date.getHours() + ":" + date.getMinutes();
-					let star = "<img src='/resource/ratingImg/rating_" + data.review.review_star + ".png' style='width:80%'>";
-					let gymName = "<tr><td colspan=2 class='text_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></td></tr>";
-					let score = "<tr style='border-top:5px solid white'><td colspan=2 align=center>" + star + "<hr class='mt-3 mb-3'></td></tr>";
-					let writer = "<tr><td style='text-align:left'><img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp" + data.review.review_writer + "</td>";
-					let writeDate = "<td class='text_mini' style='text-align:right; color=#808080'>" + dateFormat + " 작성</td></tr>";
-					let likes = "<tr><td colspan=2 class='text_mini' style='text-align:right; color=#808080'> 추천수 : " + data.review.review_like + "</td></tr>";
-					let contents = "<tr style='border-top:15px solid white'><td colspan=2>" + data.review.review_contents + "</td></tr>";
-					let result = "<table style='width:100%'>" + gymName + score + writer + writeDate + likes + contents + "</table>";
+					let gymName = "<div class='col-12 text_title_600 text-truncate item_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></div>";
+					let star = "";
+					for (j = 1; j < 6; j++) {star += j <= data.review.review_star ? "<label class='item_filledStar'>★</label>" : "<label class='item_emptyStar'>★</label>";}
+					let score = "<div class='col-12 gy-2' align=center>" + star + "</div>";
+					let space = "<div class='col-1 gy-3'></div><hr class='col-10 gy-3'><div class='col-1 gy-3'></div>";
+					let writer = "<div class='col-6 text-start text-truncate item_writer' style='padding-left:15px'><img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp" + data.review.review_writer + "</div>";
+					let writeDate = "<div class='col-6 text_mini text-end text item_date' style='color:#808080; padding-right:15px'>" + getDateFormat(new Date(data.review.review_writer_date)).slice(0, -3) + "</div>";
+					let likes = "<div class='col-6'></div><div class='col-6 text_mini text-end item_likes' style='color:#808080; padding-right:15px'>추천수 : " + data.review.review_like + "</div>";
+					let contents = "<div class='col-12 gy-3 item_contents'>" + data.review.review_contents + "</div>";
+					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>";
 					return result;
 				}
 
@@ -197,12 +204,12 @@
 
 				function getGymData() {
 					$.getJSON("/gym.index", res => {
-						console.log(res.gymList);
 						let item_list = document.querySelectorAll(".imgBox");
-						for (i = 0; i < item_list.length; i++) {
+						for (i = 0; i < res.gymList.length; i++) {
 							let item = item_list[i];
 							let data = res.gymList[i];
-							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>❤️&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>💕&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
+							$(item).find(".imgFilter").attr("seq", data.gym.gym_seq);
 						}
 					});
 				}
@@ -210,16 +217,6 @@
 				$(".imgBox").on("click", e => {
 					location.href = "/detail.gym?gym_seq=" + e.target.getAttribute("seq");
 				});
-
-				// $(".imgFilter").on("mouseenter", e => {
-				// 	$(e.target).find("p").attr("style","color: #00000000;");
-				// 	$(e.target).find("i").attr("style","color: #00000000;");
-				// })
-
-				// $(".imgFilter").on("mouseleave", e => {
-				// 	$(e.target).find("p").attr("style","color: white;");
-				// 	$(e.target).find("i").attr("style","color:red");
-				// })
 			</script>
 
 			<%@ include file="/layout/footer.jsp" %>

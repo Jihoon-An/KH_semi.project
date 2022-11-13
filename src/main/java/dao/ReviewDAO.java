@@ -44,11 +44,29 @@ public class ReviewDAO extends Dao {
 
 			pstat.setInt(1, gym_seq);
 			List<HashMap<String, Object>> list = new ArrayList<>();
-			HashMap<String, Object> data = new HashMap<>();
+			
 
 			try (ResultSet rs = pstat.executeQuery();) {
 
 				while (rs.next()) {
+					HashMap<String, Object> data = new HashMap<>();
+					ReviewDTO dto = new ReviewDTO();
+//					dto.setReview_seq(rs.getInt("review_seq"));
+//					dto.setUser_seq(rs.getInt("user_seq"));
+//					dto.setGym_seq(rs.getInt("gym_seq"));
+//					dto.setBs_seq(rs.getInt("bs_seq"));
+//					dto.setReview_writer(rs.getString("review_writer"));
+//					dto.setReview_contents(rs.getString("review_contents"));
+//					dto.setReview_like(rs.getInt("review_like")); 
+//					dto.setReview_star(rs.getInt("review_star"));
+//					dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
+//					dto.setReview_check1(rs.getString("review_check1"));
+//					dto.setReview_check2(rs.getString("review_check2"));
+//					dto.setReview_check3(rs.getString("review_check3"));
+//					dto.setReview_check4(rs.getString("review_check4"));
+//					dto.setReview_check5(rs.getString("review_check5"));
+//					dto.setReview_photo(rs.getString("review_photo"));
+					
 					data.put("review", new ReviewDTO(rs));
 					data.put("liked", rs.getString("liked_user_seq"));
 					list.add(data);
@@ -106,7 +124,7 @@ public class ReviewDAO extends Dao {
 	 *
 	 * @param dto
 	 * @return
-	 * @throws Exception
+	 * @th)rows Exception
 	 */
 
 	public int addReviewLike(int rseq) throws Exception {
@@ -256,6 +274,7 @@ public class ReviewDAO extends Dao {
 			connection.commit();
 		}
 	}
+
 
 
 	/**

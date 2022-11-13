@@ -5,8 +5,7 @@ import java.sql.Timestamp;
 
 public class ExerciseDTO {
 	private int exr_seq;
-	private int cal_seq;
-	private Timestamp cal_date;
+	private Timestamp exr_date;
 	private int user_seq;
 	private String exr_memo;
 	private int exr_how;
@@ -21,8 +20,7 @@ public class ExerciseDTO {
 	
 	public ExerciseDTO(ResultSet resultSet) throws Exception{
 		this.exr_seq = resultSet.getInt("exr_seq");
-		this.cal_seq = resultSet.getInt("cal_seq");
-		this.cal_date = resultSet.getTimestamp("cal_date");
+		this.exr_date = resultSet.getTimestamp("exr_date");
 		this.user_seq = resultSet.getInt("user_seq");
 		this.exr_memo = resultSet.getString("exr_memo");
 		this.exr_how = resultSet.getInt("exr_how");
@@ -33,12 +31,13 @@ public class ExerciseDTO {
 		this.inbody_sm = resultSet.getString("inbody_sm");
 	}	
 
-	public ExerciseDTO(int exr_seq, int cal_seq, Timestamp cal_date, int user_seq, String exr_memo, int exr_how,
+
+	public ExerciseDTO(int exr_seq, Timestamp exr_date, int user_seq, String exr_memo, int exr_how,
+
 			String exr_intensity, String inbody_weight, String inbody_bfm, String inbody_bmi, String inbody_sm) {
 		super();
 		this.exr_seq = exr_seq;
-		this.cal_seq = cal_seq;
-		this.cal_date = cal_date;
+		this.exr_date = exr_date;
 		this.user_seq = user_seq;
 		this.exr_memo = exr_memo;
 		this.exr_how = exr_how;
@@ -54,17 +53,11 @@ public class ExerciseDTO {
 	public void setExr_seq(int exr_seq) {
 		this.exr_seq = exr_seq;
 	}
-	public int getCal_seq() {
-		return cal_seq;
+	public Timestamp getExr_date() {
+		return exr_date;
 	}
-	public void setCal_seq(int cal_seq) {
-		this.cal_seq = cal_seq;
-	}
-	public Timestamp getCal_date() {
-		return cal_date;
-	}
-	public void setCal_date(Timestamp cal_date) {
-		this.cal_date = cal_date;
+	public void setExr_date(Timestamp exr_date) {
+		this.exr_date = exr_date;
 	}
 	public int getUser_seq() {
 		return user_seq;

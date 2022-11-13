@@ -40,7 +40,7 @@ public class HostUserController extends ControllerAbs {
         case "/admin.host":
         	request.getSession().invalidate();
         	request.getSession().setAttribute("admin", true);
-        	response.sendRedirect("/index.jsp");
+        	response.sendRedirect("/host/host.jsp");
         	break;
         
         //관리자 페이지 일반회원목록 출력
@@ -121,6 +121,8 @@ public class HostUserController extends ControllerAbs {
 
         BsUsersDAO bsDao = BsUsersDAO.getInstance();
         String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
+        
+        
 
 
         List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);

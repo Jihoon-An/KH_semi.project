@@ -11,7 +11,8 @@
 
     <div class="containerbox">
         <section>
-            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post" enctype="multipart/form-data">
+            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post"
+                  enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
 
@@ -189,7 +190,6 @@
                 </div>
 
                 <hr class="line2">
-
             </form>
         </section>
 
@@ -201,8 +201,8 @@
 <script>
 
     // 별점 무조건 선택해야 submit 되기
-    function checkSubmit(){
-        if(!$("input[name=review_star]").is(":checked")) {
+    function checkSubmit() {
+        if (!$("input[name=review_star]").is(":checked")) {
             Swal.fire({
                 icon: 'error',
                 title: '별점 미선택',
@@ -211,7 +211,7 @@
             })
             return false;
         }
-        if($("#review_contents").html()=="") {
+        if ($("#review_contents").val() == "") {
             Swal.fire({
                 icon: 'error',
                 title: '리뷰 미입력',
@@ -220,11 +220,33 @@
             })
             return false;
         }
+
+        if (!response($("#review_contents").val())){
+            return false;
+        }
+    }
+
+    // 리뷰 글쓰기에 욕설 필터링
+    function response(msg) {
+        var words = ["씨발","시발","ㅅㅂ","tq","병신","멍청이","바보",
+            "새끼","미친","존나","좆같네","좆같다","지랄","염병","썅"];
+
+        for (let n = 0; n < words.length; n++) {
+            if (msg.includes(words[n])) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '필터 감지',
+                    text: words[n] + ' 해당 단어는 사용 불가입니다',
+                    confirmButtonText: '확인'
+                })
+                return false;
+            }
+        }
         return true;
     }
 
     // 취소버튼 뒤로가기
-    $("#btn_cancle").on("click", ()=> {
+    $("#btn_cancle").on("click", () => {
         history.back();
     })
 
@@ -339,11 +361,16 @@
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
 
-        var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+        var reg = /(.*?)\/(jpg|jpeg|png|bmp|gif|pdf)$/;
 
         filesArr.forEach(function (f) {
             if (!f.type.match(reg)) {
-                alert("확장자는 이미지 확장자만 가능합니다.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '이미지 업로드 불가',
+                    text: '이미지 파일만 업로드 가능합니다.',
+                    confirmButtonText: '확인'
+                })
                 return;
             }
 

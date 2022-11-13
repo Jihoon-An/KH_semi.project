@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/api/jquery-ui/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <script src="/api/jquery-ui/images"></script>
+    
 
     <!-- Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -75,8 +75,6 @@
     <link rel="stylesheet" href="/css/users-mypage.css" type="text/css">
     <link rel="stylesheet" href="/css/users.css" type="text/css">
     <link rel="stylesheet" href="/css/bs.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-user.css" type="text/css">
-    <link rel="stylesheet" href="/css/host-bsuser.css" type="text/css">
     <link rel="stylesheet" href="/css/bs-page.css" type="text/css">
     <link rel="stylesheet" href="/css/personal-record.css" type="text/css">
     <link rel="stylesheet" href="/css/review.css" type="text/css">
@@ -168,6 +166,22 @@
             $("#loginModal").attr("style", "display:inline-flex");
             $("#login_bs").attr("checked", true);
         }
+    }
+
+    function getDateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+        minute = minute >= 10 ? minute : '0' + minute;
+        second = second >= 10 ? second : '0' + second;
+
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
     }
 
 </script>

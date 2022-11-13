@@ -82,9 +82,13 @@ public class GymController extends ControllerAbs {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
 
 
+        //리뷰, 좋아요
         ReviewDAO reviewDao = ReviewDAO.getInstance();
+        //시설 테이블
         GymDAO gymDao = GymDAO.getInstance();
+        //즐겨찾기 테이블
         FavoritesDAO favDao = FavoritesDAO.getInstance();
+        //시설 필터 출력
         GymFilterDAO filterDao = GymFilterDAO.getInstance();
    //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
        
@@ -93,13 +97,18 @@ public class GymController extends ControllerAbs {
         System.out.println(check);
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
+        System.out.println(reviewDto);
+        
+       
+       
+        
         GymFilterDTO gymFilterDtO = filterDao.selectByGymSeq(gym_seq);
 
         GymDTO gymDto = gymDao.printGym(gym_seq);
 
 
         if (request.getSession().getAttribute("userSeq") == null) {//로그아웃 상태라면 건너뒤기
-            request.setAttribute("favresult", "check");
+            request.setAttribute("favresult", "chk");
         } else {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
@@ -191,7 +200,7 @@ public class GymController extends ControllerAbs {
         ReviewDTO review = new ReviewDTO(request);
         ReviewDAO.getInstance().writeReview(review);
         int gymSeq = review.getGym_seq();
-        response.sendRedirect("/gym/gym-detail.jsp?gym_seq="+gymSeq);
+        response.sendRedirect("/detail.gym?gym_seq="+gymSeq);
     }
 
 

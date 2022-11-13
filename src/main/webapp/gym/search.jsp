@@ -52,7 +52,7 @@
 				</div>
 				<div class="search_sub_filter">
 					<div class="search_tag_icon" style="margin-left: 37px;">
-						<img src="/resource/filter.png" alt="">
+						<img src="/resource/img/filter.png" alt="">
 					</div>
 					<div class="search_tag" id="openTagDiv" style="margin-left: 5px;">
 						<label for="filter_open" class="filter_open filter">#24시간</label>
@@ -137,12 +137,20 @@
 				});
 			</script>
 
+			
 
 			<c:forEach var="gymList" items="${gymList}" varStatus="status">
 				<div class="gym_list">
 					<div class="gym_list_logo">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk-2OF05AQfP8ncj64XfrCoQ3TNBJ-r0xjzQ&usqp=CAU">
+						<c:choose>
+							<c:when test="${not empty gymList.gym_main_sysImg}">
+								<img src="/resource/gym/default06.png">
+							</c:when>
+							<c:otherwise>
+								<img class="mainImg" src="">
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 					<div class="gym_list_article">
 						<div class="gym_list_title">
@@ -184,6 +192,23 @@
 				</div>				
 			</c:forEach>
 			
+			<script>
+				var imgArray = new Array();
+					imgArray[0] = "/resource/gym/default01.png";
+					imgArray[1] = "/resource/gym/default02.png";
+					imgArray[2] = "/resource/gym/default03.png"
+					imgArray[3] = "/resource/gym/default04.png";
+					
+				function showImage(){
+					var imgNum = Math.round(Math.random()*3);
+					const mainImg = document.getElementsByClassName("mainImg");
+					for(var i = 0; i <= mainImg.length; i++){
+						mainImg[i].src = imgArray[imgNum];
+					}
+				}
+
+				showImage();
+			</script>
 		</div>
 	</div>
 	<script>
@@ -211,7 +236,8 @@
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
         
 		
-  
+
+
 		
 		function createMarker(name, x, y){
 			var positions =
