@@ -1,75 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ include file="/host/host-header.jsp"%>
+<%@ include file="/host/host-header.jsp" %>
 
-<!-- Search main -->
-<main id="host-bsuser" style="margin: 0 auto">
+<main id="host-review" style="margin: 0 auto">
 
     <form action="" id="frm">
 
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
                 <!-- 검색분류 -->
-                <select name="type" id="select" class="select_box">
-                    <option value="board_title" selected>이름검색</option>
+                <select name="type" id="select">
+                    <option value="board_title" selected>리뷰내용</option>
+                    <option value="board_writer">작성자이메일</option>
+                    <option value="board_writer">인증여부</option>
                 </select>
 
-                <input type="text" placeholder="검색어를 입력해주세요" name="inputT" id="inputText">
-                <button class="btn_search" role="button" type="button" id="btn_searchh">검색</button>
+                <input type="text" placeholder="검색어를 입력해주세요" name="search" id="search">
+                <button class="btn_search" role="button" type="button" id="searchBtn">검색</button>
             </div>
         </div>
 
 
         <div class="btn_function_box">
-            <button class="btn_function" role="button" type="button" class="btn_base deleteuser" id="btn_dell">삭제하기
+            <button class="btn_function" role="button">인증확인</button>
+            <button class="btn_function" role="button" type="button" id="btn_del">삭제하기
             </button>
         </div>
 
 
         <div class="board_list containerbox">
             <div class="board_title_row d-flex flex-row">
-                <div class="checkbox p-1"><input type="checkbox" name="userchkAll" id="allcheck"
+                <div class="checkbox p-1"><input type="checkbox" name="reviewAll" id="allcheck"
                                                  onclick="checkAll();"></div>
-                <div class="bsuser-seq p-1">회원번호</div>
-                <div class="bsuser_email p-1">회원이메일</div>
-                <div class="bsuser-name p-1">이름</div>
-                <div class="bsuser-phone p-1">연락처</div>
-                <div class="gym-count p-1">시설갯수</div>
-                <div class="bssign-date p-1">가입일</div>
+                <div class="review_seq p-1">번호</div>
+                <div class="gym_name p-1">시설명</div>
+                <div class="user_email p-1">이메일</div>
+                <div class="review_contents p-1">리뷰내용</div>
+                <div class="review_star p-1">별점</div>
+                <div class="review_like p-1">추천수</div>
+                <div class="review_photo p-1">인증여부</div>
+                <div class="review_date p-1">작성날짜</div>
             </div>
 
             <c:choose>
-                <c:when test="${not empty bsUserList}">
-                    <c:forEach var="u" items="${bsUserList}">
+                <c:when test="${not empty list}">
+                    <!-- 비어있지 않다면 -->
+                    <c:forEach var="i" items="${list}">
                         <div class="board_row d-flex flex-row">
-                            <div class="checkbox p-1"><input type="checkbox" name="bsuser" value="${u.bs_seq}"
-                                                             class="check"></div>
-                            <div class="bsuser-seq p-1">
+                            <div class="checkbox p-1"><input type="checkbox" name="reviewEach" class="check" value="${i.review_seq}"></div>
+                            <div class="review_seq p-1">
                                 <span class="position-relative">
-                                    ${u.bs_seq }
+                                    ${i.review_seq}
                                     <!-- 날짜 계산 -->
                                     <jsp:useBean id="now" class="java.util.Date"/>
                                     <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${u.bs_signup.time / (1000*60*60*24)}" integerOnly="true"
+                                    <fmt:parseNumber value="${i.review_writer_date.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="dbDtParse" scope="request"/>
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
                                     <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
                                           class="translate-middle badge rounded-pill bg-danger animate__animated animate__flash animate__infinite">
-                                        <span style="position: absolute; top: 4px; left: 4px">NEW</span>
+                                        <span style="position: absolute; top: 2px; left: 4px">NEW</span>
                                     </span>
                                     </c:if>
                                 </span>
                             </div>
-                            <div class="bsuser_email p-1">${u.bs_email}</div>
-                            <div class="bsuser-name p-1">${u.bs_name}</div>
-                            <div class="bsuser-phone p-1">${u.bs_phone}</div>
-                            <div class="gym-count p-1">${countGym.gymcount}</div>
-                            <div class="bssign-date p-1">
-                                <fmt:formatDate value="${u.bs_signup}" type="both" dateStyle="short" timeStyle="short" />
+                            <div class="gym_name p-1">${i.gym_name}</div>
+                            <div class="user_email p-1">${i.users_email}</div>
+                            <div class="review_contents p-1">${i.review_contents}</div>
+                            <div class="review_star p-1" style="font-size: 10px;">
+                                <c:if test="${i.review_star == 1}">★</c:if>
+                                <c:if test="${i.review_star == 2}">★★</c:if>
+                                <c:if test="${i.review_star == 3}">★★★</c:if>
+                                <c:if test="${i.review_star == 4}">★★★★</c:if>
+                                <c:if test="${i.review_star == 5}">★★★★★</c:if>
+                            </div>
+                            <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span></div>
+                            <div class="review_photo p-1">
+                                <c:if test="${i.review_photo !=null}">미인증</c:if>
+                            </div>
+                            <div class="review_date p-1">
+                                <fmt:formatDate value="${i.review_writer_date}" type="both" dateStyle="short" timeStyle="short"/>
                             </div>
                         </div>
 
@@ -85,13 +99,17 @@
             <div style="margin-top: 20px">
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
-                        ${bsUserNavi}
+                        ${navi}
                     </ul>
                 </nav>
             </div>
         </div>
-
     </form>
+
+    <div id="img_layout" onclick='ViewLayerClose()'>
+        <img src="/resource/img/main.jpg" style="width: 100%; height: 100%">
+    </div>
+
 </main>
 
 
@@ -101,11 +119,19 @@
     // null 값은 빈값으로 나오기
 
 
+
+
+
+
+
     // 텍스트 클릭하면 이미지 보기 창 새로 뜨기
     function ViewLayer() {
         //클릭시 이미지 주소 바꾸는 함수 짜기 /resource/img/main.jpg
         ok();
     }
+
+
+
 
     function ok() {
         if (document.getElementById("Pop").style.display == "none") {
@@ -119,92 +145,82 @@
         document.getElementById("Pop").style.display = 'none'
     }
 
-
-
     // 페이지 선택 확인용
-    $(function(){
-        $("#li_review").css("color","#ffe92d")
+    $(function () {
+        $("#li_review").css("color", "#ffe92d")
     });
 
     // 엔터 = 버튼 클릭
-    $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+    $("#search").on("keyup", (e) => {
+        if (e.keyCode == 13) {
+            $("#searchBtn").click()
+        }
+    });
 
-
-
-    <!-- 전체 선택, 해제 -->
+    // 전체 선택, 해제
     function checkAll() {
-        if($("#allcheck").is(':checked')) {
-            $("input[name=bsuser]").prop("checked", true);
+        if ($("#allcheck").is(':checked')) {
+            $("input[name=reviewEach]").prop("checked", true);
         } else {
-            $("input[name=bsuser]").prop("checked", false);
+            $("input[name=reviewEach]").prop("checked", false);
         }
     }
 
-    <!-- 전체 체크중 하나 체크 취소하면 전체체크 풀림-->
-    $(document).on("click", "input:checkbox[name=bsuser]", function(e) {
-
-        var chks = document.getElementsByName("bsuser");
+    // 전체 체크중 하나 체크 취소하면 전체체크 풀림
+    $(document).on("click", "input:checkbox[name=reviewEach]", function (e) {
+        var chks = document.getElementsByName("reviewEach");
         var chksChecked = 0;
 
-        for(var i=0; i<chks.length; i++) {
+        for (var i = 0; i < chks.length; i++) {
             var cbox = chks[i];
 
-            if(cbox.checked) {
+            if (cbox.checked) {
                 chksChecked++;
             }
         }
-
-        if(chks.length == chksChecked){
+        if (chks.length == chksChecked) {
             $("#allcheck").prop("checked", true);
-        }else{
-            $("#allcheck").prop("checked",false);
+        } else {
+            $("#allcheck").prop("checked", false);
         }
-
     });
 
 
-    <!-- 사업자 회원 검색-->
-    $("#btn_searchh").on("click", function click(){
-        let input = $("#inputText").val();
-
-        if(input==""){
-            alert("입력된 내용이 없습니다");
+    // 리뷰 검색
+    $("#searchBtn").on("click", function click() {
+        let input = $("#search").val();
+        if (input == "") {
+            Swal.fire({
+                icon: 'error',
+                title: '검색어 누락',
+                text: '입력된 내용이 없습니다',
+                confirmButtonText: '확인'
+            })
             return false;
-        }else{
-
-            $("#frm").attr("action", "/bsUserSearch.host")
+        } else {
+            $("#frm").attr("action", "/reviewSearch.host")
             $("#frm").submit();
         }
-
     })
 
 
-
-    //사업자 회원 삭제
-    $("#btn_dell").on("click", function(){
-        var userseq = [];
-
-        console.log(document.querySelectorAll(".check:checked")[0].value)
-
-        let a = document.querySelectorAll(".check:checked")
-        for(let i = 0; i<a.length; i++){
-            console.log(a[i]);
-            userseq.push(a[i].value);
-
+    // 리뷰 삭제
+    $("#btn_del").on("click", function () {
+        var reviewSeq = [];
+        let checked = document.querySelectorAll(".check:checked");
+        for (let i = 0; i < checked.length; i++) {
+            reviewSeq.push(checked[i].value);
         }
-        console.log(userseq)
-
         $.ajax({
-            url : "/bsUsersDel.host",
-            type:"post",
-
-            data:{"userseq":JSON.stringify(userseq)},
-            success: function (data){
+            url: "/reviewDel.host",
+            type: "post",
+            data: {"review_seq": JSON.stringify(reviewSeq)},
+            success: function (data) {
                 location.reload();
             }
-
         })
     })
+
 </script>
 
-<%@ include file="/host/host-footer.jsp"%>
+<%@ include file="/host/host-footer.jsp" %>

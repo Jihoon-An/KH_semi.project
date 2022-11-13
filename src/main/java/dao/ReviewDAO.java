@@ -323,7 +323,7 @@ public class ReviewDAO extends Dao {
     }
 
     public void deleteByGymSeq(int gymSeq) throws Exception {
-        String sql = "delete from raview where gym_seq = ?";
+        String sql = "delete from review where gym_seq = ?";
 
         try (Connection con = this.getConnection();
              PreparedStatement statement = con.prepareStatement(sql)) {
@@ -335,121 +335,61 @@ public class ReviewDAO extends Dao {
         }
     }
 
-//
-//    public int delete(int seq) throws Exception {
-//
-//        String sql = "delete from board where seq= ?";
-//
-//        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-//
-//            pstat.setInt(1, seq);
-//
-//            int result = pstat.executeUpdate();
-//            con.commit();
-//
-//            return result;
-//        }
-//    }
-
-    public int modifyBySeq(String title, String contents, int seq) throws Exception {
-        String sql = "update board set title=?, contents=? where seq=?";
-
-        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-
-            pstat.setString(1, title);
-            pstat.setString(2, contents);
-            pstat.setInt(3, seq);
-
-            int result = pstat.executeUpdate();
-            con.commit();
-
-            return result;
-
-        }
-    }
 
 
     public String getPageNavi(int currentPage) throws Exception {
-
         int recordTotalCount = this.getRecordCount();
-
-        int recordCountPerPage = 10; // 게시판 한 페이지당 10개의 글씩 보여주기로 설정
-        int naviCountPerPage = 10; // 게시판 하단의 Page Navigator 가 한번에 몇 개씩 보여질지 설정
-
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
         int pageTotalCount = 0;
-
         if (recordTotalCount % recordCountPerPage > 0) {
             pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
-
         } else {
             pageTotalCount = (recordTotalCount / recordCountPerPage);
         }
-
-
         if (currentPage < 1) {
             currentPage = 1;
         }
-
         if (currentPage > pageTotalCount) {
             currentPage = pageTotalCount;
         }
-
         int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
-
         int endNavi = startNavi + naviCountPerPage - 1;
-
         if (endNavi > pageTotalCount) {
             endNavi = pageTotalCount;
         }
-
-        System.out.println("현재 페이지 : " + currentPage);
-        System.out.println("네비게이터 시작 : " + startNavi);
-        System.out.println("네비게이터 끝 : " + endNavi);
-
         boolean needPrev = true;
         boolean needNext = true;
-
         if (startNavi == 1) {
             needPrev = false;
         }
-
         if (endNavi == pageTotalCount) {
             needNext = false;
         }
-
-
-        StringBuilder sb = new StringBuilder(); // 문자열 연결해주는 용도로 사용하는 클래스이다.
-
+        StringBuilder sb = new StringBuilder();
         if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (startNavi - 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
         }
-
         for (int i = startNavi; i <= endNavi; i++) {
-
             if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             }
-
         }
-
         if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (endNavi + 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
         }
-
-
         return sb.toString();
-
     }
 
     // 게시글의 개수를 반환하는 코드 짜기
     private int getRecordCount() throws Exception {
-        String sql = "select count(*) from board";
+        String sql = "select count(*) from review";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery()) {
@@ -458,39 +398,25 @@ public class ReviewDAO extends Dao {
         }
     }
 
-
     public List<ReviewDTO> selectByRange(int start, int end) throws Exception {
-        // int start, int end 는 행번호이다. seq 번호가 아니다.
-
-
-        String sql = "select * from (select board.*, row_number() over(order by seq desc) rn from board) where rn between ? and ?";
-
+        String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review) where rn between ? and ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
-
             pstat.setInt(1, start);
             pstat.setInt(2, end);
 
             try (ResultSet rs = pstat.executeQuery();) {
-
                 List<ReviewDTO> list = new ArrayList<>();
 
                 while (rs.next()) {
-
-                    ReviewDTO dto = new ReviewDTO();
-
-//                    dto.setSeq(rs.getInt("seq"));
-//                    dto.setWriter(rs.getString("writer"));
-//                    dto.setTitle(rs.getString("title"));
-//                    dto.setContents(rs.getString("contents"));
-//                    dto.setWrite_date(rs.getTimestamp("write_date"));
-//                    dto.setView_count(rs.getInt("view_count"));
+                    ReviewDTO dto = new ReviewDTO(rs);
+                    dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
+                    dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
                     list.add(dto);
-
                 }
-
                 return list;
             }
         }
     }
+
 }
