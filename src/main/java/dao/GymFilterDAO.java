@@ -30,8 +30,11 @@ public class GymFilterDAO extends Dao {
         String sql = "insert into gym_filter (gym_seq) values(?)";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
             pstat.setInt(1, gym_seq);
+
+            int result = pstat.executeUpdate();
             con.commit();
-            return pstat.executeUpdate();
+
+            return result;
         }
     }
 

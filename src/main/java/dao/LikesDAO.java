@@ -91,6 +91,9 @@ public class LikesDAO extends Dao {
              PreparedStatement statement = con.prepareStatement(sql)) {
 
             statement.setInt(1, gymSeq);
+            statement.executeUpdate();
+
+            con.commit();
         }
     }
 }

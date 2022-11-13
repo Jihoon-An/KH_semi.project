@@ -93,7 +93,7 @@
                             시설관리
                         </div>
                     </a></li>
-                    <li><a class="a_tag" href="/host/host-review.jsp">
+                    <li><a class="a_tag" href="/reviewList.host?cpage=1">
                         <div class="d-flex justify-content-start" id="li_review">
                             <div class="i_margin"><i class="fa-regular fa-pen-to-square"></i></div>
                             리뷰관리

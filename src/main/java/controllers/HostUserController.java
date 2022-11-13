@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InterruptedNamingException;
@@ -77,18 +78,47 @@ public class HostUserController extends ControllerAbs {
                 // 관리자페이지 - 리뷰목록 출력
                 case "/reviewList.host":
 					int cpage = Integer.parseInt(request.getParameter("cpage"));
-					List<ReviewDTO> list = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
-					request.setAttribute("list", list);
-					String navi = ReviewDAO.getInstance().getPageNavi(cpage);
-					request.setAttribute("navi", navi);
+					List<ReviewDTO> reviewList = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+					request.setAttribute("list", reviewList);
+					String reviewNavi = ReviewDAO.getInstance().getPageNavi(cpage, ReviewDAO.getInstance().getRecordCount());
+					request.setAttribute("navi", reviewNavi);
 					request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
 					break;
 
-                // 관리자페이지 - 리뷰관리 리뷰 삭제
-                case "/delReview.userMyPage":
-                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
+                // 관리자페이지 - 리뷰관리 리뷰삭제
+                case "/reviewDel.host":
+                    String jsonstr = request.getParameter("review_seq");
+                    Gson gson = new Gson();
+                    java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+                    List<Integer> seqList = gson.fromJson(jsonstr, type);
+                    for(int i = 0; i < seqList.size(); i++) {
+                        ReviewDAO.getInstance().deleteByReviewSeq((seqList.get(i)));
+                    }
                     break;
 
+                // 관리자페이지 - 리뷰관리 검색기능
+                case "/reviewSearch.host":
+                    int cpageSearch = 1;
+                    String typeSearch = request.getParameter("type");
+                    String searchStr = request.getParameter("search");
+                    int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
+                    String reviewSearchNavi = null;
+                    System.out.println("확인1");
+                    System.out.println(typeSearch);
+                    if (typeSearch.equals("select_email")) {
+                        System.out.println("이메일 보이기");
+                        List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
+                        request.setAttribute("list", emailList);
+                        reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
+                    } else if (typeSearch.equals("select_contents")) {
+                        System.out.println("컨텐츠 보이기");
+                    } else if (typeSearch.equals("select_photo")) {
+                        System.out.println("인증 보이기");
+                    }
+                    System.out.println("확인2");
+                    request.setAttribute("navi", reviewSearchNavi);
+                    request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+                    break;
 
                 default:
                     break;
@@ -130,9 +160,12 @@ public class HostUserController extends ControllerAbs {
         String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
 
 
-        List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
-
-
+       // List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
+       List<HashMap<String, Object>> bsUserList = bsDao.selectByRange(cpage * 10 - 9, cpage * 10);
+        // List<HashMap<String, Object>> countGym =bsDao.countGymByseq();
+      //  System.out.println(countGym);
+        
+       // request.setAttribute("countGym", countGym);
         request.setAttribute("bsUserList", bsUserList);
         request.setAttribute("bsUserNavi", bsUsersNavi); //네비바
         request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
@@ -144,8 +177,7 @@ public class HostUserController extends ControllerAbs {
 
         String text = request.getParameter("inputT");
         BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
-        List<BsUsersDTO> bsUserDto = bsUserDao.search(text);
-
+        List<HashMap<String, Object>> bsUserDto = bsUserDao.search(text);
         System.out.println(bsUserDto);
 
         request.setAttribute("bsUserList", bsUserDto); //user
@@ -164,8 +196,7 @@ public class HostUserController extends ControllerAbs {
         System.out.println(jsonstr);
 
         Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {
-        }.getType();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
 
 
         List<Integer> seqList = gson.fromJson(jsonstr, type);
@@ -187,8 +218,7 @@ public class HostUserController extends ControllerAbs {
         System.out.println(jsonstr);
 
         Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {
-        }.getType();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
         List<Integer> seqList = gson.fromJson(jsonstr, type);
         System.out.println(seqList);
 

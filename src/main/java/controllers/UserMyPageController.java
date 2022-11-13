@@ -49,6 +49,8 @@ public class UserMyPageController extends ControllerAbs {
                 //회원 탈퇴
                 case "/signDown.userMyPage":
                     this.signDown(request, response);
+                    // 로그아웃
+                    request.getSession().removeAttribute("userSeq");
                     response.sendRedirect("/");
                     break;
                 //즐겨찾기 삭제
@@ -156,8 +158,6 @@ public class UserMyPageController extends ControllerAbs {
     protected void signDown(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // userSeq 받아오기
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
-        // 로그아웃
-        request.getSession().removeAttribute("userSeq");
         // 프사지우기
         String path = "/resource/profile"; //런타임 webapp 폴더를 불러옴.
         String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);

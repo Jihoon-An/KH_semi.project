@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.DataInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,11 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
 public class ReviewDAO extends Dao {
+
 
     private ReviewDAO() {
     }
@@ -37,6 +36,7 @@ public class ReviewDAO extends Dao {
      */
     public List<HashMap<String, Object>> printReivew(int gym_seq) throws Exception {
 
+
         String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
@@ -51,21 +51,7 @@ public class ReviewDAO extends Dao {
                 while (rs.next()) {
                     HashMap<String, Object> data = new HashMap<>();
                     ReviewDTO dto = new ReviewDTO();
-//					dto.setReview_seq(rs.getInt("review_seq"));
-//					dto.setUser_seq(rs.getInt("user_seq"));
-//					dto.setGym_seq(rs.getInt("gym_seq"));
-//					dto.setBs_seq(rs.getInt("bs_seq"));
-//					dto.setReview_writer(rs.getString("review_writer"));
-//					dto.setReview_contents(rs.getString("review_contents"));
-//					dto.setReview_like(rs.getInt("review_like")); 
-//					dto.setReview_star(rs.getInt("review_star"));
-//					dto.setReview_writer_date(rs.getTimestamp("review_writer_date"));
-//					dto.setReview_check1(rs.getString("review_check1"));
-//					dto.setReview_check2(rs.getString("review_check2"));
-//					dto.setReview_check3(rs.getString("review_check3"));
-//					dto.setReview_check4(rs.getString("review_check4"));
-//					dto.setReview_check5(rs.getString("review_check5"));
-//					dto.setReview_photo(rs.getString("review_photo"));
+
 
                     data.put("review", new ReviewDTO(rs));
                     data.put("liked", rs.getString("liked_user_seq"));
@@ -103,8 +89,6 @@ public class ReviewDAO extends Dao {
                     date.put("check3", rs.getString("check3"));
                     date.put("check4", rs.getString("check4"));
                     date.put("check5", rs.getString("check5"));
-
-
                 }
                 return date;
             }
@@ -120,7 +104,7 @@ public class ReviewDAO extends Dao {
      * <p>
      * 좋아요 클릭시 리뷰 1 증가 계정당 1회
      *
-     * @param dto
+     * @param
      * @return
      * @th)rows Exception
      */
@@ -335,21 +319,21 @@ public class ReviewDAO extends Dao {
         }
     }
 
-//
-//    public int delete(int seq) throws Exception {
-//
-//        String sql = "delete from board where seq= ?";
-//
-//        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
-//
-//            pstat.setInt(1, seq);
-//
-//            int result = pstat.executeUpdate();
-//            con.commit();
-//
-//            return result;
-//        }
-//    }
+
+    public int delete(int seq) throws Exception {
+
+        String sql = "delete from board where seq= ?";
+
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setInt(1, seq);
+
+            int result = pstat.executeUpdate();
+            con.commit();
+
+            return result;
+        }
+    }
 
     public int modifyBySeq(String title, String contents, int seq) throws Exception {
         String sql = "update board set title=?, contents=? where seq=?";
@@ -368,129 +352,143 @@ public class ReviewDAO extends Dao {
         }
     }
 
+	// User_seq로 검색한 총 게시글의 개수를 반환하는 코드
+	public int getRecordCountByUserSeq(int user_seq) throws Exception {
+		String sql = "select count(*) from review where user_seq = ?";
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);
+			 ResultSet rs = pstat.executeQuery()) {
+			pstat.setInt(1, user_seq);
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
 
-    public String getPageNavi(int currentPage) throws Exception {
+	// 리뷰 총 게시글의 개수를 반환하는 코드
+	public int getRecordCount() throws Exception {
+		String sql = "select count(*) from review";
+		try (Connection con = this.getConnection();
+			 PreparedStatement pstat = con.prepareStatement(sql);
+			 ResultSet rs = pstat.executeQuery()) {
+			rs.next();
+			return rs.getInt(1);
+		}
+	}
 
-        int recordTotalCount = this.getRecordCount();
 
-        int recordCountPerPage = 10; // 게시판 한 페이지당 10개의 글씩 보여주기로 설정
-        int naviCountPerPage = 10; // 게시판 하단의 Page Navigator 가 한번에 몇 개씩 보여질지 설정
-
+	// 페이지 네비
+	public String getPageNavi(int currentPage, int recordTotalCount) throws Exception {
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
         int pageTotalCount = 0;
-
         if (recordTotalCount % recordCountPerPage > 0) {
             pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
-
         } else {
             pageTotalCount = (recordTotalCount / recordCountPerPage);
         }
-
-
         if (currentPage < 1) {
             currentPage = 1;
         }
-
         if (currentPage > pageTotalCount) {
             currentPage = pageTotalCount;
         }
-
         int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
-
         int endNavi = startNavi + naviCountPerPage - 1;
-
         if (endNavi > pageTotalCount) {
             endNavi = pageTotalCount;
         }
-
-        System.out.println("현재 페이지 : " + currentPage);
-        System.out.println("네비게이터 시작 : " + startNavi);
-        System.out.println("네비게이터 끝 : " + endNavi);
-
         boolean needPrev = true;
         boolean needNext = true;
-
         if (startNavi == 1) {
             needPrev = false;
         }
-
         if (endNavi == pageTotalCount) {
             needNext = false;
         }
-
-
-        StringBuilder sb = new StringBuilder(); // 문자열 연결해주는 용도로 사용하는 클래스이다.
-
+        StringBuilder sb = new StringBuilder();
         if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (startNavi - 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
         }
-
         for (int i = startNavi; i <= endNavi; i++) {
-
             if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/list.board?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
                         + "</a></li>");
             }
-
         }
-
         if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/list.board?cpage=" + (endNavi + 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
         }
-
-
         return sb.toString();
-
-    }
-
-    // 게시글의 개수를 반환하는 코드 짜기
-    private int getRecordCount() throws Exception {
-        String sql = "select count(*) from board";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1);
-        }
     }
 
 
     public List<ReviewDTO> selectByRange(int start, int end) throws Exception {
-        // int start, int end 는 행번호이다. seq 번호가 아니다.
-
-
-        String sql = "select * from (select board.*, row_number() over(order by seq desc) rn from board) where rn between ? and ?";
-
+        String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review) where rn between ? and ?";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
-
             pstat.setInt(1, start);
             pstat.setInt(2, end);
 
             try (ResultSet rs = pstat.executeQuery();) {
-
                 List<ReviewDTO> list = new ArrayList<>();
 
                 while (rs.next()) {
-
-                    ReviewDTO dto = new ReviewDTO();
-
-//                    dto.setSeq(rs.getInt("seq"));
-//                    dto.setWriter(rs.getString("writer"));
-//                    dto.setTitle(rs.getString("title"));
-//                    dto.setContents(rs.getString("contents"));
-//                    dto.setWrite_date(rs.getTimestamp("write_date"));
-//                    dto.setView_count(rs.getInt("view_count"));
+                    ReviewDTO dto = new ReviewDTO(rs);
+                    dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
+                    dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
                     list.add(dto);
-
                 }
-
                 return list;
             }
         }
     }
+
+
+    public List<ReviewDTO> selectByUserSeqByRange(int user_seq, int start, int end) throws Exception {
+        String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review where user_seq = ?) where rn between ? and ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setInt(1, user_seq);
+            pstat.setInt(2, start);
+            pstat.setInt(3, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<ReviewDTO> list = new ArrayList<>();
+
+                while (rs.next()) {
+                    ReviewDTO dto = new ReviewDTO(rs);
+                    dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
+                    dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
+                    list.add(dto);
+                }
+                return list;
+            }
+        }
+    }
+
+
+    public List<ReviewDTO> search(String text) throws Exception {
+        String sql = "select * from review where bs_name like ?";
+
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setString(1, "%" + text + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<ReviewDTO> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(new ReviewDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
+
 }
