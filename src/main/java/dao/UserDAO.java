@@ -8,6 +8,7 @@ import java.util.List;
 
 import commons.Common;
 import dto.BsUsersDTO;
+import dto.GymDTO;
 import dto.UserDTO;
 
 public class UserDAO extends Dao {
@@ -424,14 +425,16 @@ public class UserDAO extends Dao {
      */
     public UserDTO searchUserByUserEmail(String users_email) throws Exception {
         String sql = "select * from users where users_email like ? order by 1";
-
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
-
             pstat.setString(1, "%" + users_email + "%");
             try (ResultSet rs = pstat.executeQuery();) {
-                UserDTO dto = new UserDTO();
-                return dto;
+                if (rs.next()) {
+                    UserDTO dto = new UserDTO(rs);
+                    return dto;
+                } else {
+                    return new UserDTO();
+                }
             }
         }
     }

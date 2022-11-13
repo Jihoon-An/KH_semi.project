@@ -130,11 +130,9 @@ nav > ul > li > ul > li {
 }
 
 
-
-
 a{
     text-decoration:none;
-    color: #C7D3DC;
+    cursor: pointer;
 }
 
 a:hover{

@@ -34,7 +34,7 @@
                 <div class="checkbox p-1"><input type="checkbox" name="userchkAll" id="allcheck"
                                                  onclick="checkAll();"></div>
                 <div class="bsuser-seq p-1">회원번호</div>
-                <div class="bsuser_email p-1">회원이메일</div>
+                <div class="bsuser-email p-1">회원이메일</div>
                 <div class="bsuser-name p-1">이름</div>
                 <div class="bsuser-phone p-1">연락처</div>
                 <div class="gym-count p-1">시설갯수</div>
@@ -43,7 +43,7 @@
 
             <c:choose>
                 <c:when test="${not empty bsUserList}">
-                    <c:forEach var="u" items="${bsUserList}" >
+                    <c:forEach var="u" items="${bsUserList}">
                         <div class="board_row d-flex flex-row">
                             <div class="checkbox p-1"><input type="checkbox" name="bsuser" value="${u.bsuser.bs_seq}"
                                                              class="check"></div>
@@ -64,7 +64,7 @@
                                     </c:if>
                                 </span>
                             </div>
-                            <div class="bsuser_email p-1">${u.bsuser.bs_email}</div>
+                            <div class="bsuser-email p-1">${u.bsuser.bs_email}</div>
                             <div class="bsuser-name p-1">${u.bsuser.bs_name}</div>
                             <div class="bsuser-phone p-1">${u.bsuser.bs_phone}</div>
     
