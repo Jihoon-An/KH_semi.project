@@ -28,10 +28,10 @@
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
 											name="searchInput">
-										<input type="hidden" value="none" name="open_result">
-										<input type="hidden" value="none" name="locker_result">
-										<input type="hidden" value="none" name="shower_result">
-										<input type="hidden" value="none" name="park_result">
+										<input type="hidden" value="false" name="open_result">
+										<input type="hidden" value="false" name="locker_result">
+										<input type="hidden" value="false" name="shower_result">
+										<input type="hidden" value="false" name="park_result">
 									</div>
 									<i class="fa-solid fa-magnifying-glass" id="btn_search" onclick="$('#form_search').submit();"></i>
 								</div>
@@ -46,7 +46,7 @@
 
 					<!-- Review Carousel -->
 					<section class="row justify-content-center review">
-						<p class="text-start text_title col-12 mt-5 mb-5">Best User Reviews</p>
+						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Best User Reviews</p>
 
 						<div class="col-12 carousel">
 							<div class="prevBox">
@@ -83,7 +83,7 @@
 
 					<!-- Image Section -->
 					<section class="row justify-content-evenly preview mb-5">
-						<p class="text-start text_title col-12 mt-5 mb-5">Image Preview</p>
+						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Image Preview</p>
 
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
@@ -132,21 +132,21 @@
 
 					<!-- Banner Section -->
 					<section class="row justify-content-evenly ads mb-5">
-						<p class="text-start text_title col-12 mt-5 mb-5">Recommended Items</p>
+						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Recommended Items</p>
 
-						<div class="col-6 gy-5">
-							<div class="banner">배너</div>
+						<div class="col-6">
+							<div class="banner"><img src="/resource/img/banner_img1.jpg"></div>
+						</div>
+						<div class="col-6">
+							<div class="banner"><img src="/resource/img/banner_img2.jpg"></div>
 						</div>
 						<div class="col-6 gy-5">
-							<div class="banner">배너</div>
+							<div class="banner"><img src="/resource/img/banner_img3.jpg"></div>
 						</div>
 						<div class="col-6 gy-5">
-							<div class="banner">배너</div>
+							<div class="banner"><img src="/resource/img/banner_img4.jpg"></div>
 						</div>
-						<div class="col-6 gy-5">
-							<div class="banner">배너</div>
-						</div>
-
+						<div class="mt-5 mb-5"></div>
 					</section>
 				</div>
 			</main>

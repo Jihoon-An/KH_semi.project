@@ -5,7 +5,7 @@
 	padding: 10px;
 }
 
-#personal-record .row:not(.containerbox) div[class^='col']>div {
+#personal-record .boundary {
 	padding: 10px;
 	border: solid #808080 1px;
 	border-radius: 6px;
@@ -49,9 +49,16 @@
 
 #personal-record #result_contents {
 	position: relative;
-	top: 50%;
-	transform: translate(0, -50%);
 }
+
+#personal-record #result_contents p {
+	margin: 0px;
+}
+
+#personal-record #result_contents div[class^="col"] {
+	padding-bottom: 0px;
+}
+
 
 #personal-record .filter {
 	position: absolute;
