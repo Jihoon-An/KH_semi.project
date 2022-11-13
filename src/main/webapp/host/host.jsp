@@ -116,5 +116,11 @@
 
 </main>
 
+<script>
+    // 페이지 선택 확인용
+    $(function(){
+        $("#adminText").css("color","#ffe92d")
+    });
+</script>
 
 <%@ include file="/host/host-footer.jsp" %>
