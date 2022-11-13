@@ -148,8 +148,7 @@ public class HostUserController extends ControllerAbs {
 
         String text = request.getParameter("inputT");
         BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
-        List<BsUsersDTO> bsUserDto = bsUserDao.search(text);
-
+        List<HashMap<String, Object>> bsUserDto = bsUserDao.search(text);
         System.out.println(bsUserDto);
 
         request.setAttribute("bsUserList", bsUserDto); //user

@@ -106,7 +106,7 @@
 
 
     // 엔터 = 버튼 클릭
-    $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+   // $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
 
 
 
