@@ -261,7 +261,7 @@ public class HostUserController extends ControllerAbs {
         request.setAttribute("users", newUsersList);
         request.setAttribute("bsUsers", newBsUsersList);
         request.setAttribute("gym", newGymList);
-        request.setAttribute("review", newReviewList);
+        request.setAttribute("review", newReviewList); 
     }
 
 }
