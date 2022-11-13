@@ -24,7 +24,7 @@
 
 
         <div class="btn_function_box">
-            <button class="btn_function" role="button" type="button" class="btn_base deleteuser" id="btn_dell">삭제하기
+            <button class="btn_function" role="button" type="button" id="btn_dell">삭제하기
             </button>
         </div>
 
@@ -43,33 +43,35 @@
 
             <c:choose>
                 <c:when test="${not empty bsUserList}">
-                    <c:forEach var="u" items="${bsUserList}">
+                    <c:forEach var="u" items="${bsUserList}" >
                         <div class="board_row d-flex flex-row">
-                            <div class="checkbox p-1"><input type="checkbox" name="bsuser" value="${u.bs_seq}"
+                            <div class="checkbox p-1"><input type="checkbox" name="bsuser" value="${u.bsuser.bs_seq}"
                                                              class="check"></div>
                             <div class="bsuser-seq p-1">
                                 <span class="position-relative">
-                                    ${u.bs_seq }
+                                    ${u.bsuser.bs_seq }
                                     <!-- 날짜 계산 -->
                                     <jsp:useBean id="now" class="java.util.Date"/>
                                     <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${u.bs_signup.time / (1000*60*60*24)}" integerOnly="true"
+                                    <fmt:parseNumber value="${u.bsuser.bs_signup.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="dbDtParse" scope="request"/>
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
                                     <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
                                           class="translate-middle badge rounded-pill bg-danger animate__animated animate__flash animate__infinite">
-                                        <span style="position: absolute; top: 4px; left: 4px">NEW</span>
+                                        <span style="position: absolute; top: 2px; left: 4px">NEW</span>
                                     </span>
                                     </c:if>
                                 </span>
                             </div>
-                            <div class="bsuser_email p-1">${u.bs_email}</div>
-                            <div class="bsuser-name p-1">${u.bs_name}</div>
-                            <div class="bsuser-phone p-1">${u.bs_phone}</div>
-                            <div class="gym-count p-1">${countGym.gymcount}</div>
+                            <div class="bsuser_email p-1">${u.bsuser.bs_email}</div>
+                            <div class="bsuser-name p-1">${u.bsuser.bs_name}</div>
+                            <div class="bsuser-phone p-1">${u.bsuser.bs_phone}</div>
+    
+                            <div class="gym-count p-1">${u.count}</div>
+            
                             <div class="bssign-date p-1">
-                                <fmt:formatDate value="${u.bs_signup}" type="both" dateStyle="short" timeStyle="short" />
+                                <fmt:formatDate value="${u.bsuser.bs_signup}" type="both" dateStyle="short" timeStyle="short" />
                             </div>
                         </div>
 
@@ -104,7 +106,7 @@
 
 
     // 엔터 = 버튼 클릭
-    $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+   // $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
 
 
 

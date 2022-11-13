@@ -1,40 +1,51 @@
 @charset "utf-8";
 
 
+#host-review #search {
+    width: 650px;
+    height: 40px;
+    padding: 0 10px;
+    position: relative;
+    left: -4px;
+    font-size: 16px;
+}
 
+#host-review .board_row {
+    font-size: 13px;
+}
 
-.review_seq{
-    width: 70px
+#host-review .review_seq{
+    width: 50px
 }
 #host-review .user_email{
     width: 220px
 }
-.gym_name{
-    width: 160px
+#host-review .gym_name{
+    width: 170px
 }
-.review_contents{
-    width: 296px;
+#host-review .review_contents{
+    width: 330px;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
-.review_star{
-    width: 100px
+#host-review .review_star{
+    width: 60px;
 }
-.review_like{
+#host-review .review_like{
     width: 90px;
 }
 
-.review_like>span{
+#host-review .review_like>span{
     position: relative;
     top:-3px;
 }
 
-.review_date{
-    width: 110px
+#host-review .review_date{
+    width: 140px
 }
-.review_photo{
-    width: 110px
+#host-review .review_photo{
+    width: 70px
 }
 
 

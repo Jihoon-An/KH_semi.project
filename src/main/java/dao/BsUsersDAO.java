@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 import commons.Common;
 import dto.BsUsersDTO;
+import dto.ReviewDTO;
 
 public class BsUsersDAO extends Dao {
 
@@ -45,23 +47,32 @@ public class BsUsersDAO extends Dao {
 
     /**
      * <h1>관리자 사업자 회원 페이지 회원 검색</h1>
-     *
+     * 시설갯수 출력과 함께하기위한 쿼리
      * @param name
      * @return
      * @throws Exception
      */
-    public List<BsUsersDTO> search(String name) throws Exception {
-        String sql = "select * from bs_users where bs_name like ?";
+
+    public List<HashMap<String, Object>> search(String name) throws Exception {
+        String sql = "      select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq) "
+        		+ "g on b.bs_seq = g.bs_seq where gym_count is not null and bs_name like ?";
         try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-        ) {
-            pstat.setString(1, "%" + name + "%");
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+
+        	pstat.setString(1, "%" + name + "%");
+          	List<HashMap<String, Object>> list = new ArrayList<>();
             try (ResultSet rs = pstat.executeQuery();) {
-                List<BsUsersDTO> list = new ArrayList<>();
+             
+                
                 while (rs.next()) {
-                    list.add(new BsUsersDTO(rs));
+                	HashMap<String, Object> data = new HashMap<>();
+                
+                    data.put("bsuser", new BsUsersDTO(rs));
+                    data.put("count", rs.getString("gym_count"));
+                    
+                    list.add(data);
                 }
-                return list;
+               return list;
             }
         }
     }
@@ -101,14 +112,7 @@ public class BsUsersDAO extends Dao {
         }
     }
 
-    /**
-     * 시설갯수
-     * 
-     */
-//    public int countGymByBsSeq(int seq)  throws Exception{
-//    	String sql = "    public\r\n"
-//    			+ "    select count(*) from gym where bs_seq = ?"
-//    }
+   
     
     /**
      * 삭제기능
@@ -226,29 +230,34 @@ public class BsUsersDAO extends Dao {
         }
     }
 
-    // 아래로 네비바 로직
-    public List<BsUsersDTO> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select  * from (select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) where rn between ? and ?";
+    
+    public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
+        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
+        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, start);
             pstat.setInt(2, end);
 
+        	List<HashMap<String, Object>> list = new ArrayList<>();
             try (ResultSet rs = pstat.executeQuery();) {
-
-                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
-
+            
                 while (rs.next()) {
+                	HashMap<String, Object> data = new HashMap<>();
 
-                    // 하나의 dto만 나오기떄문에 while문 필요x
+                    data.put("bsuser", new BsUsersDTO(rs));
+                    data.put("count", rs.getString("gym_count"));
 
-                    list.add(new BsUsersDTO(rs));
+                   
+                	list.add(data);
                 }
                 return list;
             }
 
         }
     }
+    
+    // 아래로 네비바 로직
 
     public int getRecordCount() throws Exception { // 게시글 갯수반환
         String sql = "select count(*) from bs_users";
@@ -323,23 +332,23 @@ public class BsUsersDAO extends Dao {
 
         StringBuilder sb = new StringBuilder();
 
-        if (needPrev) { // 왼쪽 화살표가 필요한 상황이면
+        if (needPrev) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
-            // System.out.println("<");
-        } // 이전페이지
-
-        for (int i = startNavi; i <= endNavi; i++) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + i + "'>" + i
-                    + "</a></li>");
-            // System.out.println(i+" ");
         }
-
+        for (int i = startNavi; i <= endNavi; i++) {
+            if (currentPage == i) {
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/bsUserList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            } else {
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/bsUserList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            }
+        }
         if (needNext) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
-            // System.out.println(">");
-        } // 다음페이지
+        }
 
         return sb.toString();
         /*

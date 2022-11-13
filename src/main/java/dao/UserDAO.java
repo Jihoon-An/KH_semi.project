@@ -382,23 +382,23 @@ public class UserDAO extends Dao {
 
         StringBuilder sb = new StringBuilder();
 
-        if (needPrev) { // 왼쪽 화살표가 필요한 상황이면
+        if (needPrev) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
-            // System.out.println("<");
-        } // 이전페이지
-
-        for (int i = startNavi; i <= endNavi; i++) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + i + "'>" + i
-                    + "</a></li>");
-            // System.out.println(i+" ");
         }
-
+        for (int i = startNavi; i <= endNavi; i++) {
+            if (currentPage == i) {
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/usersList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            } else {
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/usersList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            }
+        }
         if (needNext) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/usersList.host?cpage=" + (endNavi + 1)
                     + "'>Next</a></li>");
-            // System.out.println(">");
-        } // 다음페이지
+        }
 
         return sb.toString();
         /*
