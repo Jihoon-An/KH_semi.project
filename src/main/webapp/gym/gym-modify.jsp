@@ -210,19 +210,19 @@
                             </div>
 
                             <div class="row px-2">
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img1">
                                         <img src="/resource/gym/default04.png">
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img2">
                                         <img src="/resource/gym/default04.png">
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img3">
                                         <img src="/resource/gym/default04.png">
                                     </label>
@@ -230,19 +230,19 @@
                                 </div>
                             </div>
                             <div class="row px-2">
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img4">
                                         <img src="/resource/gym/default04.png">
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img5">
                                         <img src="/resource/gym/default04.png">
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
-                                <div class="col-4 p-1 border">
+                                <div class="col-4 p-1">
                                     <label class="gym_img" for="gym_img6">
                                         <img src="/resource/gym/default04.png">
                                     </label>
@@ -565,6 +565,15 @@
             });
 
         }
+
+
+
+
+
+
+
+
+
 
 
 
