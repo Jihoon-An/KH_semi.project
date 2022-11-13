@@ -75,9 +75,12 @@
 					<button class="btn_base" type="button" id="btn_search">찾기</button>
 				</div>
 				<div class="col-12 gy-1">
-					<input class="form-check-input" type="checkbox" id="searchPw_bs">
-					<label class="form-check-label" for="searchPw_bs"
-						style="color: #404040; font-size: 14px; letter-spacing: -1px;">사업자 입니다.</label>
+					<div class="checkbox-bsLogin">
+						<label class="form-check-label" for="searchPw_bs" style="color: #404040; font-size: 14px; letter-spacing: -1px;">
+						<input class="form-check-input" type="checkbox" id="searchPw_bs">
+						<span class="checkbox__label"></span>
+							사업자 입니다.</label>
+					</div>
 				</div>
 				<div class="col-12 gy-3">
 					<a style="color: #808080" onclick="toBackward()">Back</a>
