@@ -413,4 +413,31 @@ public class UserDAO extends Dao {
         // 게시글의 갯수 / 한페이지당 보여줄게시글+1=전체페에지 갯수
 
     }
+
+
+    /**
+     * 유저이메일 일부만 검색해서 유저테이블 내용 찾기
+     *
+     * @param users_email
+     * @return
+     * @throws Exception
+     */
+    public UserDTO searchUserByUserEmail(String users_email) throws Exception {
+        String sql = "select * from users where users_email like ? order by 1";
+
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setString(1, "%" + users_email + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                UserDTO dto = new UserDTO();
+                return dto;
+            }
+        }
+    }
+
+
+
+
+
 }

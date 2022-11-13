@@ -78,10 +78,10 @@ public class HostUserController extends ControllerAbs {
                 // 관리자페이지 - 리뷰목록 출력
                 case "/reviewList.host":
 					int cpage = Integer.parseInt(request.getParameter("cpage"));
-//					List<ReviewDTO> list = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
-//					request.setAttribute("list", list);
-//					String navi = ReviewDAO.getInstance().getPageNavi(cpage);
-				//	request.setAttribute("navi", navi);
+					List<ReviewDTO> reviewList = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+					request.setAttribute("list", reviewList);
+					String reviewNavi = ReviewDAO.getInstance().getPageNavi(cpage, ReviewDAO.getInstance().getRecordCount());
+					request.setAttribute("navi", reviewNavi);
 					request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
 					break;
 
@@ -96,8 +96,28 @@ public class HostUserController extends ControllerAbs {
                     }
                     break;
 
-                // 관리자페이지 - 리뷰관리 리뷰검색
+                // 관리자페이지 - 리뷰관리 검색기능
                 case "/reviewSearch.host":
+                    int cpageSearch = 1;
+                    String typeSearch = request.getParameter("type");
+                    String searchStr = request.getParameter("search");
+                    int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
+                    String reviewSearchNavi = null;
+                    System.out.println("확인1");
+                    System.out.println(typeSearch);
+                    if (typeSearch.equals("select_email")) {
+                        System.out.println("이메일 보이기");
+                        List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
+                        request.setAttribute("list", emailList);
+                        reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
+                    } else if (typeSearch.equals("select_contents")) {
+                        System.out.println("컨텐츠 보이기");
+                    } else if (typeSearch.equals("select_photo")) {
+                        System.out.println("인증 보이기");
+                    }
+                    System.out.println("확인2");
+                    request.setAttribute("navi", reviewSearchNavi);
+                    request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
                     break;
 
                 default:

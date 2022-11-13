@@ -13,9 +13,9 @@
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
                 <!-- 검색분류 -->
                 <select name="type" id="select">
-                    <option value="board_title" selected>리뷰내용</option>
-                    <option value="board_writer">작성자이메일</option>
-                    <option value="board_writer">인증여부</option>
+                    <option value="select_contents" selected>리뷰내용</option>
+                    <option value="select_email">작성자이메일</option>
+                    <option value="select_photo">인증여부</option>
                 </select>
 
                 <input type="text" placeholder="검색어를 입력해주세요" name="search" id="search">
@@ -120,17 +120,11 @@
 
 
 
-
-
-
-
     // 텍스트 클릭하면 이미지 보기 창 새로 뜨기
     function ViewLayer() {
         //클릭시 이미지 주소 바꾸는 함수 짜기 /resource/img/main.jpg
         ok();
     }
-
-
 
 
     function ok() {
@@ -144,6 +138,11 @@
     function ViewLayerClose() {
         document.getElementById("Pop").style.display = 'none'
     }
+
+
+
+
+
 
     // 페이지 선택 확인용
     $(function () {
@@ -185,10 +184,10 @@
         }
     });
 
-
     // 리뷰 검색
     $("#searchBtn").on("click", function click() {
         let input = $("#search").val();
+        let select = $("#select option:selected").val();
         if (input == "") {
             Swal.fire({
                 icon: 'error',
@@ -198,8 +197,24 @@
             })
             return false;
         } else {
-            $("#frm").attr("action", "/reviewSearch.host")
-            $("#frm").submit();
+            if(select == "select_contents") { //리뷰내용
+
+                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
+                $("#frm").submit();
+            } else if (select == "select_email") { // 작성자이메일
+
+                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
+                $("#frm").submit();
+            } else if (select == "select_photo") { // 인증여부
+
+                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
+                $("#frm").submit();
+            }
+
+            $("#select option:selected").val() == "select_email"
+            $("#select option:selected").val() == "select_photo"
+
+
         }
     })
 
