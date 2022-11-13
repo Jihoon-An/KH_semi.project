@@ -60,7 +60,7 @@
     <header id="nav">
             <div class="logoDiv">
                 <a class="a_tag" href="/admin.host"><h2 class="logo">Fitneeds</h2>
-                    <h2 class="logo">ADMIN</h2></a>
+                    <h2 class="logo" id="adminText">ADMIN</h2></a>
             </div>
             <nav>
                 <ul>
@@ -86,26 +86,24 @@
                             </a></li>
                         </ul>
                     <li>
-
-
-                    <li><a class="a_tag" href="/admin.host">
+                    <!-- <li><a class="a_tag" href="/admin.host">
                         <div class="d-flex justify-content-start" id="li_gym">
                             <div class="i_margin"><i class="fa-solid fa-building"></i></div>
                             시설관리
                         </div>
-                    </a></li>
+                    </a></li> -->
                     <li><a class="a_tag" href="/reviewList.host?cpage=1">
                         <div class="d-flex justify-content-start" id="li_review">
                             <div class="i_margin"><i class="fa-regular fa-pen-to-square"></i></div>
                             리뷰관리
                         </div>
                     </a></li>
-                    <li><a class="a_tag" href="/admin.host">
+                    <!-- <li><a class="a_tag" href="/admin.host">
                         <div class="d-flex justify-content-start">
                             <div class="i_margin"><i class="fa-solid fa-rectangle-ad"></i></div>
                             광고관리
                         </div>
-                    </a></li>
+                    </a></li> -->
                 </ul>
             </nav>
     </header>
