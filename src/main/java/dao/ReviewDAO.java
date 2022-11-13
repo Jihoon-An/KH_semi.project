@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.DataInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import dto.FavoritesDTO;
 import dto.GymDTO;
 import dto.ReviewDTO;
 
@@ -336,9 +334,32 @@ public class ReviewDAO extends Dao {
     }
 
 
+    // 리뷰 총 게시글의 개수를 반환하는 코드
+    public int getRecordCount() throws Exception {
+        String sql = "select count(*) from review";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+             ResultSet rs = pstat.executeQuery()) {
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
 
-    public String getPageNavi(int currentPage) throws Exception {
-        int recordTotalCount = this.getRecordCount();
+    // User_seq로 검색한 총 게시글의 개수를 반환하는 코드
+    public int getRecordCountByUserSeq(int user_seq) throws Exception {
+        String sql = "select count(*) from review where user_seq = ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+             ResultSet rs = pstat.executeQuery()) {
+            pstat.setInt(1, user_seq);
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
+
+
+    // 페이지 네비
+    public String getPageNavi(int currentPage, int recordTotalCount) throws Exception {
         int recordCountPerPage = 10;
         int naviCountPerPage = 10;
         int pageTotalCount = 0;
@@ -387,16 +408,6 @@ public class ReviewDAO extends Dao {
         return sb.toString();
     }
 
-    // 게시글의 개수를 반환하는 코드 짜기
-    private int getRecordCount() throws Exception {
-        String sql = "select count(*) from review";
-        try (Connection con = this.getConnection();
-             PreparedStatement pstat = con.prepareStatement(sql);
-             ResultSet rs = pstat.executeQuery()) {
-            rs.next();
-            return rs.getInt(1);
-        }
-    }
 
     public List<ReviewDTO> selectByRange(int start, int end) throws Exception {
         String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review) where rn between ? and ?";
@@ -413,6 +424,49 @@ public class ReviewDAO extends Dao {
                     dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
                     dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
                     list.add(dto);
+                }
+                return list;
+            }
+        }
+    }
+
+
+    public List<ReviewDTO> selectByUserSeqByRange(int user_seq, int start, int end) throws Exception {
+        String sql = "select * from (select review.*, row_number() over(order by review_seq desc) rn from review where user_seq = ?) where rn between ? and ?";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+
+            pstat.setInt(1, user_seq);
+            pstat.setInt(2, start);
+            pstat.setInt(3, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<ReviewDTO> list = new ArrayList<>();
+
+                while (rs.next()) {
+                    ReviewDTO dto = new ReviewDTO(rs);
+                    dto.setUsers_email(UserDAO.getInstance().selectBySeq(dto.getUser_seq()).getEmail());
+                    dto.setGym_name(GymDAO.getInstance().printGym(dto.getGym_seq()).getGym_name());
+                    list.add(dto);
+                }
+                return list;
+            }
+        }
+    }
+
+
+
+    public List<ReviewDTO> search(String text) throws Exception{
+        String sql = "select * from review where bs_name like ?";
+
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setString(1, "%" + text + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<ReviewDTO> list = new ArrayList<>();
+                while (rs.next()) {
+                    list.add(new ReviewDTO(rs));
                 }
                 return list;
             }

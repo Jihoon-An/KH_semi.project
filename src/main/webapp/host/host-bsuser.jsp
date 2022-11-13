@@ -67,7 +67,7 @@
                             <div class="bsuser_email p-1">${u.bs_email}</div>
                             <div class="bsuser-name p-1">${u.bs_name}</div>
                             <div class="bsuser-phone p-1">${u.bs_phone}</div>
-                            <div class="gym-count p-1">${countGym.gymcount}</div>
+                            <div class="gym-count p-1">${u.gym_count}</div>
                             <div class="bssign-date p-1">
                                 <fmt:formatDate value="${u.bs_signup}" type="both" dateStyle="short" timeStyle="short" />
                             </div>

@@ -13,6 +13,10 @@ public class BsUsersDTO {
 	private String bs_phone;
 	private Timestamp bs_signup;
 
+
+
+	private int gym_count;
+
 	public int getBs_seq() {
 		return bs_seq;
 	}
@@ -89,9 +93,16 @@ public class BsUsersDTO {
 		this.bs_name = resultSet.getString("bs_name");
 		this.bs_phone = resultSet.getString("bs_phone");
 		this.bs_signup = resultSet.getTimestamp("bs_signup");
-
 	}
 
 	public BsUsersDTO() {
+	}
+
+	public void setGym_count(int gym_count) {
+		this.gym_count = gym_count;
+	}
+
+	public int getGym_count() {
+		return gym_count;
 	}
 }

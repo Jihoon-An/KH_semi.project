@@ -9,6 +9,7 @@ import java.util.List;
 
 import commons.Common;
 import dto.BsUsersDTO;
+import dto.ReviewDTO;
 
 public class BsUsersDAO extends Dao {
 
@@ -240,9 +241,10 @@ public class BsUsersDAO extends Dao {
 
                 while (rs.next()) {
 
-                    // 하나의 dto만 나오기떄문에 while문 필요x
+                    BsUsersDTO dto = new BsUsersDTO(rs);
+                    dto.setGym_count(GymDAO.getInstance().countGymBySeq(rs.getInt("bs_seq")));
+                    list.add(dto);
 
-                    list.add(new BsUsersDTO(rs));
                 }
                 return list;
             }

@@ -240,7 +240,22 @@ public class GymDAO extends Dao {
             con.commit();
         }
     }
+
+    public int countGymBySeq(int bs_seq) throws Exception {
+        String sql = "select COUNT(*) as gym_count from gym where bs_seq = ?";
+
+        int rowCnt = 0;
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setInt(1, bs_seq);
+            try (ResultSet rs = pstat.executeQuery();) {
+                if (rs.next()) {
+                    rowCnt = rs.getInt(1);
+                }
+            }
+        }
+        return rowCnt;
+    }
+
 }
-
-
-
