@@ -11,8 +11,7 @@ body {
 }
 
 header {
-    height: 100%;
-    min-height: 950px;
+    height: 100vh;
     background: #001A41;
 }
 

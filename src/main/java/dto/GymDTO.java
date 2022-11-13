@@ -1,5 +1,8 @@
 package dto;
 
+import com.oreilly.servlet.MultipartRequest;
+import commons.FileControl;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
@@ -29,6 +32,25 @@ public class GymDTO {
         this.gym_close = gym_close;
         this.gym_x = gym_x;
         this.gym_y = gym_y;
+    }
+
+    public GymDTO(FileControl file) {
+        MultipartRequest multi = file.getMulti();
+        String gym_address1 = multi.getParameter("gym_address1");
+        String gym_address2 = multi.getParameter("gym_address2");
+        String gym_location = gym_address1 + " " + gym_address2;
+
+        this.gym_seq = Integer.parseInt(multi.getParameter("gymSeq"));;
+        this.bs_seq = Integer.parseInt(multi.getParameter("bsSeq"));;
+        this.gym_name = multi.getParameter("gym_name");;
+        this.gym_phone = multi.getParameter("gym_phone");;
+        this.gym_location = gym_location;
+        this.gym_price = multi.getParameter("gym_price");;
+        this.gym_main_sysImg = file.getSysNameList().get(0);
+        this.gym_open = multi.getParameter("gym_open");;
+        this.gym_close = multi.getParameter("gym_close");;
+        this.gym_x = multi.getParameter("gym_x");;
+        this.gym_y = multi.getParameter("gym_y");;
     }
 
     public GymDTO(HttpServletRequest request) {

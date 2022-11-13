@@ -121,6 +121,11 @@
 
 
 
+    // 페이지 선택 확인용
+    $(function(){
+        $("#li_review").css("color","#ffe92d")
+    });
+
     // 엔터 = 버튼 클릭
     $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
 

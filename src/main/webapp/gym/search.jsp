@@ -137,7 +137,9 @@
 				});
 			</script>
 
-			
+			<c:if test="${empty gymList}">
+				<div class="nullListBox">" 그딴 곳은 없어 씨발새끼야 "</div>
+			</c:if>
 
 			<c:forEach var="gymList" items="${gymList}" varStatus="status">
 				<div class="gym_list">
@@ -181,9 +183,6 @@
 								<div class="gym_list_tag park btn_base">#주차장</div>
 							</c:if>
 							
-							
-							
-							
 							<input type="hidden" class="gym_list_x" value="${gymList.gym_x}">
 							<input type="hidden" class="gym_list_y" value="${gymList.gym_y}">
 							<input type="hidden" class="gym_list_name" value="${gymList.gym_name}">
@@ -214,6 +213,11 @@
 	<script>
 		let main_x = "${gymList[0].gym_x}";
 		let main_y = "${gymList[0].gym_y}";
+
+		if(! main_x || ! main_y){
+			main_x= "37.56795117442769";
+			main_y= "126.98314567042291";
+		}
 		
 		var markers = [];
 		
@@ -247,7 +251,7 @@
 				}
 			
 			// 마커 이미지의 이미지 주소입니다
-			var imageSrc = "/resource/ping.png"; 
+			var imageSrc = "/resource/img/ping.png";
 				
 				
 				// 마커 이미지의 이미지 크기 입니다
