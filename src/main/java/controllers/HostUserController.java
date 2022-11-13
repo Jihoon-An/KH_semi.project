@@ -35,7 +35,6 @@ public class HostUserController extends ControllerAbs {
         String uri = request.getRequestURI();
 
         try {
-
             switch (uri) {
 
                 // 관리자 임시 로그인용
@@ -47,88 +46,160 @@ public class HostUserController extends ControllerAbs {
 
                 //관리자 페이지 일반회원목록 출력
                 case "/usersList.host":
-
                     this.getUserList(request, response);
                     break;
+
                 //관리자 페이지 일반회원 검색
                 case "/userSearch.host":
-
                     this.getUserSearch(request, response);
                     break;
+
                 //관리자 페이지 사업자회원 출력
                 case "/bsUserList.host":
                     this.getBsUserList(request, response);
                     break;
 
-
                 //관리자 사업자 회원 페이지 검색
                 case "/bsUserSearch.host":
                     this.getBsSearch(request, response);
                     break;
+
                 //관리자 페이지 회원 삭제
                 case "/usersDel.host":
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
                     this.userDel(request, response);
                     break;
+
                 //관리자 페이지 사업자회원 삭제
                 case "/bsUsersDel.host":
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
                     this.bsUserDel(request, response);
                     break;
 
-
                 // 관리자페이지 - 리뷰목록 출력
                 case "/reviewList.host":
-					int cpage = Integer.parseInt(request.getParameter("cpage"));
-					List<ReviewDTO> reviewList = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
-					request.setAttribute("list", reviewList);
-					String reviewNavi = ReviewDAO.getInstance().getPageNavi(cpage, ReviewDAO.getInstance().getRecordCount());
-					request.setAttribute("navi", reviewNavi);
-					request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+                    this.getReviewList(request, response);
 					break;
-
-                // 관리자페이지 - 리뷰관리 리뷰삭제
-                case "/reviewDel.host":
-                    String jsonstr = request.getParameter("review_seq");
-                    Gson gson = new Gson();
-                    java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
-                    List<Integer> seqList = gson.fromJson(jsonstr, type);
-                    for(int i = 0; i < seqList.size(); i++) {
-                        ReviewDAO.getInstance().deleteByReviewSeq((seqList.get(i)));
-                    }
-                    break;
 
                 // 관리자페이지 - 리뷰관리 검색기능
                 case "/reviewSearch.host":
-                    int cpageSearch = 1;
-                    String typeSearch = request.getParameter("type");
-                    String searchStr = request.getParameter("search");
-                    int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
-                    String reviewSearchNavi = null;
-                    System.out.println("확인1");
-                    System.out.println(typeSearch);
-                    if (typeSearch.equals("select_email")) {
-                        System.out.println("이메일 보이기");
-                        List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
-                        request.setAttribute("list", emailList);
-                        reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
-                    } else if (typeSearch.equals("select_contents")) {
-                        System.out.println("컨텐츠 보이기");
-                    } else if (typeSearch.equals("select_photo")) {
-                        System.out.println("인증 보이기");
+                    this.getReviewSearchList(request, response);
+                    break;
+
+                // 관리자페이지 - 리뷰관리 리뷰삭제
+                case "/reviewDel.host":
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
                     }
-                    System.out.println("확인2");
-                    request.setAttribute("navi", reviewSearchNavi);
-                    request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+                    this.reviewDel(request, response);
+                    break;
+
+                // 관리자페이지 - 리뷰관리 인증완료하기
+                case "/reviewCertify.host":
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.reviewCertify(request, response);
+                    break;
+
+                // 관리자페이지 - 리뷰관리 인증취소하기
+                case "/reviewCertifyCancle.host":
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.reviewCertifyCancle(request, response);
                     break;
 
                 default:
                     break;
             }
         } catch (Exception e) {
-
             e.printStackTrace();
         }
 
     }
+
+    private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int cpageSearch = 1;
+        String typeSearch = request.getParameter("type");
+        String searchStr = request.getParameter("search");
+        int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
+
+        String reviewSearchNavi = null;
+        if (typeSearch.equals("select_email")) {
+            List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
+            request.setAttribute("list", emailList);
+            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
+        } else if (typeSearch.equals("select_contents")) {
+            List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+            request.setAttribute("list", contentsList);
+            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
+        } else if (typeSearch.equals("select_photo")) {
+            if (searchStr.equals("인증완료") || searchStr.equals("인증실패")) {
+                // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+                request.setAttribute("list", contentsList);
+                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
+            } else { // 미인증 - 그 외는 null 값 아닌 애들 결과물만 전부 보여주기
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpageSearch * 10 - 9, cpageSearch * 10);
+                request.setAttribute("list", contentsList);
+                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByNotCertify());
+            }
+        }
+        request.setAttribute("navi", reviewSearchNavi);
+        request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+    }
+
+    private void getReviewList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
+        List<ReviewDTO> reviewList = ReviewDAO.getInstance().selectByRange(cpage*10-9,cpage*10);
+        request.setAttribute("list", reviewList);
+        String reviewNavi = ReviewDAO.getInstance().getPageNavi(cpage, ReviewDAO.getInstance().getRecordCount());
+        request.setAttribute("navi", reviewNavi);
+        request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
+    }
+
+    private void reviewDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String jsonstr = request.getParameter("review_seq");
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+        List<Integer> seqList = gson.fromJson(jsonstr, type);
+        for(int i = 0; i < seqList.size(); i++) {
+            ReviewDAO.getInstance().deleteByReviewSeq((seqList.get(i)));
+        }
+    }
+
+    private void reviewCertify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String jsonstr = request.getParameter("review_seq");
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+        List<Integer> seqList = gson.fromJson(jsonstr, type);
+        for(int i = 0; i < seqList.size(); i++) {
+            ReviewDAO.getInstance().certifyByReviewSeq((seqList.get(i)));
+        }
+    }
+
+    private void reviewCertifyCancle(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String jsonstr = request.getParameter("review_seq");
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+        List<Integer> seqList = gson.fromJson(jsonstr, type);
+        for(int i = 0; i < seqList.size(); i++) {
+            ReviewDAO.getInstance().certifyCancleByReviewSeq((seqList.get(i)));
+        }
+    }
+
+
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

@@ -33,7 +33,7 @@
                 <div class="checkbox p-1"><input type="checkbox" name="userchkAll" id="allcheck"
                                                    onclick="checkAll();"></div>
                 <div class="user-seq p-1">회원번호</div>
-                <div class="user_email p-1">회원이메일</div>
+                <div class="user-email p-1">회원이메일</div>
                 <div class="user-name p-1">이름</div>
                 <div class="user-phone p-1">연락처</div>
                 <div class="user-birth p-1">생년월일</div>
@@ -64,7 +64,7 @@
                                 </c:if>
                                 </span>
                             </div>
-                            <div class="user_email p-1">${u.email}</div>
+                            <div class="user-email p-1">${u.email}</div>
                             <div class="user-name p-1">${u.name}</div>
                             <div class="user-phone p-1">${u.phone}</div>
                             <div class="user-birth p-1">${u.birthday}</div>
