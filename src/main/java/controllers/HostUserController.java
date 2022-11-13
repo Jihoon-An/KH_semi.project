@@ -85,11 +85,20 @@ public class HostUserController extends ControllerAbs {
 					request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
 					break;
 
-                // 관리자페이지 - 리뷰관리 리뷰 삭제
-                case "/delReview.userMyPage":
-                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
+                // 관리자페이지 - 리뷰관리 리뷰삭제
+                case "/reviewDel.host":
+                    String jsonstr = request.getParameter("review_seq");
+                    Gson gson = new Gson();
+                    java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+                    List<Integer> seqList = gson.fromJson(jsonstr, type);
+                    for(int i = 0; i < seqList.size(); i++) {
+                        ReviewDAO.getInstance().deleteByReviewSeq((seqList.get(i)));
+                    }
                     break;
 
+                // 관리자페이지 - 리뷰관리 리뷰검색
+                case "/reviewSearch.host":
+                    break;
 
                 default:
                     break;
