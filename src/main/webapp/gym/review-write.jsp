@@ -11,8 +11,7 @@
 
     <div class="containerbox">
         <section>
-            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post"
-                  enctype="multipart/form-data">
+            <form action="" id="write_review_frm" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
 
@@ -186,7 +185,7 @@
 
                 <div class="d-flex justify-content-center" style="margin-top: 60px">
                     <button type="button" class="btn_outline" id="btn_cancle" style="font-size: 20px">등록 취소하기</button>
-                    <button class="btn_base" id="btn_write" style="font-size: 20px">리뷰 등록하기</button>
+                    <button class="btn_base" type="button" id="btn_write" style="font-size: 20px">리뷰 등록하기</button>
                 </div>
 
                 <hr class="line2">
@@ -201,7 +200,7 @@
 <script>
 
     // 별점 무조건 선택해야 submit 되기
-    function checkSubmit() {
+    $("#btn_write").on("click", function click() {
         if (!$("input[name=review_star]").is(":checked")) {
             Swal.fire({
                 icon: 'error',
@@ -210,8 +209,7 @@
                 confirmButtonText: '확인'
             })
             return false;
-        }
-        if ($("#review_contents").val() == "") {
+        } else if ($("#review_contents").val() == "") {
             Swal.fire({
                 icon: 'error',
                 title: '리뷰 미입력',
@@ -219,19 +217,26 @@
                 confirmButtonText: '확인'
             })
             return false;
-        }
-
-        if (!response($("#review_contents").val())){
+        } else if (!response($("#review_contents").val())) {
             return false;
+        } else {
+            Swal.fire({title: "Success!", icon: "success", text: "리뷰 작성을 완료하였습니다."})
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        $("#write_review_frm").attr("action", "/reviewWriting.gym");
+                        $("#write_review_frm").submit();
+                    }
+                });
         }
-    }
+    })
+
 
     // 리뷰 글쓰기에 욕설 필터링
     function response(msg) {
-        var words = ["씨발","시발","ㅅㅂ","tq","병신","멍청이","바보",
-            "새끼","미친","존나","좆같네","좆같다","지랄","염병","썅",
-            "개같은","새키","족같네","씨팔","죽어","죽여","자살","놈","년",
-            "씹","씨벌","개색기","종나","카악","퉤","퉷","족같네"];
+        var words = ["씨발", "시발", "ㅅㅂ", "tq", "병신", "멍청이", "바보",
+            "새끼", "미친", "존나", "좆같네", "좆같다", "지랄", "염병", "썅",
+            "개같은", "새키", "족같네", "씨팔", "죽어", "죽여", "자살", "놈", "년",
+            "씹", "씨벌", "개색기", "종나", "카악", "퉤", "퉷", "족같네"];
 
         for (let n = 0; n < words.length; n++) {
             if (msg.includes(words[n])) {
