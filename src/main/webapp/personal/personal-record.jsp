@@ -85,11 +85,11 @@
 												</div>
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_hour"
-														style="width:30px;" value="0"
-														oninput="validNaturalNumRange(24)" maxlength="2">시간&nbsp
+														style="width:30px;" value="0" oninput="validNaturalNumRange(24)"
+														maxlength="2">시간&nbsp
 													<input type="text" class="text-center" id="reg_minute"
-														style="width:30px;" value="0"
-														oninput="validNaturalNumRange(60)" maxlength="2">분
+														style="width:30px;" value="0" oninput="validNaturalNumRange(60)"
+														maxlength="2">분
 												</div>
 												<div class="col-5 text-end">
 													<p>운동 강도<sup style="color:white">*</sup></p>
@@ -196,7 +196,7 @@
 									$("#result_contents").empty();
 									let exrHow = ""
 									if (Number(res.record.exr_how) >= 60) {
-										exrHow += Math.floor(Number(res.record.exr_how / 60 )) + "시간"
+										exrHow += Math.floor(Number(res.record.exr_how / 60)) + "시간"
 										if (Number(res.record.exr_how % 60) != 0) {
 											exrHow += " " + Number(res.record.exr_how % 60) + "분"
 										}
@@ -205,9 +205,9 @@
 									}
 									let intens = ['최하', '하', '중', '상', '최상'];
 									let output = "<div class='col-5' style='padding:0px; background-color: #E8E8E8; border-radius:6px'><div class='row' style='padding:0px'><div class='col-12'>"
-										+"<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' style='height:100px'>"
-											+"<p>메모 내용 : " + res.record.exr_memo + "</p></div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
-												+"<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
+										+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' style='height:100px'>"
+										+ "<p>메모 내용 : " + res.record.exr_memo + "</p></div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
+										+ "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
 									$("#result_contents").html(output);
 									setRecordChart(res.recentRecord);
 								} else {
@@ -241,9 +241,9 @@
 						let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
 						let gap = (today.getTime() - new Date(recentRecord[recentRecord.length - 1].exr_date).getTime()) / 86400000;
 						let context;
-						if (gap >= 30) { context = "마지막 기록이 " + gap + "일 전? 운동 접었네 이 사람 😡"}
-						else if (gap >= 7) { context = "근손실이 오고 있어요. 기록이 작성된 지 " + gap + "일이 지났어요... 😭"}
-						else if (gap >= 1) { context = "기록이 작성된 지 " + gap + "일이 지났어요. 운동 후 기록 작성 잊지 말기! 😋"}
+						if (gap >= 30) { context = "마지막 기록이 " + gap + "일 전? 운동 접었네 이 사람 😡" }
+						else if (gap >= 7) { context = "근손실이 오고 있어요. 기록이 작성된 지 " + gap + "일이 지났어요... 😭" }
+						else if (gap >= 1) { context = "기록이 작성된 지 " + gap + "일이 지났어요. 운동 후 기록 작성 잊지 말기! 😋" }
 						else if (gap == 0) { context = "오늘 열심히 운동하셨군요. 앞으로도 화이팅!! 😊" }
 						$("#notice>p").text(context);
 					}
@@ -320,14 +320,14 @@
 							cancelButtonColor: '#3085d6',
 							confirmButtonText: '삭제',
 							cancelButtonText: '취소'
-							}).then((result) => {
-								if (result.isConfirmed) {
-									let data = {
+						}).then((result) => {
+							if (result.isConfirmed) {
+								let data = {
 									"date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))
-									}
-									$.post("/delRecord.personal", data).done(() => { onSelect();});
 								}
-							});
+								$.post("/delRecord.personal", data).done(() => { onSelect(); });
+							}
+						});
 					}
 
 					// 기록 차트 작성 함수 
@@ -335,7 +335,7 @@
 						let recordCtx = document.getElementById('recordChart').getContext('2d');
 						let arrDate = [];
 						let arrHow = [];
-						for (j=0; j< recentRecord.length; j++) {
+						for (j = 0; j < recentRecord.length; j++) {
 							arrDate.push(getDateFormat(new Date(recentRecord[j].exr_date)).slice(5, 10));
 							arrHow.push(recentRecord[j].exr_how);
 						}
@@ -352,7 +352,7 @@
 
 						let recordChart = new Chart(recordCtx, {
 							data: recordData,
-							options: { responsive: false, scales: {y: {beginAtZero: true}}}
+							options: { responsive: false, scales: { y: { beginAtZero: true } } }
 						});
 					}
 
@@ -376,18 +376,18 @@
 
 					$("#btn_regRecord").on("click", () => {
 						if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") { wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false; }
-						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) { 
+						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) {
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
-							if(today < $("#calendar").datepicker("getDate")) {
-								Swal.fire({icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.'});
+							if (today < $("#calendar").datepicker("getDate")) {
+								Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
 							} else if ($(".ui-state-active").text() == "🔥") {
-								Swal.fire({icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.'});
+								Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
 							} else {
-								tryRegist(); 
+								tryRegist();
 							}
 						}
 					});
-					
+
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
 					let inbodyChart = new Chart(inbodyCtx, {
