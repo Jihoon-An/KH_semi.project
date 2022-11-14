@@ -8,7 +8,7 @@
 <main id="host-user" style="margin: 0 auto">
 
     <form action="" id="frm">
-
+        <input type="hidden" value="1" name="cpage">
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
                 <!-- 검색분류 -->
@@ -16,7 +16,7 @@
                     <option value="board_title" selected>이름검색</option>
                 </select>
 
-                <input type="text" placeholder="검색어를 입력해주세요" name="inputName" id="inputText">
+                <input type="text" placeholder="검색어를 입력해주세요" name="inputName" id="inputText" value="${searchText}">
                 <button class="btn_search" role="button" type="button" id="btn_searchh">검색</button>
             </div>
         </div>
@@ -109,8 +109,8 @@
     $("#inputText").on("keydown",function(e){
         if (e.keyCode == 13) {
             $("#btn_searchh").trigger("click");
+            return false;
         }
-        return false;
     });
 
 
@@ -187,7 +187,7 @@
             })
             return false;
         } else {
-            $("#frm").attr("action", "/userSearch.host?cpage=1");
+            $("#frm").attr("action", "/userSearch.host");
             $("#frm").submit();
         }
     })
