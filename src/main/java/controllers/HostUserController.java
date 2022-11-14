@@ -132,7 +132,7 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int cpageSearch = 1; // 잘못짠거같음. 1-1 cpage만 나올 듯
+        int cpageSearch = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
         int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
