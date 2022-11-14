@@ -14,7 +14,7 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="text_title_600 boundary" id="notice">
-									<p>운동을 하지 않은지 30년 지났습니다.</p>
+									<p></p>
 								</div>
 							</div>
 						</div>
@@ -62,46 +62,6 @@
 											<div class="text_title col-12" id="result_title"
 												style="padding-bottom:10px"></div>
 											<div class="text_normal row justify-content-evenly" id="result_contents">
-												<!-- <c:choose>
-													<c:when test="${record == null}">
-														<div class="col-12 gy-5">
-															<label>데이터가 존재하지 않습니다.</label><br>
-															<button class="btn_outline" id="btn_showRecord"
-																onclick="showRecord()">등록하기</button>
-														</div>
-													</c:when>
-
-													<c:otherwise>
-														<div class="col-5"
-															style="padding:0px; background-color: #E8E8E8; border-radius:6px">
-															<div class="row" style="padding:0px">
-																<div class="col-12">
-																	<p>운동 기록</p>
-																</div>
-																<div class="col-12">
-																	<p>운동 시간 : ${record.exr_how}분&nbsp&nbsp/&nbsp&nbsp운동
-																		강도 : ${record.exr_intensity}</p>
-																</div>
-																<div class="col-12" style="height:100px">
-																	<p>메모 내용 : ${record.exr_memo}</p>
-																</div>
-															</div>
-														</div>
-														<div class="col-6" style="padding:0px">
-															<div class="row" style="padding:0px">
-																<div class="col-12" style="padding:0px">
-																	<div style="width:90%">
-																		<canvas id="recordChart" width="400"
-																			height="175"></canvas>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-12">
-															<button class="btn_outline" id="btn_delRecord" style="height:40px">기록 삭제</button>
-														</div>
-													</c:otherwise>
-												</c:choose> -->
 											</div>
 										</c:otherwise>
 									</c:choose>
@@ -126,10 +86,10 @@
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_hour"
 														style="width:30px;" value="0"
-														oninput="validNaturalNumRange(24)">시간&nbsp
+														oninput="validNaturalNumRange(24)" maxlength="2">시간&nbsp
 													<input type="text" class="text-center" id="reg_minute"
 														style="width:30px;" value="0"
-														oninput="validNaturalNumRange(60)">분
+														oninput="validNaturalNumRange(60)" maxlength="2">분
 												</div>
 												<div class="col-5 text-end">
 													<p>운동 강도<sup style="color:white">*</sup></p>
@@ -220,6 +180,7 @@
 						});
 					}
 
+					// calendar 날짜 선택 함수
 					function onSelect() {
 						let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
 						$("#result_title").text(date);
@@ -229,14 +190,15 @@
 						$.getJSON("/datepick.personal", data)
 							.done(res => {
 								setMarker(res.recordList);
+								setNotice(res.recentRecord);
 
 								if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 									$("#result_contents").empty();
 									let exrHow = ""
 									if (Number(res.record.exr_how) >= 60) {
-										exrHow += Number(res.record.exr_how / 60 ) + "시간"
+										exrHow += Math.floor(Number(res.record.exr_how / 60 )) + "시간"
 										if (Number(res.record.exr_how % 60) != 0) {
-											exrHow += " " + res.record.exr_how + "분"
+											exrHow += " " + Number(res.record.exr_how % 60) + "분"
 										}
 									} else {
 										exrHow = res.record.exr_how + "분"
@@ -256,7 +218,7 @@
 							});
 					}
 
-					// 운동한 날짜 표시
+					// 운동한 날짜 Maker 생성 함수
 					function setMarker(resData) {
 						let arrDate = document.querySelectorAll(".calendar .ui-state-default");
 						year = $(".calendar .ui-datepicker-year").text();
@@ -273,6 +235,20 @@
 						}
 					}
 
+					// Notice Text 생성 함수
+					function setNotice(recentRecord) {
+						if (recentRecord.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
+						let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
+						let gap = (today.getTime() - new Date(recentRecord[recentRecord.length - 1].exr_date).getTime()) / 86400000;
+						let context;
+						if (gap >= 30) { context = "마지막 기록이 " + gap + "일 전? 운동 접었네 이 사람 😡"}
+						else if (gap >= 7) { context = "근손실이 오고 있어요. 기록이 작성된 지 " + gap + "일이 지났어요... 😭"}
+						else if (gap >= 1) { context = "기록이 작성된 지 " + gap + "일이 지났어요. 운동 후 기록 작성 잊지 말기! 😋"}
+						else if (gap == 0) { context = "오늘 열심히 운동하셨군요. 앞으로도 화이팅!! 😊" }
+						$("#notice>p").text(context);
+					}
+
+					// 숫자 유효성 검사 (자연수)
 					function validNaturalNumRange(max) {
 						event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 						if (Number(event.target.value) >= max) {
@@ -280,6 +256,7 @@
 						}
 					}
 
+					// 숫자 유효성 검사
 					function vaildNumRange(max) {
 						event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 						if (Number(event.target.value) >= max) {
@@ -287,6 +264,7 @@
 						}
 					}
 
+					// 기록 작성 창 열기 애니메이션
 					function showRecord() {
 						$("#inbody")[0].style.height = "250px";
 						$("#weight")[0].style.height = "250px";
@@ -297,6 +275,7 @@
 						$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 					}
 
+					// 기록 작성 창 닫기 애니메이션
 					function regCancel() {
 						$("#record").fadeOut(0, () => {
 							$("#result").fadeIn(500)
@@ -311,6 +290,7 @@
 						});
 					}
 
+					// 기록 등록 함수
 					function tryRegist() {
 						data = {
 							"date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate")),
@@ -329,6 +309,7 @@
 							});
 					}
 
+					// 기록 삭제 함수
 					function tryDelRecord() {
 						Swal.fire({
 							title: 'Are you sure?',
@@ -349,6 +330,7 @@
 							});
 					}
 
+					// 기록 차트 작성 함수 
 					function setRecordChart(recentRecord) {
 						let recordCtx = document.getElementById('recordChart').getContext('2d');
 						let arrDate = [];
@@ -361,7 +343,7 @@
 							labels: arrDate,
 							datasets: [{
 								type: 'line',
-								label: '운동 시간',
+								label: '운동 시간(분)',
 								data: arrHow,
 								borderColor: 'rgb(255, 99, 132)',
 								backgroundColor: 'rgba(255, 99, 132, 0.2)'
@@ -394,7 +376,16 @@
 
 					$("#btn_regRecord").on("click", () => {
 						if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") { wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false; }
-						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) { tryRegist(); }
+						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) { 
+							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
+							if(today < $("#calendar").datepicker("getDate")) {
+								Swal.fire({icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.'});
+							} else if ($(".ui-state-active").text() == "🔥") {
+								Swal.fire({icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.'});
+							} else {
+								tryRegist(); 
+							}
+						}
 					});
 					
 					// inbody chart
