@@ -5,16 +5,23 @@ body {
     background: #F2F2F2;
 }
 
-#wrap_host{
+#headerMarginBox{
+    width: 285px;
     height: 100vh;
+    position: fixed;
+    background: #001A41;
+    z-index: 1;
 }
 
-#headerMarginBox{margin-right: 285px;}
+#wrap_host{
+    height: 100vh;
+    z-index: 2;
+}
 
 header {
     min-height: 100vh;
     background: #001A41;
-    position: fixed;
+    z-index: 3;
 }
 
 .logoDiv {
@@ -22,6 +29,7 @@ header {
     text-align: center;
     margin-top: 70px;
     margin-bottom: 100px;
+    z-index: 4;
 }
 
 .logo {
@@ -283,29 +291,29 @@ a:hover{
 }
 
 /* host.jsp CSS (주의) 민또비꺼! 건들면 물어요 */
-body{overflow-x: hidden;}
-
 #host{
     width: 100%;
     height: 100vh;
-    min-width: 100%;
+    
 }
 
 #host .hostContainer{
-    width: 95%; 
+    width: 95%;
+    min-width: 1537px;
     height: 90%;
     margin: auto;
     margin-top: 45px;
 }
 
-#host .hostContainer > .articleBox{
+
+#host .hostContainer .articleBox{
     width: 700px;
     height: 350px;
-    float: left;
     margin: 34px;
     border: 1px solid #C7D3DC;
     border-radius: 10px;
     overflow: hidden;
+    float: left;
 }
 
 #host .articleBox > .titleBox{
