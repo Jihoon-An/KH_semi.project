@@ -71,6 +71,17 @@ public class GymController extends ControllerAbs {
                     }
                     this.write(request, response);
                     break;
+
+                    // 리뷰 수정
+                case "reviewModify.gym":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+//                    this.modify(request, response);
+                    break;
+
             }
         } catch (Exception e) {
             e.printStackTrace();
