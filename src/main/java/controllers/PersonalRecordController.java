@@ -96,12 +96,13 @@ public class PersonalRecordController extends ControllerAbs {
     }
     protected void getPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String userSeq = String.valueOf(request.getSession().getAttribute("userSeq"));
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
         userSeq = userSeq.equals("null") ? "-1" : userSeq;
         request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(userSeq, sdf.format(new Date())));
         request.setAttribute("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, sdf.format(new Date())));
 
-        request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(userSeq));
+        request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(user_seq));
 
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
