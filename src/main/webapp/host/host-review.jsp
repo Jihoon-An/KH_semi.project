@@ -114,7 +114,7 @@
         </div>
     </form>
 
-    <div id="img_layout" onclick='ViewLayerClose()' style="display:none">
+    <div id="img_layout" onclick='ViewLayerClose()' style="display:none; background-color: #FFFFFF">
         <img id="review_photo_view" style="width: 100%; height: 100%; object-fit:contain">
     </div>
 
