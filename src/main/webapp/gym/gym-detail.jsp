@@ -113,7 +113,7 @@
 
 				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
 					<dt>
-						<p class="text_normal">시설가격</p>
+						<p class="text_normal">이용료</p>
 					</dt>
 					<dd>${gymList.gym_price }</dd>
 				</div>
@@ -123,12 +123,13 @@
 				<div class="reviewn">
 					<p class="text_title">리뷰</p>
 				</div>
-				<c:if test="${userSeq !=null}">
+				
 					<div class="reviewr">
 						<button type="button" class="btn_base" id="reviewbtn"
 							type="button">리뷰작성</button>
 					</div>
-				</c:if>
+					
+				
 
 				<c:choose>
 					<c:when test="${not empty reviewList }">
@@ -138,10 +139,19 @@
 
 								<div
 									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-
-									<div class="authmark">
-										<i class="fa-solid fa-user-shield"></i>
+							
+									<div class="authmark" >
+									
+										<i class="fa-solid fa-user-shield auth" ></i>
+									
+										<c:if test="${r.review.review_photo != '인증완료'}">
+										<script>
+											$(".auth").attr("style", "display:none" )
+										</script>	
+										</c:if>
 									</div>
+									
+									
 									<div class="ranwriter">${r.review.review_writer}</div>
 									<div class="writerd">${r.review.formDate}</div>
 									<div class="starc">
@@ -228,22 +238,24 @@
 					</c:when>
 				</c:choose>
 			</div>
-
-			<c:choose>
-				<c:when test="${not empty gymImg }">
-					<!-- 리스트가 비어있지않다면 -->
-					<c:forEach var="r" items="${gymImg }">
-						<div class="infopicture">
+	
+						
+						
+						<c:if test="${gymImg.gym_sysimg != null}">
+  						  let sysimg = JSON.parse('${gymImg.gym_sysimg}');
+   							 console.log(sysimg);
+			
+ 									<div class="infopicture">
 
 							<figure class="figure">
-								<img src="/resource/gym/${r.gym_sysimg}.jpg"
+								<img src="/resource/img/${gymImg.gym_sysimg}"
 									class="figure-img img-fluid rounded" alt="..." />
 								<figcaption class="figure-caption"></figcaption>
 							</figure>
 						</div>
-					</c:forEach>
-				</c:when>
-			</c:choose>
+  						  </c:if>
+						
+				
 		</div>
 	</div>
 
@@ -251,7 +263,11 @@
 
 	<script>
 	
+
+
 	
+	
+
 	$(document).ready(function() {
 			if($(".star").val()==1){
 				$(".starc").html("★")
@@ -440,7 +456,18 @@
 	<script>
       
       $("#reviewbtn").on("click", function () {
-          location.href = "/reviewWrite.gym?gym_seq=${gymList.gym_seq}";
+    	  if("${userSeq}"==""){
+    		  Swal.fire({
+    			  icon: 'error',
+    			  title: 'Oops...',
+    			  text: '로그인 사용자만 작성 가능합니다',
+    			
+    			})
+    			return false;
+    	  }else{
+    		   location.href = "/reviewWrite.gym?gym_seq=${gymList.gym_seq}";
+    	  }
+       
         }); //리뷰작성 이동
       </script>
 

@@ -95,9 +95,13 @@ public class GymController extends ControllerAbs {
         FavoritesDAO favDao = FavoritesDAO.getInstance();
         //시설 필터 출력
         GymFilterDAO filterDao = GymFilterDAO.getInstance();
-   //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
+       //사진이미지
+       GymImgDAO gymImgDao = GymImgDAO.getInstance();
        
-   //    	List<GymImgDTO> gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+      	GymImgDTO gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+       	
+       	System.out.println(gymImgDTO.getGym_sysimg());
+       	
                HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
         System.out.println(check);
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
@@ -119,7 +123,7 @@ public class GymController extends ControllerAbs {
             request.setAttribute("favresult", result);
         }
         
-      //  request.setAttribute("gymImg", gymImgDTO);
+        request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);
         request.setAttribute("gymList", gymDto);
