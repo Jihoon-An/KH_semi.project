@@ -113,7 +113,9 @@
 
 #bs-page #bs_ctfc_img {
     padding-top: 5px;
-    width: 100%;
+    object-fit:contain;
+    max-width: 100%;
+    max-height: 250px;
 }
 
 #bs-page #modify_acc {
