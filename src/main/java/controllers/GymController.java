@@ -100,9 +100,11 @@ public class GymController extends ControllerAbs {
        
       	GymImgDTO gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
        	
-  
-       	
-               HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
+      	
+       	HashMap<String, Object> avg= reviewDao.gymAvg(gym_seq);
+        System.out.println(avg);
+       	HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
+               
  
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
@@ -121,7 +123,7 @@ public class GymController extends ControllerAbs {
             boolean result = favDao.isFavExist((Integer) request.getSession().getAttribute("userSeq"), gym_seq);
             request.setAttribute("favresult", result);
         }
-        
+        request.setAttribute("gymAvg", avg);
         request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);

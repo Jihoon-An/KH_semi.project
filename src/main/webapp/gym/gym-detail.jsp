@@ -206,15 +206,18 @@
 
 
 		<div class="rcontents">
-		<div class="gymscore" id="gscore">
-			<input type="hidden" class="chk1" value="${checkList.check1}">
-			<input type="hidden" class="chk2" value="${checkList.check2}">
-			<input type="hidden" class="chk3" value="${checkList.check3}">
-			<input type="hidden" class="chk4" value="${checkList.check4}">
-			<input type="hidden" class="chk5" value="${checkList.check5}">
-			점
-			
-		</div>
+		<c:choose>
+
+  			  <c:when test="${gymAvg !='' }">
+			<div class="gymscore" id="gscore">
+				${gymAvg.gymAvg }점
+				</div>
+		
+			</c:when>
+			<c:otherwise>
+			등록된 평점이 없습니다
+			</c:otherwise>
+		</c:choose>
 			<div class="chart1">
 				<canvas id="myChart"></canvas>
 			</div>
@@ -272,30 +275,6 @@
 
 	<script>
 	
-	$(document).ready(function() {
-		
-		let c1 = parseInt($(".chk1").val())
-		let c2 =  parseInt($(".chk2").val())
-		let c3 =  parseInt($(".chk3").val())
-		let c4 =  parseInt($(".chk4").val())
-		let c5 =  parseInt($(".chk5").val())
-		
-		const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
-
-		const array = [c1, c2, c3, c4, c5]
-		average(array)  
-		 let a = document.getElementById("gscore");
-
-		
-		if(average(array)){
-			a.innerHTML="체크된 리뷰가 없습니다";
-		}else{	
-			a.innerHTML=average(array)+"점"
-			}
-		
-		
-	
-	})
 
 	
 	
