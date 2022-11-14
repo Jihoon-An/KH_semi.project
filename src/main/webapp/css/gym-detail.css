@@ -255,4 +255,13 @@
 		cursor:pointer;
 }
 
-/*  */
+/* 마커 인포윈도우 css */
+#gym-detail .info{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #001A41;
+    white-space: nowrap;
+    font-weight: bold;
+}

@@ -258,26 +258,6 @@ public class BsPageController extends ControllerAbs {
 
 
     /**
-     * <h1>시설 수정 페이지 기존 데이터 불러오기</h1>
-     */
-    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-
-        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
-        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
-
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<String>>() {
-        }.getType();
-        List<String> gymImg = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
-
-        request.setAttribute("gymImg", gymImg);
-        request.setAttribute("gym", gym);
-        request.setAttribute("gymFilter", gymFilter);
-    }
-
-    /**
      * <h1>시설정보 및 시설필터 수정하기</h1>
      */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {

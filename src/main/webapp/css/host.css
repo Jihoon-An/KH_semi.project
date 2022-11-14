@@ -1,18 +1,27 @@
 @charset "utf-8";
 
 /* header */
-
 body {
     background: #F2F2F2;
 }
 
+#headerMarginBox{
+    width: 285px;
+    height: 100vh;
+    position: fixed;
+    background: #001A41;
+    z-index: 1;
+}
+
 #wrap_host{
-    height: 100%;
+    height: 100vh;
+    z-index: 2;
 }
 
 header {
-    height: 100vh;
+    min-height: 100vh;
     background: #001A41;
+    z-index: 3;
 }
 
 .logoDiv {
@@ -20,6 +29,7 @@ header {
     text-align: center;
     margin-top: 70px;
     margin-bottom: 100px;
+    z-index: 4;
 }
 
 .logo {
@@ -55,7 +65,7 @@ ul {
 nav > ul > li {
     font-size: 24px;
     margin-left: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 nav > ul > li > ul > li {
@@ -130,11 +140,9 @@ nav > ul > li > ul > li {
 }
 
 
-
-
 a{
     text-decoration:none;
-    color: #C7D3DC;
+    cursor: pointer;
 }
 
 a:hover{
@@ -281,3 +289,88 @@ a:hover{
     text-align: center;
     line-height: 42px;
 }
+
+/* host.jsp CSS (주의) 민또비꺼! 건들면 물어요 */
+#host{
+    width: 100%;
+    height: 100vh;
+    
+}
+
+#host .hostContainer{
+    width: 95%;
+    min-width: 1537px;
+    height: 90%;
+    margin: auto;
+    margin-top: 45px;
+}
+
+
+#host .hostContainer .articleBox{
+    width: 700px;
+    height: 350px;
+    margin: 34px;
+    border: 1px solid #C7D3DC;
+    border-radius: 10px;
+    overflow: hidden;
+    float: left;
+}
+
+#host .articleBox > .titleBox{
+    width: 100%;
+    height: 75px;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 35px;
+    padding: 20px;
+    background-color: #C7D3DC;
+}
+
+#host .articleBox > .listBox{
+    width: 100%;
+    height: 45.6px;
+    line-height: 50px;
+    text-align: center;
+    margin: auto;
+    border-bottom: 1px solid #C7D3DC;
+}
+
+#host .articleBox > .listBox > .list_title{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+#host .articleBox > .listBox > .list_content{
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
