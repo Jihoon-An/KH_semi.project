@@ -425,12 +425,7 @@
             fix_interests.forEach(item => {
                 interest_list.push(item.innerHTML);
             });
-            /*
-            console.log(fix_name);
-            console.log(fix_sex);
-            console.log(fix_birthday);
-            console.log(JSON.stringify(interest_list));
-            */
+
             $.ajax({
                 url: "/fixProfile.userMyPage",
                 data: {
@@ -494,7 +489,6 @@
                         $(this).css("color", "#8f959a")
                     }
                 });
-
             }
         });
 
@@ -503,12 +497,14 @@
 
         // 리뷰 X 버튼 이벤트
         $(".del_review_btn").on("click", function () {
+            var del = $(this);
             $.ajax({
                 url: "/delReview.userMyPage",
                 data: {review_seq: $(this).closest(".review_card").find(".review_seq").val()},
                 type: "POST",
                 success: function () {
-                    $(this).closest(".review_card").remove();
+                    console.log("delete complete");
+                    $(del).closest(".review_card").remove();
                 }
             });
         });
