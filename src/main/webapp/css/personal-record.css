@@ -110,12 +110,55 @@
 	color: red;
 }
 
+#personal-record #record #record_memo {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-word;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+
 #personal-record #record .text-start {
 	padding-left: 15px;
 }
 
 #personal-record #record .text-end {
 	padding-right: 15px;
+}
+
+#personal-record #reg_inbody {
+	position:absolute;
+	top:-11px;
+	left:746px;
+	width:50%;
+	height:310px;
+	transition: 0.5s;
+	background-color: white;
+}
+
+#personal-record #reg_filter {
+	position:absolute;
+	top:-11px;
+	left:775px;
+	width:50%;
+	height:310px;
+	background-color: white;
+	z-index: 5;
+}
+
+
+#personal-record #reg_inbody #btn_inbody {
+	position: absolute;
+	top:0px;
+	left: -1px;
+	width:41px;
+	height:100%;
+	border:0px;
+	border-right: 1px solid #808080;
+	color:#808080;
+	background-color: #FFFFFF00;
 }
 
 #personal-record .chart_wrap {

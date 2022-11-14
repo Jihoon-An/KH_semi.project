@@ -59,8 +59,8 @@
 									</c:choose>
 								</div>
 								<div class="col-12 boundary" id="record">
-									<div class="row">
-										<div class="col-7" style="padding-bottom:0px; border-right:1px solid #C8C8C8">
+									<div class="row" style="position:relative">
+										<div class="col-6" style="padding-bottom:0px">
 											<div class="row" style="border:none; padding-bottom:0px">
 												<div class="text_title_600 col-12 mb-3">
 													Record
@@ -72,10 +72,10 @@
 													<input type="text" class="text-center" id="reg_date"
 														style="width:120px" readonly>
 												</div>
-												<div class="col-5 text-end">
+												<div class="col-5 text-end" style="margin-top:30px">
 													<p>운동 시간<sup>*</sup></p>
 												</div>
-												<div class="col-7 text-start">
+												<div class="col-7 text-start" style="margin-top:30px">
 													<input type="text" class="text-center" id="reg_hour"
 														style="width:30px;" value="0"
 														oninput="validNaturalNumRange(24)">시간&nbsp
@@ -83,10 +83,10 @@
 														style="width:30px;" value="0"
 														oninput="validNaturalNumRange(60)">분
 												</div>
-												<div class="col-5 text-end">
+												<div class="col-5 text-end" style="padding-bottom:0px; margin-top:30px">
 													<p>운동 강도<sup style="color:white">*</sup></p>
 												</div>
-												<div class="col-7 text-start">
+												<div class="col-7 text-start" style="padding-bottom:0px; margin-top:30px">
 													<form>
 														<input type="range" class="form-range" id="reg_range" min="1"
 															max="5" style="width:160px; height:24px">
@@ -94,57 +94,60 @@
 															onforminput="value = foo.valueAsNumber;"></label>
 													</form>
 												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
-													<p>메모 내용<sup>*</sup></p>
-												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
-													<input type="text" id="reg_memo" style="width:180px"
-														placeholder="20자 이내로 입력하세요." maxlength="20">
-												</div>
 											</div>
 										</div>
-										<div class="col-5" style="padding-bottom:0px;">
+										<div class="col-6" style="padding-bottom:0px;">
 											<div class="row" style="border:none; padding-bottom:0px">
-												<div class="text_title_600 col-12 mb-3">
-													InBody
+												<div class="text_title_600 col-12">
+													<p>Memo<sup>*</sup></p>
 												</div>
-												<div class="col-5 text-end">
-													<p>몸무게</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_weight"
-														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
-												</div>
-												<div class="col-5 text-end">
-													<p>체지방량</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_fat"
-														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
-												</div>
-												<div class="col-5 text-end">
-													<p>골격근량</p>
-												</div>
-												<div class="col-7 text-start">
-													<input type="text" class="text-center" id="reg_muscle"
-														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
-												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
-													<p>BMI</p>
-												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
-													<input type="text" class="text-center" id="reg_bmi"
-														style="width:60px" oninput="vaildNumRange(100)" maxlength="5">
+												<div class="col-12" style="padding-bottom:0px">
+													<textarea name="" id="reg_memo" cols="30" rows="8" style="padding:5px; resize:none"></textarea>
 												</div>
 											</div>
 										</div>
-										<div class="col-12">
-											<button class="btn_outline" id="btn_regRecord">작성완료</button>
-											<button class="btn_outline" onclick="regCancel()">돌아가기</button>
+										<div class="col-12 gy-3">
+											<button class="btn_outline" id="btn_regRecord" style="height:40px">작성완료</button>
+											<button class="btn_outline" style="height:40px" onclick="regCancel()">돌아가기</button>
 										</div>
+										<div class="row boundary" id="reg_inbody">
+											<div class="text_title_600 col-12 mb-3">
+												InBody
+											</div>
+											<div class="col-5 text-end">
+												<p>몸무게</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_weight"
+													style="width:60px" oninput="vaildNumRange(1000)"
+													maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end">
+												<p>체지방량</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_fat"
+													style="width:60px" oninput="vaildNumRange(1000)"
+													maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end">
+												<p>골격근량</p>
+											</div>
+											<div class="col-7 text-start">
+												<input type="text" class="text-center" id="reg_muscle"
+													style="width:60px" oninput="vaildNumRange(1000)"
+													maxlength="5">&nbspKg
+											</div>
+											<div class="col-5 text-end" style="padding-bottom:0px">
+												<p>BMI</p>
+											</div>
+											<div class="col-7 text-start" style="padding-bottom:0px">
+												<input type="text" class="text-center" id="reg_bmi"
+													style="width:60px" oninput="vaildNumRange(100)" maxlength="5">
+											</div>
+											<button id="btn_inbody">◀</button>
+										</div>
+										<div id="reg_filter"></div>
 									</div>
 								</div>
 							</div>
@@ -197,8 +200,8 @@
 									}
 									let intens = ['최하', '하', '중', '상', '최상'];
 									let output = "<div class='col-5' style='padding:0px; background-color: #E8E8E8; border-radius:6px'><div class='row' style='padding:0px'><div class='col-12'>"
-										+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' style='height:100px'>"
-										+ "<p>메모 내용 : " + res.record.exr_memo + "</p></div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
+										+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='record_memo' style='height:100px'>"
+										+ "메모 내용 : " + res.record.exr_memo + "</div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
 										+ "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
 									$("#result_contents").html(output);
 									setRecordChart(res.recentRecord);
@@ -262,8 +265,8 @@
 						$("#weight")[0].style.height = "250px";
 						$("#result")[0].style.height = "400px";
 						$("#record")[0].style.height = "400px";
-						$("#inbody_chart")[0].style.height = "200";
-						$("#weight_chart")[0].style.height = "200";
+						$("#inbody_chart")[0].style.height = "200px";
+						$("#weight_chart")[0].style.height = "200px";
 						$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 					}
 
@@ -275,11 +278,24 @@
 							$("#weight")[0].style.height = "350px";
 							$("#result")[0].style.height = "300px";
 							$("#record")[0].style.height = "300px";
-							$("#inbody_chart")[0].style.height = "300";
-							$("#weight_chart")[0].style.height = "300";
+							$("#inbody_chart")[0].style.height = "300px";
+							$("#weight_chart")[0].style.height = "300px";
 							$("#reg_hour, #reg_minute").val("0");
 							$("#reg_memo, #reg_weight, #reg_fat, #reg_muscle, #reg_bmi").val("");
 						});
+						hideInbody();
+					}
+
+					// 인바디 작성 창 열기 애니메이션
+					function showInbody() {
+						$("#reg_inbody")[0].style.left = "404px";
+						$("#btn_inbody").text("▶");
+					}
+
+					// 인바디 작성 창 닫기 애니메이션
+					function hideInbody() {
+						$("#reg_inbody")[0].style.left = "746px";
+						$("#btn_inbody").text("◀");
 					}
 
 					// 기록 등록 함수
@@ -379,6 +395,14 @@
 							}
 						}
 					});
+
+					$("#btn_inbody").on("click", () => {
+						if ($("#btn_inbody").text() == "◀") {
+							showInbody();
+						} else {
+							hideInbody();
+						}
+					})
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
