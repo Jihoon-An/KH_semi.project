@@ -234,9 +234,9 @@
                            $("#result_contents").empty();
                            let exrHow = ""
                            if (Number(res.record.exr_how) >= 60) {
-                              exrHow += Number(res.record.exr_how / 60 ) + "시간"
+                              exrHow += Math.floor(Number(res.record.exr_how / 60 )) + "시간"
                               if (Number(res.record.exr_how % 60) != 0) {
-                                 exrHow += " " + res.record.exr_how + "분"
+                                 exrHow += " " + Number(res.record.exr_how % 60) + "분"
                               }
                            } else {
                               exrHow = res.record.exr_how + "분"

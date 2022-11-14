@@ -54,24 +54,24 @@ public class ExerciseDAO extends Dao{
     	}
     }
     
-    public List<ExerciseDTO> selectWeightChange(int exr_seq) throws Exception{
-    	String sql = "selcet from exercise where exr_seq = ?";
-    	
-    	try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-    			){
-    		pstat.setInt(1, exr_seq);
-    		
-    		List<ExerciseDTO> result = new ArrayList<>();
-    		try(ResultSet rs = pstat.executeQuery();){
-    			while(rs.next()) {
-    				ExerciseDTO dto = new ExerciseDTO();
-    				
-    			}
-    		}
-    	}
-    	
-    }
+//    public List<ExerciseDTO> selectWeightChange(int exr_seq) throws Exception{
+//    	String sql = "selcet from exercise where exr_seq = ?";
+//    	
+//    	try (Connection con = this.getConnection();
+//				PreparedStatement pstat = con.prepareStatement(sql);
+//    			){
+//    		pstat.setInt(1, exr_seq);
+//    		
+//    		List<ExerciseDTO> result = new ArrayList<>();
+//    		try(ResultSet rs = pstat.executeQuery();){
+//    			while(rs.next()) {
+//    				ExerciseDTO dto = new ExerciseDTO();
+//    				
+//    			}
+//    		}
+//    	}
+//    	
+//    }
     /**
      * UserSeq로 Exercise 테이블 데이터 지우기
      * @param userSeq

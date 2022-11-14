@@ -35,7 +35,10 @@ public class PersonalRecordController extends ControllerAbs {
         try {
             switch (uri) {
 
-				// inbody chart
+				case "/main.personal":
+                    this.getPage(request, response);
+					break;
+					
 				case "/infoinbody.personal":
                     this.getPage(request, response);
 					break;
