@@ -146,7 +146,7 @@
 					<div class="gym_list_logo">
 						<c:choose>
 							<c:when test="${not empty gymList.gym_main_sysImg}">
-								<img src="/resource/gym/default06.png">
+								<img src="/resource/gym/${gymList.gym_main_sysImg}">
 							</c:when>
 							<c:otherwise>
 								<img class="mainImg" src="">
