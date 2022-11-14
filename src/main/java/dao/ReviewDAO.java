@@ -39,7 +39,7 @@ public class ReviewDAO extends Dao {
     public List<HashMap<String, Object>> printReivew(int gym_seq) throws Exception {
 
 
-        String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 1";
+        String sql = "select * from review r left join (select review_seq, users_seq liked_user_seq from likes) l on r.review_seq = l.review_seq where r.gym_seq = ? order by 9 desc";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
         ) {
