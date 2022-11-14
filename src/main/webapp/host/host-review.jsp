@@ -8,17 +8,35 @@
 <main id="host-review" style="margin: 0 auto">
 
     <form action="" id="frm">
-
+        <input type="hidden" value="1" name="cpage">
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
                 <!-- 검색분류 -->
-                <select name="type" id="select">
-                    <option value="select_contents" selected>리뷰내용</option>
-                    <option value="select_email">작성자이메일</option>
-                    <option value="select_photo">인증여부</option>
-                </select>
+                <c:if test="${type != 'email'&& type !='certify'}">
+                    <select name="type" id="select">
+                        <option value="contents" selected>리뷰내용</option>
+                        <option value="email">작성자이메일</option>
+                        <option value="certify">인증여부</option>
+                    </select>
+                </c:if>
+                <c:if test="${type == 'email'}">
+                    <select name="type" id="select">
+                        <option value="contents">리뷰내용</option>
+                        <option value="email" selected>작성자이메일</option>
+                        <option value="certify">인증여부</option>
+                    </select>
+                </c:if>
+                <c:if test="${type == 'certify'}">
+                    <select name="type" id="select">
+                        <option value="contents">리뷰내용</option>
+                        <option value="email">작성자이메일</option>
+                        <option value="certify" selected>인증여부</option>
+                    </select>
+                </c:if>
 
-                <input type="text" placeholder="검색어를 입력해주세요" name="search" id="search">
+
+
+                <input type="text" placeholder="검색어를 입력해주세요" name="search" id="search" value="${search}">
                 <button class="btn_search" role="button" type="button" id="searchBtn">검색</button>
             </div>
         </div>
@@ -50,6 +68,7 @@
                 <c:when test="${not empty list}">
                     <!-- 비어있지 않다면 -->
                     <c:forEach var="i" items="${list}">
+
                         <div class="board_row d-flex flex-row">
                             <div class="checkbox p-1"><input type="checkbox" name="reviewEach" class="check"
                                                              value="${i.review_seq}"></div>
@@ -149,8 +168,8 @@
     $("#search").on("keydown",function(e){
         if (e.keyCode == 13) {
             $("#searchBtn").trigger("click");
+            return false;
         }
-        return false;
     });
 
     // 전체 선택, 해제
@@ -195,7 +214,7 @@
             })
             return false;
         } else {
-            $("#frm").attr("action", "/reviewSearch.host?cpage=1")
+            $("#frm").attr("action", "/reviewSearch.host")
             $("#frm").submit();
         }
     })
