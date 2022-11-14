@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-		<html>
+<html>
+	
+<%@ include file="/layout/header.jsp"%>
 
-		<%@ include file="/layout/header.jsp" %>
-
-			<div class="main_margin_85"></div>
+<div class="main_margin_85"></div>
 			<!-- Site Main -->
 			<main id="personal-record">
 				<div class="containerbox row" align="center">
@@ -126,7 +127,7 @@
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_hour"
 														style="width:30px;" value="0"
-														oninput="validNaturalNumRange(24)">시간&nbsp
+														oninput="validNaturalNumRange(24)">시간
 													<input type="text" class="text-center" id="reg_minute"
 														style="width:30px;" value="0"
 														oninput="validNaturalNumRange(60)">분
@@ -162,7 +163,7 @@
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_weight"
 														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
+														maxlength="5">
 												</div>
 												<div class="col-5 text-end">
 													<p>체지방량</p>
@@ -170,7 +171,7 @@
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_fat"
 														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
+														maxlength="5">
 												</div>
 												<div class="col-5 text-end">
 													<p>골격근량</p>
@@ -178,7 +179,7 @@
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_muscle"
 														style="width:60px" oninput="vaildNumRange(1000)"
-														maxlength="5">&nbspKg
+														maxlength="5">
 												</div>
 												<div class="col-5 text-end" style="padding-bottom:0px">
 													<p>BMI</p>
@@ -198,7 +199,9 @@
 							</div>
 						</div>
 					</div>
-
+				</div>
+	<script>
+	
 				</div>
 				<script>
 					$(() => {
@@ -407,19 +410,19 @@
 							datasets: [{
 								axis: 'y',
 								label: '# inbody_chart',
-								data: [74, 39, 16, 24, 21,],
+								data: [${list.inbody_weight},${list.inbody_bfm},${list.inbody_bmi},${list.inbody_sm}],
 								backgroundColor: ['rgba(255, 99, 132, 0.2)',
 									'rgba(54, 162, 235, 0.2)',
 									'rgba(255, 206, 86, 0.2)',
 									'rgba(75, 192, 192, 0.2)',
 									'rgba(153, 102, 255, 0.2)',
-								],
-								borderColor: ['rgba(255, 99, 132, 1)',
+									'rgba(255, 159, 64, 0.2)' ],
+							borderColor : [ 'rgba(255, 99, 132, 1)',
 									'rgba(54, 162, 235, 1)',
 									'rgba(255, 206, 86, 1)',
 									'rgba(75, 192, 192, 1)',
 									'rgba(153, 102, 255, 1)',
-								],
+									'rgba(255, 159, 64, 1)' ],
 								borderWidth: 1
 							}]
 						},
@@ -468,7 +471,27 @@
 						}
 					});
 
-				</script>
-			</main>
 
-			<%@ include file="/layout/footer.jsp" %>
+		// calendar
+		$.datepicker.setDefaults({
+			dateFormat : 'yy/mm/dd',
+			prevText : '이전 달',
+			nextText : '다음 달',
+			monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+					'9월', '10월', '11월', '12월' ],
+			dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+			dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+			showMonthAfterYear : true,
+			yearSuffix : '년'
+		});
+
+		$(function() {
+			$('.calendar').datepicker();
+		}); 
+	</script>
+</main>
+
+<%@ include file="/layout/footer.jsp"%>
