@@ -167,7 +167,7 @@ public class UserMyPageController extends ControllerAbs {
         // 즐겨찾기 테이블 삭제
         FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
         // 헬스장 회원 테이블 삭제
-        MembershipDAO.getInstance().deleteByUserSeq(userSeq);
+        ManagerDAO.getInstance().deleteByUserSeq(userSeq);
         // 캘린더 테이블 삭제
         CalendarDAO.getInstance().deleteByUserSeq(userSeq);
         // 운동기록 테이블 삭제

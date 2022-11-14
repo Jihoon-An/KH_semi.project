@@ -18,7 +18,20 @@
                <div class="col-4">
                   <div class="row">
                      <div class="col-12">
-                        <div class="boundary" id="manager">+</div>
+                        <div class="boundary" id="manager">
+                           시설 이용 매니저
+                           <div class="manager_titleBox">
+                              에이블짐 회원권
+                           </div>
+                           <div class="manager_startBox">
+                              시작한지 <span style="font-size: 20px;">150일</span> 지났습니다.<br>
+                              <span style="font-size: 13px;">시작 날짜 : 22.11.14 Mon</span>
+                           </div>
+                           <div class="manager_endBox">
+                              종료까지 <span style="font-size: 20px;">150일</span> 남았습니다.<br>
+                              <span  style="font-size: 13px;">종료 날짜 : 22.11.18 Fri</span>
+                           </div>
+                        </div>
                      </div>
                      <div class="col-12">
                         <div class="calendar" id="calendar"></div>

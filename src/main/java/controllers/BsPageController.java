@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -92,7 +90,7 @@ public class BsPageController extends ControllerAbs {
         // 리뷰 review table 지우기
         ReviewDAO.getInstance().deleteByGymSeq(gymSeq);
         // 헬스장 회원 membership table 지우기
-        MembershipDAO.getInstance().deleteByGymSeq(gymSeq);
+        ManagerDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 gym table 지우기
         GymDAO.getInstance().deleteByGymSeq(gymSeq);
     }
@@ -137,7 +135,7 @@ public class BsPageController extends ControllerAbs {
         }
 
         // 헬스 회원 지우기
-        MembershipDAO.getInstance().deleteByBsSeq(bsSeq);
+        ManagerDAO.getInstance().deleteByBsSeq(bsSeq);
 
         // 리뷰 좋아요 지우기
         ReviewDAO.getInstance().deleteByBsSeq(bsSeq);
