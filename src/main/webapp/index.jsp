@@ -46,7 +46,7 @@
 
 					<!-- Review Carousel -->
 					<section class="row justify-content-center review">
-						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Best User Reviews</p>
+						<h2 class="text-center col-12 mt-5 mb-5">Best User Reviews</h2>
 
 						<div class="col-12 carousel">
 							<div class="prevBox">
@@ -83,7 +83,7 @@
 
 					<!-- Image Section -->
 					<section class="row justify-content-evenly preview mb-5">
-						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Image Preview</p>
+						<h2 class="text-center col-12 mt-5 mb-5">Image Preview</h2>
 
 						<div class="col-4 imgBox">
 							<div class="imgFilter">
@@ -132,7 +132,7 @@
 
 					<!-- Banner Section -->
 					<section class="row justify-content-evenly ads mb-5">
-						<p class="text-start text_main_title_600 col-12 mt-5 mb-5">Recommended Items</p>
+						<h2 class="text-center col-12 mt-5 mb-5">Recommended Items</h2>
 
 						<div class="col-6">
 							<div class="banner"><img src="/resource/img/banner_img1.jpg"></div>
