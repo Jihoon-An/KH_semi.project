@@ -35,7 +35,10 @@ public class PersonalRecordController extends ControllerAbs {
         try {
             switch (uri) {
 
-				// inbody chart
+				case "/main.personal":
+                    this.getPage(request, response);
+					break;
+					
 				case "/infoinbody.personal":
                     this.getPage(request, response);
 					break;
@@ -70,7 +73,7 @@ public class PersonalRecordController extends ControllerAbs {
     	
     	int exr_seq = Integer.parseInt(request.getParameter("exr_seq"));
     	
-    	List<ExerciseDTO> inbody = ExerciseDAO.getInstance().InbodyChartInfo(exr_seq);    	
+    	List<ExerciseDTO> inbody = ExerciseDAO.getInstance().inbodyChartInfo(exr_seq);    	
     
     	request.setAttribute("inbody", inbody);
     	request.getRequestDispatcher("personal/personal-record.jsp").forward(request, response);

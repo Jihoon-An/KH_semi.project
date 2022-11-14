@@ -104,8 +104,14 @@
         $("#li_user").css("color","#ffe92d")
     });
 
+
     // 엔터 = 버튼 클릭
-    $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+    $("#inputText").on("keydown",function(e){
+        if (e.keyCode == 13) {
+            $("#btn_searchh").trigger("click");
+        }
+        return false;
+    });
 
 
     // 전체 선택, 해제
@@ -173,7 +179,12 @@
         let input = $("#inputText").val();
         console.log(input);
         if (input == "") {
-            alert("입력된 내용이 없습니다");
+            Swal.fire({
+                icon: 'error',
+                title: '검색어 누락',
+                text: '입력된 내용이 없습니다',
+                confirmButtonText: '확인'
+            })
             return false;
         } else {
             $("#frm").attr("action", "/userSearch.host?cpage=1");

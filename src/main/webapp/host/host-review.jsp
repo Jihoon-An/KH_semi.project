@@ -84,7 +84,7 @@
                             <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span></div>
                             <div class="review_photo p-1">
                                 <c:choose>
-                                    <c:when test = "${i.review_photo =='인증완료'}"><span style="color: ">${i.review_photo}</span></c:when>
+                                    <c:when test = "${i.review_photo =='인증완료'}"><span>${i.review_photo}</span></c:when>
                                     <c:when test = "${i.review_photo =='인증실패'}"><span style="color: red">${i.review_photo}</span></c:when>
                                     <c:when test = "${i.review_photo !=null}"><a class="imgLayer">미인증</a></c:when>
                                 </c:choose>
@@ -146,10 +146,11 @@
     });
 
     // 엔터 = 버튼 클릭
-    $("#search").on("keyup", (e) => {
+    $("#search").on("keydown",function(e){
         if (e.keyCode == 13) {
-            $("#searchBtn").click()
+            $("#searchBtn").trigger("click");
         }
+        return false;
     });
 
     // 전체 선택, 해제
@@ -181,9 +182,10 @@
     });
 
     // 리뷰 검색
-    $("#searchBtn").on("click", function click() {
+    $("#searchBtn").on("click", function() {
         let input = $("#search").val();
         let select = $("#select option:selected").val();
+
         if (input == "") {
             Swal.fire({
                 icon: 'error',
