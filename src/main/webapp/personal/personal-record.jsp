@@ -6,17 +6,12 @@
 
       <%@ include file="/layout/header.jsp" %>
 
-         <div class="main_margin_85"></div>
          <!-- Site Main -->
-         <main id="personal-record">
+         <main id="personal-record" style="margin-top: 57px">
             <div class="containerbox row" align="center">
-               <div class="col-12">
-                  <div class="row">
-                     <div class="col-12">
-                        <div class="text_title_600 boundary" id="notice">
-                           <p>운동을 하지 않은지 30년 지났습니다.</p>
-                        </div>
-                     </div>
+               <div class="col-12" style="padding-bottom: 0px" >
+                  <div class="text_main_title_600 boundary" id="notice">
+                     <p>운동을 하지 않은지 30년 지났습니다.</p>
                   </div>
                </div>
                <div class="col-4">
