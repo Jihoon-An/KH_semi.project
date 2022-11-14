@@ -233,7 +233,8 @@ public class BsUsersDAO extends Dao {
 
     
     public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
-        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
+        String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b " +
+                "left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
         		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 

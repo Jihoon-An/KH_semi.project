@@ -84,7 +84,7 @@
                             <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span></div>
                             <div class="review_photo p-1">
                                 <c:choose>
-                                    <c:when test = "${i.review_photo =='인증완료'}"><span style="color: ">${i.review_photo}</span></c:when>
+                                    <c:when test = "${i.review_photo =='인증완료'}"><span>${i.review_photo}</span></c:when>
                                     <c:when test = "${i.review_photo =='인증실패'}"><span style="color: red">${i.review_photo}</span></c:when>
                                     <c:when test = "${i.review_photo !=null}"><a class="imgLayer">미인증</a></c:when>
                                 </c:choose>
@@ -114,27 +114,28 @@
         </div>
     </form>
 
-    <div id="img_layout" onclick='ViewLayerClose()'>
-        <img id="review_photo_view" style="width: 100%; height: 100%">
+    <div id="img_layout" onclick='ViewLayerClose()' style="display:none; background-color: #FFFFFF">
+        <img id="review_photo_view" style="width: 100%; height: 100%; object-fit:contain">
     </div>
 
 </main>
 
 
 <script>
-    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기
+    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기 닫기
     <c:forEach var="i" items="${list}" varStatus="status">
         $($(".imgLayer")[${status.index}]).on("click", () => {
-            if ($("#img_layout").hide()) {
+            if ($("#img_layout").css('display')=='block') {
+                $("#img_layout").hide();
+                $("#review_photo_view").removeAttr("src");
+            } else {
                 $("#review_photo_view").attr("src", "/resource/review/${i.review_photo}");
                 $("#img_layout").show();
-            } else {
-                $("#review_photo_view").removeAttr("src");
-                $("#img_layout").hide();
             }
         })
     </c:forEach>
 
+    // 이미지 클릭하면 닫기
     function ViewLayerClose() {
         $("#img_layout").hide();
     }
@@ -145,10 +146,11 @@
     });
 
     // 엔터 = 버튼 클릭
-    $("#search").on("keyup", (e) => {
+    $("#search").on("keydown",function(e){
         if (e.keyCode == 13) {
-            $("#searchBtn").click()
+            $("#searchBtn").trigger("click");
         }
+        return false;
     });
 
     // 전체 선택, 해제
@@ -180,9 +182,10 @@
     });
 
     // 리뷰 검색
-    $("#searchBtn").on("click", function click() {
+    $("#searchBtn").on("click", function() {
         let input = $("#search").val();
         let select = $("#select option:selected").val();
+
         if (input == "") {
             Swal.fire({
                 icon: 'error',

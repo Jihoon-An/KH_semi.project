@@ -143,12 +143,19 @@
 	width: 100%;
 	height: 30%;
 }
+#gym-detail .gymscore{
+	width: 100%;
+	height: 40px;
+	font-size:30px;	
+	text-align:center;
+}
 
 #gym-detail .gym_info_open {
     width: 95%;
     padding-top: 2px;
     padding-left: 15px;
     font-size: 12px;
+    
 }
 
 #gym-detail .gym_info_location {

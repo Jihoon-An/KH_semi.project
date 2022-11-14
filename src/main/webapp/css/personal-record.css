@@ -12,8 +12,8 @@
 }
 
 #personal-record #notice {
-	padding: 10px;
-	height: 50px;
+	height: 65px;
+	line-height: 45px;
 }
 
 #personal-record #manager {

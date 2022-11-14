@@ -104,10 +104,13 @@
     });
 
 
-
     // 엔터 = 버튼 클릭
-   $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
-
+    $("#inputText").on("keydown",function(e){
+        if (e.keyCode == 13) {
+            $("#btn_searchh").trigger("click");
+        }
+        return false;
+    });
 
 
     // 전체 선택, 해제
@@ -146,8 +149,13 @@
     $("#btn_searchh").on("click", function click(){
         let input = $("#inputText").val();
 
-        if(input==""){
-            alert("입력된 내용이 없습니다");
+        if (input == "") {
+            Swal.fire({
+                icon: 'error',
+                title: '검색어 누락',
+                text: '입력된 내용이 없습니다',
+                confirmButtonText: '확인'
+            })
             return false;
         }else{
 
