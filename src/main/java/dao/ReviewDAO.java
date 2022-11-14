@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import commons.Common;
 import dto.GymDTO;
@@ -146,6 +147,29 @@ public class ReviewDAO extends Dao {
 
             return result;
         }
+    }
+    
+    public HashMap<String, Object> gymAvg(int gym_seq) throws Exception{
+    	
+    	String sql = "select round(avg(review_star),1) avg from review where gym_seq=?";
+    	try(Connection con = this.getConnection();
+    		PreparedStatement pstat = con.prepareStatement(sql)){
+    		pstat.setInt(1, gym_seq);
+
+    		try(ResultSet rs = pstat.executeQuery()){
+    	
+    			  HashMap<String, Object> data = new HashMap<>();
+    			 while(rs.next()) {
+    			
+        			 data.put("gymAvg", rs.getString("avg"));
+        		 }
+    			 return data;
+    			 
+    		}
+    	
+    		
+    	}
+    			
     }
 
 
