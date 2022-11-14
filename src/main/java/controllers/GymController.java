@@ -60,6 +60,11 @@ public class GymController extends ControllerAbs {
 
                 //리뷰쓰기
                 case "/reviewWriting.gym":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
                     this.write(request, response);
                     break;
             }

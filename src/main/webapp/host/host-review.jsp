@@ -114,27 +114,28 @@
         </div>
     </form>
 
-    <div id="img_layout" onclick='ViewLayerClose()'>
-        <img id="review_photo_view" style="width: 100%; height: 100%">
+    <div id="img_layout" onclick='ViewLayerClose()' style="display:none">
+        <img id="review_photo_view" style="width: 100%; height: 100%; object-fit:contain">
     </div>
 
 </main>
 
 
 <script>
-    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기
+    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기 닫기
     <c:forEach var="i" items="${list}" varStatus="status">
         $($(".imgLayer")[${status.index}]).on("click", () => {
-            if ($("#img_layout").hide()) {
+            if ($("#img_layout").css('display')=='block') {
+                $("#img_layout").hide();
+                $("#review_photo_view").removeAttr("src");
+            } else {
                 $("#review_photo_view").attr("src", "/resource/review/${i.review_photo}");
                 $("#img_layout").show();
-            } else {
-                $("#review_photo_view").removeAttr("src");
-                $("#img_layout").hide();
             }
         })
     </c:forEach>
 
+    // 이미지 클릭하면 닫기
     function ViewLayerClose() {
         $("#img_layout").hide();
     }

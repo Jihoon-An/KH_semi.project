@@ -6,7 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import dto.ExerciseDTO;
+
+import java.util.List;
+
 
 public class ExerciseDAO extends Dao{
 
@@ -23,6 +29,36 @@ public class ExerciseDAO extends Dao{
         return instance;
     }
 
+    /**
+     * 입력한 inbody데이터 차트로 변환
+     * @param exr_seq
+     * @return
+     * @throws Exception
+     */
+    public List<ExerciseDTO>InbodyChartInfo(int exr_seq)throws Exception{
+    	String sql = "select exr_seq,inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where exr_seq = ?";
+    
+    	try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+    			){
+    		pstat.setInt(1, exr_seq);
+    		
+    		List<ExerciseDTO> list = new ArrayList<>();
+    		try(ResultSet rs = pstat.executeQuery();){
+    			
+    			while(rs.next()) {
+    				ExerciseDTO dto = new ExerciseDTO();
+    				dto.setExr_seq(rs.getInt("exr_seq"));
+    				dto.setInbody_weight(rs.getString("inbody_weight"));
+    				dto.setInbody_bfm(rs.getString("inbody_bfm"));
+    				dto.setInbody_bmi(rs.getString("inbody_bmi"));
+    				dto.setInbody_sm(rs.getString("inbody_sm"));
+    				list.add(dto);
+    		}    			
+    			return list;
+    		}
+    	}
+    }
     /**
      * UserSeq로 Exercise 테이블 데이터 지우기
      * @param userSeq

@@ -1,19 +1,22 @@
 package controllers;
 
-import com.google.gson.Gson;
-import commons.Common;
-import dao.ExerciseDAO;
-import dto.ExerciseDTO;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+import commons.Common;
+import dao.ExerciseDAO;
+import dto.ExerciseDTO;
 
 
 @WebServlet("*.personal")
@@ -22,13 +25,18 @@ public class PersonalRecordController extends ControllerAbs {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	super.doGet(request, response);
+
 
         Common.setUtf8(request, response);
+
         String uri = request.getRequestURI();
 
         try {
             switch (uri) {
-                case "/main.personal":
+
+				// inbody chart
+				case "/infoinbody.personal":
                     this.getPage(request, response);
 					break;
 
@@ -58,6 +66,17 @@ public class PersonalRecordController extends ControllerAbs {
         this.doGet(request, response);
     }
 
+    protected void getInbodyChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	
+    	int exr_seq = Integer.parseInt(request.getParameter("exr_seq"));
+    	
+    	List<ExerciseDTO> inbody = ExerciseDAO.getInstance().InbodyChartInfo(exr_seq);    	
+    
+    	request.setAttribute("inbody", inbody);
+    	request.getRequestDispatcher("personal/personal-record.jsp").forward(request, response);
+    	 
+    }
+    
     protected void sendRecord(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ExerciseDTO exr = new ExerciseDTO();
         exr.setExr_date(Timestamp.valueOf(request.getParameter("date")));
@@ -89,7 +108,5 @@ public class PersonalRecordController extends ControllerAbs {
         data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
         return data;
     }
-
-
 
 }
