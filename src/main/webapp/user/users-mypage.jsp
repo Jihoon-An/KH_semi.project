@@ -16,7 +16,7 @@
             <div class="row justify-content-center">
                 <div class="row justify-content-center mb-2">
                     <img class="p-0" id="user_img" src="/resource/img/default_profile.png" alt="">
-                </div>
+                </div>ㄹ
                 <div class="row justify-content-center">
                     <label class="" id="profile_upload" for="user_img_in">
 									<span><i class="modify_btn fa-sharp fa-solid fa-arrow-up-from-bracket"

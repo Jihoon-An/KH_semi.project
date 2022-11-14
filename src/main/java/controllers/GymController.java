@@ -60,6 +60,11 @@ public class GymController extends ControllerAbs {
 
                 //리뷰쓰기
                 case "/reviewWriting.gym":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
                     this.write(request, response);
                     break;
             }
@@ -90,15 +95,18 @@ public class GymController extends ControllerAbs {
         FavoritesDAO favDao = FavoritesDAO.getInstance();
         //시설 필터 출력
         GymFilterDAO filterDao = GymFilterDAO.getInstance();
-   //    GymImgDAO gymImgDao = GymImgDAO.getInstance();
+       //사진이미지
+       GymImgDAO gymImgDao = GymImgDAO.getInstance();
        
-   //    	List<GymImgDTO> gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+      	GymImgDTO gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
+       	
+  
+       	
                HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
-        System.out.println(check);
+ 
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
-        System.out.println(reviewDto);
-        
+
        
        
         
@@ -114,7 +122,7 @@ public class GymController extends ControllerAbs {
             request.setAttribute("favresult", result);
         }
         
-      //  request.setAttribute("gymImg", gymImgDTO);
+        request.setAttribute("gymImg", gymImgDTO);
         request.setAttribute("checkList", check);
         request.setAttribute("gymFilter", gymFilterDtO);
         request.setAttribute("gymList", gymDto);
@@ -153,10 +161,6 @@ public class GymController extends ControllerAbs {
         int review_like = Integer.parseInt(request.getParameter("review_like"));
         int review_seq = Integer.parseInt(request.getParameter("review_seq"));
 
-        System.out.println(userSeq);
-        System.out.println(gym_seq);
-
-        System.out.println(review_seq);
         LikesDAO likesDao = LikesDAO.getInstance();
         ReviewDAO reviewDAO = ReviewDAO.getInstance();
 
