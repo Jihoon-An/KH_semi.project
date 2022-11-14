@@ -6,7 +6,7 @@
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-    <form id="gym-modify-form" action="/updateGym.bsPage" method="post" enctype="multipart/form-data">
+    <form id="gym-modify-form" action="/add.addGym" method="post" enctype="multipart/form-data">
         <input type="hidden" name="bsSeq" value="777">
         <div class="container" align="center">
             <!-- 사업자 회원가입 폼 -->
@@ -95,7 +95,7 @@
                             <div class="text-start" style="width: 350px">
                                 <span style="color: #808080; font-size: x-small">시설상세주소</span>
                             </div>
-                            <input type="text" name="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
+                            <input type="text" name="gym_address2" id="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
                                    maxlength="40" value="${gym.gym_location}">
 
 
@@ -191,14 +191,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img1" id="gym_img1_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img2" id="gym_img2_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
                                 </div>
@@ -208,14 +206,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img3" id="gym_img3_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img3" id="gym_img3" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img4" id="gym_img4_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
                                 </div>
@@ -225,14 +221,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img5" id="gym_img5_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img6" id="gym_img6_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img6" id="gym_img6" type="file" class="gym_imgFile">
                                 </div>
@@ -258,7 +252,6 @@
     <script>
 
         $("#btn_modify_complete").on("click", function () {
-            console.log(gymSubmitCheck());
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
@@ -267,22 +260,43 @@
 
         // 비어있는지
         function gymSubmitCheck() {
-            if (!isFilled($("#gym_name, #gym_phone, #gym_address1, #gym_address2, #gym_x, #gym_y"))) {
-                return false;
-            } else if (!isFilled($("#gym_name"))) {
+            if ($("#gym_name").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_name"));
                 $("#gym_name").focus();
-                return false;
-            } else if (!isFilled($("#gym_phone"))) {
+            }
+            else if ($("#gym_phone").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_phone"));
                 $("#gym_phone").focus();
-                return false;
-            } else if (!isFilled($("#gym_address2"))) {
+            }
+            else if ($("#gym_price").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_price"));
+                $("#gym_price").focus();
+            }
+            else if ($("#gym_open").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_open"));
+                $("#gym_open").focus();
+            }
+            else if ($("#gym_close").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_close"));
+                $("#gym_close").focus();
+            }
+            else if ($("#gym_address1").val() == "") {
+                console.log("힝 속았지!")
+                wobble($(".lb_gym_address1"));
+                $(".lb_gym_address1").focus();
+            }
+            else if ($("#gym_address2").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_address2"));
                 $("#gym_address2").focus();
-                return false;
-            } else {
-                Swal.fire({title: "수정 성공", icon: "success", text: "수정이 완료되었습니다"});
+            }
+            else {
+                Swal.fire({title: "등록 성공", icon: "success", text: "등록이 완료되었습니다"});
                 return true;
             }
             Swal.fire({title: "수정 실패", icon: "error", text: "수정에 실패하였습니다. 관리자에게 문의해주세요"});
@@ -361,11 +375,11 @@
 
                     var callback = function (result, status) {
                         if (status === kakao.maps.services.Status.OK) {
-                            result.x;
-                            result.y;
+                            result[0].x;
+                            result[0].y;
 
-                            $(e.target).siblings("input[name='gym_x']").val(result.y);
-                            $(e.target).siblings("input[name='gym_y']").val(result.x);
+                            $(e.target).siblings("input[name='gym_x']").val(result[0].y);
+                            $(e.target).siblings("input[name='gym_y']").val(result[0].x);
 
                         }
                     };

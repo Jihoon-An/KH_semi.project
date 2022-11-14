@@ -26,9 +26,12 @@ public class AddGymController extends ControllerAbs{
 
         try {
             switch (uri) {
-                case "/add.addGym":
-//                    this.addGym(request, response);
+                case "/toAdd.addGym":
                     request.getRequestDispatcher("/gym/gym-add.jsp").forward(request, response);
+                    break;
+                case "/add.addGym":
+                    this.addGym(request, response);
+                    response.sendRedirect("/page.bsPage");
                     break;
             }
         } catch (Exception e) {
@@ -41,13 +44,14 @@ public class AddGymController extends ControllerAbs{
 
     private void addGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
         FileControl file = new FileControl();
+        List<String> newImgList = file.saves(request, "/resource/gym");
+
         MultipartRequest multi = file.getMulti();
         int gymSeq = GymDAO.getInstance().getGymSeqNextVal();
 
         Gson gson = new Gson();
 
         // gymImg data
-        List<String> newImgList = file.saves(request, "/resource/gym");
         String json = gson.toJson(newImgList);
 
         // gymFilter data
@@ -59,12 +63,27 @@ public class AddGymController extends ControllerAbs{
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
         // gym data
-        GymDTO gymDTO = new GymDTO(file);
-        if (multi.getParameter("address1") == null) {
-            GymDTO beforeGym = GymDAO.getInstance().printGym(gymDTO.getGym_seq());
-            gymDTO.setGym_location(beforeGym.getGym_location());
-        }
+        String gym_address1 = multi.getParameter("gym_address1");
+        String gym_address2 = multi.getParameter("gym_address2");
+        String gym_location = gym_address1 + " " + gym_address2;
+
+        GymDTO gymDTO = new GymDTO();
         gymDTO.setGym_seq(gymSeq);
+        gymDTO.setBs_seq( (Integer) request.getSession().getAttribute("bsSeq"));
+        gymDTO.setGym_name(multi.getParameter("gym_name"));
+        gymDTO.setGym_phone(multi.getParameter("gym_phone"));
+        gymDTO.setGym_location(gym_location);
+        gymDTO.setGym_price(multi.getParameter("gym_price"));
+        if (newImgList.size() != 0) {
+            gymDTO.setGym_main_sysImg(newImgList.get(0));
+        } else {
+            gymDTO.setGym_main_sysImg("");
+        }
+        gymDTO.setGym_open(multi.getParameter("gym_open"));
+        gymDTO.setGym_close(multi.getParameter("gym_close"));
+        gymDTO.setGym_x(multi.getParameter("gym_x"));
+        gymDTO.setGym_y(multi.getParameter("gym_y"));
+
 
 
         // insert
