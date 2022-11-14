@@ -21,15 +21,22 @@
                         <div class="boundary" id="manager">
                            시설 이용 매니저
                            <div class="manager_titleBox">
-                              에이블짐 회원권
+                              ${manager.title}
                            </div>
                            <div class="manager_startBox">
-                              시작한지 <span style="font-size: 20px;">150일</span> 지났습니다.<br>
-                              <span style="font-size: 13px;">시작 날짜 : 22.11.14 Mon</span>
+
+                              <fmt:parseDate var="sDate" value="20180101" pattern="yyyyMMdd" />
+                              <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="isDate" scope="request" />
+                              <fmt:parseDate var="tDate" value="20180301" pattern="yyyyMMdd" />
+                              <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="itDate" scope="request" />
+
+                              시작한지 <span style="font-size: 20px;">${itDate - isDate}일</span> 지났습니다.<br>
+                              <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
+
                            </div>
                            <div class="manager_endBox">
                               종료까지 <span style="font-size: 20px;">150일</span> 남았습니다.<br>
-                              <span  style="font-size: 13px;">종료 날짜 : 22.11.18 Fri</span>
+                              <span  style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
                            </div>
                         </div>
                      </div>
