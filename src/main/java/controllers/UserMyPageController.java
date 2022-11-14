@@ -63,7 +63,8 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //리뷰 삭제
                 case "/delReview.userMyPage":
-                    ReviewDAO.getInstance().deleteByReviewSeq(Integer.parseInt(request.getParameter("review_seq")));
+                    int reviewSeq = Integer.parseInt(request.getParameter("review_seq"));
+                    ReviewDAO.getInstance().deleteByReviewSeq(reviewSeq);
                     break;
                 //프로필 이미지(PI) 수정
                 case "/modifyPI.userMyPage":
