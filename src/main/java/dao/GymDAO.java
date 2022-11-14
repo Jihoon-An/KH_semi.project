@@ -289,4 +289,27 @@ public class GymDAO extends Dao {
         return rowCnt;
     }
 
+    /**
+     * 신규 시설 리스트 출력
+     * @param start
+     * @param end
+     */
+    public List<GymDTO> SelectByRange(int start, int end) throws Exception {
+        String sql = "select  * from " +
+                "(select gym.*, row_number() over(order by gym_seq desc) rn from gym) " +
+                "where rn between ? and ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, start);
+            pstat.setInt(2, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<GymDTO> list = new ArrayList<GymDTO>();
+                while (rs.next()) {
+                    list.add(new GymDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
 }
