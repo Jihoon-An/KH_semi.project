@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import commons.Common;
 import dao.ExerciseDAO;
 import dto.ExerciseDTO;
+import dto.WeightDTO;
 
 
 @WebServlet("*.personal")
@@ -40,7 +41,7 @@ public class PersonalRecordController extends ControllerAbs {
 					break;
 					
 				case "/infoinbody.personal":
-                    this.getPage(request, response);
+                    this.getInbodyChart(request, response);
 					break;
 
 				case "/record.personal":
@@ -54,8 +55,9 @@ public class PersonalRecordController extends ControllerAbs {
                 case "/delRecord.personal":
                     ExerciseDAO.getInstance().deleteByDate(String.valueOf(request.getSession().getAttribute("userSeq")), request.getParameter("date"));
                     break;
-
-                case "/something.personal":
+                    
+                case "/weight.personal":
+                	this.getWeightData(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -71,13 +73,26 @@ public class PersonalRecordController extends ControllerAbs {
 
     protected void getInbodyChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
-    	int exr_seq = Integer.parseInt(request.getParameter("exr_seq"));
+    	int userSeq = (int) request.getSession().getAttribute("userSeq");
     	
-    	List<ExerciseDTO> inbody = ExerciseDAO.getInstance().inbodyChartInfo(exr_seq);    	
+    	List<ExerciseDTO> list = ExerciseDAO.getInstance().inbodyChartInfo(userSeq);    	
     
-    	request.setAttribute("inbody", inbody);
-    	request.getRequestDispatcher("personal/personal-record.jsp").forward(request, response);
+    	request.setAttribute("inbody", list);
+    	request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     	 
+    }
+    
+    protected void sendWeight (HttpServletRequest request, HttpServletResponse response) throws Exception{
+    	WeightDTO wet = new WeightDTO();
+    	wet.setUser_seq((Integer)request.getSession().getAttribute("user_seq"));
+    	wet.setWeight(request.getParameter("weight"));
+    	wet.setWeight_date(Timestamp.valueOf(request.getParameter("date")));
+    	ExerciseDAO.getInstance().insertWeight(wet);
+    }
+    
+    protected void getWeightData (HttpServletRequest request, HttpServletResponse response) throws Exception{
+    	String userSeq = (String) request.getSession().getAttribute("userSeq");
+    	
     }
     
     protected void sendRecord(HttpServletRequest request, HttpServletResponse response) throws Exception {
