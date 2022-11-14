@@ -1,21 +1,19 @@
 package dto;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import commons.FileControl;
-import dao.BsCtfcDAO;
-import dao.GymDAO;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import dao.GymDAO;
 
 public class ReviewDTO {
 
