@@ -151,16 +151,16 @@
                         <!-- 태그 -->
                         <div class="gym_list_tagBox">
                             <c:if test="${gymFilterList[status.index].open eq 'true'}">
-                                <div class="gym_list_tag open btn_base">#24시간</div>
+                                <div class="gym_list_tag open">#24시간</div>
                             </c:if>
                             <c:if test="${gymFilterList[status.index].locker eq 'true'}">
-                                <div class="gym_list_tag locker btn_base">#라커</div>
+                                <div class="gym_list_tag locker">#라커</div>
                             </c:if>
                             <c:if test="${gymFilterList[status.index].shower eq 'true'}">
-                                <div class="gym_list_tag shower btn_base">#샤워실</div>
+                                <div class="gym_list_tag shower">#샤워실</div>
                             </c:if>
                             <c:if test="${gymFilterList[status.index].park eq 'true'}">
-                                <div class="gym_list_tag park btn_base">#주차장</div>
+                                <div class="gym_list_tag park">#주차장</div>
                             </c:if>
                         </div>
 
@@ -178,7 +178,7 @@
             </c:forEach>
 
             <div class="text-center">
-                <a href="/add.addGym" style="text-decoration-line:none">
+                <a href="/toAdd.addGym" style="text-decoration-line:none">
                     <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
                 </a>
             </div>

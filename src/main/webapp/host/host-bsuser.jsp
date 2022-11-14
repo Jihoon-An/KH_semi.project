@@ -34,7 +34,7 @@
                 <div class="checkbox p-1"><input type="checkbox" name="userchkAll" id="allcheck"
                                                  onclick="checkAll();"></div>
                 <div class="bsuser-seq p-1">회원번호</div>
-                <div class="bsuser_email p-1">회원이메일</div>
+                <div class="bsuser-email p-1">회원이메일</div>
                 <div class="bsuser-name p-1">이름</div>
                 <div class="bsuser-phone p-1">연락처</div>
                 <div class="gym-count p-1">시설갯수</div>
@@ -43,7 +43,7 @@
 
             <c:choose>
                 <c:when test="${not empty bsUserList}">
-                    <c:forEach var="u" items="${bsUserList}" >
+                    <c:forEach var="u" items="${bsUserList}">
                         <div class="board_row d-flex flex-row">
                             <div class="checkbox p-1"><input type="checkbox" name="bsuser" value="${u.bsuser.bs_seq}"
                                                              class="check"></div>
@@ -64,7 +64,7 @@
                                     </c:if>
                                 </span>
                             </div>
-                            <div class="bsuser_email p-1">${u.bsuser.bs_email}</div>
+                            <div class="bsuser-email p-1">${u.bsuser.bs_email}</div>
                             <div class="bsuser-name p-1">${u.bsuser.bs_name}</div>
                             <div class="bsuser-phone p-1">${u.bsuser.bs_phone}</div>
     
@@ -104,13 +104,16 @@
     });
 
 
-
     // 엔터 = 버튼 클릭
-   // $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+    $("#inputText").on("keydown",function(e){
+        if (e.keyCode == 13) {
+            $("#btn_searchh").trigger("click");
+        }
+        return false;
+    });
 
 
-
-    <!-- 전체 선택, 해제 -->
+    // 전체 선택, 해제
     function checkAll() {
         if($("#allcheck").is(':checked')) {
             $("input[name=bsuser]").prop("checked", true);
@@ -119,7 +122,7 @@
         }
     }
 
-    <!-- 전체 체크중 하나 체크 취소하면 전체체크 풀림-->
+    // 전체 체크중 하나 체크 취소하면 전체체크 풀림
     $(document).on("click", "input:checkbox[name=bsuser]", function(e) {
 
         var chks = document.getElementsByName("bsuser");
@@ -142,16 +145,21 @@
     });
 
 
-    <!-- 사업자 회원 검색-->
+    // 사업자 회원 검색
     $("#btn_searchh").on("click", function click(){
         let input = $("#inputText").val();
 
-        if(input==""){
-            alert("입력된 내용이 없습니다");
+        if (input == "") {
+            Swal.fire({
+                icon: 'error',
+                title: '검색어 누락',
+                text: '입력된 내용이 없습니다',
+                confirmButtonText: '확인'
+            })
             return false;
         }else{
 
-            $("#frm").attr("action", "/bsUserSearch.host")
+            $("#frm").attr("action", "/bsUserSearch.host?cpage=1")
             $("#frm").submit();
         }
 
@@ -159,7 +167,7 @@
 
 
 
-    //사업자 회원 삭제
+    // 사업자 회원 삭제
     $("#btn_dell").on("click", function(){
         var userseq = [];
 

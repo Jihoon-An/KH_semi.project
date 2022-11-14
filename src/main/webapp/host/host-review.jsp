@@ -25,7 +25,8 @@
 
 
         <div class="btn_function_box">
-            <button class="btn_function" role="button">인증확인</button>
+            <button class="btn_function" role="button" type="button" id="btn_certify">인증확인</button>
+            <button class="btn_function" role="button" type="button" id="btn_certify_cancle">인증취소</button>
             <button class="btn_function" role="button" type="button" id="btn_del">삭제하기
             </button>
         </div>
@@ -50,7 +51,8 @@
                     <!-- 비어있지 않다면 -->
                     <c:forEach var="i" items="${list}">
                         <div class="board_row d-flex flex-row">
-                            <div class="checkbox p-1"><input type="checkbox" name="reviewEach" class="check" value="${i.review_seq}"></div>
+                            <div class="checkbox p-1"><input type="checkbox" name="reviewEach" class="check"
+                                                             value="${i.review_seq}"></div>
                             <div class="review_seq p-1">
                                 <span class="position-relative">
                                     ${i.review_seq}
@@ -58,7 +60,8 @@
                                     <jsp:useBean id="now" class="java.util.Date"/>
                                     <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${i.review_writer_date.time / (1000*60*60*24)}" integerOnly="true"
+                                    <fmt:parseNumber value="${i.review_writer_date.time / (1000*60*60*24)}"
+                                                     integerOnly="true"
                                                      var="dbDtParse" scope="request"/>
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
                                     <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
@@ -80,10 +83,15 @@
                             </div>
                             <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span></div>
                             <div class="review_photo p-1">
-                                <c:if test="${i.review_photo !=null}">미인증</c:if>
+                                <c:choose>
+                                    <c:when test = "${i.review_photo =='인증완료'}"><span>${i.review_photo}</span></c:when>
+                                    <c:when test = "${i.review_photo =='인증실패'}"><span style="color: red">${i.review_photo}</span></c:when>
+                                    <c:when test = "${i.review_photo !=null}"><a class="imgLayer">미인증</a></c:when>
+                                </c:choose>
                             </div>
                             <div class="review_date p-1">
-                                <fmt:formatDate value="${i.review_writer_date}" type="both" dateStyle="short" timeStyle="short"/>
+                                <fmt:formatDate value="${i.review_writer_date}" type="both" dateStyle="short"
+                                                timeStyle="short"/>
                             </div>
                         </div>
 
@@ -106,43 +114,31 @@
         </div>
     </form>
 
-    <div id="img_layout" onclick='ViewLayerClose()'>
-        <img src="/resource/img/main.jpg" style="width: 100%; height: 100%">
+    <div id="img_layout" onclick='ViewLayerClose()' style="display:none">
+        <img id="review_photo_view" style="width: 100%; height: 100%; object-fit:contain">
     </div>
 
 </main>
 
 
 <script>
-    // 이미지 저장 되어있으면, 이미지등록 이라고 멘트 바꾸기
-    // 인증리뷰어 체크를 해준다면, 인증완료로 멘트 바꾸기
-    // null 값은 빈값으로 나오기
+    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기 닫기
+    <c:forEach var="i" items="${list}" varStatus="status">
+        $($(".imgLayer")[${status.index}]).on("click", () => {
+            if ($("#img_layout").css('display')=='block') {
+                $("#img_layout").hide();
+                $("#review_photo_view").removeAttr("src");
+            } else {
+                $("#review_photo_view").attr("src", "/resource/review/${i.review_photo}");
+                $("#img_layout").show();
+            }
+        })
+    </c:forEach>
 
-
-
-    // 텍스트 클릭하면 이미지 보기 창 새로 뜨기
-    function ViewLayer() {
-        //클릭시 이미지 주소 바꾸는 함수 짜기 /resource/img/main.jpg
-        ok();
-    }
-
-
-    function ok() {
-        if (document.getElementById("Pop").style.display == "none") {
-            document.getElementById("Pop").style.display = 'inline'
-        } else {
-            document.getElementById("Pop").style.display = 'none'
-        }
-    }
-
+    // 이미지 클릭하면 닫기
     function ViewLayerClose() {
-        document.getElementById("Pop").style.display = 'none'
+        $("#img_layout").hide();
     }
-
-
-
-
-
 
     // 페이지 선택 확인용
     $(function () {
@@ -150,10 +146,11 @@
     });
 
     // 엔터 = 버튼 클릭
-    $("#search").on("keyup", (e) => {
+    $("#search").on("keydown",function(e){
         if (e.keyCode == 13) {
-            $("#searchBtn").click()
+            $("#searchBtn").trigger("click");
         }
+        return false;
     });
 
     // 전체 선택, 해제
@@ -185,9 +182,10 @@
     });
 
     // 리뷰 검색
-    $("#searchBtn").on("click", function click() {
+    $("#searchBtn").on("click", function() {
         let input = $("#search").val();
         let select = $("#select option:selected").val();
+
         if (input == "") {
             Swal.fire({
                 icon: 'error',
@@ -197,24 +195,8 @@
             })
             return false;
         } else {
-            if(select == "select_contents") { //리뷰내용
-
-                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
-                $("#frm").submit();
-            } else if (select == "select_email") { // 작성자이메일
-
-                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
-                $("#frm").submit();
-            } else if (select == "select_photo") { // 인증여부
-
-                $("#frm").attr("action", "/reviewSearch.host?cpage=1")
-                $("#frm").submit();
-            }
-
-            $("#select option:selected").val() == "select_email"
-            $("#select option:selected").val() == "select_photo"
-
-
+            $("#frm").attr("action", "/reviewSearch.host?cpage=1")
+            $("#frm").submit();
         }
     })
 
@@ -228,6 +210,40 @@
         }
         $.ajax({
             url: "/reviewDel.host",
+            type: "post",
+            data: {"review_seq": JSON.stringify(reviewSeq)},
+            success: function (data) {
+                location.reload();
+            }
+        })
+    })
+
+    // 리뷰 인증 여부
+    $("#btn_certify").on("click", function () {
+        var reviewSeq = [];
+        let checked = document.querySelectorAll(".check:checked");
+        for (let i = 0; i < checked.length; i++) {
+            reviewSeq.push(checked[i].value);
+        }
+        $.ajax({
+            url: "/reviewCertify.host",
+            type: "post",
+            data: {"review_seq": JSON.stringify(reviewSeq)},
+            success: function (data) {
+                location.reload();
+            }
+        })
+    })
+
+    // 리뷰 인증 취소
+    $("#btn_certify_cancle").on("click", function () {
+        var reviewSeq = [];
+        let checked = document.querySelectorAll(".check:checked");
+        for (let i = 0; i < checked.length; i++) {
+            reviewSeq.push(checked[i].value);
+        }
+        $.ajax({
+            url: "/reviewCertifyCancle.host",
             type: "post",
             data: {"review_seq": JSON.stringify(reviewSeq)},
             success: function (data) {

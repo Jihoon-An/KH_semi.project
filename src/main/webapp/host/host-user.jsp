@@ -33,7 +33,7 @@
                 <div class="checkbox p-1"><input type="checkbox" name="userchkAll" id="allcheck"
                                                    onclick="checkAll();"></div>
                 <div class="user-seq p-1">회원번호</div>
-                <div class="user_email p-1">회원이메일</div>
+                <div class="user-email p-1">회원이메일</div>
                 <div class="user-name p-1">이름</div>
                 <div class="user-phone p-1">연락처</div>
                 <div class="user-birth p-1">생년월일</div>
@@ -64,14 +64,17 @@
                                 </c:if>
                                 </span>
                             </div>
-                            <div class="user_email p-1">${u.email}</div>
+                            <div class="user-email p-1">${u.email}</div>
                             <div class="user-name p-1">${u.name}</div>
                             <div class="user-phone p-1">${u.phone}</div>
                             <div class="user-birth p-1">${u.birthday}</div>
                             <div class="sign-date p-1">
                                 <fmt:formatDate value="${u.signup}" type="both" dateStyle="short" timeStyle="short" />
                             </div>
-                            <div class="user-gender p-1">${u.sex}</div>
+                            <div class="user-gender p-1">
+                                <c:if test="${u.sex == 'W'}">여성</c:if>
+                                <c:if test="${u.sex == 'M'}">남성</c:if>
+                            </div>
                         </div>
 
                     </c:forEach>
@@ -102,17 +105,13 @@
     });
 
 
-
-    // 성멸 M, W에서 남자 여자로 바꿔서 출력
-    // $(document).ready(function() {
-    //     console.log($(".user-gender").html())
-    //     if($(".user-gender").html()=="M"){
-    //         this.html("남자");
-    //     }
-    // })
-
     // 엔터 = 버튼 클릭
-    $("#inputText").on("keyup", (e) => { if (e.keyCode == 13) { $("#btn_searchh").click() } });
+    $("#inputText").on("keydown",function(e){
+        if (e.keyCode == 13) {
+            $("#btn_searchh").trigger("click");
+        }
+        return false;
+    });
 
 
     // 전체 선택, 해제
@@ -180,10 +179,15 @@
         let input = $("#inputText").val();
         console.log(input);
         if (input == "") {
-            alert("입력된 내용이 없습니다");
+            Swal.fire({
+                icon: 'error',
+                title: '검색어 누락',
+                text: '입력된 내용이 없습니다',
+                confirmButtonText: '확인'
+            })
             return false;
         } else {
-            $("#frm").attr("action", "/userSearch.host");
+            $("#frm").attr("action", "/userSearch.host?cpage=1");
             $("#frm").submit();
         }
     })

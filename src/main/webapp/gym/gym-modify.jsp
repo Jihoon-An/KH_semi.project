@@ -401,11 +401,11 @@
 
                     var callback = function (result, status) {
                         if (status === kakao.maps.services.Status.OK) {
-                            result.x;
-                            result.y;
+                            result[0].x;
+                            result[0].y;
 
-                            $(e.target).siblings("input[name='gym_x']").val(result.y);
-                            $(e.target).siblings("input[name='gym_y']").val(result.x);
+                            $(e.target).siblings("input[name='gym_x']").val(result[0].y);
+                            $(e.target).siblings("input[name='gym_y']").val(result[0].x);
 
                         }
                     };
