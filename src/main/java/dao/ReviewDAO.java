@@ -342,7 +342,7 @@ public class ReviewDAO extends Dao {
         }
     }
 
-    // user_seq로 검색한 총 게시글의 개수를 반환하는 코드
+    // users_email로 검색한 총 게시글의 개수를 반환하는 코드
     public int getRecordCountByUserEmail(String user_email) throws Exception {
         String sql = "select count(*) from review r join users u on r.user_seq = u.users_seq where users_email like ?";
         try (Connection con = this.getConnection();
@@ -354,6 +354,8 @@ public class ReviewDAO extends Dao {
             }
         }
     }
+
+// 이거 잘못짠 코드 // 이거 질문용으로 냅둡니다..
 //    public int getRecordCountByUserSeq(int user_seq) throws Exception {
 //        String sql = "select count(*) from review where user_seq = ?";
 //        try (Connection con = this.getConnection();
@@ -365,6 +367,7 @@ public class ReviewDAO extends Dao {
 //            }
 //        }
 //    }
+
 
     // review_contents로 검색한 총 게시글의 개수를 반환하는 코드
     public int getRecordCountByContents(String review_contents) throws Exception {
@@ -545,10 +548,6 @@ public class ReviewDAO extends Dao {
                     HashMap<String, Object> data = new HashMap<>();
 //                    data.put("dto", new ReviewDTO(rs));
                     data.put("review_seq", rs.getInt("review_seq"));
-                    data.put("user_seq", rs.getInt("user_seq"));
-                    data.put("gym_seq", rs.getInt("gym_seq"));
-                    data.put("bs_seq", rs.getInt("bs_seq"));
-                    data.put("review_writer", rs.getString("review_writer"));
                     data.put("review_contents", rs.getString("review_contents"));
                     data.put("review_star", rs.getInt("review_star"));
                     data.put("review_like", rs.getInt("review_like"));
