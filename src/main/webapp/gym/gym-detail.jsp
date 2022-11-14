@@ -139,10 +139,19 @@
 
 								<div
 									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-
-									<div class="authmark">
-										<i class="fa-solid fa-user-shield"></i>
+							
+									<div class="authmark" >
+									
+										<i class="fa-solid fa-user-shield auth" ></i>
+									
+										<c:if test="${r.review.review_photo != '인증완료'}">
+										<script>
+											$(".auth").attr("style", "display:none" )
+										</script>	
+										</c:if>
 									</div>
+									
+									
 									<div class="ranwriter">${r.review.review_writer}</div>
 									<div class="writerd">${r.review.formDate}</div>
 									<div class="starc">
