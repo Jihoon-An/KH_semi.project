@@ -85,8 +85,7 @@
                             </div>
 
                             <div class="zipcodebox text-start" class="text-start" style="width: 350px">
-                                <label className="gym_address1-button" for="gym_address1" class="lb_gym_address1 label">우편번호를
-                                    검색하세요</label>
+                                <label className="gym_address1-button" for="gym_address1" class="lb_gym_address1 label">주소 수정시 눌러주세요</label>
                                 <input type="text" name="gym_address1" id="gym_address1" class="gym_address1"
                                        style="display: none">
                                 <input type="hidden" name="gym_x" value="${gym.gym_x}">
@@ -96,8 +95,8 @@
                             <div class="text-start" style="width: 350px">
                                 <span style="color: #808080; font-size: x-small">시설상세주소</span>
                             </div>
-                            <input type="text" name="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
-                                   maxlength="40" value="${gym.gym_location}">
+                            <input type="text" name="gym_address2" id="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
+                                   maxlength="40" value="${gym.gym_location}" readonly>
 
 
                             <div class="col-12 gy-2">
@@ -410,6 +409,8 @@
                         }
                     };
                     geocoder.addressSearch(roadAddr, callback);
+                    $("#gym_address2").removeAttr("readonly");
+                    $("#gym_address2").val("");
                 }
             }).open();
         })

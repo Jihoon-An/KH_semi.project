@@ -13,7 +13,7 @@
 }
 
 #bs-page #profile_box {
-    margin: 60px auto;
+    margin: 150px auto;
     width: 440px;
     border: 1px solid rgb(198, 198, 198);
     border-radius: 6px;
@@ -129,11 +129,11 @@
     border: 1px solid rgb(198, 198, 198);
     border-radius: 6px;
     background-color: white;
-    padding-bottom: 50px;
+    padding-bottom: 5px;
 }
 
 #bs-page #acc_cf {
-    height: 35px;
+    height: 20px;
     color: red;
 }
 
@@ -350,4 +350,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+#bs-page .profile_input{
+    font-size: 16px;
 }

@@ -108,13 +108,14 @@
                         <div class="row profile_title pt-2"><span>비밀번호 확인</span></div>
                         <div class="row"><input id="bs_pw2" type="password" class="profile_input"
                                                 placeholder="비밀번호 재입력" maxlength="16"></div>
-                        <div class="row mt-2" id="acc_cf"></div>
+                        <div class="row mt-1" id="acc_cf"></div>
 
 
                         <%--회원탈퇴--%>
-                        <div class="row mt-3 text-center bs_sd" id="bs_sd"><span id="bs_sd_btn">회원탈퇴</span></div>
+                        <div class="row mt-2 text-center bs_sd" id="bs_sd" style=""><span id="bs_sd_btn">회원탈퇴</span>
+                        </div>
                         <!--sd = sign down -->
-                        <div class="row mt-3 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
+                        <div class="row mt-2 text-center bs_sd justify-content-center text-center" id="bs_sd_cf">
                             <div style="color: blue; margin-bottom: 10px;">정말 탈퇴하시겠습니까?</div>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
@@ -135,36 +136,57 @@
 
             <!-- card -->
             <c:forEach var="gym" items="${gymList}" varStatus="status">
-                <div class="row gym_card">
-                    <form class="gym_form">
-                        <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
-                    </form>
-                    <div class="col-3 p-0">
-                        <img src="/resource/img/main.jpg" class="gym_img">
+            <div class="row gym_card">
+                <form class="gym_form">
+                    <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
+                </form>
+                <div class="col-3 p-0">
+                    <img src="/resource/img/main.jpg" class="gym_img">
+                </div>
+                <div class="col-7 gym_text">
+                    <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
+                    <div class="row pt-2">
+                        <div class="col-2 gym_label">주소</div>
+                        <div class="col-8 gym_content">${gym.gym_location}</div>
                     </div>
-                    <div class="col-7 gym_text">
-                        <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
-                        <div class="row pt-2"><div class="col-2 gym_label">주소</div><div class="col-8 gym_content">${gym.gym_location}</div></div>
-                        <div class="row pt-2"><div class="col-2 gym_label">연락처</div><div class="col-8 gym_content">${gym.gym_phone}</div></div>
-                        <div class="row pt-2"><div class="col-2 gym_label">오픈시간</div><div class="col-8 gym_content">${gym.gym_open} ~ ${gym.gym_close}</div></div>
-
-                        <!-- 태그 -->
-                        <div class="gym_list_tagBox">
-                            <c:if test="${gymFilterList[status.index].open eq 'true'}">
-                                <div class="gym_list_tag open">#24시간</div>
-                            </c:if>
-                            <c:if test="${gymFilterList[status.index].locker eq 'true'}">
-                                <div class="gym_list_tag locker">#라커</div>
-                            </c:if>
-                            <c:if test="${gymFilterList[status.index].shower eq 'true'}">
-                                <div class="gym_list_tag shower">#샤워실</div>
-                            </c:if>
-                            <c:if test="${gymFilterList[status.index].park eq 'true'}">
-                                <div class="gym_list_tag park">#주차장</div>
-                            </c:if>
-                        </div>
-
+                    <div class="row pt-2">
+                        <div class="col-2 gym_label">연락처</div>
+                        <div class="col-8 gym_content">${gym.gym_phone}</div>
                     </div>
+                    <c:choose>
+                        <c:when test='${gym.gym_open == "" && gym.gym_close == ""}'>
+                            <div class="row pt-2">
+                                <div class="col-2 gym_label">오픈시간</div>
+                                <div class="col-8 gym_content">미입력</div></div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="row pt-2">
+                                <div class="col-2 gym_label">오픈시간</div>
+                                <div class="col-8 gym_content">${gym.gym_open} ~ ${gym.gym_close}</div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 태그 -->
+                    <div class="gym_list_tagBox">
+                        <c:if test="${gymFilterList[status.index].open eq 'true'}">
+                            <div class="gym_list_tag open">#24시간</div>
+                        </c:if>
+                        <c:if test="${gymFilterList[status.index].locker eq 'true'}">
+                            <div class="gym_list_tag locker">#라커</div>
+                        </c:if>
+                        <c:if test="${gymFilterList[status.index].shower eq 'true'}">
+                            <div class="gym_list_tag shower">#샤워실</div>
+                        </c:if>
+                        <c:if test="${gymFilterList[status.index].park eq 'true'}">
+                            <div class="gym_list_tag park">#주차장</div>
+                        </c:if>
+                        <c:if test="${gymFilterList[status.index].open eq 'false' && gymFilterList[status.index].locker eq 'false' && gymFilterList[status.index].shower eq 'false' && gymFilterList[status.index].park eq 'false'}">
+                            <div class="gym_list_tag">#태그없음</div>
+                        </c:if>
+                    </div>
+
+                    </c:if>
                     <div class="col-2 justify-content-center">
                         <button class="btn_outline modify_gym_btn"
                                 style="border: 2px solid #F0F0F0;
@@ -175,17 +197,17 @@
                     </div>
                 </div>
                 <hr>
-            </c:forEach>
+                </c:forEach>
 
-            <div class="text-center">
-                <a href="/toAdd.addGym" style="text-decoration-line:none">
-                    <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
-                </a>
+                <div class="text-center">
+                    <a href="/toAdd.addGym" style="text-decoration-line:none">
+                        <button class="button-17" id="add_gym" style="font-weight: bold;">시설 추가하기</button>
+                    </a>
+                </div>
+
             </div>
 
         </div>
-
-    </div>
 
 </main>
 
