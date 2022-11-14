@@ -185,6 +185,7 @@
 					let likes = "<div class='col-6'></div><div class='col-6 text_mini text-end item_likes' style='color:#808080; padding-right:15px'>추천수 : " + data.review.review_like + "</div>";
 					let contents = "<div class='col-12 gy-3 item_contents'>" + data.review.review_contents + "</div>";
 					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>";
+					if (data.review.review_photo == "인증완료") { result += "<img src='resource/img/certified.png' class='item_certified'>" }
 					return result;
 				}
 

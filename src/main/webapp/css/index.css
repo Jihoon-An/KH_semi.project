@@ -373,6 +373,14 @@
 	color: #003584
 }
 
+#index .item .item_certified {
+	position: absolute;
+	width: 15%;
+	top: 0%;
+	left: 50%;
+	transform: translate(-50%, -65%);
+}
+
 #index .item:hover {
 	transform: scale(1.1);
 }
