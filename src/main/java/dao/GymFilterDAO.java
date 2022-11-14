@@ -101,4 +101,19 @@ public class GymFilterDAO extends Dao {
     }
 
 
+    public void add(GymFilterDTO gymFilterDTO) throws Exception {
+        String sql = "insert into gym_filter values(?,?,?,?,?)";
+        try (Connection con = this.getConnection();
+             PreparedStatement statement = con.prepareStatement(sql)
+        ) {
+            statement.setInt(1, gymFilterDTO.getGym_seq());
+            statement.setString(2, gymFilterDTO.getOpen());
+            statement.setString(3, gymFilterDTO.getLocker());
+            statement.setString(4, gymFilterDTO.getShower());
+            statement.setString(5, gymFilterDTO.getPark());
+
+            statement.executeUpdate();
+            con.commit();
+        }
+    }
 }

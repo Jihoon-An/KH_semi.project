@@ -11,6 +11,7 @@ import java.util.List;
 import commons.Common;
 import dto.BsUsersDTO;
 import dto.ReviewDTO;
+import dto.UserDTO;
 
 public class BsUsersDAO extends Dao {
 
@@ -441,4 +442,105 @@ public class BsUsersDAO extends Dao {
             con.commit();
         }
     }
+
+    /**
+     * 신규 사업자 회원 데이터 출력
+     * @param start
+     * @param end
+     *
+     */
+    public List<BsUsersDTO> SelectByRangeForHost(int start, int end) throws Exception {
+        String sql = "select  * from " +
+                "(select bs_users.*, row_number() over(order by bs_signup desc) rn from bs_users) " +
+                "where rn between ? and ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, start);
+            pstat.setInt(2, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<BsUsersDTO> list = new ArrayList<BsUsersDTO>();
+                while (rs.next()) {
+                    list.add(new BsUsersDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
+
+    // BsUsers 이름으로 검색한 총 게시글의 개수를 반환하는 코드
+    public int getRecordCountByBsUsersName(String text) throws Exception {
+        String sql = "select count(*) from bs_users where bs_name  like ? order by 1";
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setString(1, "%" + text + "%");
+            try (ResultSet rs = pstat.executeQuery();) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        }
+    }
+
+
+
+
+    // 페이지 네비
+    public String getPageNavi2(int currentPage, int recordTotalCount) throws Exception {
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
+        int pageTotalCount = 0;
+        if (recordTotalCount % recordCountPerPage > 0) {
+            pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
+        } else {
+            pageTotalCount = (recordTotalCount / recordCountPerPage);
+        }
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+        if (currentPage > pageTotalCount) {
+            currentPage = pageTotalCount;
+        }
+        int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
+        int endNavi = startNavi + naviCountPerPage - 1;
+        if (endNavi > pageTotalCount) {
+            endNavi = pageTotalCount;
+        }
+        boolean needPrev = true;
+        boolean needNext = true;
+        if (startNavi == 1) {
+            needPrev = false;
+        }
+        if (endNavi == pageTotalCount) {
+            needNext = false;
+        }
+        StringBuilder sb = new StringBuilder();
+        if (needPrev) {
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
+                    + "'>Previous</a></li>");
+        }
+        for (int i = startNavi; i <= endNavi; i++) {
+            if (currentPage == i) {
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            } else {
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                        + "</a></li>");
+            }
+        }
+        if (needNext) {
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
+                    + "'>Next</a></li>");
+        }
+        return sb.toString();
+    }
+
+
+
+
+
+
+
+
+
+
 }

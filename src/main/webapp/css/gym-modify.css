@@ -260,7 +260,7 @@
     color: #333;
 }
 
-    /* CSS */
+/* CSS */
 .button-38 {
     background-color: #FFFFFF;
     border: 0;
@@ -297,17 +297,42 @@
 
 
 #gym-modify .gym_img {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     background-color: #2C3E50;
-    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
 }
 
-#gym-modify .gym_img > img{
+#gym-modify .gym_img > img {
     width: 100%;
     height: 100%;
 }
 
+#gym-modify #gym_img1_label {
+    border: 5px solid rgba(208, 212, 215, 0.24);
+}
+
+#gym-modify #gym_img_box {
+    padding: 0 28px;
+}
+
+#gym-modify .del_img_btn {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(60, 64, 67, 0);
+}
+#gym-modify .del_img_btn:hover {
+    background-color: rgba(149, 175, 190, 0.64);
+    color: rgba(0, 0, 0, 0.99);
+    font-weight: bolder;
+}
 
 
 

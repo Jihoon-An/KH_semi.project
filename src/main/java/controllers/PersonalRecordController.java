@@ -34,11 +34,14 @@ public class PersonalRecordController extends ControllerAbs {
 
 				case "/record.personal":
                     this.sendRecord(request, response);
-                    response.getWriter().append(new Gson().toJson(this.getRecordData(request, response)));
 					break;
 
                 case "/datepick.personal":
                     response.getWriter().append(new Gson().toJson(this.getRecordData(request, response)));
+                    break;
+
+                case "/delRecord.personal":
+                    ExerciseDAO.getInstance().deleteByDate(String.valueOf(request.getSession().getAttribute("userSeq")), request.getParameter("date"));
                     break;
 
                 case "/something.personal":
@@ -73,6 +76,7 @@ public class PersonalRecordController extends ControllerAbs {
         userSeq = userSeq.equals("null") ? "-1" : userSeq;
         request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(userSeq, sdf.format(new Date())));
+        request.setAttribute("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, sdf.format(new Date())));
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
 
@@ -82,6 +86,7 @@ public class PersonalRecordController extends ControllerAbs {
         userSeq = userSeq.equals("null") ? "-1" : userSeq;
         data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
+        data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
         return data;
     }
 

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.http.HttpTimeoutException;
@@ -257,44 +258,54 @@ public class BsPageController extends ControllerAbs {
 
 
     /**
-     * <h1>시설 수정 페이지 기존 데이터 불러오기</h1>
-     */
-    private void toUpdateGym(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        int gymSeq = Integer.parseInt(request.getParameter("gymSeq"));
-
-        GymDTO gym = GymDAO.getInstance().printGym(gymSeq);
-        GymFilterDTO gymFilter = GymFilterDAO.getInstance().selectByGymSeq(gymSeq);
-
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<String>>() {
-        }.getType();
-        List<String> gymImg = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
-
-        request.setAttribute("gymImg", gymImg);
-        request.setAttribute("gym", gym);
-        request.setAttribute("gymFilter", gymFilter);
-    }
-
-    /**
      * <h1>시설정보 및 시설필터 수정하기</h1>
      */
     private void updateGymInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         FileControl file = new FileControl();
         // gymImg data
-        List<String> newImg = file.saves(request, "/resource/gym");
+        List<String> newImgList = file.saves(request, "/resource/gym");
         MultipartRequest multi = file.getMulti();
-
         int gymSeq = Integer.parseInt(multi.getParameter("gymSeq"));
-        Type type = new TypeToken<String[]>() {
+        Type listStringType = new TypeToken<List<String>>() {
         }.getType();
         Gson gson = new Gson();
-        // 기존 이미지 리스트 지우기
-        String[] beforeImgList;
-        beforeImgList = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), type);
-        for (String delImg : beforeImgList) {
-            file.delete(request, "/resource/gym", delImg);
+
+        // 기존 이미지 리스트
+        List<String> beforeImgList = gson.fromJson(GymImgDAO.getInstance().getByGymSeq(gymSeq).getGym_sysimg(), listStringType);
+        boolean checkChangMainImg = false;
+        String mainImg = "";
+        if(beforeImgList != null && beforeImgList.size() != 0) {
+            mainImg = beforeImgList.get(0);
+        }else {
+            beforeImgList = new ArrayList<>();
+        }
+        // 지울 파일 리스트
+        List<String> delImgList = gson.fromJson(multi.getParameter("del_img_list"), listStringType);
+
+        // 선택한 파일 지우기
+        if(delImgList != null) {
+            for (String delImg : delImgList) {
+                if (delImg.endsWith(mainImg)) {
+                    checkChangMainImg = true;
+                }
+                File delFile = new File(delImg);
+                delFile.delete();
+                String rm = delImg.replaceAll(".*/", "");
+                beforeImgList.remove(rm);
+            }
+        }
+
+        // 최신 이미지 리스트
+        List<String> afterImgList = new ArrayList<>();
+        if(checkChangMainImg){
+            // 메인이 지워졌을 때
+            afterImgList.addAll(newImgList);
+            afterImgList.addAll(beforeImgList);
+        }else{
+            // 메인이 안 지워졌을 때
+            afterImgList.addAll(beforeImgList);
+            afterImgList.addAll(newImgList);
         }
 
         // gymFilter data
@@ -310,9 +321,15 @@ public class BsPageController extends ControllerAbs {
             gymDTO.setGym_location(beforeGym.getGym_location());
         }
 
+        if(afterImgList.size() != 0) {
+            gymDTO.setGym_main_sysImg(afterImgList.get(0));
+        }else{
+            gymDTO.setGym_main_sysImg("");
+        }
+
         GymFilterDTO gymFilterDTO = new GymFilterDTO(gymSeq, open, locker, shower, park);
 
-        String json = gson.toJson(newImg);
+        String json = gson.toJson(afterImgList);
 
         GymImgDAO.getInstance().update(gymSeq, json);
         GymDAO.getInstance().updateGym(gymDTO);

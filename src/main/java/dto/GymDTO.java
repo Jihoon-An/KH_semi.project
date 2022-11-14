@@ -51,7 +51,7 @@ public class GymDTO {
         this.gym_phone = multi.getParameter("gym_phone");;
         this.gym_location = gym_location;
         this.gym_price = multi.getParameter("gym_price");;
-        this.gym_main_sysImg = file.getSysNameList().get(0);
+        this.gym_main_sysImg = null;
         this.gym_open = multi.getParameter("gym_open");;
         this.gym_close = multi.getParameter("gym_close");;
         this.gym_x = multi.getParameter("gym_x");;

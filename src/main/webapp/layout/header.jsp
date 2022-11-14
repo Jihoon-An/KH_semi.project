@@ -98,7 +98,7 @@
             <nav id="header_nav_text">
                 <ul id="header_nav_menu">
                     <li class="float-start"><a class="header_a_tag" href="/main.search">헬스장검색</a></li>
-                    <li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>
+                    <!--<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>-->
                     <c:choose>
                         <c:when test="${!admin}">
                             <li class="float-start"><a class="header_a_tag" href="/main.personal">운동기록</a></li>
@@ -131,7 +131,7 @@
                                    onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
                             </li>
                             <li class="float-end">
-                                <a class="header_a_tag" href="/usersList.host?cpage=1">관리자페이지</a>
+                                <a class="header_a_tag" href="/admin.host">관리자페이지</a>
                             </li>
                         </c:when>
                         <c:otherwise>

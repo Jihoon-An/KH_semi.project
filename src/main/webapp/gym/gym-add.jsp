@@ -6,8 +6,7 @@
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
 <main id="gym-modify">
-    <form id="gym-modify-form" action="/updateGym.bsPage" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="gymSeq" value="${gym.gym_seq}">
+    <form id="gym-modify-form" action="/add.addGym" method="post" enctype="multipart/form-data">
         <input type="hidden" name="bsSeq" value="777">
         <div class="container" align="center">
             <!-- 사업자 회원가입 폼 -->
@@ -18,7 +17,7 @@
 
                     <div class="bs_sign_box row justify-content-center">
                         <div class="col-12">
-                            <h1>시설 정보 수정 페이지</h1>
+                            <h1>시설 정보 추가 페이지</h1>
                         </div>
 
                         <!------------------------------ 시설 정보 --------------------------->
@@ -34,7 +33,7 @@
                                 <span class="inputTitle">시설이름</span>
                             </div>
                             <input type="text" name="gym_name" id="gym_name" placeholder="시설 이름을 입력하세요"
-                                   value="${gym.gym_name}">
+                                   value="">
                             <div class="error_msg text_mini text-start" style="width: 350px">
                                 <span class="error_msg_display" id="gym_name_msg"></span>
                             </div>
@@ -45,7 +44,7 @@
                                 <span class="inputTitle">시설연락처</span>
                             </div>
                             <input type="text" name="gym_phone" id="gym_phone" placeholder="시설 연락처를 입력하세요"
-                                   maxlength="11" oninput=validNum() value="${gym.gym_phone}">
+                                   maxlength="11" oninput=validNum() value="">
                             <div class="col-12 gy-2">
                                 <div class="error_msg text_mini text-start">
                                     <span class="error_msg_display" id="gym_phone_msg"></span>
@@ -59,7 +58,7 @@
                                 <span class="inputTitle">시설가격</span>
                             </div>
                             <input type="text" name="gym_price" id="gym_price" placeholder="시설 가격을 입력하세요"
-                                   value="${gym.gym_price}">
+                                   value="">
                         </div>
 
 
@@ -68,14 +67,14 @@
                                 <span class="inputTitle">시설 OPEN 시간</span>
                             </div>
                             <input type="text" name="gym_open" id="gym_open" placeholder="시설 OPEN 시간을 입력하세요"
-                                   value="${gym.gym_open}">
+                                   value="">
 
 
                             <div class="text-start">
                                 <span class="inputTitle">시설 CLOSE 시간</span>
                             </div>
                             <input type="text" name="gym_close" id="gym_close" placeholder="시설 CLOSE 시간을 입력하세요"
-                                   value="${gym.gym_close}">
+                                   value="">
                         </div>
 
 
@@ -89,14 +88,14 @@
                                     검색하세요</label>
                                 <input type="text" name="gym_address1" id="gym_address1" class="gym_address1"
                                        style="display: none">
-                                <input type="hidden" name="gym_x" value="${gym.gym_x}">
-                                <input type="hidden" name="gym_y" value="${gym.gym_y}">
+                                <input type="hidden" name="gym_x" value="">
+                                <input type="hidden" name="gym_y" value="">
                             </div>
 
                             <div class="text-start" style="width: 350px">
                                 <span style="color: #808080; font-size: x-small">시설상세주소</span>
                             </div>
-                            <input type="text" name="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
+                            <input type="text" name="gym_address2" id="gym_address2" class="gym_address2" placeholder="시설상세주소를 입력하세요"
                                    maxlength="40" value="${gym.gym_location}">
 
 
@@ -120,12 +119,7 @@
                                 <span class="inputTitle">24시간 운영</span>
                                 <div class="checkbox-wrapper-55">
                                     <label class="rocker rocker-small">
-                                        <c:if test="${gymFilter.open eq 'true'}">
-                                            <input type="checkbox" name="open" id="open" class="filterCheck" checked>
-                                        </c:if>
-                                        <c:if test="${gymFilter.open ne 'true'}">
-                                            <input type="checkbox" name="open" id="open" class="filterCheck">
-                                        </c:if>
+                                        <input type="checkbox" name="open" id="open" class="filterCheck">
                                         <span class="switch-left">Yes</span>
                                         <span class="switch-right">No</span>
                                     </label>
@@ -136,13 +130,7 @@
                                 <span class="inputTitle">라커 여부</span>
                                 <div class="checkbox-wrapper-55">
                                     <label class="rocker rocker-small">
-                                        <c:if test="${gymFilter.locker eq 'true'}">
-                                            <input type="checkbox" name="locker" id="locker" class="filterCheck"
-                                                   checked>
-                                        </c:if>
-                                        <c:if test="${gymFilter.locker ne 'true'}">
-                                            <input type="checkbox" name="locker" id="locker" class="filterCheck">
-                                        </c:if>
+                                        <input type="checkbox" name="locker" id="locker" class="filterCheck">
                                         <span class="switch-left">Yes</span>
                                         <span class="switch-right">No</span>
                                     </label>
@@ -153,13 +141,7 @@
                                 <span class="inputTitle">샤워시설 여부</span>
                                 <div class="checkbox-wrapper-55">
                                     <label class="rocker rocker-small">
-                                        <c:if test="${gymFilter.shower eq 'true'}">
-                                            <input type="checkbox" name="shower" id="shower" class="filterCheck"
-                                                   checked>
-                                        </c:if>
-                                        <c:if test="${gymFilter.shower ne 'true'}">
-                                            <input type="checkbox" name="shower" id="shower" class="filterCheck">
-                                        </c:if>
+                                        <input type="checkbox" name="shower" id="shower" class="filterCheck">
                                         <span class="switch-left">Yes</span>
                                         <span class="switch-right">No</span>
                                     </label>
@@ -170,12 +152,7 @@
                                 <span class="inputTitle">주차장 여부</span>
                                 <div class="checkbox-wrapper-55">
                                     <label class="rocker rocker-small">
-                                        <c:if test="${gymFilter.park eq 'true'}">
-                                            <input type="checkbox" name="park" id="park" class="filterCheck" checked>
-                                        </c:if>
-                                        <c:if test="${gymFilter.park ne 'true'}">
-                                            <input type="checkbox" name="park" id="park" class="filterCheck">
-                                        </c:if>
+                                        <input type="checkbox" name="park" id="park" class="filterCheck">
                                         <span class="switch-left">Yes</span>
                                         <span class="switch-right">No</span>
                                     </label>
@@ -214,14 +191,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img1" id="gym_img1_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
-                                    <label class="gym_img" for="gym_img2"  id="gym_img2_label">
+                                    <label class="gym_img" for="gym_img2" id="gym_img2_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
                                 </div>
@@ -231,14 +206,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img3" id="gym_img3_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img3" id="gym_img3" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img4" id="gym_img4_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
                                 </div>
@@ -248,14 +221,12 @@
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img5" id="gym_img5_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img6" id="gym_img6_label">
                                         <img src="/resource/gym/default04.png">
-                                        <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img6" id="gym_img6" type="file" class="gym_imgFile">
                                 </div>
@@ -270,59 +241,62 @@
 
                 <div class="row gy-4 justify-content-center">
                     <div class="col-4">
-                        <button type="button" class="btn_base" id="btn_modify_complete">정보 수정</button>
-                        <button type="button" class="btn_outline" id="del_btn">삭제</button>
+                        <button type="button" class="btn_base" id="btn_modify_complete">매장 등록</button>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-
     </form>
-
-    <form id="del_form" action="/deleteGym.bsPage" method="post">
-        <input type="hidden" name="gym_seq" value="${gym.gym_seq}">
-    </form>
-
-
-
-
-
-
-
-
 
 
     <script>
 
         $("#btn_modify_complete").on("click", function () {
-            console.log(gymSubmitCheck());
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
         })
 
 
-        // 회원가입 함수
+        // 비어있는지
         function gymSubmitCheck() {
-            if (!isFilled($("#gym_name, #gym_phone, #gym_address1, #gym_address2, #gym_x, #gym_y"))) {
-                return false;
-            } else if (!isFilled($("#gym_name"))) {
+            if ($("#gym_name").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_name"));
                 $("#gym_name").focus();
-                return false;
-            } else if (!isFilled($("#gym_phone"))) {
+            }
+            else if ($("#gym_phone").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_phone"));
                 $("#gym_phone").focus();
-                return false;
-            } else if (!isFilled($("#gym_address2"))) {
+            }
+            else if ($("#gym_price").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_price"));
+                $("#gym_price").focus();
+            }
+            else if ($("#gym_open").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_open"));
+                $("#gym_open").focus();
+            }
+            else if ($("#gym_close").val() == "") {
+                console.log("힝 속았지!")
+                wobble($("#gym_close"));
+                $("#gym_close").focus();
+            }
+            else if ($("#gym_address1").val() == "") {
+                console.log("힝 속았지!")
+                wobble($(".lb_gym_address1"));
+                $(".lb_gym_address1").focus();
+            }
+            else if ($("#gym_address2").val() == "") {
+                console.log("힝 속았지!")
                 wobble($("#gym_address2"));
                 $("#gym_address2").focus();
-                return false;
-            } else {
-                Swal.fire({title: "수정 성공", icon: "success", text: "수정이 완료되었습니다"});
+            }
+            else {
+                Swal.fire({title: "등록 성공", icon: "success", text: "등록이 완료되었습니다"});
                 return true;
             }
             Swal.fire({title: "수정 실패", icon: "error", text: "수정에 실패하였습니다. 관리자에게 문의해주세요"});
@@ -452,50 +426,6 @@
         }
 
 
-        // 이미지 파일 입력 폼 추가 기능
-        let count = 1;
-
-        $("#fileAdd").on("click", function () {
-            if ($("input[type=file]").length > 15) {
-                alert("파일은 최대 15개까지만 업로드 가능합니다.");
-                return;
-            }
-
-            count++;
-
-            let fileDiv = $("<div>");
-            fileDiv.addClass("filebox");
-            fileDiv.addClass("text-start");
-
-            let inputLabel = $("<label>");
-            inputLabel.attr("for", "gym_img" + count)
-            inputLabel.addClass("gym_imgFile_name");
-            inputLabel.html("이미지를 업로드하세요");
-
-            let inputFile = $("<input>");
-            inputFile.attr("type", "file");
-            inputFile.attr("name", "gym_img" + count);
-            inputFile.attr("id", "gym_img" + count);
-            inputFile.attr("onchange", "fileTest($('#gym_img" + count + "'))");
-            inputFile.addClass("gym_imgFile");
-
-
-            let delBtn = $("<a>");
-            delBtn.html("x");
-            delBtn.addClass("line-del");
-            delBtn.on("click", function () {
-                $(this).parent().parent().remove();
-            })
-
-
-            inputLabel.append(delBtn);
-            fileDiv.append(inputLabel);
-            fileDiv.append(inputFile);
-
-            $(".imgesBox").append(fileDiv);
-        });
-
-
         // 파일 업로드시 파일명 삽입 기능
         $('.gym_imgFile').on('change', handleImgFileSelect);
 
@@ -556,7 +486,6 @@
         };
 
 
-
         //이미지 미리보기
         function handleImgFileSelect(e) {
             var img = $(this).siblings(".gym_img").find("img");
@@ -580,60 +509,13 @@
 
                 var reader = new FileReader();
                 reader.onload = function (e) {
-                   img.attr("src", e.target.result);
+                    img.attr("src", e.target.result);
                 }
                 reader.readAsDataURL(f);
             });
 
         }
 
-        /**
-         * input file 초기화
-         */
-
-        <c:forEach var="gymImg" items="${gymImgList}" varStatus="status">
-        $($(".del_img_btn")[${status.index}]).siblings("img").attr("src","/resource/gym/${gymImg}");
-        $($(".del_img_btn")[${status.index}]).css("display","block");
-        </c:forEach>
-
-
-
-
-        // 이미지 지우기 이벤트
-        var delImgList = [];
-        $(".del_img_btn").click(function () {
-            // 지울 리스트 넣기
-            let img_name = $(this).siblings("img").attr("src");
-            delImgList.push(img_name);
-            $("#del_img_list").val(JSON.stringify(delImgList));
-            console.log($("#del_img_list").val());
-            // div초기화
-            $(this).siblings("img").attr("src","/resource/gym/default04.png");
-            $(this).css("display","none");
-        });
-
-
-        // 시설 지우기 이벤트
-        $("#del_btn").click(function () {
-            Swal.fire({
-                title: '정말 지우시겠습니까?',
-                text: "지우면 되돌릴 수 없습니다!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '여기 이제 필요 없어요~',
-                cancelButton: '어! 이게 아닌데...'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'success'
-                    );
-                    $("#del_form").submit();
-                }
-            })
-        });
 
     </script>
 

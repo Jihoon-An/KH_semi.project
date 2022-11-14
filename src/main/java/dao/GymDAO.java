@@ -158,10 +158,10 @@ public class GymDAO extends Dao {
             pstat.setString(5, dto.getGym_location());
             pstat.setString(6, dto.getGym_x());
             pstat.setString(7, dto.getGym_y());
+            int result = pstat.executeUpdate();
 
             con.commit();
-
-            return pstat.executeUpdate();
+            return result;
         }
     }
 
@@ -271,7 +271,45 @@ public class GymDAO extends Dao {
             con.commit();
         }
     }
+
+    public int countGymBySeq(int bs_seq) throws Exception {
+        String sql = "select COUNT(*) as gym_count from gym where bs_seq = ?";
+
+        int rowCnt = 0;
+        try (Connection con = this.getConnection();
+             PreparedStatement pstat = con.prepareStatement(sql);
+        ) {
+            pstat.setInt(1, bs_seq);
+            try (ResultSet rs = pstat.executeQuery();) {
+                if (rs.next()) {
+                    rowCnt = rs.getInt(1);
+                }
+            }
+        }
+        return rowCnt;
+    }
+
+    /**
+     * 신규 시설 리스트 출력
+     * @param start
+     * @param end
+     */
+    public List<GymDTO> SelectByRange(int start, int end) throws Exception {
+        String sql = "select  * from " +
+                "(select gym.*, row_number() over(order by gym_seq desc) rn from gym) " +
+                "where rn between ? and ?";
+        try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
+            pstat.setInt(1, start);
+            pstat.setInt(2, end);
+
+            try (ResultSet rs = pstat.executeQuery();) {
+                List<GymDTO> list = new ArrayList<GymDTO>();
+                while (rs.next()) {
+                    list.add(new GymDTO(rs));
+                }
+                return list;
+            }
+        }
+    }
+
 }
-
-
-
