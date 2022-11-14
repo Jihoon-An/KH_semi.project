@@ -158,10 +158,10 @@ public class GymDAO extends Dao {
             pstat.setString(5, dto.getGym_location());
             pstat.setString(6, dto.getGym_x());
             pstat.setString(7, dto.getGym_y());
+            int result = pstat.executeUpdate();
 
             con.commit();
-
-            return pstat.executeUpdate();
+            return result;
         }
     }
 
