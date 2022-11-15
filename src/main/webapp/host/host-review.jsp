@@ -12,32 +12,73 @@
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
                 <!-- 검색분류 -->
+
                 <c:if test="${type != 'email'&& type !='certify'}">
                     <select name="type" id="select">
                         <option value="contents" selected>리뷰내용</option>
                         <option value="email">작성자이메일</option>
                         <option value="certify">인증여부</option>
                     </select>
-                </c:if>
-                <c:if test="${type == 'email'}">
-                    <select name="type" id="select">
-                        <option value="contents">리뷰내용</option>
-                        <option value="email" selected>작성자이메일</option>
-                        <option value="certify">인증여부</option>
+                    <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
+                                                    value="${search}"></span>
+
+                    <span id="selcetChange2" style="display: none">
+                    <select name="searchCrtf" class="search">
+                        <option value="미인증" selected>미인증</option>
+                        <option value="인증완료">인증완료</option>
+                        <option value="인증실패">인증실패</option>
                     </select>
+                    </span>
                 </c:if>
+
+                <c:if test="${type == 'email'}">
+                <select name="type" id="select">
+                    <option value="contents">리뷰내용</option>
+                    <option value="email" selected>작성자이메일</option>
+                    <option value="certify">인증여부</option>
+                </select>
+                <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
+                                                value="${search}"></span>
+
+                <span id="selcetChange2" style="display: none">
+                    <select name="searchCrtf" class="search">
+                        <option value="미인증" selected>미인증</option>
+                        <option value="인증완료">인증완료</option>
+                        <option value="인증실패">인증실패</option>
+                    </select>
+                    </span>
+                </c:if>
+
                 <c:if test="${type == 'certify'}">
                     <select name="type" id="select">
                         <option value="contents">리뷰내용</option>
                         <option value="email">작성자이메일</option>
                         <option value="certify" selected>인증여부</option>
                     </select>
+                    <span id="selcetChange1" style="display: none"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
+                                                    value="${search}"></span>
+                    <span id="selcetChange2">
+                    <select name="searchCrtf" class="search">
+                        <option value="미인증" <c:if test="${searchCrtf=='미인증'}">selected</c:if>>미인증</option>
+                        <option value="인증완료" <c:if test="${searchCrtf=='인증완료'}">selected</c:if>>인증완료</option>
+                        <option value="인증실패" <c:if test="${searchCrtf=='인증실패'}">selected</c:if>>인증실패</option>
+                    </select>
+                    </span>
                 </c:if>
 
+                <button class="btn_search" role="button" type="button" class="searchBtn" id="searchBtn">검색</button>
 
-
-                <input type="text" placeholder="검색어를 입력해주세요" name="search" id="search" value="${search}">
-                <button class="btn_search" role="button" type="button" id="searchBtn">검색</button>
+                <script>
+                    $("#select").on("click", () => {
+                        if ($('#select option:selected').text() == '인증여부') {
+                            $('#selcetChange1').hide();
+                            $('#selcetChange2').show();
+                        } else {
+                            $('#selcetChange1').show();
+                            $('#selcetChange2').hide();
+                        }
+                    })
+                </script>
             </div>
         </div>
 
@@ -100,12 +141,14 @@
                                 <c:if test="${i.review_star == 4}">★★★★</c:if>
                                 <c:if test="${i.review_star == 5}">★★★★★</c:if>
                             </div>
-                            <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span></div>
+                            <div class="review_like p-1"><span><i class="fa-regular fa-thumbs-up"></i> ${i.review_like}</span>
+                            </div>
                             <div class="review_photo p-1">
                                 <c:choose>
-                                    <c:when test = "${i.review_photo =='인증완료'}"><span>${i.review_photo}</span></c:when>
-                                    <c:when test = "${i.review_photo =='인증실패'}"><span style="color: red">${i.review_photo}</span></c:when>
-                                    <c:when test = "${i.review_photo !=null}"><a class="imgLayer">미인증</a></c:when>
+                                    <c:when test="${i.review_photo =='인증완료'}"><span>${i.review_photo}</span></c:when>
+                                    <c:when test="${i.review_photo =='인증실패'}"><span
+                                            style="color: red">${i.review_photo}</span></c:when>
+                                    <c:when test="${i.review_photo !=null}"><a class="imgLayer">미인증</a></c:when>
                                 </c:choose>
                             </div>
                             <div class="review_date p-1">
@@ -143,15 +186,15 @@
 <script>
     // 텍스트 클릭하면 이미지 보기 창 새로 뜨기 닫기
     <c:forEach var="i" items="${list}" varStatus="status">
-        $($(".imgLayer")[${status.index}]).on("click", () => {
-            if ($("#img_layout").css('display')=='block') {
-                $("#img_layout").hide();
-                $("#review_photo_view").removeAttr("src");
-            } else {
-                $("#review_photo_view").attr("src", "/resource/review/${i.review_photo}");
-                $("#img_layout").show();
-            }
-        })
+    $($(".imgLayer")[${status.index}]).on("click", () => {
+        if ($("#img_layout").css('display') == 'block') {
+            $("#img_layout").hide();
+            $("#review_photo_view").removeAttr("src");
+        } else {
+            $("#review_photo_view").attr("src", "/resource/review/${i.review_photo}");
+            $("#img_layout").show();
+        }
+    })
     </c:forEach>
 
     // 이미지 클릭하면 닫기
@@ -165,7 +208,7 @@
     });
 
     // 엔터 = 버튼 클릭
-    $("#search").on("keydown",function(e){
+    $("#search").on("keydown", function (e) {
         if (e.keyCode == 13) {
             $("#searchBtn").trigger("click");
             return false;
@@ -201,7 +244,7 @@
     });
 
     // 리뷰 검색
-    $("#searchBtn").on("click", function() {
+    $("#searchBtn").on("click", function () {
         let input = $("#search").val();
         let select = $("#select option:selected").val();
 

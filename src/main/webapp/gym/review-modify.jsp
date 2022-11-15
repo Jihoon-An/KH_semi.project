@@ -91,8 +91,14 @@
 
                         </div>
                         <div class="mx-auto p-2 " style="text-align: center;">
-                            <font size=5 id="slider_star_value1">${review.review_star}</font> 점
-                            <font size=2 id="slider_star_value_text1"></font>
+                            <span id="slider_star_value1" style="font-size: large; ">${review.review_star}</span> 점
+                            <span id="slider_star_value_text1" style="font-size: x-small; ">
+                                <c:if test="${review.review_star == '5'}">(최고예요)</c:if>
+                                <c:if test="${review.review_star == '4'}">(좋아요)</c:if>
+                                <c:if test="${review.review_star == '3'}">(좋아요)</c:if>
+                                <c:if test="${review.review_star == '2'}">(그저그래요)</c:if>
+                                <c:if test="${review.review_star == '1'}">(별로예요)</c:if>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -200,7 +206,14 @@
                         <p style="margin-top: 15px" class="text_normal">필수 항목입니다</p>
                         <p class="star_value"><span class="text_main_title">만족도 <span
                                 id="slider_star_value2">${review.review_star}</span>점을
-                            주셨습니다. </span><span id="slider_star_value_text2"></span></p>
+                            주셨습니다. </span>
+                            <span id="slider_star_value_text2">
+                                <c:if test="${review.review_star == '5'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '4'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '3'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '2'}">어떤 점이 아쉬우셨나요?</c:if>
+                                <c:if test="${review.review_star == '1'}">어떤 점이 아쉬우셨나요?</c:if>
+                            </span></p>
 
                         <div class="text_mini reviw_policy">
                             <p class="text_normal"><b>리뷰 정책을 위반하는 경우, 통보없이 리뷰를 숨김처리할 수 있습니다.</b></p>
