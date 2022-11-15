@@ -119,6 +119,7 @@ public class HostUserController extends ControllerAbs {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("/");
         }
 
     }
@@ -127,10 +128,7 @@ public class HostUserController extends ControllerAbs {
         int cpage = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
-
         String searchCrtf = request.getParameter("searchCrtf");
-
-
 
         String reviewSearchNavi = null;
         if (typeSearch.equals("email")) {
