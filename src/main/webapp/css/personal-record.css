@@ -59,6 +59,21 @@
 	padding-bottom: 0px;
 }
 
+#personal-record #result_contents #reg_momo {
+	padding: 5px;
+	resize: none;
+}
+
+#personal-record #result #result_memo {
+	overflow-y: scroll;
+	
+}
+
+#personal-record #result :-webkit-scrollbar {
+	display: none;
+}
+
+
 
 #personal-record .filter {
 	position: absolute;
@@ -110,10 +125,6 @@
 
 #personal-record #record sup {
 	color: red;
-}
-
-#personal-record #record #record_memo {
-	overflow-y: scroll;
 }
 
 #personal-record #record .text-start {
