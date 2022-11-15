@@ -180,13 +180,15 @@
 					for (j = 1; j < 6; j++) {star += j <= data.review.review_star ? "<label class='item_filledStar'>★</label>" : "<label class='item_emptyStar'>★</label>";}
 					let score = "<div class='col-12 gy-2' align=center>" + star + "</div>";
 					let space = "<div class='col-1 gy-3'></div><hr class='col-10 gy-3'><div class='col-1 gy-3'></div>";
-					let writer = "<div class='col-6 text-start text-truncate item_writer' style='padding-left:15px'><img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp" + data.review.review_writer + "</div>";
+					let certified = data.review.review_photo == "인증완료" ? "<img src='/resource/fitneeds.ico' style='display:inline-block; width:20px'> " : " "
+					let writer = "<div class='col-6 text-start text-truncate item_writer' style='padding-left:15px'>" + certified + data.review.review_writer + "</div>";
 					let writeDate = "<div class='col-6 text_mini text-end text item_date' style='color:#808080; padding-right:15px'>" + getDateFormat(new Date(data.review.review_writer_date)).slice(0, -3) + "</div>";
 					let likes = "<div class='col-6'></div><div class='col-6 text_mini text-end item_likes' style='color:#808080; padding-right:15px'>추천수 : " + data.review.review_like + "</div>";
 					let contents = "<div class='col-12 gy-3 item_contents'>" + data.review.review_contents + "</div>";
-					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>";
-					if (data.review.review_photo == "인증완료") { result += "<img src='resource/img/certified.png' class='item_certified'>" }
+					let medal = "<img src='resource/img/medal.png' class='item_medal'>"
+					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>" + medal;
 					return result;
+					// 오리 아이콘 <img src='/resource/duck.ico' style='display:inline-block; width:20px'>&nbsp
 				}
 
 				// Carousel 스크립트
@@ -211,6 +213,9 @@
 							let data = res.gymList[i];
 							$(item).find(".imgFilter>p").html(data.gym.gym_name + "<br>💕&nbsp" + data.favorites.count).attr("seq", data.gym.gym_seq);
 							$(item).find(".imgFilter").attr("seq", data.gym.gym_seq);
+							if (data.gym.gym_main_sysImg != undefined) {
+								$(item).find("img").attr("src", "/resource/gym/" + data.gym.gym_main_sysImg);
+							}
 						}
 					});
 				}

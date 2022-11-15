@@ -96,7 +96,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-6" style="padding-bottom:0px;">
+										<div class="col-6" id="wrap_memo" style="padding-bottom:0px;">
 											<div class="row" style="border:none; padding-bottom:0px">
 												<div class="text_title_600 col-12">
 													<p>Memo<sup>*</sup></p>
@@ -223,6 +223,7 @@
 								let calDate = getDateFormat(new Date(year + "-" + month + "-" + $(arrDate[i]).text())).slice(0, 10);
 								let exrDate = getDateFormat(new Date(resData[j].exr_date)).slice(0, 10);
 								if (calDate == exrDate) {
+									$(arrDate[i]).html("<img src='/resource/img/fire.png'>");
 									$(arrDate[i]).text("🔥");
 									break;
 								}
@@ -286,16 +287,19 @@
 						hideInbody();
 					}
 
+					let regInbody = false;
 					// 인바디 작성 창 열기 애니메이션
 					function showInbody() {
 						$("#reg_inbody")[0].style.left = "404px";
 						$("#btn_inbody").text("▶");
+						regInbody = true;
 					}
 
 					// 인바디 작성 창 닫기 애니메이션
 					function hideInbody() {
 						$("#reg_inbody")[0].style.left = "746px";
 						$("#btn_inbody").text("◀");
+						regInbody = false;
 					}
 
 					// 기록 등록 함수
@@ -333,7 +337,7 @@
 								let data = {
 									"date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))
 								}
-								$.post("/delRecord.personal", data).done(() => { onSelect(); });
+								$.post("/delRecord.personal", data).done(() => { location.reload(); });
 							}
 						});
 					}
@@ -384,25 +388,19 @@
 
 					$("#btn_regRecord").on("click", () => {
 						if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") { wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false; }
-						if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) {
-							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
-							if (today < $("#calendar").datepicker("getDate")) {
-								Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
-							} else if ($(".ui-state-active").text() == "🔥") {
-								Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
-							} else {
-								tryRegist();
-							}
+						if (!isFilled($("#reg_hour, #reg_minute, #reg_memo"))) {if (regInbody) { wobble($("#record")[0]); return false;}}
+						let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
+						if (today < $("#calendar").datepicker("getDate")) {
+							Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
+						} else if ($(".ui-state-active").text() == "🔥") {
+							Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
+						} else {
+							tryRegist();
 						}
+						
 					});
 
-					$("#btn_inbody").on("click", () => {
-						if ($("#btn_inbody").text() == "◀") {
-							showInbody();
-						} else {
-							hideInbody();
-						}
-					})
+					$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
 
 					// inbody chart
 					let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');

@@ -51,6 +51,7 @@ public class UserController extends HttpServlet {
 			// 로그아웃 요청
 			case "/logout.user":
 				request.getSession().invalidate();
+				response.sendRedirect("/");
 				break;
 
 			// 회원가입 요청

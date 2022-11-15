@@ -74,7 +74,9 @@
 }
 
 #personal-record #record {
+	position: relative;
 	display: none;
+	z-index: 10;
 }
 
 #personal-record #record input:not([type="range"]) {
@@ -111,13 +113,7 @@
 }
 
 #personal-record #record #record_memo {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	word-break: break-word;
-
-	display: -webkit-box;
-	-webkit-line-clamp: 4;
-	-webkit-box-orient: vertical;
+	overflow-y: scroll;
 }
 
 #personal-record #record .text-start {
@@ -206,6 +202,16 @@
 
 #personal-record .ui-datepicker td a {
 	font-size: 20px !important;
+}
+#personal-record .ui-datepicker td a img {
+	position: relative;
+	width: 100%;
+	top:-8px;
+	transition: 0.5s;
+}
+
+#personal-record .ui-datepicker td a img:hover {
+	scale:1.1;
 }
 
 #personal-record .ui-datepicker-week-end:first-of-type a {
