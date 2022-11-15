@@ -164,14 +164,18 @@
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     width: 95%;
-    max-height: 40px;
+    height: 65px;
     padding-left: 25px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
     cursor: pointer;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient:vertical;
+    display:-webkit-box;
+    word-wrap: break-word;
 }
 
 #users-mypage hr {
