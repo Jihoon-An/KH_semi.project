@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
+   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
       <%@ include file="/layout/header.jsp" %>
-
+      
 	  
          <!-- Site Main -->
          <main id="personal-record" style="margin-top: 57px">
@@ -23,19 +21,19 @@
                            <div class="manager_titleBox">
                               ${manager.title}
                            </div>
+                           <jsp:useBean id="now" class="java.util.Date"/>
+                           <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
+                           <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
+                           <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
+                           <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
+                           <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
                            <div class="manager_startBox">
-
-                              <fmt:parseDate var="sDate" value="20180101" pattern="yyyyMMdd" />
-                              <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="isDate" scope="request" />
-                              <fmt:parseDate var="tDate" value="20180301" pattern="yyyyMMdd" />
-                              <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="itDate" scope="request" />
-
-                              시작한지 <span style="font-size: 20px;">${itDate - isDate}일</span> 지났습니다.<br>
+                              시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다.<br>
                               <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
 
                            </div>
                            <div class="manager_endBox">
-                              종료까지 <span style="font-size: 20px;">150일</span> 남았습니다.<br>
+                              종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다.<br>
                               <span  style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
                            </div>
                         </div>
