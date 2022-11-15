@@ -1,30 +1,22 @@
 package controllers;
 
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.naming.InterruptedNamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 
-import dao.BsUsersDAO;
-import dao.GymDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
-import dto.BsUsersDTO;
-import dto.GymDTO;
-import dto.ReviewDTO;
-import dto.UserDTO;
-import oracle.net.aso.a;
+import commons.FileControl;
+import dao.*;
+import dto.*;
 
 
 @WebServlet("*.host")
@@ -73,7 +65,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.userDel(request, response);
+                    this.delUser(request, response);
                     break;
 
                 //관리자 페이지 사업자회원 삭제
@@ -82,7 +74,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.bsUserDel(request, response);
+                    this.delBsUser(request, response);
                     break;
 
                 // 관리자페이지 - 리뷰목록 출력
@@ -266,7 +258,7 @@ public class HostUserController extends ControllerAbs {
     }
 
 
-    protected void userDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         UserDAO userDao = UserDAO.getInstance();
 
@@ -282,13 +274,27 @@ public class HostUserController extends ControllerAbs {
 //        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
-            userDao.deleteByUserSeq(seqList.get(i));
+            // userSeq 받아오기
+            int userSeq = seqList.get(i);
+            // 프사지우기
+            String path = "/resource/profileImg"; //런타임 webapp 폴더를 불러옴.
+            String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+            FileControl file = new FileControl();
+            file.delete(request, path, delFileName);
+            // 즐겨찾기 테이블 삭제
+            FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
+            // 헬스장 회원 테이블 삭제
+            ManagerDAO.getInstance().deleteByUserSeq(userSeq);
+            // 캘린더 테이블 삭제
+            CalendarDAO.getInstance().deleteByUserSeq(userSeq);
+            // 운동기록 테이블 삭제
+            ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
+            // 유저 테이블 삭제
+            UserDAO.getInstance().deleteByUserSeq(userSeq);
         }
-
-
     }
 
-    protected void bsUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delBsUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         BsUsersDAO bsUsersDAO = BsUsersDAO.getInstance();
 
@@ -302,10 +308,59 @@ public class HostUserController extends ControllerAbs {
 //        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
-            bsUsersDAO.deleteByBsSeq(seqList.get(i));
+
+            int bsSeq = seqList.get(i);
+            List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
+
+            // 광고배너 지우기
+            AdDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 즐겨찾기 지우기
+            FavoritesDAO favDao = FavoritesDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                favDao.deleteByGymSeq(gym.getGym_seq());
+            }
+
+
+            // 리뷰 좋아요 지우기
+            ReviewDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 사업자 등록증 지우기
+            BsCtfcDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 시설 필터 지우기
+            GymFilterDAO gymFilDao = GymFilterDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                gymFilDao.deleteByGymSeq(gym.getGym_seq());
+            }
+
+            // 시설이미지 지우기
+            FileControl file = new FileControl();
+            GymImgDAO gymImgDAO = GymImgDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                GymImgDTO gymImg = gymImgDAO.getByGymSeq(gym.getGym_seq());
+
+                List<String> gymImgList;
+
+                gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {
+                }.getType());
+                if (gymImgList == null) {
+                    gymImgList = new ArrayList<>();
+                }
+
+                for (String gymName : gymImgList) {
+                    file.delete(request, "/resource/gym", gymName);
+                }
+                GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
+            }
+            //시설 지우기
+            GymDAO.getInstance().deleteByBsSeq(bsSeq);
+            // 비지니스 유저 지유기
+            BsUsersDAO.getInstance().deleteByBsSeq(bsSeq);
         }
-
-
     }
 
 

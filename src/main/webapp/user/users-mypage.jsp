@@ -222,7 +222,7 @@
     <script>
         ///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 
-
+        var afterPi = "";
         var pi_check = false;
         var sel_file;
 
@@ -233,29 +233,43 @@
             var files = e.target.files;
             var filesArr = Array.prototype.slice.call(files);
 
-            var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
+            if(files.length > 0) {
 
-            filesArr.forEach(function (f) {
-                if (!f.type.match(reg)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '이미지 업로드 불가',
-                        text: '이미지 파일만 업로드 가능합니다.',
-                        confirmButtonText: '확인'
-                    })
-                    return;
+                var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
+
+                filesArr.forEach(function (f) {
+                    if (!f.type.match(reg)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '이미지 업로드 불가',
+                            text: '이미지 파일만 업로드 가능합니다.',
+                            confirmButtonText: '확인'
+                        })
+                        return;
+                    }
+
+                    sel_file = f;
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#user_img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(f);
+                });
+
+                pi_check = true;
+            }
+            else{
+                console.log("/resource/profileImg/"+afterPi);
+                let basPi = "${user.pi}";
+                if (basPi != "/resource/profileImg/null") {
+                    $("#user_img").attr("src", basPi);
+                }else if(afterPi != null){
+                    $("#user_img").attr("src", "/resource/profileImg/"+afterPi);
+                }else {
+                    $("#user_img").attr("src", "/resource/img/default_profile.png");
                 }
-
-                sel_file = f;
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("#user_img").attr("src", e.target.result);
-                }
-                reader.readAsDataURL(f);
-            });
-
-            pi_check = true;
+            }
         }
 
         //이미지 저장
@@ -272,6 +286,7 @@
                 , data: form
                 , success: function (response) {
                     console.log("프로필 변경에 성공하였습니다.");
+                    afterPi = response;
                 }
                 , error: function (jqXHR) {
                     alert(jqXHR.responseText);

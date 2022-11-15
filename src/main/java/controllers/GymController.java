@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -38,14 +39,14 @@ public class GymController extends ControllerAbs {
                     this.getDetailGym(request, response);
                     break;
 
-                //좋아요 추가
+                //좋아요 추가, 삭제
                 case "/reviewLikeAdd.gym":
-                    this.reLikeAdd(request, response);
+                    this.reLike(request, response);
                     break;
 
-                case "/reviewLikeDel.gym":
-                    this.reLikeDel(request, response);
-                    break;
+//                case "/reviewLikeDel.gym":
+//                    this.reLikeDel(request, response);
+//                    break;
 
                 //즐겨찾기 추가
                 case "/favoriteadd.gym":
@@ -185,8 +186,9 @@ public class GymController extends ControllerAbs {
         int result = dao.removeByGymSeq(gym_seq, user_seq);
     }
 
-    //좋아요 추가
-    private void reLikeAdd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    //좋아요 추가 취소 처리
+
+    private void reLike(HttpServletRequest request, HttpServletResponse response) throws Exception {
         //
         int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
@@ -195,33 +197,31 @@ public class GymController extends ControllerAbs {
 
         LikesDAO likesDao = LikesDAO.getInstance();
         ReviewDAO reviewDAO = ReviewDAO.getInstance();
+        JsonObject total = new JsonObject();
+        JsonObject obj = new JsonObject();
+        boolean exist = likesDao.isLikeExist(review_seq, userSeq, gym_seq);
+        
+        if(!(exist)){
+            int addlikes= likesDao.add(new LikesDTO(review_seq, userSeq, gym_seq));
+            int addrelikes= reviewDAO.addReviewLike(review_seq);
+       
+            System.out.println("좋아요 추가");
 
+        response.getWriter().append("false");
+        }else {
+        	 int delReLikes= reviewDAO.delReviewLike(review_seq);
+        	 int delLikes = likesDao.remove(review_seq, gym_seq, userSeq);
+             System.out.println("좋아요 삭제");
 
-        reviewDAO.addReviewLike(review_seq);
-        int result = likesDao.add(new LikesDTO(review_seq, userSeq, gym_seq));
-        System.out.println("좋아요  성공");
+           response.getWriter().append("true");
+        }
 
+   
+       
+    
     }
 
-    //좋아요 삭제
-    private void reLikeDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        int userSeq = (Integer) request.getSession().getAttribute("userSeq"); // 로그인 사용자
-        int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
-        int review_like = Integer.parseInt(request.getParameter("review_like"));
-        int review_seq = Integer.parseInt(request.getParameter("review_seq"));
-
-        LikesDAO likesDao = LikesDAO.getInstance();
-        ReviewDAO reviewDAO = ReviewDAO.getInstance();
-
-
-        reviewDAO.delReviewLike(review_seq);
-        int result = likesDao.remove(review_seq, gym_seq, userSeq);
-        System.out.println("좋아요 취소 성공");
-
-    }
-
-
+ 
     // 리뷰 글쓰기 페이지로 이동
     protected void moveWrite(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
