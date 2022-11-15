@@ -1,5 +1,11 @@
 package dto;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import dao.GymDAO;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -60,6 +66,9 @@ public class ReviewDTO {
 		this.review_photo = resultSet.getString("review_photo");
 	}
 
+
+
+
 	public ReviewDTO(int review_seq) {
 		this.review_seq = review_seq;
 	}
@@ -114,7 +123,6 @@ public class ReviewDTO {
 	public void setGym_name(String gym_name) {
 		this.gym_name = gym_name;
 	}
-
 
 	public void setUsers_email(String users_email) { this.users_email = users_email; }
 	public String getUsers_email() { return users_email;}

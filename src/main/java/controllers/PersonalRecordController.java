@@ -76,9 +76,8 @@ public class PersonalRecordController extends ControllerAbs {
     	int userSeq = (int) request.getSession().getAttribute("userSeq");
     	
     	List<ExerciseDTO> list = ExerciseDAO.getInstance().inbodyChartInfo(userSeq);    	
-    
-    	request.setAttribute("inbody", list);
-    	request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
+      	
+    	return;
     	 
     }
     

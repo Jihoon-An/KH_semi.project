@@ -425,24 +425,21 @@ public class UserDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public UserDTO searchUserByUserEmail(String users_email) throws Exception {
-        String sql = "select * from users where users_email like ? order by 1";
+    public List<UserDTO> searchUserByUserEmail(String users_email) throws Exception {
+        String sql = "select * from users where users_email like '%?%' order by 1";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
-            pstat.setString(1, "%" + users_email + "%");
+            pstat.setString(1, (users_email));
             try (ResultSet rs = pstat.executeQuery();) {
-                if (rs.next()) {
+                List<UserDTO> list = new ArrayList<>();
+                while (rs.next()) {
                     UserDTO dto = new UserDTO(rs);
-                    return dto;
-                } else {
-                    return new UserDTO();
+                    list.add(dto);
                 }
+                return list;
             }
         }
     }
-
-
-
 
 
     // Users 이름으로 검색한 총 게시글의 개수를 반환하는 코드

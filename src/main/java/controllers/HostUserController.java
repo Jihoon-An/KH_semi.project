@@ -132,33 +132,35 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int cpageSearch = 1; // 잘못짠거같음. 1-1 cpage만 나올 듯
+        int cpageSearch = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
-        int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
 
         String reviewSearchNavi = null;
-        if (typeSearch.equals("select_email")) {
-            List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
+        if (typeSearch.equals("email")) {
+//            int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).get(0).getSeq();
+            List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
             request.setAttribute("list", emailList);
-            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
-        } else if (typeSearch.equals("select_contents")) {
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByUserEmail(searchStr));
+        } else if (typeSearch.equals("contents")) {
             List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
             request.setAttribute("list", contentsList);
-            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
-        } else if (typeSearch.equals("select_photo")) {
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
+        } else if (typeSearch.equals("certify")) {
             if (searchStr.equals("인증완료") || searchStr.equals("인증실패")) {
                 // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
                 List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
             } else { // 미인증 - 그 외는 null 값 아닌 애들 결과물만 전부 보여주기
                 List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpageSearch * 10 - 9, cpageSearch * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByNotCertify());
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByNotCertify());
             }
         }
         request.setAttribute("navi", reviewSearchNavi);
+        request.setAttribute("type", typeSearch);
+        request.setAttribute("search", searchStr);
         request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
     }
 
