@@ -15,6 +15,7 @@
                   enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
+                <input type="hidden" name="review_seq" value="${review.review_seq}">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">

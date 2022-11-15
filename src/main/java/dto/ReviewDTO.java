@@ -77,7 +77,7 @@ public class ReviewDTO {
 		}
 		// 파일 생성
 		MultipartRequest multi = new MultipartRequest(request, savePath, 1024 * 1024 * 10, "UTF8", new DefaultFileRenamePolicy());
-
+		this.review_seq = Integer.parseInt(multi.getParameter("review_seq"));
 		this.user_seq = (Integer) request.getSession().getAttribute("userSeq");
 		this.gym_seq = Integer.parseInt(multi.getParameter("gym_seq"));
 		this.bs_seq = GymDAO.getInstance().printGym(this.gym_seq).getBs_seq();
