@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.ExerciseDTO;
+import dto.WeightDTO;
 
 
 public class ExerciseDAO extends Dao{
@@ -30,14 +31,14 @@ public class ExerciseDAO extends Dao{
      * @return
      * @throws Exception
      */
-    public List<ExerciseDTO> inbodyChartInfo(int exr_seq)throws Exception{
-    	String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where exr_seq = ?";
+    public List<ExerciseDTO> inbodyChartInfo(int userSeq)throws Exception{
+    	String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where user_seq = ?";
     
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
     			){
-    		pstat.setInt(1, exr_seq);
-    		
+    		pstat.setInt(1, userSeq);
+    		 
     		List<ExerciseDTO> list = new ArrayList<>();
     		try(ResultSet rs = pstat.executeQuery();){
     			
@@ -54,24 +55,40 @@ public class ExerciseDAO extends Dao{
     	}
     }
     
-//    public List<ExerciseDTO> selectWeightChange(int exr_seq) throws Exception{
-//    	String sql = "selcet from exercise where exr_seq = ?";
-//    	
-//    	try (Connection con = this.getConnection();
-//				PreparedStatement pstat = con.prepareStatement(sql);
-//    			){
-//    		pstat.setInt(1, exr_seq);
-//    		
-//    		List<ExerciseDTO> result = new ArrayList<>();
-//    		try(ResultSet rs = pstat.executeQuery();){
-//    			while(rs.next()) {
-//    				ExerciseDTO dto = new ExerciseDTO();
-//    				
-//    			}
-//    		}
-//    	}
-//    	
-//    }
+    public void insertWeight(WeightDTO wet) throws Exception{
+    	String sql = "insert into weight values(user_seq.nextval,?,?)";
+    	
+    	try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+    			){
+    		pstat.setString(1, wet.getWeight());
+    		pstat.setTimestamp(2, wet.getWeight_date());
+    		
+    		int result = pstat.executeUpdate();
+    		con.commit();
+    	}
+    	
+    }
+    
+    public List<WeightDTO> selectWeightAll(int user_seq) throws Exception{
+    	String sql = "selcet weight,weight_date from weight where user_seq = ?";
+    	
+    	try (Connection con = this.getConnection();
+				PreparedStatement pstat = con.prepareStatement(sql);
+    			){
+    		pstat.setInt(1, user_seq);
+    		
+    		List<WeightDTO> result = new ArrayList<>();
+    		try(ResultSet rs = pstat.executeQuery();){
+    			while(rs.next()) {
+    				ExerciseDTO dto = new ExerciseDTO();
+    				
+    			}
+    		}
+    		return result;
+    	}
+    	
+    }
     /**
      * UserSeq로 Exercise 테이블 데이터 지우기
      * @param userSeq
