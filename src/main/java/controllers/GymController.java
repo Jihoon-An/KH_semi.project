@@ -79,7 +79,7 @@ public class GymController extends ControllerAbs {
 
 
                 // 리뷰 수정
-                case "reviewModifing.gym":
+                case "/reviewModifing.gym":
                     // GET 요청 시 에러페이지로 넘김
                     if (request.getMethod().equals("GET")) {
                         response.sendRedirect("/error.jsp");
@@ -246,13 +246,16 @@ public class GymController extends ControllerAbs {
         int gym_seq = ReviewDAO.getInstance().getByReviewSeq(review_seq).getGym_seq();
 
         request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
+        request.setAttribute("gym_seq", gym_seq);
         request.setAttribute("review", review);
         request.getRequestDispatcher("/gym/review-modify.jsp").forward(request, response);
     }
 
     // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
     private void modify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("확인1");
         ReviewDTO review = new ReviewDTO(request);
+        System.out.println("확인2");
         ReviewDAO.getInstance().modifyReview(review);
         int gymSeq = review.getGym_seq();
         response.sendRedirect("/detail.gym?gym_seq=" + gymSeq);

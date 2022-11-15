@@ -327,11 +327,12 @@ public class ReviewDAO extends Dao {
             statement.setString(1, dto.getReview_contents());
             statement.setInt(2, dto.getReview_star());
             statement.setString(3, dto.getReview_check1());
-            statement.setString(3, dto.getReview_check2());
-            statement.setString(3, dto.getReview_check3());
-            statement.setString(3, dto.getReview_check4());
-            statement.setString(3, dto.getReview_check5());
-            statement.setString(5, dto.getReview_photo());
+            statement.setString(4, dto.getReview_check2());
+            statement.setString(5, dto.getReview_check3());
+            statement.setString(6, dto.getReview_check4());
+            statement.setString(7, dto.getReview_check5());
+            statement.setString(8, dto.getReview_photo());
+            statement.setInt(9, dto.getReview_seq());
 
             statement.executeUpdate();
             connection.commit();

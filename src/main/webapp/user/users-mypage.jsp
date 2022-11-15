@@ -7,7 +7,7 @@
 <!-- Site Main -->
 <main class="containerbox" id="users-mypage">
     <div class="row text-center">
-        <h1>My 페이지</h1>
+        <h1>마이페이지</h1>
     </div>
     <!-- profile -->
     <div class="row pt-3 justify-content-center" id="user-info">
@@ -100,7 +100,7 @@
 
     <!-- 즐겨찾기 시설 -->
     <div class="row pt-4 pb-3">
-        <span class="text_title">My 즐겨찾기</span>
+        <span class="text_title">내 즐겨찾기</span>
     </div>
     <!-- 시설 카드 -->
     <div class="gym_area mb-5">
@@ -128,7 +128,7 @@
 
     <!-- 내가 쓴 리뷰 -->
     <div class="row pt-4 pb-3">
-        <span class="text_title">My 리뷰</span>
+        <span class="text_title">내가 쓴 리뷰</span>
     </div>
 
     <!-- 리뷰 카드 영역 -->
@@ -144,7 +144,7 @@
                     <div class="row">
                         <div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
                         <div class="col-1">
-                            <a class="modify_review_btn">
+                            <a href="/reviewModify.gym?review_seq=${review.review_seq}" class="modify_review_btn">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         </div>

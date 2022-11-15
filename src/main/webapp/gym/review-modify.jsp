@@ -116,8 +116,7 @@
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
 										</svg></span><span>
-										<img src="/resource/img/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히
-										봐주세요</span>
+										<img src="/resource/img/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히 봐주세요</span>
                             </label>
                         </div>
 
@@ -236,13 +235,19 @@
                             </label>
                             <input type="file" id="review_photo" style="display:none" name="review_photo">
                             <div>
-                                <div class="p-2">이미지 미리보기</div>
-                                <div class="img_wrap">
-                                    <c:if test="${review.review_photo == '인증실패'}">인증 실패 되었습니다. 업로드를 다시 해주세요.</c:if>
-                                    <c:if test="${review.review_photo != null && review.review_photo != '인증실패' && review.review_photo != '인증완료'}">
-                                        <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                    <c:if test="${review.review_photo == '인증실패'}">
+                                        <div class="p-2" id="review_photo_fail">인증 실패 되었습니다. 첨부를 다시 해주세요.</div>
+                                        <div class="img_wrap">
+                                            <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                        </div>
                                     </c:if>
-                                </div>
+                                    <c:if test="${review.review_photo != null && review.review_photo != '인증실패' && review.review_photo != '인증완료'}">
+                                        <div class="p-2">이미지 미리보기</div>
+                                        <div class="img_wrap">
+                                            <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                        </div>
+                                    </c:if>
+
                             </div>
                         </c:if>
                     </div>
@@ -381,6 +386,7 @@
         });
     });
 
+
     // 별점
     function ShowSliderValue(sVal) {
         var obValueView1 = document.getElementById("slider_star_value1");
@@ -430,6 +436,11 @@
 
     $(document).ready(function () {
         $("#review_photo").on("change", handleImgFileSelect);
+    });
+
+    $("#review_photo").on("change", ()=>{
+        var review_photo_fail = document.getElementById("review_photo_fail");
+        review_photo_fail.innerHTML = "미리보기";
     });
 
 
