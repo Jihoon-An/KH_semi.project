@@ -132,33 +132,34 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int cpageSearch = Integer.parseInt(request.getParameter("cpage"));
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
-        int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).getSeq();
 
         String reviewSearchNavi = null;
-        if (typeSearch.equals("select_email")) {
-            List<ReviewDTO> emailList = ReviewDAO.getInstance().selectByUserSeqByRange(user_seq, cpageSearch * 10 - 9, cpageSearch * 10);
+        if (typeSearch.equals("email")) {
+            List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpage * 10 - 9, cpage * 10);
             request.setAttribute("list", emailList);
-            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByUserSeq(user_seq));
-        } else if (typeSearch.equals("select_contents")) {
-            List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByUserEmail(searchStr));
+        } else if (typeSearch.equals("contents")) {
+            List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpage * 10 - 9, cpage * 10);
             request.setAttribute("list", contentsList);
-            reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
-        } else if (typeSearch.equals("select_photo")) {
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
+        } else if (typeSearch.equals("certify")) {
             if (searchStr.equals("인증완료") || searchStr.equals("인증실패")) {
                 // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
-                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
             } else { // 미인증 - 그 외는 null 값 아닌 애들 결과물만 전부 보여주기
-                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpageSearch * 10 - 9, cpageSearch * 10);
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getPageNavi(cpageSearch, ReviewDAO.getInstance().getRecordCountByNotCertify());
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByNotCertify());
             }
         }
         request.setAttribute("navi", reviewSearchNavi);
+        request.setAttribute("type", typeSearch);
+        request.setAttribute("search", searchStr);
         request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
     }
 
@@ -231,7 +232,7 @@ public class HostUserController extends ControllerAbs {
 
 
         BsUsersDAO bsDao = BsUsersDAO.getInstance();
-        String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
+        String bsUsersNavi = bsDao.getPageNavi(cpage, BsUsersDAO.getInstance().getRecordCount()); //네비바 dao 인자 cpage
 
 
        // List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
@@ -247,17 +248,17 @@ public class HostUserController extends ControllerAbs {
     }
 
     protected void getBsSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String text = request.getParameter("inputT");
         BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
         List<HashMap<String, Object>> bsUserDto = bsUserDao.search(text);
-        System.out.println(bsUserDto);
         request.setAttribute("bsUserList", bsUserDto);
 
-        String bsUsersNavi = BsUsersDAO.getInstance().getPageNavi2(1, BsUsersDAO.getInstance().getRecordCountByBsUsersName(text));
+        String bsUsersNavi = BsUsersDAO.getInstance().getPageNaviByNameSearch(text, cpage, BsUsersDAO.getInstance().getRecordCountByBsUsersName(text));
         request.setAttribute("bsUserNavi", bsUsersNavi);
-        request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 
+        request.setAttribute("searchText", text);
+        request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
     }
 
 
@@ -267,14 +268,14 @@ public class HostUserController extends ControllerAbs {
 
 
         String jsonstr = request.getParameter("userseq");
-        System.out.println(jsonstr);
+//        System.out.println(jsonstr);
 
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
 
 
         List<Integer> seqList = gson.fromJson(jsonstr, type);
-        System.out.println(seqList);
+//        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
             userDao.deleteByUserSeq(seqList.get(i));
@@ -289,12 +290,12 @@ public class HostUserController extends ControllerAbs {
 
 
         String jsonstr = request.getParameter("userseq");
-        System.out.println(jsonstr);
+//        System.out.println(jsonstr);
 
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
         List<Integer> seqList = gson.fromJson(jsonstr, type);
-        System.out.println(seqList);
+//        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
             bsUsersDAO.deleteByBsSeq(seqList.get(i));
@@ -305,20 +306,16 @@ public class HostUserController extends ControllerAbs {
 
 
     protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String text = request.getParameter("inputName");
-        System.out.println(text);
         UserDAO usersDao = UserDAO.getInstance();
         List<UserDTO> userDto = usersDao.searchUser(text);
-
-        System.out.println(userDto);
-
         request.setAttribute("userList", userDto); //user
-        String userNavi = UserDAO.getInstance().getPageNavi2(1, UserDAO.getInstance().getRecordCountByUsersName(text));
+        String userNavi = UserDAO.getInstance().getPageNaviByNameSearch(text, cpage, UserDAO.getInstance().getRecordCountByUsersName(text));
         request.setAttribute("userNavi", userNavi);
 
+        request.setAttribute("searchText", text);
         request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
-
     }
 
     /**
