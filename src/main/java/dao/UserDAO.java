@@ -425,24 +425,21 @@ public class UserDAO extends Dao {
      * @return
      * @throws Exception
      */
-    public UserDTO searchUserByUserEmail(String users_email) throws Exception {
-        String sql = "select * from users where users_email like ? order by 1";
+    public List<UserDTO> searchUserByUserEmail(String users_email) throws Exception {
+        String sql = "select * from users where users_email like '%?%' order by 1";
         try (Connection con = this.getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);) {
-            pstat.setString(1, "%" + users_email + "%");
+            pstat.setString(1, (users_email));
             try (ResultSet rs = pstat.executeQuery();) {
-                if (rs.next()) {
+                List<UserDTO> list = new ArrayList<>();
+                while (rs.next()) {
                     UserDTO dto = new UserDTO(rs);
-                    return dto;
-                } else {
-                    return new UserDTO();
+                    list.add(dto);
                 }
+                return list;
             }
         }
     }
-
-
-
 
 
     // Users 이름으로 검색한 총 게시글의 개수를 반환하는 코드
@@ -461,8 +458,8 @@ public class UserDAO extends Dao {
 
 
 
-    // 페이지 네비
-    public String getPageNavi2(int currentPage, int recordTotalCount) throws Exception {
+    // 이름 검색 네비
+    public String getPageNaviByNameSearch(String text, int currentPage, int recordTotalCount) throws Exception {
         int recordCountPerPage = 10;
         int naviCountPerPage = 10;
         int pageTotalCount = 0;
@@ -492,20 +489,20 @@ public class UserDAO extends Dao {
         }
         StringBuilder sb = new StringBuilder();
         if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/userSearch.host?cpage=" + (startNavi - 1) + "&type=board_title&inputName=" + text
                     + "'>Previous</a></li>");
         }
         for (int i = startNavi; i <= endNavi; i++) {
             if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/userSearch.host?cpage=" + i + "&type=board_title&inputName=" + text + "\">" + i
                         + "</a></li>");
             } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/userSearch.host?cpage=" + i + "&type=board_title&inputName=" + text + "\">" + i
                         + "</a></li>");
             }
         }
         if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/userSearch.host?cpage=" + (endNavi + 1) + "&type=board_title&inputName=" + text
                     + "'>Next</a></li>");
         }
         return sb.toString();

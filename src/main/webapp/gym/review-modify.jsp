@@ -11,7 +11,7 @@
 
     <div class="containerbox">
         <section>
-            <form action="/reviewWriting.gym" onsubmit="return checkSubmit()" id="write_review_frm" method="post"
+            <form action="/reviewModify.gym" onsubmit="return checkSubmit()" id="modify_review_frm" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
@@ -20,7 +20,7 @@
                     <div class="p-2 reviw_title">
                         <p style="margin-bottom: 5px"><span class="text_main_title_600">${gym_name}</span>
                             <span class="text_title">에 방문하셨나요?</span></p>
-                        <h1 style="margin: 0px">리뷰를 작성해주세요</h1>
+                        <h1 style="margin: 0px">리뷰를 수정해주세요</h1>
                         <p style="margin-top: 15px" class="text_normal">필수 항목입니다</p>
                     </div>
 
@@ -139,7 +139,8 @@
 
                     <div class="review_text_box">
 							<textarea id="review_contents" name="review_contents"
-                                      placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요"></textarea>
+                                      placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">
+                            </textarea>
                         <div id="review_text_cnt">(0 / 1000자)</div>
                     </div>
 
