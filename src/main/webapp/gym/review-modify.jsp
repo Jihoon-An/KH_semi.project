@@ -14,7 +14,8 @@
             <form action="" id="modify_review_frm" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
-                <input type="hidden" name="gym_name" value="${gym_name}">
+                <input type="hidden" name="review_seq" value="${review_seq}">
+                ${review_seq}
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
@@ -110,8 +111,12 @@
 
                     <div class="reviw_content reviw_content_keyword">
                         <div class="checkbox-wrap mx-auto">
-                            <c:if test="${review.review_check1 == 'Y'}"><input class="inp-cbx" id="review_check1" type="checkbox" name="review_check1" checked></c:if>
-                            <c:if test="${review.review_check1 != 'Y'}"><input class="inp-cbx" id="review_check1" type="checkbox" name="review_check1"></c:if>
+                            <c:if test="${review.review_check1 == 'Y'}"><input class="inp-cbx" id="review_check1"
+                                                                               type="checkbox" name="review_check1"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check1 != 'Y'}"><input class="inp-cbx" id="review_check1"
+                                                                               type="checkbox"
+                                                                               name="review_check1"></c:if>
                             <label class="cbx" for="review_check1"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -121,8 +126,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <c:if test="${review.review_check2 == 'Y'}"><input class="inp-cbx" id="review_check2" type="checkbox" name="review_check2" checked></c:if>
-                            <c:if test="${review.review_check2 != 'Y'}"><input class="inp-cbx" id="review_check2" type="checkbox" name="review_check2"></c:if>
+                            <c:if test="${review.review_check2 == 'Y'}"><input class="inp-cbx" id="review_check2"
+                                                                               type="checkbox" name="review_check2"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check2 != 'Y'}"><input class="inp-cbx" id="review_check2"
+                                                                               type="checkbox"
+                                                                               name="review_check2"></c:if>
                             <label class="cbx" for="review_check2"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -132,8 +141,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <c:if test="${review.review_check3 == 'Y'}"><input class="inp-cbx" id="review_check3" type="checkbox" name="review_check3" checked></c:if>
-                            <c:if test="${review.review_check3 != 'Y'}"><input class="inp-cbx" id="review_check3" type="checkbox" name="review_check3"></c:if>
+                            <c:if test="${review.review_check3 == 'Y'}"><input class="inp-cbx" id="review_check3"
+                                                                               type="checkbox" name="review_check3"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check3 != 'Y'}"><input class="inp-cbx" id="review_check3"
+                                                                               type="checkbox"
+                                                                               name="review_check3"></c:if>
                             <label class="cbx" for="review_check3"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -143,8 +156,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <c:if test="${review.review_check4 == 'Y'}"><input class="inp-cbx" id="review_check4" type="checkbox" name="review_check4" checked></c:if>
-                            <c:if test="${review.review_check4 != 'Y'}"><input class="inp-cbx" id="review_check4" type="checkbox" name="review_check4"></c:if>
+                            <c:if test="${review.review_check4 == 'Y'}"><input class="inp-cbx" id="review_check4"
+                                                                               type="checkbox" name="review_check4"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check4 != 'Y'}"><input class="inp-cbx" id="review_check4"
+                                                                               type="checkbox"
+                                                                               name="review_check4"></c:if>
                             <label class="cbx" for="review_check4"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -154,8 +171,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <c:if test="${review.review_check5 == 'Y'}"><input class="inp-cbx" id="review_check5" type="checkbox" name="review_check5" checked></c:if>
-                            <c:if test="${review.review_check5 != 'Y'}"><input class="inp-cbx" id="review_check5" type="checkbox" name="review_check5"></c:if>
+                            <c:if test="${review.review_check5 == 'Y'}"><input class="inp-cbx" id="review_check5"
+                                                                               type="checkbox" name="review_check5"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check5 != 'Y'}"><input class="inp-cbx" id="review_check5"
+                                                                               type="checkbox"
+                                                                               name="review_check5"></c:if>
                             <label class="cbx" for="review_check5"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -194,7 +215,8 @@
                     </div>
 
                     <div class="review_text_box">
-							<textarea id="review_contents" name="review_contents" placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">${review.review_contents}</textarea>
+                        <textarea id="review_contents" name="review_contents"
+                                  placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">${review.review_contents}</textarea>
                         <div id="review_text_cnt"></div>
                     </div>
 
@@ -235,18 +257,18 @@
                             </label>
                             <input type="file" id="review_photo" style="display:none" name="review_photo">
                             <div>
-                                    <c:if test="${review.review_photo == '인증실패'}">
-                                        <div class="p-2" id="review_photo_fail">인증 실패 되었습니다. 첨부를 다시 해주세요.</div>
-                                        <div class="img_wrap">
-                                            <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${review.review_photo != null && review.review_photo != '인증실패' && review.review_photo != '인증완료'}">
-                                        <div class="p-2">이미지 미리보기</div>
-                                        <div class="img_wrap">
-                                            <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
-                                        </div>
-                                    </c:if>
+                                <c:if test="${review.review_photo == '인증실패'}">
+                                    <div class="p-2" id="review_photo_fail">인증 실패 되었습니다. 첨부를 다시 해주세요.</div>
+                                    <div class="img_wrap">
+                                        <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${review.review_photo != null && review.review_photo != '인증실패' && review.review_photo != '인증완료'}">
+                                    <div class="p-2">이미지 미리보기</div>
+                                    <div class="img_wrap">
+                                        <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                    </div>
+                                </c:if>
 
                             </div>
                         </c:if>
@@ -293,6 +315,37 @@
         } else if (!response($("#review_contents").val())) {
             return false;
         } else {
+            // review_check checked 값 바꾸기
+            if ($("#review_check1").is(":checked") == true) {
+                $('#review_check1').val("Y");
+            } else {
+                $('#review_check1').val("");
+            }
+
+            if ($("#review_check2").is(":checked") == true) {
+                $('#review_check2').val("Y");
+            } else {
+                $('#review_check2').val("");
+            }
+
+            if ($("#review_check3").is(":checked") == true) {
+                $('#review_check3').val("Y");
+            } else {
+                $('#review_check3').val("");
+            }
+
+            if ($("#review_check4").is(":checked") == true) {
+                $('#review_check4').val("Y");
+            } else {
+                $('#review_check4').val("");
+            }
+
+            if ($("#review_check5").is(":checked") == true) {
+                $('#review_check5').val("Y");
+            } else {
+                $('#review_check5').val("");
+            }
+
             Swal.fire({title: "Success!", icon: "success", text: "리뷰 수정을 완료하였습니다."})
                 .then((result) => {
                     if (result.isConfirmed) {
@@ -305,10 +358,10 @@
 
     // 리뷰 글쓰기에 욕설 필터링
     function response(msg) {
-        var words = ["씨발","시발","ㅅㅂ","tq","병신","멍청이","바보",
-            "새끼","미친","존나","좆같네","좆같다","지랄","염병","썅",
-            "개같은","새키","족같네","씨팔","죽어","죽여","자살","놈","년",
-            "씹","씨벌","개색기","종나","카악","퉤","퉷","족같네"];
+        var words = ["씨발", "시발", "ㅅㅂ", "tq", "병신", "멍청이", "바보",
+            "새끼", "미친", "존나", "좆같네", "좆같다", "지랄", "염병", "썅",
+            "개같은", "새키", "족같네", "씨팔", "죽어", "죽여", "자살", "놈", "년",
+            "씹", "씨벌", "개색기", "종나", "카악", "퉤", "퉷", "족같네"];
 
         for (let n = 0; n < words.length; n++) {
             if (msg.includes(words[n])) {
@@ -438,7 +491,7 @@
         $("#review_photo").on("change", handleImgFileSelect);
     });
 
-    $("#review_photo").on("change", ()=>{
+    $("#review_photo").on("change", () => {
         var review_photo_fail = document.getElementById("review_photo_fail");
         review_photo_fail.innerHTML = "미리보기";
     });

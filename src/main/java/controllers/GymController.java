@@ -248,17 +248,15 @@ public class GymController extends ControllerAbs {
         request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
         request.setAttribute("gym_seq", gym_seq);
         request.setAttribute("review", review);
+        request.setAttribute("review_seq", review_seq);
         request.getRequestDispatcher("/gym/review-modify.jsp").forward(request, response);
     }
 
     // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
     private void modify(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println("확인1");
         ReviewDTO review = new ReviewDTO(request);
-        System.out.println("확인2");
         ReviewDAO.getInstance().modifyReview(review);
-        int gymSeq = review.getGym_seq();
-        response.sendRedirect("/detail.gym?gym_seq=" + gymSeq);
+        response.sendRedirect("/page.userMyPage");
     }
 
 
