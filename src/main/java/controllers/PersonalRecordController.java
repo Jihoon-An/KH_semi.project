@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import commons.Common;
 import dao.ExerciseDAO;
+import dao.ManagerDAO;
 import dto.ExerciseDTO;
 
 
@@ -99,6 +100,10 @@ public class PersonalRecordController extends ControllerAbs {
         request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(userSeq, sdf.format(new Date())));
         request.setAttribute("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, sdf.format(new Date())));
+
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(user_seq));
+
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
 

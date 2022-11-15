@@ -51,7 +51,7 @@
 					</div>
 				</div>
 				<div class="search_sub_filter">
-					<div class="search_tag_icon" style="margin-left: 37px;">
+					<div class="search_tag_icon">
 						<img src="/resource/img/filter.png" alt="">
 					</div>
 					<div class="search_tag" id="openTagDiv" style="margin-left: 5px;">
@@ -146,7 +146,7 @@
 					<div class="gym_list_logo">
 						<c:choose>
 							<c:when test="${not empty gymList.gym_main_sysImg}">
-								<img src="/resource/gym/default06.png">
+								<img src="/resource/gym/${gymList.gym_main_sysImg}">
 							</c:when>
 							<c:otherwise>
 								<img class="mainImg" src="">
@@ -157,7 +157,8 @@
 					<div class="gym_list_article">
 						<div class="gym_list_title">
 							<a href="/detail.gym?gym_seq=${gymList.gym_seq}">
-								<i class="fa-solid fa-right-to-bracket"></i> ${gymList.gym_name }
+								${gymList.gym_name } 
+								<img src="/resource/gym/go_detail_icon.png" class="go-detail-icon">
 							</a>
 						</div>
 						<div class="gym_list_location">
@@ -167,7 +168,15 @@
 							<span>${gymList.gym_phone }</span>
 						</div>
 						<div class="gym_list_open">
-							<span>${gymList.gym_open } / ${gymList.gym_close }</span>
+							<c:choose>
+								<c:when test="${not empty gymList.gym_open}">
+									<span>OPEN : ${gymList.gym_open } &nbsp &nbsp</span>
+									<span>CLOSE : ${gymList.gym_close }</span>
+								</c:when>
+								<c:otherwise>
+									<span>시설 운영시간에 대한 정보가 없습니다</span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="gym_list_tagBox">
 							<c:if test="${gymFilterList[status.index].open eq 'true'}">
