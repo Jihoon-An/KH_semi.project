@@ -114,7 +114,7 @@ public class FavoritesDAO extends Dao {
      * @throws Exception
      */
     public List<Integer> getGymListByUser(int userSeq) throws Exception {
-        String sql = "select gym_seq from favorites where user_seq = ?";
+        String sql = "select gym_seq from favorites where user_seq = ? order by fav_seq desc";
         List<Integer> gymsSeq = new ArrayList<>();
         try (
                 Connection connection = this.getConnection();

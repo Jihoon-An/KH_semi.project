@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,15 +117,19 @@ public class UserMyPageController extends ControllerAbs {
             gyms.add(gymDAO.printGym(gymSeq));
             favs.add(FavoritesDAO.getInstance().getFavSeqByUserAndGym(userSeq, gymSeq));
         }
+
         // reivew 데이터
         List<ReviewDTO> reviews = ReviewDAO.getInstance().getListByUser(userSeq);
+
+        // 오늘 날짜 포맷해서 보내기
+        LocalDate now = LocalDate.now();
 
         //data 담기
         request.setAttribute("user", user);
         request.setAttribute("favs", favs);
         request.setAttribute("gyms", gyms);
         request.setAttribute("reviews", reviews);
-
+        request.setAttribute("nowDate", now);
     }
 
     /**

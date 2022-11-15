@@ -138,7 +138,11 @@
 			</script>
 
 			<c:if test="${empty gymList}">
+<<<<<<< HEAD
 				<div class="nullListBox">" 검색 결과가 없습니다. "</div>
+=======
+				<div class="nullListBox">" 그런 곳은 없습니다만? "</div>
+>>>>>>> 729b9780e9a9c804fdb7bbe1ab56ae76717f4245
 			</c:if>
 
 			<c:forEach var="gymList" items="${gymList}" varStatus="status">
