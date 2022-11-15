@@ -7,6 +7,7 @@
 
 
 <main id="gym-detail">
+
 	<div style="height: 70px;"></div>
 	<div class="containerbox" style="overflow: hidden">
 		<div class="lcontents">
@@ -30,10 +31,10 @@
 
 						</c:if>
 
-						<span class="button gray medium"> <a
+						<span class="button gray medium "> <a
 							onclick="clip(); return false;" class="shareicon"> <i
 								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-								style="cursor: pointer;" aria-hidden="true"></i></a></span>
+								style="cursor: pointer;" aria-hidden="true" ></i></a></span>
 					</div>
 				</div>
 				<div class="place">
@@ -142,12 +143,12 @@
 
 									<div class="authmark">
 
-										<i class="fa-solid fa-user-shield auth"></i>
-
-										<c:if test="${r.review.review_photo != '인증완료'}">
-											<script>
-                                                $(".auth").attr("style", "display:none")
-                                            </script>
+									
+									
+										<c:if test="${r.review.review_photo == '인증완료'}">
+											
+                                              	<i class="fa-solid fa-user-shield auth"></i>
+                                      
 										</c:if>
 									</div>
 
@@ -164,27 +165,31 @@
 									</div>
 
 
-									<c:if test="${userSeq !=null}">
-										<div class="reviewlike">
+								
+												 	
+											<div class="reviewlike">
 											<input type="hidden" name="review_seq" class="rseq"
 												value="${r.review.review_seq}"> <input type="hidden"
 												name="gym_seq" class="gym" value="${r.review.gym_seq}">
 											<input type="hidden" name="review_like" class="rlike"
-												value="${r.review.review_like}"> <i
-												class="relike fa-solid fa-thumbs-up"></i> <span
-												class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
-											<c:if test="${r.liked ==userSeq}">
-							
-												<script>
-											
-                                                    $(".relike").attr("style", "color:#001A41")
-                                                </script>
-											</c:if>
+												value="${r.review.review_like}">
+												
+										<c:if test="${r.liked == null}">
+											<i class="relike fa-solid fa-thumbs-up" style="color:#8f959a"></i> <!--  선택안했을 때 -->
+										</c:if>
+										
+										<c:if test="${r.liked != null}">
+											<i class="relike fa-solid fa-thumbs-up" style="color:#001A41"></i> <!-- 선택했을 때 색상 찐한블루 -->
+										</c:if>
+								
+										<span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
 										</div>
+										
+										
 
-									</c:if>
+									
 
-									<div class="reviewcon">${r.review.review_contents }</div>
+									<div class="reviewcon">${r.review.review_contents}</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -277,57 +282,44 @@
 	<script>
 	
                  
-       
-      
+	<c:if test="${userSeq !=null}">
+	
+		$(".relike").on("click", function () {
+			var thumb = $(this);
+	            $.ajax({
+	                url: "/reviewLikeAdd.gym",
+	                data: {
+	                    "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
+	                    "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
+	                    "review_like": $(this).closest(".reviewlike").find(".rlike").val()
+	
+	                },
+	                type: "post",
+	                success: function(data) {
+					
+						if(data=='false'){
+							
+							thumb.attr("style", "color:#001A41");
+							console.log(thumb + "좋아요 추가");
+							location.reload();
+							
+						
+						}else if(data=='true'){
+							thumb.attr("style", "color:#8f959a");
+						
+							console.log(thumb + "좋아요 삭제");
+							location.reload();
+						}
+	    
+	                }
+	
+	            })
+	    
+	    })
+	</c:if>
     
 
- 
-
-        $(".relike").on("click", function () {
-
-            if ($(this).css("color") == "rgb(143, 149, 154)") {
-
-                $.ajax({
-                    url: "/reviewLikeAdd.gym",
-                    data: {
-                        "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
-                        "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
-                        "review_like": $(this).closest(".reviewlike").find(".rlike").val()
-
-                    },
-                    type: "post",
-                    success: () => {
-                        $(this).css("color", "#001A41")
-
-                       
-                        console.log($(this).closest(".reviewlike").find(".gym").val())
-                        console.log($(this).closest(".reviewlike").find(".rlike").val())
-                        console.log("좋아요 추가")
-                        location.reload();
-                    }
-
-                })
-            } else {
-
-                $.ajax({
-                    url: "/reviewLikeDel.gym",
-
-                    data: {
-                        "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
-                        "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
-                        "review_like": $(this).closest(".reviewlike").find(".rlike").val()
-                    },
-                    type: "post",
-                    success: () => {
-                        $(this).css("color", "#8f959a")
-                      
-                        console.log("좋아요 취소")
-                        location.reload();
-                    }
-                })
-            }
-        })
-
+   
 
         // 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
         $(document).ready(function () {
@@ -367,8 +359,10 @@
         })
 
     </script>
+   
+      
 	<script type="text/javascript">
-
+	  //아이콘 클릭시 주소복사 버튼
 
         $(".shareicon").on("click", function () {
             var url = '';
@@ -380,8 +374,12 @@
             document.execCommand("copy");
             document.body.removeChild(textarea);
             $(".fa-sharp fa-solid fa-share-nodes").tooltip();  //URL 주소 복사 가능 TOOLTIP
-        })//아이콘 클릭시 주소복사 버튼
+      
+        
+        })
+     
     </script>
+    
 
 	<script>
 
