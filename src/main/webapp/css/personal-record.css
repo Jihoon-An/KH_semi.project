@@ -60,19 +60,19 @@
 }
 
 #personal-record #result_contents #reg_momo {
-	padding: 5px;
 	resize: none;
 }
 
-#personal-record #result #result_memo {
+#personal-record #result .col-5 {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+	overflow-x: hidden;
 	overflow-y: scroll;
-	
 }
 
-#personal-record #result :-webkit-scrollbar {
+#personal-record #result .col-5::-webkit-scrollbar {
 	display: none;
 }
-
 
 
 #personal-record .filter {
