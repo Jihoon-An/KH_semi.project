@@ -1,12 +1,12 @@
 package dao;
 
+import dto.ExerciseDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import dto.ExerciseDTO;
 
 
 public class ExerciseDAO extends Dao{
@@ -125,7 +125,7 @@ public class ExerciseDAO extends Dao{
 
     public List<ExerciseDTO> selectByOption(String option, String value) throws Exception {
         List<ExerciseDTO> result = new ArrayList<>();
-        String sql = "select * from exercise where " + option + " = ?";
+        String sql = "select * from exercise where " + option + " = ? order by exr_date";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);)
         {

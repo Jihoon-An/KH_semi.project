@@ -237,7 +237,7 @@
 							$.getJSON("/datepick.personal", data)
 								.done(res => {
 									setMarker(res.recordList);
-									setNotice(res.recentRecord);
+									setNotice(res.recordList);
 
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
@@ -266,17 +266,17 @@
 						}
 
 						// 운동한 날짜 Maker 생성 함수
-						function setMarker(resData) {
+						function setMarker(recordList) {
 							let arrDate = document.querySelectorAll(".calendar .ui-state-default");
 							year = $(".calendar .ui-datepicker-year").text();
 							month = $(".calendar .ui-datepicker-month").text().slice(0, -1);
 							for (i = 0; i < arrDate.length; i++) {
-								for (j = 0; j < resData.length; j++) {
+								for (j = 0; j < recordList.length; j++) {
 									let calDate = getDateFormat(new Date(year + "-" + month + "-" + $(arrDate[i]).text())).slice(0, 10);
-									let exrDate = getDateFormat(new Date(resData[j].exr_date)).slice(0, 10);
+									let exrDate = getDateFormat(new Date(recordList[j].exr_date)).slice(0, 10);
 									if (calDate == exrDate) {
 										$(arrDate[i]).html("<img src='/resource/img/fire.png'>");
-										$(arrDate[i]).text("🔥");
+										$(arrDate[i]).addClass("fire");
 										break;
 									}
 								}
@@ -284,10 +284,11 @@
 						}
 
 						// Notice Text 생성 함수
-						function setNotice(recentRecord) {
-							if (recentRecord.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
+						function setNotice(recordList) {
+							if (recordList.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
-							let gap = (today.getTime() - new Date(recentRecord[recentRecord.length - 1].exr_date).getTime()) / 86400000;
+							console.log(today)
+							let gap = (today.getTime() - new Date(recordList[recordList.length - 1].exr_date).getTime()) / 86400000;
 							let context;
 							if (gap >= 30) { context = "마지막 기록이 " + gap + "일 전? 운동 접었네 이 사람 😡" }
 							else if (gap >= 7) { context = "근손실이 오고 있어요. 기록이 작성된 지 " + gap + "일이 지났어요... 😭" }
@@ -449,7 +450,7 @@
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
 							if (today < $("#calendar").datepicker("getDate")) {
 								Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
-							} else if ($(".ui-state-active").text() == "🔥") {
+							} else if ($(".ui-state-active").hasClass("fire")) {
 								Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
 							} else {
 								tryRegist();

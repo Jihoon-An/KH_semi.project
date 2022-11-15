@@ -11,6 +11,12 @@
 	border-radius: 6px;
 }
 
+#personal-record .boundary[id^=record],
+#personal-record .boundary[id^=reg_inbody] {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
 #personal-record #notice {
 	height: 65px;
 	line-height: 45px;
@@ -140,7 +146,7 @@
 	top:-11px;
 	left:746px;
 	width:50%;
-	height:310px;
+	height:400px;
 	transition: 0.5s;
 	background-color: white;
 }
@@ -148,10 +154,11 @@
 #personal-record #reg_filter {
 	position:absolute;
 	top:-11px;
-	left:775px;
+	left:774px;
 	width:50%;
-	height:310px;
+	height:400px;
 	background-color: white;
+	border-left: 1px solid #808080;
 	z-index: 5;
 }
 
@@ -214,7 +221,7 @@
 #personal-record .ui-datepicker td a {
 	font-size: 20px !important;
 }
-#personal-record .ui-datepicker td a img {
+#personal-record .ui-datepicker td img {
 	position: relative;
 	width: 100%;
 	top:-8px;
