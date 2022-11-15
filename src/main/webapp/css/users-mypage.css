@@ -83,8 +83,10 @@
 }
 
 #users-mypage .gym_img {
-    /*width: 260px;*/
-    /*height: 260px;*/
+    min-width: 260px;
+    min-height: 260px;
+    max-width: 400px;
+    max-height: 400px;
     object-fit: contain;
     cursor: pointer;
 }
