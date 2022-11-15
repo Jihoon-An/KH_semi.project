@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<%@ include file="/layout/header.jsp"%>
+<%@ include file="/layout/header.jsp" %>
+      
+	  
 
          <!-- Site Main -->
          <main id="personal-record" style="margin-top: 57px">
@@ -16,7 +17,27 @@
                <div class="col-4">
                   <div class="row">
                      <div class="col-12">
-                        <div class="boundary" id="manager">+</div>
+                        <div class="boundary" id="manager">
+                           시설 이용 매니저
+                           <div class="manager_titleBox">
+                              ${manager.title}
+                           </div>
+                           <jsp:useBean id="now" class="java.util.Date"/>
+                           <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
+                           <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
+                           <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
+                           <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
+                           <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
+                           <div class="manager_startBox">
+                              시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다.<br>
+                              <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
+
+                           </div>
+                           <div class="manager_endBox">
+                              종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다.<br>
+                              <span  style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
+                           </div>
+                        </div>
                      </div>
                      <div class="col-12">
                         <div class="calendar" id="calendar"></div>
