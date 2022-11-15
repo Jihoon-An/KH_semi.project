@@ -1,30 +1,22 @@
 package controllers;
 
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.naming.InterruptedNamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 
-import dao.BsUsersDAO;
-import dao.GymDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
-import dto.BsUsersDTO;
-import dto.GymDTO;
-import dto.ReviewDTO;
-import dto.UserDTO;
-import oracle.net.aso.a;
+import commons.FileControl;
+import dao.*;
+import dto.*;
 
 
 @WebServlet("*.host")
@@ -73,7 +65,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.userDel(request, response);
+                    this.delUser(request, response);
                     break;
 
                 //관리자 페이지 사업자회원 삭제
@@ -82,7 +74,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.bsUserDel(request, response);
+                    this.delBsUser(request, response);
                     break;
 
                 // 관리자페이지 - 리뷰목록 출력
@@ -132,35 +124,40 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void getReviewSearchList(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int cpageSearch = Integer.parseInt(request.getParameter("cpage"));
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
 
+        String searchCrtf = request.getParameter("searchCrtf");
+
+
+
         String reviewSearchNavi = null;
         if (typeSearch.equals("email")) {
-//            int user_seq = UserDAO.getInstance().searchUserByUserEmail(searchStr).get(0).getSeq();
-            List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+            List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpage * 10 - 9, cpage * 10);
             request.setAttribute("list", emailList);
-            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByUserEmail(searchStr));
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByUserEmail(searchStr));
         } else if (typeSearch.equals("contents")) {
-            List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+            List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByContentsByRange(searchStr, cpage * 10 - 9, cpage * 10);
             request.setAttribute("list", contentsList);
-            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
+            reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
         } else if (typeSearch.equals("certify")) {
-            if (searchStr.equals("인증완료") || searchStr.equals("인증실패")) {
+            if (searchCrtf.equals("인증완료") || searchCrtf.equals("인증실패")) {
                 // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
-                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpageSearch * 10 - 9, cpageSearch * 10);
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchCrtf, cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNaviCrtf(typeSearch, searchCrtf, cpage, ReviewDAO.getInstance().getRecordCountByCertify(searchCrtf));
             } else { // 미인증 - 그 외는 null 값 아닌 애들 결과물만 전부 보여주기
-                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpageSearch * 10 - 9, cpageSearch * 10);
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpageSearch, ReviewDAO.getInstance().getRecordCountByNotCertify());
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNaviCrtf(typeSearch, searchCrtf, cpage, ReviewDAO.getInstance().getRecordCountByNotCertify());
             }
         }
         request.setAttribute("navi", reviewSearchNavi);
         request.setAttribute("type", typeSearch);
         request.setAttribute("search", searchStr);
+        request.setAttribute("searchCrtf", searchCrtf);
+
         request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
     }
 
@@ -233,7 +230,7 @@ public class HostUserController extends ControllerAbs {
 
 
         BsUsersDAO bsDao = BsUsersDAO.getInstance();
-        String bsUsersNavi = bsDao.getPageNavi(cpage); //네비바 dao 인자 cpage
+        String bsUsersNavi = bsDao.getPageNavi(cpage, BsUsersDAO.getInstance().getRecordCount()); //네비바 dao 인자 cpage
 
 
        // List<BsUsersDTO> bsUserList = BsUsersDAO.getInstance().selectByRange(cpage * 10 - 9, cpage * 10);
@@ -249,78 +246,137 @@ public class HostUserController extends ControllerAbs {
     }
 
     protected void getBsSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String text = request.getParameter("inputT");
         BsUsersDAO bsUserDao = BsUsersDAO.getInstance();
         List<HashMap<String, Object>> bsUserDto = bsUserDao.search(text);
-        System.out.println(bsUserDto);
         request.setAttribute("bsUserList", bsUserDto);
 
-        String bsUsersNavi = BsUsersDAO.getInstance().getPageNavi2(1, BsUsersDAO.getInstance().getRecordCountByBsUsersName(text));
+        String bsUsersNavi = BsUsersDAO.getInstance().getPageNaviByNameSearch(text, cpage, BsUsersDAO.getInstance().getRecordCountByBsUsersName(text));
         request.setAttribute("bsUserNavi", bsUsersNavi);
-        request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
 
+        request.setAttribute("searchText", text);
+        request.getRequestDispatcher("/host/host-bsuser.jsp").forward(request, response);
     }
 
 
-    protected void userDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         UserDAO userDao = UserDAO.getInstance();
 
 
         String jsonstr = request.getParameter("userseq");
-        System.out.println(jsonstr);
+//        System.out.println(jsonstr);
 
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
 
 
         List<Integer> seqList = gson.fromJson(jsonstr, type);
-        System.out.println(seqList);
+//        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
-            userDao.deleteByUserSeq(seqList.get(i));
+            // userSeq 받아오기
+            int userSeq = seqList.get(i);
+            // 프사지우기
+            String path = "/resource/profileImg"; //런타임 webapp 폴더를 불러옴.
+            String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
+            FileControl file = new FileControl();
+            file.delete(request, path, delFileName);
+            // 즐겨찾기 테이블 삭제
+            FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
+            // 헬스장 회원 테이블 삭제
+            ManagerDAO.getInstance().deleteByUserSeq(userSeq);
+            // 캘린더 테이블 삭제
+            CalendarDAO.getInstance().deleteByUserSeq(userSeq);
+            // 운동기록 테이블 삭제
+            ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
+            // 유저 테이블 삭제
+            UserDAO.getInstance().deleteByUserSeq(userSeq);
         }
-
-
     }
 
-    protected void bsUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delBsUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         BsUsersDAO bsUsersDAO = BsUsersDAO.getInstance();
 
 
         String jsonstr = request.getParameter("userseq");
-        System.out.println(jsonstr);
+//        System.out.println(jsonstr);
 
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
         List<Integer> seqList = gson.fromJson(jsonstr, type);
-        System.out.println(seqList);
+//        System.out.println(seqList);
 
         for (int i = 0; i < seqList.size(); i++) {
-            bsUsersDAO.deleteByBsSeq(seqList.get(i));
+
+            int bsSeq = seqList.get(i);
+            List<GymDTO> gymList = GymDAO.getInstance().getGymByBsSeq(bsSeq);
+
+            // 광고배너 지우기
+            AdDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 즐겨찾기 지우기
+            FavoritesDAO favDao = FavoritesDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                favDao.deleteByGymSeq(gym.getGym_seq());
+            }
+
+
+            // 리뷰 좋아요 지우기
+            ReviewDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 사업자 등록증 지우기
+            BsCtfcDAO.getInstance().deleteByBsSeq(bsSeq);
+
+            // 시설 필터 지우기
+            GymFilterDAO gymFilDao = GymFilterDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                gymFilDao.deleteByGymSeq(gym.getGym_seq());
+            }
+
+            // 시설이미지 지우기
+            FileControl file = new FileControl();
+            GymImgDAO gymImgDAO = GymImgDAO.getInstance();
+
+            for (GymDTO gym : gymList) {
+                GymImgDTO gymImg = gymImgDAO.getByGymSeq(gym.getGym_seq());
+
+                List<String> gymImgList;
+
+                gymImgList = gson.fromJson(gymImg.getGym_sysimg(), new TypeToken<List<String>>() {
+                }.getType());
+                if (gymImgList == null) {
+                    gymImgList = new ArrayList<>();
+                }
+
+                for (String gymName : gymImgList) {
+                    file.delete(request, "/resource/gym", gymName);
+                }
+                GymImgDAO.getInstance().deleteByGymSeq(gym.getGym_seq());
+            }
+            //시설 지우기
+            GymDAO.getInstance().deleteByBsSeq(bsSeq);
+            // 비지니스 유저 지유기
+            BsUsersDAO.getInstance().deleteByBsSeq(bsSeq);
         }
-
-
     }
 
 
     protected void getUserSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+        int cpage = Integer.parseInt(request.getParameter("cpage"));
         String text = request.getParameter("inputName");
-        System.out.println(text);
         UserDAO usersDao = UserDAO.getInstance();
         List<UserDTO> userDto = usersDao.searchUser(text);
-
-        System.out.println(userDto);
-
         request.setAttribute("userList", userDto); //user
-        String userNavi = UserDAO.getInstance().getPageNavi2(1, UserDAO.getInstance().getRecordCountByUsersName(text));
+        String userNavi = UserDAO.getInstance().getPageNaviByNameSearch(text, cpage, UserDAO.getInstance().getRecordCountByUsersName(text));
         request.setAttribute("userNavi", userNavi);
 
+        request.setAttribute("searchText", text);
         request.getRequestDispatcher("/host/host-user.jsp").forward(request, response);
-
     }
 
     /**

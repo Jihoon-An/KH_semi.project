@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.http.HttpTimeoutException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @WebServlet("*.bsPage")
@@ -30,36 +28,40 @@ public class BsPageController extends ControllerAbs {
 
         try {
             switch (uri) {
+                // 사업자 페이지 열기
                 case "/page.bsPage":
                     this.getPage(request, response);
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
-
+                // 프로필 업데이트
                 case "/updateProfile.bsPage":
                     this.updateProfile(request, response);
                     break;
-
+                // 사업증 업데이트
                 case "/updateCtfc.bsPage":
                     this.updateCtfc(request, response);
                     break;
-
+                // 비밀번호 변경
                 case "/updatePw.bsPage":
                     this.updatePw(request, response);
                     break;
-
+                //회원탈퇴
                 case "/signDown.bsPage":
                     this.signDown(request, response);
                     request.getSession().removeAttribute("bsSeq");
                     response.sendRedirect("/");
                     break;
+                // 시설 업데이트 페이지로 이동
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
                     request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
+                // 시설 업데이트
                 case "/updateGym.bsPage":
                     this.updateGymInfo(request, response);
-                    response.sendRedirect("/");
+                    response.sendRedirect("/page.bsPage");
                     break;
+                // 시설 삭제
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
@@ -91,8 +93,6 @@ public class BsPageController extends ControllerAbs {
         LikesDAO.getInstance().deleteByGymSeq(gymSeq);
         // 리뷰 review table 지우기
         ReviewDAO.getInstance().deleteByGymSeq(gymSeq);
-        // 헬스장 회원 membership table 지우기
-        MembershipDAO.getInstance().deleteByGymSeq(gymSeq);
         // 시설 gym table 지우기
         GymDAO.getInstance().deleteByGymSeq(gymSeq);
     }
@@ -136,8 +136,6 @@ public class BsPageController extends ControllerAbs {
             favDao.deleteByGymSeq(gym.getGym_seq());
         }
 
-        // 헬스 회원 지우기
-        MembershipDAO.getInstance().deleteByBsSeq(bsSeq);
 
         // 리뷰 좋아요 지우기
         ReviewDAO.getInstance().deleteByBsSeq(bsSeq);

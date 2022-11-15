@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,15 +117,19 @@ public class UserMyPageController extends ControllerAbs {
             gyms.add(gymDAO.printGym(gymSeq));
             favs.add(FavoritesDAO.getInstance().getFavSeqByUserAndGym(userSeq, gymSeq));
         }
+
         // reivew 데이터
         List<ReviewDTO> reviews = ReviewDAO.getInstance().getListByUser(userSeq);
+
+        // 오늘 날짜 포맷해서 보내기
+        LocalDate now = LocalDate.now();
 
         //data 담기
         request.setAttribute("user", user);
         request.setAttribute("favs", favs);
         request.setAttribute("gyms", gyms);
         request.setAttribute("reviews", reviews);
-
+        request.setAttribute("nowDate", now);
     }
 
     /**
@@ -160,7 +165,7 @@ public class UserMyPageController extends ControllerAbs {
         // userSeq 받아오기
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // 프사지우기
-        String path = "/resource/profile"; //런타임 webapp 폴더를 불러옴.
+        String path = "/resource/profileImg"; //런타임 webapp 폴더를 불러옴.
         String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
         new FileControl().delete(request, path, delFileName);
         // 유저 테이블 삭제
@@ -168,7 +173,7 @@ public class UserMyPageController extends ControllerAbs {
         // 즐겨찾기 테이블 삭제
         FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
         // 헬스장 회원 테이블 삭제
-        MembershipDAO.getInstance().deleteByUserSeq(userSeq);
+        ManagerDAO.getInstance().deleteByUserSeq(userSeq);
         // 캘린더 테이블 삭제
         CalendarDAO.getInstance().deleteByUserSeq(userSeq);
         // 운동기록 테이블 삭제

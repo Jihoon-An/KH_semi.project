@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,8 +17,11 @@ import com.google.gson.Gson;
 
 import commons.Common;
 import dao.ExerciseDAO;
+import dao.ManagerDAO;
 import dto.ExerciseDTO;
 import dto.WeightDTO;
+import dto.ManagerDTO;
+
 
 
 @WebServlet("*.personal")
@@ -40,10 +44,6 @@ public class PersonalRecordController extends ControllerAbs {
                     this.getPage(request, response);
 					break;
 					
-				case "/infoinbody.personal":
-                    this.getInbodyChart(request, response);
-					break;
-
 				case "/record.personal":
                     this.sendRecord(request, response);
 					break;
@@ -59,6 +59,36 @@ public class PersonalRecordController extends ControllerAbs {
                 case "/weight.personal":
                 	this.getWeightData(request, response);
                     break;
+
+                case "/add_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.addManager(request, response);
+                    response.sendRedirect("/main.personal");
+                    break;
+
+                case "/del_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.delManager(request, response);
+                    response.sendRedirect("/main.personal");
+                    break;
+
+                case "/update_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.updateManager(request, response);
+                    response.sendRedirect("/main.personal");
+                    break;
             }
         } catch (Exception e) {
 			e.printStackTrace();
@@ -69,16 +99,6 @@ public class PersonalRecordController extends ControllerAbs {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         this.doGet(request, response);
-    }
-
-    protected void getInbodyChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	
-    	int userSeq = (int) request.getSession().getAttribute("userSeq");
-    	
-    	List<ExerciseDTO> list = ExerciseDAO.getInstance().inbodyChartInfo(userSeq);    	
-      	
-    	return;
-    	 
     }
     
     protected void sendWeight (HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -91,6 +111,12 @@ public class PersonalRecordController extends ControllerAbs {
     
     protected void getWeightData (HttpServletRequest request, HttpServletResponse response) throws Exception{
     	String userSeq = (String) request.getSession().getAttribute("userSeq");
+    	String weight = request.getParameter("weight");
+    	String weight_date = request.getParameter("weight_date");
+    	
+    	request.setAttribute("weight", weight);
+    	request.setAttribute("weight_date", weight_date);
+    
     	
     }
     
@@ -113,6 +139,9 @@ public class PersonalRecordController extends ControllerAbs {
         request.setAttribute("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         request.setAttribute("record", ExerciseDAO.getInstance().selectByDate(userSeq, sdf.format(new Date())));
         request.setAttribute("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, sdf.format(new Date())));
+
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(user_seq));
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
 
@@ -124,6 +153,33 @@ public class PersonalRecordController extends ControllerAbs {
         data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
         data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
         return data;
+    }
+
+    protected void addManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        String inputTitle = request.getParameter("m_title_input");
+        String inputStart = request.getParameter("m_start_input") + " 00:00:00.0";
+        java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(inputStart);
+        String inputEnd = request.getParameter("m_end_input") + " 00:00:00.0";
+        java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(inputEnd);
+
+        ManagerDAO.getInstance().addManager(user_seq, inputTitle, startTime, endTime);
+    }
+
+    protected void delManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        ManagerDAO.getInstance().deleteByUserSeq(user_seq);
+    }
+
+    protected void updateManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        String inputTitle = request.getParameter("mu_title_input");
+        String inputStart = request.getParameter("mu_start_input") + " 00:00:00.0";
+        java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(inputStart);
+        String inputEnd = request.getParameter("mu_end_input") + " 00:00:00.0";
+        java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(inputEnd);
+
+        ManagerDAO.getInstance().updateByUserSeq(user_seq, inputTitle, startTime, endTime);
     }
 
 }

@@ -235,7 +235,7 @@ public class BsUsersDAO extends Dao {
     public List<HashMap<String,Object>> selectByRange(int start, int end) throws Exception { // 한페이지에 출력
         String sql = "select * from (select bs_users.*, row_number() over(order by bs_seq desc) rn from bs_users) b " +
                 "left join (select bs_seq, count(*) gym_count from gym group by bs_seq)"
-        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ? and gym_count is not null";
+        		+ " g on b.bs_seq = g.bs_seq where rn between ? and ?";
         try (Connection con = this.getConnection(); PreparedStatement pstat = con.prepareStatement(sql);) {
 
             pstat.setInt(1, start);
@@ -274,66 +274,35 @@ public class BsUsersDAO extends Dao {
         }
     }
 
-    public String getPageNavi(int currentPage) throws Exception { // 페이지 네비
-        // 총 몇개의 글
-
-        int recordTotalCount = this.getRecordCount(); // board 테이블에 총 144개의 글이 있다고 가정
-        int recordCountPerPage = 10; // 한페이지당 몇개의 글을 보여줄것인가
-        int naviCountPerpage = 10; // 게시판 하단의 page vaigator 가 한번에 몇개씩 보여질지저장
-
-        // recordCountPerPage
-        // naviCountPerpage 는 dao의 지역변수로 쓰면 안되고 따로 클래스를 만들어 static으로 사용해야함
-
-        int pageTotalCount = 0; // 총페이지 갯수
-
-        if (recordTotalCount % recordCountPerPage > 0) { // 총게시글/ 한페이지 몇개의 글 나머지가 0보다 크면 +1 아니면 그대로 //페이지 총 갯수
-
+    public String getPageNavi(int currentPage, int recordTotalCount) throws Exception {
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
+        int pageTotalCount = 0;
+        if (recordTotalCount % recordCountPerPage > 0) {
             pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
         } else {
             pageTotalCount = (recordTotalCount / recordCountPerPage);
-        } // 전체페이지갯수
-
-        // int currentPage =12; //현재 페이지가 12 // 매개변수로존재해야함
-        // 7 : 1~10
-        // 15 : 11 ~20
-        // 28 : 21~30
-        // 현재 페이지부터 시작 페이지를 얻어서 +9 // 1의 자리를 날리고 1을 끼워넣으면 시작페이지
-
-        if (currentPage < 1) { // 현재 페이지가 1보다 작다그러면 현재 페이지는 1
-            currentPage = 1;
-        } else if (currentPage > pageTotalCount) { // 현재 페이지가 토탈페이지갯수보다 크면 현재페이지=토탈
-            currentPage = pageTotalCount;
-        } // 보안코드
-
-        int startNavi = (currentPage - 1) / naviCountPerpage * naviCountPerpage + 1;
-        int endNavi = startNavi + naviCountPerpage - 1;
-        // 7 : 1~10
-        // 15 : 11 ~20
-        // 28 : 21~30
-        // int startNavi=(currentPage-1)/10 *10 +1;
-        // 1의 자리를 날리고 1을 끼워넣으면 시작페이지 //10의 배수일떈 성립이 안되어서 currentPage-1
-        // 10페이지를 본다는 기준하에
-
-        if (endNavi > pageTotalCount) {
-            endNavi = pageTotalCount; // 네비게이터끝이 토탈 페이지 보다 크면 둘은 같다
         }
-
-//		System.out.println("현재 페이지" +currentPage);
-//		System.out.println("네비게이터 시작:" + startNavi);
-//		System.out.println("네비게이터 끝"+endNavi);
-
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+        if (currentPage > pageTotalCount) {
+            currentPage = pageTotalCount;
+        }
+        int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
+        int endNavi = startNavi + naviCountPerPage - 1;
+        if (endNavi > pageTotalCount) {
+            endNavi = pageTotalCount;
+        }
         boolean needPrev = true;
         boolean needNext = true;
-
         if (startNavi == 1) {
-            needPrev = false; // 스타트
+            needPrev = false;
         }
         if (endNavi == pageTotalCount) {
             needNext = false;
         }
-
         StringBuilder sb = new StringBuilder();
-
         if (needPrev) {
             sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserList.host?cpage=" + (startNavi - 1)
                     + "'>Previous</a></li>");
@@ -485,8 +454,8 @@ public class BsUsersDAO extends Dao {
 
 
 
-    // 페이지 네비
-    public String getPageNavi2(int currentPage, int recordTotalCount) throws Exception {
+    // 이름 검색 네비
+    public String getPageNaviByNameSearch(String text, int currentPage, int recordTotalCount) throws Exception {
         int recordCountPerPage = 10;
         int naviCountPerPage = 10;
         int pageTotalCount = 0;
@@ -516,24 +485,25 @@ public class BsUsersDAO extends Dao {
         }
         StringBuilder sb = new StringBuilder();
         if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (startNavi - 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserSearch.host?cpage=" + (startNavi - 1) + "&type=board_title&inputT=" + text
                     + "'>Previous</a></li>");
         }
         for (int i = startNavi; i <= endNavi; i++) {
             if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/bsUserSearch.host?cpage=" + i + "&type=board_title&inputT=" + text + "\">" + i
                         + "</a></li>");
             } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewList.host?cpage=" + i + "\">" + i
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/bsUserSearch.host?cpage=" + i + "&type=board_title&inputT=" + text + "\">" + i
                         + "</a></li>");
             }
         }
         if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewList.host?cpage=" + (endNavi + 1)
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/bsUserSearch.host?cpage=" + (endNavi + 1) + "&type=board_title&inputT=" + text
                     + "'>Next</a></li>");
         }
         return sb.toString();
     }
+
 
 
 

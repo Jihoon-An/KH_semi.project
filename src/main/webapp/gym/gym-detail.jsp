@@ -1,54 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-<%@ include file="/layout/header.jsp" %>
+<%@ include file="/layout/header.jsp"%>
 
 
 <main id="gym-detail">
-    <div style="height: 70px;"></div>
-    <div class="containerbox" style="overflow: hidden">
-        <div class="lcontents">
-            <div class="placebox1">
-                <div>
-                    <div class="placename">
-                        <h1>${gymList.gym_name}</h1>
-                    </div>
 
-                    <c:if test="${bsSeq !=null }">
-                        <div class="bs_modify">
-                            <button type="button" class="btn btn-outline-secondary">수정하기</button>
-                        </div>
-                    </c:if>
-                    <!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
+	<div style="height: 70px;"></div>
+	<div class="containerbox" style="overflow: hidden">
+		<div class="lcontents">
+			<div class="placebox1">
+				<div>
+					<div class="placename">
+						<h1>${gymList.gym_name}</h1>
+					</div>
 
-                    <div class="icon1">
-                        <c:if test="${userSeq !=null}">
-                            <!-- list사용자 로그인만 보이게끔 -->
-                            <i class="fa-solid fa-heart" check="${favresult }" id="heart"></i>
+					<c:if test="${bsSeq !=null }">
+						<div class="bs_modify">
+							<button type="button" class="btn btn-outline-secondary">수정하기</button>
+						</div>
+					</c:if>
+					<!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
-                        </c:if>
+					<div class="icon1">
+						<c:if test="${userSeq !=null}">
+							<!-- list사용자 로그인만 보이게끔 -->
+							<i class="fa-solid fa-heart" check="${favresult }" id="heart"></i>
 
-                        <span class="button gray medium"> <a
-                                onclick="clip(); return false;" class="shareicon"> <i
-                                class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-                                style="cursor: pointer;" aria-hidden="true"></i></a></span>
-                    </div>
-                </div>
-                <div class="place">
-                    <dt class="text_normal">위치</dt>
-                    <dd>${gymList.gym_location}</dd>
-                </div>
+						</c:if>
 
-                <div class="place">
-                    <dt class="text_normal">연락처</dt>
-                    <dd>${gymList.gym_phone}</dd>
-                </div>
+						<span class="button gray medium "> <a
+							onclick="clip(); return false;" class="shareicon"> <i
+								class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
+								style="cursor: pointer;" aria-hidden="true" ></i></a></span>
+					</div>
+				</div>
+				<div class="place">
+					<dt class="text_normal">위치</dt>
+					<dd>${gymList.gym_location}</dd>
+				</div>
 
-                <div class="placemap" id="map"></div>
+				<div class="place">
+					<dt class="text_normal">연락처</dt>
+					<dd>${gymList.gym_phone}</dd>
+				</div>
 
-                <script>
+				<div class="placemap" id="map"></div>
+
+				<script>
                     let gym_x = "${gymList.gym_x}";
                     let gym_y = "${gymList.gym_y}";
 
@@ -112,250 +113,213 @@
                 </script>
 
 
-                <div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
-                    <dt>
-                        <p class="text_normal">이용료</p>
-                    </dt>
-                    <dd>${gymList.gym_price }</dd>
-                </div>
-            </div>
+				<div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
+					<dt>
+						<p class="text_normal">이용료</p>
+					</dt>
+					<dd>${gymList.gym_price }</dd>
+				</div>
+			</div>
 
-            <div class="reviewbox">
-                <div class="reviewn">
-                    <p class="text_title">리뷰</p>
-                </div>
+			<div class="reviewbox">
+				<div class="reviewn">
+					<p class="text_title">리뷰</p>
+				</div>
 
-                <div class="reviewr">
-                    <button type="button" class="btn_base" id="reviewbtn"
-                            type="button">리뷰작성
-                    </button>
-                </div>
-
-
-                <c:choose>
-                    <c:when test="${not empty reviewList }">
-                        <!-- 리스트가 비어있지않다면 -->
-                        <c:forEach var="r" items="${reviewList }">
-                            <div class="review2">
-
-                                <div
-                                        class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
-
-                                    <div class="authmark">
-
-                                        <i class="fa-solid fa-user-shield auth"></i>
-
-                                        <c:if test="${r.review.review_photo != '인증완료'}">
-                                            <script>
-                                                $(".auth").attr("style", "display:none")
-                                            </script>
-                                        </c:if>
-                                    </div>
+				<div class="reviewr">
+					<button type="button" class="btn_base" id="reviewbtn" type="button">리뷰작성
+					</button>
+				</div>
 
 
-                                    <div class="ranwriter">${r.review.review_writer}</div>
-                                    <div class="writerd">${r.review.formDate}</div>
-                                    <div class="starc">
-                                        <input type="hidden" name="review_seq" class="star"
-                                               value="${r.review.review_star}">
+				<c:choose>
+					<c:when test="${not empty reviewList }">
+						<!-- 리스트가 비어있지않다면 -->
+						<c:forEach var="r" items="${reviewList }">
+							<div class="review2">
 
-                                    </div>
+								<div
+									class="recontents shadow p-3 mb-5 bg-body rounded text_normal">
 
-                                    <c:if test="${userSeq !=null}">
-                                        <div class="reviewlike">
-                                            <input type="hidden" name="review_seq" class="rseq"
-                                                   value="${r.review.review_seq}"> <input type="hidden"
-                                                                                          name="gym_seq" class="gym"
-                                                                                          value="${r.review.gym_seq}">
-                                            <input type="hidden" name="review_like" class="rlike"
-                                                   value="${r.review.review_like}"> <i
-                                                class="relike fa-solid fa-thumbs-up"></i>
-                                            <span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
-                                            <c:if test="${r.liked ==userSeq}">
+									<div class="authmark">
 
-                                                <script>
-                                                    $(".relike").attr("style", "color:#001A41")
-                                                </script>
-                                            </c:if>
-                                        </div>
-
-                                    </c:if>
-
-                                    <div class="reviewcon">${r.review.review_contents }</div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                        <c:if test="${reviewList !=null}">
-                            <div class="newmore">
-                                <a href="#" class="btn btn_outline" data-bs-toggle="button"
-                                   id="load">NEW MORE</a>
-                            </div>
-                        </c:if>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="other">작성된 리뷰가 없습니다</div>
-                    </c:otherwise>
-                </c:choose>
+									
+									
+										<c:if test="${r.review.review_photo == '인증완료'}">
+											
+                                              	<i class="fa-solid fa-user-shield auth"></i>
+                                      
+										</c:if>
+									</div>
 
 
-            </div>
-        </div>
+									<div class="ranwriter">${r.review.review_writer}</div>
+									<div class="writerd">${r.review.formDate}</div>
+									<div class="starc">
+										<c:if test="${r.review.review_star == 1}">★</c:if>
+										<c:if test="${r.review.review_star == 2}">★★</c:if>
+										<c:if test="${r.review.review_star == 3}">★★★</c:if>
+										<c:if test="${r.review.review_star == 4}">★★★★</c:if>
+										<c:if test="${r.review.review_star == 5}">★★★★★</c:if>
+
+									</div>
 
 
-        <div class="rcontents">
-            <div class="gymscore" id="gscore">
-                <input type="hidden" class="chk1" value="${checkList.check1}">
-                <input type="hidden" class="chk2" value="${checkList.check2}">
-                <input type="hidden" class="chk3" value="${checkList.check3}">
-                <input type="hidden" class="chk4" value="${checkList.check4}">
-                <input type="hidden" class="chk5" value="${checkList.check5}">
-                점
+								
+												 	
+											<div class="reviewlike">
+											<input type="hidden" name="review_seq" class="rseq"
+												value="${r.review.review_seq}"> <input type="hidden"
+												name="gym_seq" class="gym" value="${r.review.gym_seq}">
+											<input type="hidden" name="review_like" class="rlike"
+												value="${r.review.review_like}">
+												
+										<c:if test="${r.liked == null}">
+											<i class="relike fa-solid fa-thumbs-up" style="color:#8f959a"></i> <!--  선택안했을 때 -->
+										</c:if>
+										
+										<c:if test="${r.liked != null}">
+											<i class="relike fa-solid fa-thumbs-up" style="color:#001A41"></i> <!-- 선택했을 때 색상 찐한블루 -->
+										</c:if>
+								
+										<span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
+										</div>
+										
+										
 
-            </div>
-            <div class="chart1">
-                <canvas id="myChart"></canvas>
-            </div>
-            <div class="gym_info_open">
-                <span>OPEN : ${gymList.gym_open}</span><br/> <span>CLOSE :
-                ${gymList.gym_close}</span>
-            </div>
+									
 
-
-            <div class="gym_info_tagBox">
-
-                <c:choose>
-                    <c:when test="${gymFilter.open == 'true'}">
-                        <div class="gym_info_tag open">#24시간</div>
-                    </c:when>
-                </c:choose>
-                <c:choose>
-                    <c:when test="${gymFilter.locker == 'true'}">
-                        <div class="gym_info_tag locker">#라커</div>
-                    </c:when>
-                </c:choose>
-                <c:choose>
-                    <c:when test="${gymFilter.shower == 'true'}">
-                        <div class="gym_info_tag shower">#샤워실</div>
-                    </c:when>
-                </c:choose>
-                <c:choose>
-                    <c:when test="${gymFilter.park == 'true'}">
-                        <div class="gym_info_tag park">#주차장</div>
-                    </c:when>
-                </c:choose>
-            </div>
+									<div class="reviewcon">${r.review.review_contents}</div>
+								</div>
+							</div>
+						</c:forEach>
+						<c:if test="${reviewList !=null}">
+							<div class="newmore">
+								<a href="#" class="btn btn_outline" data-bs-toggle="button"
+									id="load">NEW MORE</a>
+							</div>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<div class="other">작성된 리뷰가 없습니다</div>
+					</c:otherwise>
+				</c:choose>
 
 
-            <c:if test="${gymImgList != null}">
-                <c:forEach var="gymImg" items="${gymImgList}">
-                    <script>
+			</div>
+		</div>
+
+
+
+		<div class="rcontents">
+			<c:choose>
+
+				<c:when test="${gymAvg.gymAvg != null &&  gymAvg.gymAvg != '' }">
+					<div class="gymscore text_normal" id="gscore">${gymAvg.gymAvg }점</div>
+
+				</c:when>
+				<c:otherwise>
+					<div class="gymscore" id="gscore">등록된 평점이 없습니다</div>
+				</c:otherwise>
+			</c:choose>
+
+			<div class="chart1">
+				<canvas id="myChart"></canvas>
+			</div>
+			<div class="gym_info_open">
+				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE :
+					${gymList.gym_close}</span>
+			</div>
+
+
+
+			<div class="gym_info_tagBox">
+
+				<c:choose>
+					<c:when test="${gymFilter.open == 'true'}">
+						<div class="gym_info_tag open">#24시간</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.locker == 'true'}">
+						<div class="gym_info_tag locker">#라커</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.shower == 'true'}">
+						<div class="gym_info_tag shower">#샤워실</div>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${gymFilter.park == 'true'}">
+						<div class="gym_info_tag park">#주차장</div>
+					</c:when>
+				</c:choose>
+			</div>
+
+			<c:if test="${gymImgList != null}">
+				<c:forEach var="gymImg" items="${gymImgList}">
+					<script>
                         console.log("${gymImg}");
                     </script>
-                    <div class="infopicture">
-                        <figure class="figure">
-                            <img src="/resource/gym/${gymImg}"
-                                 class="figure-img img-fluid rounded" alt="..."/>
-                            <figcaption class="figure-caption"></figcaption>
-                        </figure>
-                    </div>
-                </c:forEach>
-            </c:if>
+					<div class="infopicture">
+						<figure class="figure">
+							<img src="/resource/gym/${gymImg}"
+								class="figure-img img-fluid rounded" alt="..." />
+							<figcaption class="figure-caption"></figcaption>
+						</figure>
+					</div>
+				</c:forEach>
+			</c:if>
 
 
-        </div>
-    </div>
 
 
-    <script>
-
-        $(document).ready(function () {
-
-            let c1 = parseInt($(".chk1").val())
-            let c2 = parseInt($(".chk2").val())
-            let c3 = parseInt($(".chk3").val())
-            let c4 = parseInt($(".chk4").val())
-            let c5 = parseInt($(".chk5").val())
-
-            const average = arr => arr.reduce((p, c) => p + c, 0) / arr.length;
-
-            const array = [c1, c2, c3, c4, c5]
-            average(array)
-            let a = document.getElementById("gscore");
+		</div>
+	</div>
 
 
-            if (average(array)) {
-                a.innerHTML = "체크된 리뷰가 없습니다";
-            } else {
-                a.innerHTML = average(array) + "점"
-            }
+	<script>
+	
+                 
+	<c:if test="${userSeq !=null}">
+	
+		$(".relike").on("click", function () {
+			var thumb = $(this);
+	            $.ajax({
+	                url: "/reviewLikeAdd.gym",
+	                data: {
+	                    "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
+	                    "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
+	                    "review_like": $(this).closest(".reviewlike").find(".rlike").val()
+	
+	                },
+	                type: "post",
+	                success: function(data) {
+					
+						if(data=='false'){
+							
+							thumb.attr("style", "color:#001A41");
+							console.log(thumb + "좋아요 추가");
+							location.reload();
+							
+						
+						}else if(data=='true'){
+							thumb.attr("style", "color:#8f959a");
+						
+							console.log(thumb + "좋아요 삭제");
+							location.reload();
+						}
+	    
+	                }
+	
+	            })
+	    
+	    })
+	</c:if>
+    
 
-
-        })
-
-
-        $(document).ready(function () {
-            if ($(".star").val() == 1) {
-                $(".starc").html("★")
-            }
-            if ($(".star").val() == 2) {
-                $(".starc").html("★★")
-            }
-            if ($(".star").val() == 3) {
-                $(".starc").html("★★★")
-            }
-            if ($(".star").val() == 4) {
-                $(".starc").html("★★★★")
-            }
-            if ($(".star").val() == 5) {
-                $(".starc").html("★★★★★")
-            }
-
-        })
-
-        $(".relike").on("click", function () {
-
-            if ($(this).css("color") == "rgb(143, 149, 154)") {
-
-                $.ajax({
-                    url: "/reviewLikeAdd.gym",
-                    data: {
-                        "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
-                        "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
-                        "review_like": $(this).closest(".reviewlike").find(".rlike").val()
-
-                    },
-                    type: "post",
-                    success: () => {
-                        $(this).css("color", "#001A41")
-
-                        location.reload();
-                        console.log($(this).closest(".reviewlike").find(".gym").val())
-                        console.log($(this).closest(".reviewlike").find(".rlike").val())
-                        console.log("좋아요 추가")
-                    }
-
-                })
-            } else {
-
-                $.ajax({
-                    url: "/reviewLikeDel.gym",
-
-                    data: {
-                        "review_seq": $(this).closest(".reviewlike").find(".rseq").val(),
-                        "gym_seq": $(this).closest(".reviewlike").find(".gym").val(),
-                        "review_like": $(this).closest(".reviewlike").find(".rlike").val()
-                    },
-                    type: "post",
-                    success: () => {
-                        $(this).css("color", "#8f959a")
-
-                        location.reload();
-                        console.log("좋아요 취소")
-                    }
-                })
-            }
-        })
-
+   
 
         // 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
         $(document).ready(function () {
@@ -395,8 +359,10 @@
         })
 
     </script>
-    <script type="text/javascript">
-
+   
+      
+	<script type="text/javascript">
+	  //아이콘 클릭시 주소복사 버튼
 
         $(".shareicon").on("click", function () {
             var url = '';
@@ -408,10 +374,14 @@
             document.execCommand("copy");
             document.body.removeChild(textarea);
             $(".fa-sharp fa-solid fa-share-nodes").tooltip();  //URL 주소 복사 가능 TOOLTIP
-        })//아이콘 클릭시 주소복사 버튼
+      
+        
+        })
+     
     </script>
+    
 
-    <script>
+	<script>
 
 
         $(function () {
@@ -430,7 +400,7 @@
         });  //게시글 더 보기 기능  
     </script>
 
-    <script>
+	<script>
         const data = {
             labels: ["PT 만족도", "상담 만족도", "시설 규모", "기구 다양성", "시설 청결"],
             datasets: [
@@ -473,11 +443,11 @@
         //chart.js
     </script>
 
-    <script>
+	<script>
         const myChart = new Chart(document.getElementById("myChart"), config);
     </script>
 
-    <script>
+	<script>
 
         $("#reviewbtn").on("click", function () {
             if ("${userSeq}" == "") {
@@ -498,4 +468,4 @@
 
 </main>
 
-<%@ include file="/layout/footer.jsp" %>
+<%@ include file="/layout/footer.jsp"%>

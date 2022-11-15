@@ -185,7 +185,7 @@
 
                 <div class="d-flex justify-content-center" style="margin-top: 60px">
                     <button type="button" class="btn_outline" id="btn_cancle" style="font-size: 20px">등록 취소하기</button>
-                    <button class="btn_base" type="button" id="btn_write" style="font-size: 20px">리뷰 등록하기</button>
+                    <button type="button" class="btn_base" id="btn_write" style="font-size: 20px">리뷰 등록하기</button>
                 </div>
 
                 <hr class="line2">

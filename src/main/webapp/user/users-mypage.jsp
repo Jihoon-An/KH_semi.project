@@ -7,7 +7,7 @@
 <!-- Site Main -->
 <main class="containerbox" id="users-mypage">
     <div class="row text-center">
-        <h1>My 페이지</h1>
+        <h1>마이페이지</h1>
     </div>
     <!-- profile -->
     <div class="row pt-3 justify-content-center" id="user-info">
@@ -16,7 +16,7 @@
             <div class="row justify-content-center">
                 <div class="row justify-content-center mb-2">
                     <img class="p-0" id="user_img" src="/resource/img/default_profile.png" alt="">
-                </div>ㄹ
+                </div>
                 <div class="row justify-content-center">
                     <label class="" id="profile_upload" for="user_img_in">
 									<span><i class="modify_btn fa-sharp fa-solid fa-arrow-up-from-bracket"
@@ -49,7 +49,7 @@
             <!-- birthday -->
             <div class="profile_input_group py-2">
                 <div class="profile_title">생년월일</div>
-                <div style="display:inline-table;"><input class="form-control modify_input" type="date"
+                <div style="display:inline-table;"><input class="form-control modify_input" type="date" min="1920-01-01" max="${nowDate}"
                                                           id="user_birthday" name="user_birthday"
                                                           value="${user.birthday}">
                 </div>
@@ -96,26 +96,33 @@
         </div>
     </div>
 
-    <hr>
+    <hr style="margin: 0; padding: 0; width: 100%">
 
     <!-- 즐겨찾기 시설 -->
     <div class="row pt-4 pb-3">
-        <span class="text_title">My 즐겨찾기</span>
+        <span class="text_title">내 즐겨찾기</span>
     </div>
     <!-- 시설 카드 -->
     <div class="gym_area mb-5">
         <div class="gym_cards_box" id="gym_cards_box">
             <c:forEach var="gym" items="${gyms}" varStatus="status">
                 <div class="gym_card">
-                    <input type="hidden" name="fav_seq" value="${favs[status.index]}">
-                    <input type="hidden" name="gym_seq" value="${gym.gym_seq}">
+                    <input type="hidden" name="fav_seq" class="fav_seq" value="${favs[status.index]}">
+                    <input type="hidden" name="gym_seq" class="gym_seq" value="${gym.gym_seq}">
                     <a href="/detail.gym?gym_seq=${gym.gym_seq}">
-                        <img class="gym_img" src="/resource/main.jpg">
+                        <c:choose>
+                            <c:when test='${gym.gym_main_sysImg != null}'>
+                                <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">
+                            </c:when>
+                            <c:otherwise>
+                                <img class="gym_img" src="/resource/img/main.jpg">
+                            </c:otherwise>
+                        </c:choose>
                         <span class="gym_text p-2 ellipsis">
 										<span class="pb-2 ellipsis">${gym.gym_name}</span><br>
 										<span class="ellipsis">${gym.gym_phone}</span><br>
 										<span class="ellipsis">${gym.gym_location}</span><br>
-										<span class="ellipsis">${gym.gym_open}부터 ${gym.gym_close}까지</span>
+										<span class="ellipsis">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</span>
 									</span>
                     </a>
                     <i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
@@ -124,11 +131,11 @@
         </div>
     </div>
 
-    <hr>
+    <hr style="margin: 0; padding: 0; width: 100%">
 
     <!-- 내가 쓴 리뷰 -->
     <div class="row pt-4 pb-3">
-        <span class="text_title">My 리뷰</span>
+        <span class="text_title">내가 쓴 리뷰</span>
     </div>
 
     <!-- 리뷰 카드 영역 -->
@@ -136,15 +143,16 @@
         <!-- review card -->
         <c:forEach var="review" items="${reviews}">
             <div class="col-6 review_card p-1">
-                <form action="" class="review_detail">
-                    <input type="hidden" name="review_seq" class="review_seq" value="${review.review_seq}">
+                <form action="/detail.gym" class="review_detail">
+                    <input type="hidden" name="gym_seq" class="review_seq" value="${review.gym_seq}">
                     <!-- review_seq 저장 -->
                 </form>
-                <div class="border p-1">
-                    <div class="row">
+
+                <div class="border p-1  my-3">
+                    <div class="row py-1">
                         <div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
                         <div class="col-1">
-                            <a href="" class="modify_review_btn">
+                            <a href="/reviewModify.gym?review_seq=${review.review_seq}" class="modify_review_btn">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         </div>
@@ -152,7 +160,9 @@
                             <i class="fa-solid fa-x del_review_btn"></i>
                         </div>
                     </div>
+
                     <hr>
+
                     <div class="review_text review_detail_starter">${review.review_contents}</div>
                 </div>
             </div>
@@ -162,7 +172,7 @@
 
     <!-- 개인정보 수정 테이블 -->
 
-    <form id="form_pw" class="modal-overlay" action="/pw.userMyPage">
+    <form id="form_pw" class="modal-overlay" action="/pw.userMyPage" method="post">
         <input type="hidden" name="userSeq" value="${userSeq}">
         <div id="private_table">
             <!-- X icon -->
@@ -465,28 +475,31 @@
 
 
         $(".heart").on("click", function () {
+            var heart = $(this);
             if ($(this).css("color") == "rgb(143, 149, 154)") {
+                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 $.ajax({
                     url: "/addHeart.userMyPage",
                     data: {
-                        fav_seq: $(this).closest(".gym_card").find(".fav_seq").val(),
-                        gym_seq: $(this).closest(".gym_card").find(".gym_seq").val()
+                        fav_seq: $(heart).closest(".gym_card").find(".fav_seq").val(),
+                        gym_seq: $(heart).closest(".gym_card").find(".gym_seq").val()
                     },
                     type: "POST",
                     success: () => {
-                        $(this).css("color", "#CF0C00");
+                        $(heart).css("color", "#CF0C00");
                     }
                 });
             } else {
+                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 //즐겨찾기 취소
                 $.ajax({
                     url: "/delHeart.userMyPage",
                     data: {
-                        fav_seq: $(this).closest(".gym_card").find(".fav_seq").val()
+                        fav_seq: $(heart).closest(".gym_card").find(".fav_seq").val()
                     },
                     type: "POST",
                     success: () => {
-                        $(this).css("color", "#8f959a")
+                        $(heart).css("color", "#8f959a")
                     }
                 });
             }
