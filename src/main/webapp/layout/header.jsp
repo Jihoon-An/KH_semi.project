@@ -87,7 +87,7 @@
 
 
 <!-- Site header -->
-<header id="header">
+<header id="header" seq=${userSeq}>
     <div class="containerbox" style="position:absolute; left:50%; transform: translate(-50%, 0);">
 
         <div class="float-start">
@@ -101,7 +101,7 @@
                     <!--<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>-->
                     <c:choose>
                         <c:when test="${!admin}">
-                            <li class="float-start"><a class="header_a_tag" href="/main.personal">운동기록</a></li>
+                            <li class="float-start"><a class="header_a_tag" onclick="toRecord()">운동기록</a></li>
                         </c:when>
                     </c:choose>
                 </ul>
@@ -166,6 +166,10 @@
             $("#loginModal").attr("style", "display:inline-flex");
             $("#login_bs").attr("checked", true);
         }
+    }
+
+    function toRecord() {
+        $("header").attr("seq") == "" ? Swal.fire({ title: "Error", icon: "error", text: "로그인 후 이용하세요." }) : location.href = "/main.personal"
     }
 
     function getDateFormat(date) {
