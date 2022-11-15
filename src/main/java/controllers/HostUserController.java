@@ -73,7 +73,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.userDel(request, response);
+                    this.delUser(request, response);
                     break;
 
                 //관리자 페이지 사업자회원 삭제
@@ -82,7 +82,7 @@ public class HostUserController extends ControllerAbs {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-                    this.bsUserDel(request, response);
+                    this.delBsUser(request, response);
                     break;
 
                 // 관리자페이지 - 리뷰목록 출력
@@ -268,7 +268,7 @@ public class HostUserController extends ControllerAbs {
     }
 
 
-    protected void userDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         UserDAO userDao = UserDAO.getInstance();
 
@@ -290,7 +290,7 @@ public class HostUserController extends ControllerAbs {
 
     }
 
-    protected void bsUserDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void delBsUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         BsUsersDAO bsUsersDAO = BsUsersDAO.getInstance();
 

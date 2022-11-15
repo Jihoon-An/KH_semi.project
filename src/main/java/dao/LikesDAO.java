@@ -21,6 +21,22 @@ public class LikesDAO extends Dao {
         return instance;
     }
 
+    
+    public boolean isLikesExist(int rseq, int useq, int gseq) throws Exception{
+    	String sql = "select * from Likes where review_seq=? and users_Seq = ? and gym_seq = ?";
+    			 try (Connection con = this.getConnection();
+    		             PreparedStatement pstat = con.prepareStatement(sql)
+    		        ) {
+    				 pstat.setInt(1, rseq);
+    				 pstat.setInt(2, useq);
+    		            pstat.setInt(3, gseq);
+    		            try (ResultSet rs = pstat.executeQuery();) {
+    		                boolean result = rs.next(); //존재하면 true
+    		                return result;
+    		                //return rs.next(); 가능
+    		            }
+    		        }
+    		    }
     /**
      * 좋아요 클릭시 likes 테이블에 추가
      *
@@ -28,6 +44,7 @@ public class LikesDAO extends Dao {
      * @return
      * @throws Exception
      */
+    
     public int add(LikesDTO dto) throws Exception {
         String sql = "insert into Likes values(?, ?, ?)";
         try (Connection con = this.getConnection();
@@ -74,8 +91,8 @@ public class LikesDAO extends Dao {
              PreparedStatement pstat = con.prepareStatement(sql);
         ) {
             pstat.setInt(1, rseq);
-            pstat.setInt(1, useq);
-            pstat.setInt(2, gseq);
+            pstat.setInt(2, useq);
+            pstat.setInt(3, gseq);
             try (ResultSet rs = pstat.executeQuery()) {
                 boolean result = rs.next(); //존재하면 true
                 return result;
