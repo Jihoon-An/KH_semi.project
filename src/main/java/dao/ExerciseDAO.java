@@ -56,14 +56,13 @@ public class ExerciseDAO extends Dao{
     }
     
     public void insertWeight(WeightDTO wet) throws Exception{
-    	String sql = "insert into weight values(?,?,?)";
+    	String sql = "insert into weight values(user_seq.nextval,?,?)";
     	
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
     			){
-    		pstat.setInt(1, wet.getUser_seq());
-    		pstat.setString(2, wet.getWeight());
-    		pstat.setTimestamp(3, wet.getWeight_date());
+    		pstat.setString(1, wet.getWeight());
+    		pstat.setTimestamp(2, wet.getWeight_date());
     		
     		int result = pstat.executeUpdate();
     		con.commit();

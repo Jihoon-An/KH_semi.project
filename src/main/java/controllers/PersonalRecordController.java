@@ -39,12 +39,9 @@ public class PersonalRecordController extends ControllerAbs {
 
 				case "/main.personal":
                     this.getPage(request, response);
+                    
 					break;
 					
-				case "/infoinbody.personal":
-                    this.getInbodyChart(request, response);
-					break;
-
 				case "/record.personal":
                     this.sendRecord(request, response);
 					break;
@@ -71,17 +68,6 @@ public class PersonalRecordController extends ControllerAbs {
 
         this.doGet(request, response);
     }
-
-    protected void getInbodyChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	
-    	int userSeq = (int) request.getSession().getAttribute("userSeq");
-    	
-    	List<ExerciseDTO> list = ExerciseDAO.getInstance().inbodyChartInfo(userSeq);    	
-    
-    	request.setAttribute("inbody", list);
-    	request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
-    	 
-    }
     
     protected void sendWeight (HttpServletRequest request, HttpServletResponse response) throws Exception{
     	WeightDTO wet = new WeightDTO();
@@ -93,6 +79,12 @@ public class PersonalRecordController extends ControllerAbs {
     
     protected void getWeightData (HttpServletRequest request, HttpServletResponse response) throws Exception{
     	String userSeq = (String) request.getSession().getAttribute("userSeq");
+    	String weight = request.getParameter("weight");
+    	String weight_date = request.getParameter("weight_date");
+    	
+    	request.setAttribute("weight", weight);
+    	request.setAttribute("weight_date", weight_date);
+    
     	
     }
     
@@ -118,7 +110,6 @@ public class PersonalRecordController extends ControllerAbs {
 
         int user_seq = (int) request.getSession().getAttribute("userSeq");
         request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(user_seq));
-
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
 
