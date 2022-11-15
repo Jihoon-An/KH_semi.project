@@ -120,7 +120,7 @@
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
-                        <form action="/signDown.bsPage" id="sign_down_form"></form>
+                        <form action="/signDown.bsPage" id="sign_down_form" method="post"></form>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
             <!-- card -->
             <c:forEach var="gym" items="${gymList}" varStatus="status">
                 <div class="row gym_card">
-                    <form class="gym_form">
+                    <form class="gym_form" method="post">
                         <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
                     </form>
                     <div class="col-3 p-0">
