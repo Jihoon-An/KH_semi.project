@@ -1,14 +1,12 @@
 package dto;
 
-import com.oreilly.servlet.MultipartRequest;
-import commons.FileControl;
-import dao.GymDAO;
+import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import commons.FileControl;
 
 public class GymDTO {
     private int gym_seq;

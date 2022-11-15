@@ -1,9 +1,9 @@
 package dto;
 
-import com.google.gson.Gson;
-
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+
+import com.google.gson.Gson;
 
 public class UserDTO {
 

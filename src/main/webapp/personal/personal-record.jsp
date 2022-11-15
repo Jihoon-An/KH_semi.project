@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 			<%@ include file="/layout/header.jsp" %>
+
+
 
 				<!-- Site Main -->
 				<main id="personal-record" style="margin-top: 57px">
@@ -17,53 +18,63 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="boundary" id="manager">
-                              시설 이용 매니저
-                              <c:choose>
-                                 <c:when test="${not empty manager.title}">
-                                    <div class="manager_btnBox  m_md_box">
-                                       <span id="manager_update"><i class="fa-solid fa-pen-to-square"></i></span>
-                                       <span id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
-                                    </div>
-                                    <div class="manager_titleBox">
-                                       ${manager.title}
-                                    </div>
-                                    
-                                    <jsp:useBean id="now" class="java.util.Date"/>
-                                    <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-                                    
-                                    <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
-                                    <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
-                                    
-                                    <div class="manager_startBox">
-                                       🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
-                                       <span style="font-size: 12px;">
-                                          시작 날짜 : <fmt:formatDate value="${manager.start_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-         
-                                    </div>
-                                    <div class="manager_endBox">
-                                       🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
-                                       <span  style="font-size: 12px;">
-                                          종료 날짜 : <fmt:formatDate value="${manager.end_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-                                    </div>
-                                 </c:when>
-   
-                                 <c:otherwise>
-                                    <div class="manager_nullBox">
-                                       <div class="manager_btnBox">
-                                          <span id="manager_add"><i class="fa-solid fa-plus"></i></span>
-                                       </div>
-                                       " 입력된 정보가 없습니다 😢 "
-                                    </div>
-                                 </c:otherwise>
-   
-                              </c:choose>
-                           </div>
+										시설 이용 매니저
+										<c:choose>
+											<c:when test="${not empty manager.title}">
+												<div class="manager_btnBox  m_md_box">
+													<span id="manager_update"><i
+															class="fa-solid fa-pen-to-square"></i></span> <span
+														id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
+												</div>
+												<div class="manager_titleBox">${manager.title}</div>
+
+												<jsp:useBean id="now" class="java.util.Date" />
+												<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+													integerOnly="true" var="nowfmtTime" scope="request" />
+												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="start_date" scope="request" />
+												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="end_date" scope="request" />
+												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="startDate" scope="request" />
+												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="endDate" scope="request" />
+
+												<c:set value="${nowfmtTime - start_date}" var="n_s_date" />
+												<c:set value="${end_date - nowfmtTime}" var="e_n_date" />
+
+												<div class="manager_startBox">
+													🏋️‍♀️시작한지 <span style="font-size: 20px;">
+														<c:out value="${n_s_date}" />일
+													</span> 지났습니다 😊<br> <span style="font-size: 12px;"> 시작 날짜
+														:
+														<fmt:formatDate value="${manager.start_date}"
+															pattern="yyyy년 MM월 dd일" />
+													</span>
+
+												</div>
+												<div class="manager_endBox">
+													🏋️‍♂️종료까지 <span style="font-size: 20px;">
+														<c:out value="${e_n_date}" />일
+													</span> 남았습니다 😂<br> <span style="font-size: 12px;"> 종료 날짜
+														:
+														<fmt:formatDate value="${manager.end_date}"
+															pattern="yyyy년 MM월 dd일" />
+													</span>
+												</div>
+											</c:when>
+
+											<c:otherwise>
+												<div class="manager_nullBox">
+													<div class="manager_btnBox">
+														<span id="manager_add"><i class="fa-solid fa-plus"></i></span>
+													</div>
+													" 입력된 정보가 없습니다 😢 "
+												</div>
+											</c:otherwise>
+
+										</c:choose>
+									</div>
 								</div>
 								<div class="col-12">
 									<div class="calendar" id="calendar"></div>
@@ -101,80 +112,83 @@
 											</c:when>
 											<c:otherwise>
 												<div class="text_title col-12" id="result_title"
-													style="padding-bottom:10px"></div>
+													style="padding-bottom: 10px"></div>
 												<div class="text_normal row justify-content-evenly"
-													id="result_contents">
-												</div>
+													id="result_contents"></div>
 											</c:otherwise>
 										</c:choose>
 									</div>
 									<div class="col-12 boundary" id="record">
-										<div class="row" style="position:relative">
-											<div class="col-6" style="padding-bottom:0px">
-												<div class="row" style="border:none; padding-bottom:0px">
-													<div class="text_title_600 col-12 mb-3">
-														Record
-													</div>
+										<div class="row" style="position: relative">
+											<div class="col-6" style="padding-bottom: 0px">
+												<div class="row" style="border: none; padding-bottom: 0px">
+													<div class="text_title_600 col-12 mb-3">Record</div>
 													<div class="col-5 text-end">
-														<p>등록 일자<sup style="color:white">*</sup></p>
+														<p>
+															등록 일자<sup style="color: white">*</sup>
+														</p>
 													</div>
 													<div class="col-7 text-start">
 														<input type="text" class="text-center" id="reg_date"
-															style="width:120px" readonly>
+															style="width: 120px" readonly>
 													</div>
-													<div class="col-5 text-end" style="margin-top:30px">
-														<p>운동 시간<sup>*</sup></p>
+													<div class="col-5 text-end" style="margin-top: 30px">
+														<p>
+															운동 시간<sup>*</sup>
+														</p>
 													</div>
-													<div class="col-7 text-start" style="margin-top:30px">
+													<div class="col-7 text-start" style="margin-top: 30px">
 														<input type="text" class="text-center" id="reg_hour"
-															style="width:30px;" value="0"
-															oninput="validNaturalNumRange(24)">시간&nbsp
-														<input type="text" class="text-center" id="reg_minute"
-															style="width:30px;" value="0"
+															style="width: 30px;" value="0"
+															oninput="validNaturalNumRange(24)">시간&nbsp <input
+															type="text" class="text-center" id="reg_minute"
+															style="width: 30px;" value="0"
 															oninput="validNaturalNumRange(60)">분
 													</div>
 													<div class="col-5 text-end"
-														style="padding-bottom:0px; margin-top:30px">
-														<p>운동 강도<sup style="color:white">*</sup></p>
+														style="padding-bottom: 0px; margin-top: 30px">
+														<p>
+															운동 강도<sup style="color: white">*</sup>
+														</p>
 													</div>
 													<div class="col-7 text-start"
-														style="padding-bottom:0px; margin-top:30px">
+														style="padding-bottom: 0px; margin-top: 30px">
 														<form>
 															<input type="range" class="form-range" id="reg_range"
-																min="1" max="5" style="width:160px; height:24px">
+																min="1" max="5" style="width: 160px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
 														</form>
 													</div>
 												</div>
 											</div>
-											<div class="col-6" id="wrap_memo" style="padding-bottom:0px;">
-												<div class="row" style="border:none; padding-bottom:0px">
+											<div class="col-6" id="wrap_memo" style="padding-bottom: 0px;">
+												<div class="row" style="border: none; padding-bottom: 0px">
 													<div class="text_title_600 col-12">
-														<p>Memo<sup>*</sup></p>
+														<p>
+															Memo<sup>*</sup>
+														</p>
 													</div>
-													<div class="col-12" style="padding-bottom:0px">
+													<div class="col-12" style="padding-bottom: 0px">
 														<textarea name="" id="reg_memo" cols="30" rows="8"
-															style="padding:5px; resize:none"></textarea>
+															style="padding: 5px; resize: none"></textarea>
 													</div>
 												</div>
 											</div>
 											<div class="col-12 gy-3">
 												<button class="btn_outline" id="btn_regRecord"
-													style="height:40px">작성완료</button>
-												<button class="btn_outline" style="height:40px"
+													style="height: 40px">작성완료</button>
+												<button class="btn_outline" style="height: 40px"
 													onclick="regCancel()">돌아가기</button>
 											</div>
 											<div class="row boundary" id="reg_inbody">
-												<div class="text_title_600 col-12 mb-3">
-													InBody
-												</div>
+												<div class="text_title_600 col-12 mb-3">InBody</div>
 												<div class="col-5 text-end">
 													<p>몸무게</p>
 												</div>
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_weight"
-														style="width:60px" oninput="vaildNumRange(1000)"
+														style="width: 60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
 												<div class="col-5 text-end">
@@ -182,7 +196,7 @@
 												</div>
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_fat"
-														style="width:60px" oninput="vaildNumRange(1000)"
+														style="width: 60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
 												<div class="col-5 text-end">
@@ -190,15 +204,15 @@
 												</div>
 												<div class="col-7 text-start">
 													<input type="text" class="text-center" id="reg_muscle"
-														style="width:60px" oninput="vaildNumRange(1000)"
+														style="width: 60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
+												<div class="col-5 text-end" style="padding-bottom: 0px">
 													<p>BMI</p>
 												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
+												<div class="col-7 text-start" style="padding-bottom: 0px">
 													<input type="text" class="text-center" id="reg_bmi"
-														style="width:60px" oninput="vaildNumRange(100)" maxlength="5">
+														style="width: 60px" oninput="vaildNumRange(100)" maxlength="5">
 												</div>
 												<button id="btn_inbody">◀</button>
 											</div>
@@ -210,135 +224,133 @@
 						</div>
 					</div>
 
-               <!-- Add Manager Form -->
-            <form id="m_add_form" action="/add_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>시설 이용 매니저</strong>
-                  </div>
+					<!-- Add Manager Form -->
+					<form id="m_add_form" action="/add_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>시설 이용 매니저</strong>
+							</div>
 
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목 : </span>
-                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작 : </span>
-                     <input type="date" id="m_start_input" name="m_start_input">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료 : </span>
-                     <input type="date" id="m_end_input" name="m_end_input">
-                  </div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목 : </span> <input type="text" id="m_title_input" name="m_title_input"
+									placeholder="제목">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작 : </span> <input type="date" id="m_start_input" name="m_start_input">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료 : </span> <input type="date" id="m_end_input" name="m_end_input">
+							</div>
 
-                  <div class="col-12 text-center">
-                     <button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_add_backBtn" class="m_table_btn" type="button">빠꾸</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_add_backBtn" class="m_table_btn" type="button">빠꾸</button>
+							</div>
+						</div>
+					</form>
 
-            <!-- Update Manager Form -->
-            <form id="m_update_form" action="/update_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>시설 이용 매니저</strong>
-                  </div>
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목 : </span>
-                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작 : </span>
-                     <fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate"/>
-                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료 : </span>
-                     <fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate"/>
-                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
-                  </div>
+					<!-- Update Manager Form -->
+					<form id="m_update_form" action="/update_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>시설 이용 매니저</strong>
+							</div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목 : </span> <input type="text" id="mu_title_input" name="mu_title_input"
+									placeholder="제목" value="${manager.title}">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작 : </span>
+								<fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate" />
+								<input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료 : </span>
+								<fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate" />
+								<input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
+							</div>
 
-                  <div class="col-12 text-center">
-                     <button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_update_backBtn" class="m_table_btn" type="button">빠꾸</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_update_backBtn" class="m_table_btn" type="button">빠꾸</button>
+							</div>
+						</div>
+					</form>
 
-            <!-- Delete Manager Form -->
-            <form id="m_delete_form" action="/del_manager.personal" method="post">
-               <input type="hidden" value="${userSeq}">
-            </form>
+					<!-- Delete Manager Form -->
+					<form id="m_delete_form" action="/del_manager.personal" method="post">
+						<input type="hidden" value="${userSeq}">
+					</form>
 
 
-            <script>
-               //Update Manager
-               $("#manager_update").on("click", () => {
-                  $("#m_update_form").show();
-               });
-               $("#m_update_backBtn").on("click", () => {
-                  $("#m_update_form").hide();
-                  $("#mu_title_input").css("background-color", "white");
-                  $("#mu_start_input").css("background-color", "white");
-                  $("#mu_end_input").css("background-color", "white");
-               });
-               $("#m_update_saveBtn").on("click", () => {
-                  if ($("#mu_title_input").val() == "") {
-                     $("#mu_title_input").css("background-color", "#faed77");
-                     $("#mu_title_input").css("transition", "2s");
-                     $("#mu_title_input").focus();
-                  }else if($("#mu_start_input").val() == "") {
-                     $("#mu_start_input").css("background-color", "#faed77");
-                     $("#mu_start_input").css("transition", "2s");
-                     $("#mu_start_input").focus();
-                  }else if($("#mu_end_input").val() == "") {
-                     $("#mu_end_input").css("background-color", "#faed77");
-                     $("#mu_end_input").css("transition", "2s");
-                     $("#mu_end_input").focus();
-                  }else {
-                     $("#mu_title_input").css("background-color", "white");
-                     $("#mu_start_input").css("background-color", "white");
-                     $("#mu_end_input").css("background-color", "white");
-                     $("#m_update_form").submit();
-                  }
-               });
+					<script>
+						//Update Manager
+						$("#manager_update").on("click", () => {
+							$("#m_update_form").show();
+						});
+						$("#m_update_backBtn").on("click", () => {
+							$("#m_update_form").hide();
+							$("#mu_title_input").css("background-color", "white");
+							$("#mu_start_input").css("background-color", "white");
+							$("#mu_end_input").css("background-color", "white");
+						});
+						$("#m_update_saveBtn").on("click", () => {
+							if ($("#mu_title_input").val() == "") {
+								$("#mu_title_input").css("background-color", "#faed77");
+								$("#mu_title_input").css("transition", "2s");
+								$("#mu_title_input").focus();
+							} else if ($("#mu_start_input").val() == "") {
+								$("#mu_start_input").css("background-color", "#faed77");
+								$("#mu_start_input").css("transition", "2s");
+								$("#mu_start_input").focus();
+							} else if ($("#mu_end_input").val() == "") {
+								$("#mu_end_input").css("background-color", "#faed77");
+								$("#mu_end_input").css("transition", "2s");
+								$("#mu_end_input").focus();
+							} else {
+								$("#mu_title_input").css("background-color", "white");
+								$("#mu_start_input").css("background-color", "white");
+								$("#mu_end_input").css("background-color", "white");
+								$("#m_update_form").submit();
+							}
+						});
 
-               // Delete Manager
-               $("#manager_delete").on("click", () => {
-                  $("#m_delete_form").submit();
-               })
+						// Delete Manager
+						$("#manager_delete").on("click", () => {
+							$("#m_delete_form").submit();
+						})
 
-               // Add Manager
-               $("#manager_add").on("click", () => {
-                  $("#m_add_form").show();
-               });
-               $("#m_add_backBtn").on("click", () => {
-                  $("#m_add_form").hide();
-                  $("#m_title_input").css("background-color", "white");
-                  $("#m_start_input").css("background-color", "white");
-                  $("#m_end_input").css("background-color", "white");
-               });
-               $("#m_add_saveBtn").on("click", () => {
-                  if ($("#m_title_input").val() == "") {
-                     $("#m_title_input").css("background-color", "#faed77");
-                     $("#m_title_input").css("transition", "2s");
-                     $("#m_title_input").focus();
-                  }else if($("#m_start_input").val() == "") {
-                     $("#m_start_input").css("background-color", "#faed77");
-                     $("#m_start_input").css("transition", "2s");
-                     $("#m_start_input").focus();
-                  }else if($("#m_end_input").val() == "") {
-                     $("#m_end_input").css("background-color", "#faed77");
-                     $("#m_end_input").css("transition", "2s");
-                     $("#m_end_input").focus();
-                  }else {
-                     $("#m_title_input").css("background-color", "white");
-                     $("#m_start_input").css("background-color", "white");
-                     $("#m_end_input").css("background-color", "white");
-                     $("#m_add_form").submit();
-                  }
-               });
-            </script>
+						// Add Manager
+						$("#manager_add").on("click", () => {
+							$("#m_add_form").show();
+						});
+						$("#m_add_backBtn").on("click", () => {
+							$("#m_add_form").hide();
+							$("#m_title_input").css("background-color", "white");
+							$("#m_start_input").css("background-color", "white");
+							$("#m_end_input").css("background-color", "white");
+						});
+						$("#m_add_saveBtn").on("click", () => {
+							if ($("#m_title_input").val() == "") {
+								$("#m_title_input").css("background-color", "#faed77");
+								$("#m_title_input").css("transition", "2s");
+								$("#m_title_input").focus();
+							} else if ($("#m_start_input").val() == "") {
+								$("#m_start_input").css("background-color", "#faed77");
+								$("#m_start_input").css("transition", "2s");
+								$("#m_start_input").focus();
+							} else if ($("#m_end_input").val() == "") {
+								$("#m_end_input").css("background-color", "#faed77");
+								$("#m_end_input").css("transition", "2s");
+								$("#m_end_input").focus();
+							} else {
+								$("#m_title_input").css("background-color", "white");
+								$("#m_start_input").css("background-color", "white");
+								$("#m_end_input").css("background-color", "white");
+								$("#m_add_form").submit();
+							}
+						});
+					</script>
 
 					<script>
 						$(() => {
@@ -371,6 +383,7 @@
 								.done(res => {
 									setMarker(res.recordList);
 									setNotice(res.recentRecord);
+									setInbodyChart(res.record);
 
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
@@ -592,43 +605,41 @@
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
 
 						// inbody chart
-						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-						let inbodyChart = new Chart(inbodyCtx, {
-							type: 'bar',
-							data: {
-								labels: ['체중', '골격근량', '체지방량', 'BMI', '체지방률'
-								],
-								datasets: [{
-									axis: 'y',
-									label: '# inbody_chart',
-									// data: [${ inbody.inbody_weight }, ${ inbody.inbody_bfm }, ${ inbody.inbody_bmi }, ${ inbody.inbody_sm }],
-									data: [11, 11, 11, 11, 11],
-									backgroundColor: ['rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-									],
-									borderColor: ['rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-									],
-									borderWidth: 1
-								}]
-							},
-							options: {
-								responsive: false,
-								indexAxis: 'y',
-								scales: {
-									y: {
-										beginAtZero: true,
-									}
-								}
-							},
-						});
+						function setInbodyChart(record) {
+                            let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
+                            let arrNum = ["체중", "체지방량", "골격근량", "BMI"];
+                            let arrWeight = [record.inbody_weight,
+                            record.inbody_bfm,
+                            record.inbody_sm,
+                            record.inbody_bmi];
 
+                            let inbodyData = {
+                                labels: arrNum,
+                                datasets: [{
+                                    type: 'bar',
+                                    label: 'inbody',
+                                    data: arrWeight,
+                                    borderColor: ['rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                    ],
+                                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            };
+                            	inbodyCtx.destroy();
+
+                            let inbodyChart = new Chart(inbodyCtx, {
+                                data: inbodyData,
+                                options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
+                            });
+                        }
+						
 						// weight change chart
 						let weightCtx = document.getElementById('weight_chart').getContext('2d');
 						let weightChart = new Chart(weightCtx, {
@@ -663,6 +674,7 @@
 								}
 							}
 						});
+					
 					</script>
 				</main>
 

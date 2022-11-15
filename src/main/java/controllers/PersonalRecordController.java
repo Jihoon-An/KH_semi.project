@@ -42,7 +42,6 @@ public class PersonalRecordController extends ControllerAbs {
 
 				case "/main.personal":
                     this.getPage(request, response);
-                    
 					break;
 					
 				case "/record.personal":
