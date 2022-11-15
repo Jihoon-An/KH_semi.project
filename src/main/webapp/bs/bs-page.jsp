@@ -140,7 +140,7 @@
                     <form class="gym_form" method="post">
                         <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
                     </form>
-                    <div class="col-3 p-0">
+                    <div class="col-3 p-0 gym_img_box">
                         <c:choose>
                             <c:when test='${gym.gym_main_sysImg != null}'>
                                 <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">

@@ -245,13 +245,27 @@
 
 
 /* Manager CSS */
+#personal-record #m_add_form{display: none;}
+#personal-record #m_update_form{display: none;}
+#personal-record .manager_btnBox{
+	position: relative;
+	width: fit-content;
+}
+#personal-record .m_md_box{
+	left: 140px;
+	bottom: 15px;
+}
+#personal-record .manager_btnBox > span{
+	padding-left: 7px;
+	cursor: pointer;
+	color: #606060;
+}
 #personal-record .manager_titleBox{
 	width: fit-content;
 	font-weight: bold;
 	padding: 3px;
 	padding-left: 10px;
 	padding-right: 10px;
-	margin: 5px;
 	border: 2px solid rgb(255, 238, 0);
 	background-color: rgba(242, 250, 127, 0.3);
 }
@@ -264,7 +278,29 @@
 	margin: 15px;
 }
 
+#personal-record .manager_nullBox{
+	margin-top: 60px;
+	font-size: 1.2em;
+}
 
+/* Manager Add Form CSS */
+#personal-record .m_table{
+	width: 300px;
+	background-color: #C7D3DC;
+	border: 1px solid #808080;
+	box-shadow: 2px 2px 2px 2px #d1d1d1;
+	opacity: 0.97;
+	border-radius: 6px;
+	padding-top: 10px;
+	position: absolute;
+	left: 745px;
+	top: 237px;
+}
+#personal-record .m_head{margin-bottom: 7px;}
+#personal-record .m_inputDiv{margin-bottom: 5px;}
+#personal-record .m_table input{
+	width: 150px;
+}
 
 
 

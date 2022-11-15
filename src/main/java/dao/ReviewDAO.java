@@ -327,11 +327,12 @@ public class ReviewDAO extends Dao {
             statement.setString(1, dto.getReview_contents());
             statement.setInt(2, dto.getReview_star());
             statement.setString(3, dto.getReview_check1());
-            statement.setString(3, dto.getReview_check2());
-            statement.setString(3, dto.getReview_check3());
-            statement.setString(3, dto.getReview_check4());
-            statement.setString(3, dto.getReview_check5());
-            statement.setString(5, dto.getReview_photo());
+            statement.setString(4, dto.getReview_check2());
+            statement.setString(5, dto.getReview_check3());
+            statement.setString(6, dto.getReview_check4());
+            statement.setString(7, dto.getReview_check5());
+            statement.setString(8, dto.getReview_photo());
+            statement.setInt(9, dto.getReview_seq());
 
             statement.executeUpdate();
             connection.commit();
@@ -542,6 +543,66 @@ public class ReviewDAO extends Dao {
         }
         return sb.toString();
     }
+
+
+
+
+
+    // 검색 네비 (인증)
+    public String getSearchPageNaviCrtf(String type, String search, int currentPage, int recordTotalCount) throws Exception {
+        int recordCountPerPage = 10;
+        int naviCountPerPage = 10;
+        int pageTotalCount = 0;
+        if (recordTotalCount % recordCountPerPage > 0) {
+            pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
+        } else {
+            pageTotalCount = (recordTotalCount / recordCountPerPage);
+        }
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+        if (currentPage > pageTotalCount) {
+            currentPage = pageTotalCount;
+        }
+        int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
+        int endNavi = startNavi + naviCountPerPage - 1;
+        if (endNavi > pageTotalCount) {
+            endNavi = pageTotalCount;
+        }
+        boolean needPrev = true;
+        boolean needNext = true;
+        if (startNavi == 1) {
+            needPrev = false;
+        }
+        if (endNavi == pageTotalCount) {
+            needNext = false;
+        }
+        StringBuilder sb = new StringBuilder();
+        if (needPrev) {
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewSearch.host?cpage=" + (startNavi - 1)
+                    + "'>Previous</a></li>");
+        }
+        for (int i = startNavi; i <= endNavi; i++) {
+            if (currentPage == i) {
+                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewSearch.host?cpage=" + i + "&type=" + type + "&searchCrtf=" + search + "\">" + i
+                        + "</a></li>");
+            } else {
+                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewSearch.host?cpage=" + i + "&type=" + type + "&searchCrtf=" + search + "\">" + i
+                        + "</a></li>");
+            }
+        }
+        if (needNext) {
+            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewSearch.host?cpage=" + (endNavi + 1) + "&type=" + type + "&searchCrtf=" + search
+                    + "'>Next</a></li>");
+        }
+        return sb.toString();
+    }
+
+
+
+
+
+
 
 
     public List<ReviewDTO> selectByRange(int start, int end) throws Exception {
