@@ -92,6 +92,7 @@ public class PersonalRecordController extends ControllerAbs {
             }
         } catch (Exception e) {
 			e.printStackTrace();
+            response.sendRedirect("/");
         }
     }
 

@@ -605,16 +605,54 @@
 
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
 
+						// 차트 초기화
+
+						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
+
+						var arrNum = ["체중", "체지방량", "골격근량", "BMI"];
+
+						var arrWeight = [0,0,0,0];
+
+						var inbodyData = {
+							labels: arrNum,
+							datasets: [{
+								type: 'bar',
+								label: 'inbody',
+								data: arrWeight,
+								borderColor: ['rgba(255, 99, 132, 1)',
+									'rgba(54, 162, 235, 1)',
+									'rgba(255, 206, 86, 1)',
+									'rgba(75, 192, 192, 1)',
+								],
+								backgroundColor: ['rgba(255, 99, 132, 0.2)',
+									'rgba(54, 162, 235, 0.2)',
+									'rgba(255, 206, 86, 0.2)',
+									'rgba(75, 192, 192, 0.2)',
+								],
+								borderWidth: 1
+							}]
+						};
+
+						var inbodyChart = new Chart(inbodyCtx, {
+							data: inbodyData,
+							options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
+						});
+
+
 						// inbody chart
 						function setInbodyChart(record) {
-                            let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-                            let arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-                            let arrWeight = [record.inbody_weight,
+							$("#inbody_chart").removeData();
+							inbodyChart.destroy();
+                            inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
+
+                            arrNum = ["체중", "체지방량", "골격근량", "BMI"];
+
+                            arrWeight = [record.inbody_weight,
                             record.inbody_bfm,
                             record.inbody_sm,
                             record.inbody_bmi];
 
-                            let inbodyData = {
+                            inbodyData = {
                                 labels: arrNum,
                                 datasets: [{
                                     type: 'bar',
@@ -633,12 +671,12 @@
                                     borderWidth: 1
                                 }]
                             };
+                            	// inbodyCtx.destroy();
 
-                            let inbodyChart = new Chart(inbodyCtx, {
+                            inbodyChart = new Chart(inbodyCtx, {
                                 data: inbodyData,
                                 options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
                             });
-                           
                         }
 						
 						// weight change chart
