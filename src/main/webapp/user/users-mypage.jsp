@@ -140,11 +140,11 @@
                     <input type="hidden" name="review_seq" class="review_seq" value="${review.review_seq}">
                     <!-- review_seq 저장 -->
                 </form>
-                <div class="border p-1">
+                <div class="border p-1  m-3">
                     <div class="row">
                         <div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
                         <div class="col-1">
-                            <a href="" class="modify_review_btn">
+                            <a class="modify_review_btn">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </a>
                         </div>

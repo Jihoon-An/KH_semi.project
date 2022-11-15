@@ -5,16 +5,16 @@ body {
     background: #F2F2F2;
 }
 
-#headerMarginBox{
-    width: 285px;
-    height: 100vh;
-    position: fixed;
-    background: #001A41;
-    z-index: 1;
-}
+/*#headerMarginBox{*/
+/*    width: 285px;*/
+/*    height: 100vh;*/
+/*    position: fixed;*/
+/*    background: #001A41;*/
+/*    z-index: 1;*/
+/*}*/
 
 #wrap_host{
-    height: 100vh;
+    height: 100%;
     z-index: 2;
 }
 
