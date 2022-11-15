@@ -138,7 +138,7 @@
 			</script>
 
 			<c:if test="${empty gymList}">
-				<div class="nullListBox">" 그딴 곳은 없어 씨발새끼야 "</div>
+				<div class="nullListBox">" 검색 결과가 없습니다. "</div>
 			</c:if>
 
 			<c:forEach var="gymList" items="${gymList}" varStatus="status">

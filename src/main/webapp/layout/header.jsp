@@ -110,7 +110,7 @@
                         <c:when test="${userSeq != null}">
                             <li class="float-end">
                                 <a class="header_a_tag"
-                                   onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+                                   onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>
                             </li>
                             <li class="float-end">
                                 <a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
@@ -119,7 +119,7 @@
                         <c:when test="${bsSeq != null}">
                             <li class="float-end">
                                 <a class="header_a_tag"
-                                   onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+                                   onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>
                             </li>
                             <li class="float-end">
                                 <a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
@@ -128,7 +128,7 @@
                         <c:when test="${admin}">
                             <li class="float-end">
                                 <a class="header_a_tag"
-                                   onclick="$.get('/logout.user').done(() => { location.reload() });">로그아웃</a>
+                                   onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>
                             </li>
                             <li class="float-end">
                                 <a class="header_a_tag" href="/admin.host">관리자페이지</a>
