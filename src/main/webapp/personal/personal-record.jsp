@@ -217,7 +217,6 @@
 						</div>
 					</div>
 
-<<<<<<< HEAD
                <!-- Add Manager Form -->
             <form id="m_add_form" action="/add_manager.personal" method="post">
                <div class="m_table">
@@ -272,60 +271,6 @@
                   </div>
                </div>
             </form>
-=======
-					<!-- Add Manager Form -->
-					<form id="m_add_form" action="/add_manager.personal" method="post">
-						<div class="m_table">
-							<div class="m_head col-12 text-center">
-								<strong>시설 이용 매니저</strong>
-							</div>
-
-							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-								<span>제목 : </span> <input type="text" id="m_title_input" name="m_title_input"
-									placeholder="제목">
-							</div>
-							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-								<span>시작 : </span> <input type="date" id="m_start_input" name="m_start_input">
-							</div>
-							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-								<span>종료 : </span> <input type="date" id="m_end_input" name="m_end_input">
-							</div>
-
-							<div class="col-12 text-center">
-								<button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
-								<button id="m_add_backBtn" class="m_table_btn" type="button">빠꾸</button>
-							</div>
-						</div>
-					</form>
-
-					<!-- Update Manager Form -->
-					<form id="m_update_form" action="/update_manager.personal" method="post">
-						<div class="m_table">
-							<div class="m_head col-12 text-center">
-								<strong>시설 이용 매니저</strong>
-							</div>
-							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-								<span>제목 : </span> <input type="text" id="mu_title_input" name="mu_title_input"
-									placeholder="제목" value="${manager.title}">
-							</div>
-							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-								<span>시작 : </span>
-								<fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate" />
-								<input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
-							</div>
-							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-								<span>종료 : </span>
-								<fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate" />
-								<input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
-							</div>
-
-							<div class="col-12 text-center">
-								<button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
-								<button id="m_update_backBtn" class="m_table_btn" type="button">빠꾸</button>
-							</div>
-						</div>
-					</form>
->>>>>>> d6b435c6e86dad05d883b88a93da6b774678bdb3
 
 					<!-- Delete Manager Form -->
 					<form id="m_delete_form" action="/del_manager.personal" method="post">
@@ -333,7 +278,6 @@
 					</form>
 
 
-<<<<<<< HEAD
             <script>
                //Update Manager
                $("#manager_update").on("click", () => {
@@ -365,39 +309,6 @@
                      $("#m_update_form").submit();
                   }
                });
-=======
-					<script>
-						//Update Manager
-						$("#manager_update").on("click", () => {
-							$("#m_update_form").show();
-						});
-						$("#m_update_backBtn").on("click", () => {
-							$("#m_update_form").hide();
-							$("#mu_title_input").css("background-color", "white");
-							$("#mu_start_input").css("background-color", "white");
-							$("#mu_end_input").css("background-color", "white");
-						});
-						$("#m_update_saveBtn").on("click", () => {
-							if ($("#mu_title_input").val() == "") {
-								$("#mu_title_input").css("background-color", "#faed77");
-								$("#mu_title_input").css("transition", "2s");
-								$("#mu_title_input").focus();
-							} else if ($("#mu_start_input").val() == "") {
-								$("#mu_start_input").css("background-color", "#faed77");
-								$("#mu_start_input").css("transition", "2s");
-								$("#mu_start_input").focus();
-							} else if ($("#mu_end_input").val() == "") {
-								$("#mu_end_input").css("background-color", "#faed77");
-								$("#mu_end_input").css("transition", "2s");
-								$("#mu_end_input").focus();
-							} else {
-								$("#mu_title_input").css("background-color", "white");
-								$("#mu_start_input").css("background-color", "white");
-								$("#mu_end_input").css("background-color", "white");
-								$("#m_update_form").submit();
-							}
-						});
->>>>>>> d6b435c6e86dad05d883b88a93da6b774678bdb3
 
 						// Delete Manager
 						$("#manager_delete").on("click", () => {
