@@ -4,6 +4,8 @@
 	box-sizing: border-box;
 }
 
+
+
 #gym-detail div {
 	/* border: 1px solid black; */
 	/* padding :5px; */
@@ -244,13 +246,15 @@
 
 
 
-
+/*
 #gym-detail .ui-tooltip {
 	padding: 10px 20px;
 	color: #fff;
 	border-radius: 5px;
 	background: #000;
+	transition-duration:0s;
 }
+*/
 
 
 #gym-detail .fa-thumbs-up {
