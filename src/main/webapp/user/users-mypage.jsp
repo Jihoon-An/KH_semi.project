@@ -143,8 +143,8 @@
         <!-- review card -->
         <c:forEach var="review" items="${reviews}">
             <div class="col-6 review_card p-1">
-                <form action="" class="review_detail">
-                    <input type="hidden" name="review_seq" class="review_seq" value="${review.review_seq}">
+                <form action="/detail.gym" class="review_detail">
+                    <input type="hidden" name="gym_seq" class="review_seq" value="${review.gym_seq}">
                     <!-- review_seq 저장 -->
                 </form>
                 <div class="border p-1  m-3">
