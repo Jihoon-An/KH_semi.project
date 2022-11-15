@@ -18,24 +18,39 @@
                      <div class="col-12">
                         <div class="boundary" id="manager">
                            시설 이용 매니저
-                           <div class="manager_titleBox">
-                              ${manager.title}
-                           </div>
-                           <jsp:useBean id="now" class="java.util.Date"/>
-                           <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-                           <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
-                           <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
-                           <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
-                           <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
-                           <div class="manager_startBox">
-                              시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다.<br>
-                              <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
+                           <c:choose>
 
-                           </div>
-                           <div class="manager_endBox">
-                              종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다.<br>
-                              <span  style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
-                           </div>
+                              <c:when test="${not empty manager.title}">
+                                 <div class="manager_titleBox">
+                                    ${manager.title}
+                                 </div>
+                                 
+                                 <jsp:useBean id="now" class="java.util.Date"/>
+                                 <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
+                                 <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
+                                 <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
+                                 <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
+                                 <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+                                 
+                                 <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
+                                 <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
+                                 
+                                 <div class="manager_startBox">
+                                    🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
+                                    <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
+      
+                                 </div>
+                                 <div class="manager_endBox">
+                                    🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
+                                    <span  style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
+                                 </div>
+                              </c:when>
+
+                              <c:otherwise>
+                                 <br>" 입력된 정보가 없습니다. "
+                              </c:otherwise>
+
+                           </c:choose>
                         </div>
                      </div>
                      <div class="col-12">
