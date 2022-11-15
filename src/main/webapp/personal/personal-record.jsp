@@ -626,8 +626,9 @@
 										beginAtZero: true,
 									}
 								}
-							}
+							},
 						});
+
 						// weight change chart
 						let weightCtx = document.getElementById('weight_chart').getContext('2d');
 						let weightChart = new Chart(weightCtx, {
