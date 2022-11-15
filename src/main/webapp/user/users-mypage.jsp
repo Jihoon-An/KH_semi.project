@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    <hr>
+    <hr style="margin: 0; padding: 0; width: 100%">
 
     <!-- 즐겨찾기 시설 -->
     <div class="row pt-4 pb-3">
@@ -131,7 +131,7 @@
         </div>
     </div>
 
-    <hr>
+    <hr style="margin: 0; padding: 0; width: 100%">
 
     <!-- 내가 쓴 리뷰 -->
     <div class="row pt-4 pb-3">
@@ -147,8 +147,9 @@
                     <input type="hidden" name="gym_seq" class="review_seq" value="${review.gym_seq}">
                     <!-- review_seq 저장 -->
                 </form>
-                <div class="border p-1  m-3">
-                    <div class="row">
+
+                <div class="border p-1  my-3">
+                    <div class="row py-1">
                         <div class="col-10 review_gymName review_detail_starter">${review.gym_name}</div>
                         <div class="col-1">
                             <a href="/reviewModify.gym?review_seq=${review.review_seq}" class="modify_review_btn">
@@ -159,7 +160,9 @@
                             <i class="fa-solid fa-x del_review_btn"></i>
                         </div>
                     </div>
+
                     <hr>
+
                     <div class="review_text review_detail_starter">${review.review_contents}</div>
                 </div>
             </div>
