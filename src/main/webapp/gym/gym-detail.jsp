@@ -402,7 +402,9 @@
 
         $(function () {
             $(".review2").slice(0, 1).show(); // 초기갯수
-
+            if ($(".review2:hidden").length == 0) {
+            	$("#load").css("display", "none")
+            }
 
             $("#load").click(function (e) {
                 // 클릭시 more
