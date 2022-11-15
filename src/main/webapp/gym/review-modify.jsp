@@ -140,7 +140,6 @@
                     <div class="review_text_box">
 							<textarea id="review_contents" name="review_contents"
                                       placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">
-                                ${내용}
                             </textarea>
                         <div id="review_text_cnt">(0 / 1000자)</div>
                     </div>

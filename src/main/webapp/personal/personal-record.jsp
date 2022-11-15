@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -151,7 +152,7 @@
 													</div>
 													<div class="col-12" style="padding-bottom:0px">
 														<textarea name="" id="reg_memo" cols="30" rows="8"
-															maxlength="300"></textarea>
+															style="padding:5px; resize:none"></textarea>
 													</div>
 												</div>
 											</div>
@@ -251,7 +252,7 @@
 										}
 										let intens = ['최하', '하', '중', '상', '최상'];
 										let output = "<div class='col-5' style='padding:0px; background-color: #E8E8E8; border-radius:6px'><div class='row' style='padding:0px'><div class='col-12'>"
-											+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='result_memo' style='height:100px'>"
+											+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='record_memo' style='height:100px'>"
 											+ "메모 내용 : " + res.record.exr_memo + "</div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
 											+ "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
 										$("#result_contents").html(output);
@@ -453,7 +454,6 @@
 							} else {
 								tryRegist();
 							}
-
 						});
 
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })

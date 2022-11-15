@@ -248,3 +248,44 @@
 #personal-record .ui-state-active {
 	color: white !important;
 }
+
+
+
+
+
+
+
+/* Manager CSS */
+#personal-record .manager_titleBox{
+	width: fit-content;
+	font-weight: bold;
+	padding: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin: 5px;
+	border: 2px solid rgb(255, 238, 0);
+	background-color: rgba(242, 250, 127, 0.3);
+}
+
+#personal-record .manager_startBox{
+	margin: 15px;
+}
+
+#personal-record .manager_endBox{
+	margin: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

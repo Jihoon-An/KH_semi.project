@@ -17,7 +17,7 @@
                     <option value="board_title" selected>이름검색</option>
                 </select>
 
-                <input type="text" placeholder="검색어를 입력해주세요" name="inputT" id="inputText">
+                <input type="text" placeholder="검색어를 입력해주세요" name="inputT" id="inputText" value="${searchText}">
                 <button class="btn_search" role="button" type="button" id="btn_searchh">검색</button>
             </div>
         </div>
