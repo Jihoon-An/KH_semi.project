@@ -592,7 +592,7 @@
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
 
 						// inbody chart
-						let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
+						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
 						let inbodyChart = new Chart(inbodyCtx, {
 							type: 'bar',
 							data: {
@@ -601,7 +601,8 @@
 								datasets: [{
 									axis: 'y',
 									label: '# inbody_chart',
-									data: [${ inbody.inbody_weight }, ${ inbody.inbody_bfm }, ${ inbody.inbody_bmi }, ${ inbody.inbody_sm }],
+									// data: [${ inbody.inbody_weight }, ${ inbody.inbody_bfm }, ${ inbody.inbody_bmi }, ${ inbody.inbody_sm }],
+									data: [11, 11, 11, 11, 11],
 									backgroundColor: ['rgba(255, 99, 132, 0.2)',
 										'rgba(54, 162, 235, 0.2)',
 										'rgba(255, 206, 86, 0.2)',
