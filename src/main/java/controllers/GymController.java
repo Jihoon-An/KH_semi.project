@@ -56,7 +56,7 @@ public class GymController extends ControllerAbs {
                 case "/favoriteremove.gym":
                     this.favDelete(request, response);
                     break;
-44
+
                 // 리뷰쓰기로 페이지 이동
                 case "/reviewWrite.gym":
                     this.moveWrite(request, response);
