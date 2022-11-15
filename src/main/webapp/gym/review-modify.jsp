@@ -11,10 +11,10 @@
 
     <div class="containerbox">
         <section>
-            <form action="/reviewModify.gym" onsubmit="return checkSubmit()" id="modify_review_frm" method="post"
+            <form action="" id="modify_review_frm" method="post"
                   enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
-                <input type="hidden" name="gym_name" value="${gym_name}">
+                <input type="hidden" name="review_seq" value="${review_seq}">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
@@ -27,20 +27,78 @@
 
                     <div class="reviw_content reviw_content_star">
                         <div class="star-rating space-x-4 mx-auto">
-                            <input type="radio" id="5-stars" class="star" name="review_star" value="5">
-                            <label for="5-stars" class="startext pr-4">★</label>
-                            <input type="radio" id="4-stars" class="star" name="review_star" value="4">
-                            <label for="4-stars" class="startext">★</label>
-                            <input type="radio" id="3-stars" class="star" name="review_star" value="3">
-                            <label for="3-stars" class="startext">★</label>
-                            <input type="radio" id="2-stars" class="star" name="review_star" value="2">
-                            <label for="2-stars" class="startext">★</label>
-                            <input type="radio" id="1-star" class="star" name="review_star" value="1">
-                            <label for="1-star" class="startext">★</label>
+                            <c:if test="${review.review_star == '5'}">
+                                <input type="radio" id="5-stars" class="star" name="review_star" value="5" checked>
+                                <label for="5-stars" class="startext pr-4">★</label>
+                                <input type="radio" id="4-stars" class="star" name="review_star" value="4">
+                                <label for="4-stars" class="startext">★</label>
+                                <input type="radio" id="3-stars" class="star" name="review_star" value="3">
+                                <label for="3-stars" class="startext">★</label>
+                                <input type="radio" id="2-stars" class="star" name="review_star" value="2">
+                                <label for="2-stars" class="startext">★</label>
+                                <input type="radio" id="1-star" class="star" name="review_star" value="1">
+                                <label for="1-star" class="startext">★</label>
+                            </c:if>
+                            <c:if test="${review.review_star == '4'}">
+                                <input type="radio" id="5-stars" class="star" name="review_star" value="5">
+                                <label for="5-stars" class="startext pr-4">★</label>
+                                <input type="radio" id="4-stars" class="star" name="review_star" value="4" checked>
+                                <label for="4-stars" class="startext">★</label>
+                                <input type="radio" id="3-stars" class="star" name="review_star" value="3">
+                                <label for="3-stars" class="startext">★</label>
+                                <input type="radio" id="2-stars" class="star" name="review_star" value="2">
+                                <label for="2-stars" class="startext">★</label>
+                                <input type="radio" id="1-star" class="star" name="review_star" value="1">
+                                <label for="1-star" class="startext">★</label>
+                            </c:if>
+                            <c:if test="${review.review_star == '3'}">
+                                <input type="radio" id="5-stars" class="star" name="review_star" value="5">
+                                <label for="5-stars" class="startext pr-4">★</label>
+                                <input type="radio" id="4-stars" class="star" name="review_star" value="4">
+                                <label for="4-stars" class="startext">★</label>
+                                <input type="radio" id="3-stars" class="star" name="review_star" value="3" checked>
+                                <label for="3-stars" class="startext">★</label>
+                                <input type="radio" id="2-stars" class="star" name="review_star" value="2">
+                                <label for="2-stars" class="startext">★</label>
+                                <input type="radio" id="1-star" class="star" name="review_star" value="1">
+                                <label for="1-star" class="startext">★</label>
+                            </c:if>
+                            <c:if test="${review.review_star == '2'}">
+                                <input type="radio" id="5-stars" class="star" name="review_star" value="5">
+                                <label for="5-stars" class="startext pr-4">★</label>
+                                <input type="radio" id="4-stars" class="star" name="review_star" value="4">
+                                <label for="4-stars" class="startext">★</label>
+                                <input type="radio" id="3-stars" class="star" name="review_star" value="3">
+                                <label for="3-stars" class="startext">★</label>
+                                <input type="radio" id="2-stars" class="star" name="review_star" value="2" checked>
+                                <label for="2-stars" class="startext">★</label>
+                                <input type="radio" id="1-star" class="star" name="review_star" value="1">
+                                <label for="1-star" class="startext">★</label>
+                            </c:if>
+                            <c:if test="${review.review_star == '1'}">
+                                <input type="radio" id="5-stars" class="star" name="review_star" value="5">
+                                <label for="5-stars" class="startext pr-4">★</label>
+                                <input type="radio" id="4-stars" class="star" name="review_star" value="4">
+                                <label for="4-stars" class="startext">★</label>
+                                <input type="radio" id="3-stars" class="star" name="review_star" value="3">
+                                <label for="3-stars" class="startext">★</label>
+                                <input type="radio" id="2-stars" class="star" name="review_star" value="2">
+                                <label for="2-stars" class="startext">★</label>
+                                <input type="radio" id="1-star" class="star" name="review_star" value="1" checked>
+                                <label for="1-star" class="startext">★</label>
+                            </c:if>
+
+
                         </div>
                         <div class="mx-auto p-2 " style="text-align: center;">
-                            <font size=5 id="slider_star_value1">0</font> 점
-                            <font size=2 id="slider_star_value_text1"></font>
+                            <span id="slider_star_value1" style="font-size: large; ">${review.review_star}</span> 점
+                            <span id="slider_star_value_text1" style="font-size: x-small; ">
+                                <c:if test="${review.review_star == '5'}">(최고예요)</c:if>
+                                <c:if test="${review.review_star == '4'}">(좋아요)</c:if>
+                                <c:if test="${review.review_star == '3'}">(좋아요)</c:if>
+                                <c:if test="${review.review_star == '2'}">(그저그래요)</c:if>
+                                <c:if test="${review.review_star == '1'}">(별로예요)</c:if>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -57,19 +115,28 @@
 
 
                     <div class="reviw_content reviw_content_keyword">
-
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check1" type="checkbox" name="review_check1">
+                            <c:if test="${review.review_check1 == 'Y'}"><input class="inp-cbx" id="review_check1"
+                                                                               type="checkbox" name="review_check1"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check1 != 'Y'}"><input class="inp-cbx" id="review_check1"
+                                                                               type="checkbox"
+                                                                               name="review_check1"></c:if>
                             <label class="cbx" for="review_check1"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
 										</svg></span><span>
-										<img src="/resource/img/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히
-										봐주세요</span>
+										<img src="/resource/img/review_check1_icon.png" class="checkIcon"> 자세를 꼼꼼히 봐주세요</span>
                             </label>
                         </div>
+
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check2" type="checkbox" name="review_check2">
+                            <c:if test="${review.review_check2 == 'Y'}"><input class="inp-cbx" id="review_check2"
+                                                                               type="checkbox" name="review_check2"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check2 != 'Y'}"><input class="inp-cbx" id="review_check2"
+                                                                               type="checkbox"
+                                                                               name="review_check2"></c:if>
                             <label class="cbx" for="review_check2"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -79,7 +146,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check3" type="checkbox" name="review_check3">
+                            <c:if test="${review.review_check3 == 'Y'}"><input class="inp-cbx" id="review_check3"
+                                                                               type="checkbox" name="review_check3"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check3 != 'Y'}"><input class="inp-cbx" id="review_check3"
+                                                                               type="checkbox"
+                                                                               name="review_check3"></c:if>
                             <label class="cbx" for="review_check3"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -89,7 +161,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check4" type="checkbox" name="review_check4">
+                            <c:if test="${review.review_check4 == 'Y'}"><input class="inp-cbx" id="review_check4"
+                                                                               type="checkbox" name="review_check4"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check4 != 'Y'}"><input class="inp-cbx" id="review_check4"
+                                                                               type="checkbox"
+                                                                               name="review_check4"></c:if>
                             <label class="cbx" for="review_check4"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -99,7 +176,12 @@
                         </div>
 
                         <div class="checkbox-wrap mx-auto">
-                            <input class="inp-cbx" id="review_check5" type="checkbox" name="review_check5">
+                            <c:if test="${review.review_check5 == 'Y'}"><input class="inp-cbx" id="review_check5"
+                                                                               type="checkbox" name="review_check5"
+                                                                               checked></c:if>
+                            <c:if test="${review.review_check5 != 'Y'}"><input class="inp-cbx" id="review_check5"
+                                                                               type="checkbox"
+                                                                               name="review_check5"></c:if>
                             <label class="cbx" for="review_check5"><span>
 										<svg width="12px" height="10px" viewbox="0 0 12 10">
 											<polyline points="1.5 6 4.5 9 10.5 1"></polyline>
@@ -123,8 +205,15 @@
 
                         <p style="margin-top: 15px" class="text_normal">필수 항목입니다</p>
                         <p class="star_value"><span class="text_main_title">만족도 <span
-                                id="slider_star_value2">0</span>점을
-                            주셨습니다. </span><span id="slider_star_value_text2"></span></p>
+                                id="slider_star_value2">${review.review_star}</span>점을
+                            주셨습니다. </span>
+                            <span id="slider_star_value_text2">
+                                <c:if test="${review.review_star == '5'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '4'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '3'}">어떤 점이 좋으셨나요?</c:if>
+                                <c:if test="${review.review_star == '2'}">어떤 점이 아쉬우셨나요?</c:if>
+                                <c:if test="${review.review_star == '1'}">어떤 점이 아쉬우셨나요?</c:if>
+                            </span></p>
 
                         <div class="text_mini reviw_policy">
                             <p class="text_normal"><b>리뷰 정책을 위반하는 경우, 통보없이 리뷰를 숨김처리할 수 있습니다.</b></p>
@@ -138,10 +227,9 @@
                     </div>
 
                     <div class="review_text_box">
-							<textarea id="review_contents" name="review_contents"
-                                      placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">
-                            </textarea>
-                        <div id="review_text_cnt">(0 / 1000자)</div>
+                        <textarea id="review_contents" name="review_contents"
+                                  placeholder="다른 사용자들이 상처받지 않도록 좋은 표현을 사용해주세요.&#13;&#10;시설 이용에 도움되는 TIP도 같이 남겨주세요">${review.review_contents}</textarea>
+                        <div id="review_text_cnt"></div>
                     </div>
 
 
@@ -168,17 +256,34 @@
                     </div>
 
                     <div>
-                        <label for="review_photo" class="btn_check">
-                            <i class="fa-regular fa-square-plus"></i>&nbsp; 시설 회원권 또는 영수증 첨부하기
-                        </label>
-                        <input type="file" id="review_photo" style="display:none" name="review_photo">
-                        <div>
-                            <div class="p-2">이미지 미리보기</div>
-                            <div class="img_wrap">
-                                <img id="review_photo_view"/>
-                            </div>
-                        </div>
+                        <c:if test="${review.review_photo == '인증완료'}">
+                            <label for="review_photo" class="btn_check">
+                                실제 리뷰 인증이 완료되었습니다.
+                            </label>
+                            <input type="hidden" id="review_photo" style="display:none" name="review_photo">
+                        </c:if>
 
+                        <c:if test="${review.review_photo != '인증완료'}">
+                            <label for="review_photo" class="btn_check">
+                                <i class="fa-regular fa-square-plus"></i>&nbsp; 시설 회원권 또는 영수증 첨부하기
+                            </label>
+                            <input type="file" id="review_photo" style="display:none" name="review_photo">
+                            <div>
+                                <c:if test="${review.review_photo == '인증실패'}">
+                                    <div class="p-2" id="review_photo_fail">인증 실패 되었습니다. 첨부를 다시 해주세요.</div>
+                                    <div class="img_wrap">
+                                        <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                    </div>
+                                </c:if>
+                                <c:if test="${review.review_photo != null && review.review_photo != '인증실패' && review.review_photo != '인증완료'}">
+                                    <div class="p-2">이미지 미리보기</div>
+                                    <div class="img_wrap">
+                                        <img src="/resource/review/${review.review_photo}" id="review_photo_view"/>
+                                    </div>
+                                </c:if>
+
+                            </div>
+                        </c:if>
                     </div>
 
                 </div>
@@ -186,8 +291,8 @@
                 <hr class="line">
 
                 <div class="d-flex justify-content-center" style="margin-top: 60px">
-                    <button type="button" class="btn_outline" id="btn_cancle" style="font-size: 20px">등록 취소하기</button>
-                    <button class="btn_base" id="btn_write" style="font-size: 20px">리뷰 등록하기</button>
+                    <button type="button" class="btn_outline" id="btn_cancle" style="font-size: 20px">수정 취소하기</button>
+                    <button type="button" class="btn_base" id="btn_write" style="font-size: 20px">리뷰 수정하기</button>
                 </div>
 
                 <hr class="line2">
@@ -202,7 +307,7 @@
 <script>
 
     // 별점 무조건 선택해야 submit 되기
-    function checkSubmit() {
+    $("#btn_write").on("click", function click() {
         if (!$("input[name=review_star]").is(":checked")) {
             Swal.fire({
                 icon: 'error',
@@ -211,8 +316,7 @@
                 confirmButtonText: '확인'
             })
             return false;
-        }
-        if ($("#review_contents").val() == "") {
+        } else if ($("#review_contents").val() == "") {
             Swal.fire({
                 icon: 'error',
                 title: '리뷰 미입력',
@@ -220,19 +324,56 @@
                 confirmButtonText: '확인'
             })
             return false;
-        }
-
-        if (!response($("#review_contents").val())){
+        } else if (!response($("#review_contents").val())) {
             return false;
+        } else {
+            // review_check checked 값 바꾸기
+            if ($("#review_check1").is(":checked") == true) {
+                $('#review_check1').val("Y");
+            } else {
+                $('#review_check1').val("");
+            }
+
+            if ($("#review_check2").is(":checked") == true) {
+                $('#review_check2').val("Y");
+            } else {
+                $('#review_check2').val("");
+            }
+
+            if ($("#review_check3").is(":checked") == true) {
+                $('#review_check3').val("Y");
+            } else {
+                $('#review_check3').val("");
+            }
+
+            if ($("#review_check4").is(":checked") == true) {
+                $('#review_check4').val("Y");
+            } else {
+                $('#review_check4').val("");
+            }
+
+            if ($("#review_check5").is(":checked") == true) {
+                $('#review_check5').val("Y");
+            } else {
+                $('#review_check5').val("");
+            }
+
+            Swal.fire({title: "Success!", icon: "success", text: "리뷰 수정을 완료하였습니다."})
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        $("#modify_review_frm").attr("action", "/reviewModifing.gym");
+                        $("#modify_review_frm").submit();
+                    }
+                });
         }
-    }
+    })
 
     // 리뷰 글쓰기에 욕설 필터링
     function response(msg) {
-        var words = ["씨발","시발","ㅅㅂ","tq","병신","멍청이","바보",
-            "새끼","미친","존나","좆같네","좆같다","지랄","염병","썅",
-            "개같은","새키","족같네","씨팔","죽어","죽여","자살","놈","년",
-            "씹","씨벌","개색기","종나","카악","퉤","퉷","족같네"];
+        var words = ["씨발", "시발", "ㅅㅂ", "tq", "병신", "멍청이", "바보",
+            "새끼", "미친", "존나", "좆같네", "좆같다", "지랄", "염병", "썅",
+            "개같은", "새키", "족같네", "씨팔", "죽어", "죽여", "자살", "놈", "년",
+            "씹", "씨벌", "개색기", "종나", "카악", "퉤", "퉷", "족같네"];
 
         for (let n = 0; n < words.length; n++) {
             if (msg.includes(words[n])) {
@@ -298,6 +439,8 @@
 
     // 텍스트 글자수 세기
     $(document).ready(function () {
+        $('#review_text_cnt').html("(" + $("#review_contents").val().length + "/1000자)");
+
         $('#review_contents').on('keyup', function () {
             $('#review_text_cnt').html("(" + $(this).val().length + "/1000자)");
 
@@ -307,6 +450,7 @@
             }
         });
     });
+
 
     // 별점
     function ShowSliderValue(sVal) {
@@ -357,6 +501,11 @@
 
     $(document).ready(function () {
         $("#review_photo").on("change", handleImgFileSelect);
+    });
+
+    $("#review_photo").on("change", () => {
+        var review_photo_fail = document.getElementById("review_photo_fail");
+        review_photo_fail.innerHTML = "미리보기";
     });
 
 

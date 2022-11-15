@@ -136,6 +136,10 @@ public class HostUserController extends ControllerAbs {
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
 
+        String searchCrtf = request.getParameter("searchCrtf");
+
+
+
         String reviewSearchNavi = null;
         if (typeSearch.equals("email")) {
             List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpage * 10 - 9, cpage * 10);
@@ -146,20 +150,22 @@ public class HostUserController extends ControllerAbs {
             request.setAttribute("list", contentsList);
             reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
         } else if (typeSearch.equals("certify")) {
-            if (searchStr.equals("인증완료") || searchStr.equals("인증실패")) {
+            if (searchCrtf.equals("인증완료") || searchCrtf.equals("인증실패")) {
                 // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
-                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchStr, cpage * 10 - 9, cpage * 10);
+                List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchCrtf, cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByCertify(searchStr));
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNaviCrtf(typeSearch, searchCrtf, cpage, ReviewDAO.getInstance().getRecordCountByCertify(searchCrtf));
             } else { // 미인증 - 그 외는 null 값 아닌 애들 결과물만 전부 보여주기
                 List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByNotCertifyByRange(cpage * 10 - 9, cpage * 10);
                 request.setAttribute("list", contentsList);
-                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByNotCertify());
+                reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNaviCrtf(typeSearch, searchCrtf, cpage, ReviewDAO.getInstance().getRecordCountByNotCertify());
             }
         }
         request.setAttribute("navi", reviewSearchNavi);
         request.setAttribute("type", typeSearch);
         request.setAttribute("search", searchStr);
+        request.setAttribute("searchCrtf", searchCrtf);
+
         request.getRequestDispatcher("/host/host-review.jsp").forward(request, response);
     }
 

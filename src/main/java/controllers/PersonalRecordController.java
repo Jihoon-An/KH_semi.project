@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +19,7 @@ import commons.Common;
 import dao.ExerciseDAO;
 import dao.ManagerDAO;
 import dto.ExerciseDTO;
+import dto.ManagerDTO;
 
 
 @WebServlet("*.personal")
@@ -57,6 +59,36 @@ public class PersonalRecordController extends ControllerAbs {
                     break;
 
                 case "/something.personal":
+                    break;
+
+                case "/add_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.addManager(request, response);
+                    response.sendRedirect("/main.personal");
+                    break;
+
+                case "/del_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.delManager(request, response);
+                    response.sendRedirect("/main.personal");
+                    break;
+
+                case "/update_manager.personal":
+                    // GET 요청 시 에러페이지로 넘김
+                    if (request.getMethod().equals("GET")) {
+                        response.sendRedirect("/error.jsp");
+                        return;
+                    }
+                    this.updateManager(request, response);
+                    response.sendRedirect("/main.personal");
                     break;
             }
         } catch (Exception e) {
@@ -115,6 +147,33 @@ public class PersonalRecordController extends ControllerAbs {
         data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
         data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
         return data;
+    }
+
+    protected void addManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        String inputTitle = request.getParameter("m_title_input");
+        String inputStart = request.getParameter("m_start_input") + " 00:00:00.0";
+        java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(inputStart);
+        String inputEnd = request.getParameter("m_end_input") + " 00:00:00.0";
+        java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(inputEnd);
+
+        ManagerDAO.getInstance().addManager(user_seq, inputTitle, startTime, endTime);
+    }
+
+    protected void delManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        ManagerDAO.getInstance().deleteByUserSeq(user_seq);
+    }
+
+    protected void updateManager(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int user_seq = (int) request.getSession().getAttribute("userSeq");
+        String inputTitle = request.getParameter("mu_title_input");
+        String inputStart = request.getParameter("mu_start_input") + " 00:00:00.0";
+        java.sql.Timestamp startTime = java.sql.Timestamp.valueOf(inputStart);
+        String inputEnd = request.getParameter("mu_end_input") + " 00:00:00.0";
+        java.sql.Timestamp endTime = java.sql.Timestamp.valueOf(inputEnd);
+
+        ManagerDAO.getInstance().updateByUserSeq(user_seq, inputTitle, startTime, endTime);
     }
 
 }

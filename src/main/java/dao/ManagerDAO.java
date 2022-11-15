@@ -58,11 +58,14 @@ public class ManagerDAO extends Dao{
 
 
 
-    public void updateByUserSeq(int userSeq) throws Exception {
+    public void updateByUserSeq(int userSeq, String title, Timestamp start_date, Timestamp end_date) throws Exception {
         String sql = "update manager set title = ?, start_date = ?, end_date = ? where users_seq = ?";
         try(Connection con = this.getConnection();
             PreparedStatement pstat = con.prepareStatement(sql);) {
-            pstat.setInt(1, userSeq);
+            pstat.setString(1, title);
+            pstat.setTimestamp(2, start_date);
+            pstat.setTimestamp(3, end_date);
+            pstat.setInt(4, userSeq);
             pstat.executeUpdate();
             con.commit();
         }
