@@ -31,7 +31,7 @@
                                  <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
                                  <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
                                  <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-                                 
+
                                  <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
                                  <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
                                  
