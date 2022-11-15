@@ -4,13 +4,12 @@
 
             <%@ include file="/layout/header.jsp" %>
 
-
                 <!-- Site Main -->
                 <main id="personal-record" style="margin-top: 57px">
                     <div class="containerbox row" align="center">
                         <div class="col-12" style="padding-bottom: 0px">
                             <div class="text_main_title_600 boundary" id="notice">
-                                <p>운동을 하지 않은지 30년 지났습니다.</p>
+                                <p></p>
                             </div>
                         </div>
                         <div class="col-4">
@@ -18,31 +17,46 @@
                                 <div class="col-12">
                                     <div class="boundary" id="manager">
                                         시설 이용 매니저
-                                        <div class="manager_titleBox">
-                                            ${manager.title}
-                                        </div>
-                                        <jsp:useBean id="now" class="java.util.Date" />
-                                        <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true"
-                                            var="nowfmtTime" scope="request" />
-                                        <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
-                                            integerOnly="true" var="start_date" scope="request" />
-                                        <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
-                                            integerOnly="true" var="end_date" scope="request" />
-                                        <c:set value="${nowfmtTime - start_date}" var="n_s_date" />
-                                        <c:set value="${end_date - nowfmtTime}" var="e_n_date" />
-                                        <div class="manager_startBox">
-                                            시작한지 <span style="font-size: 20px;">
-                                                <c:out value="${n_s_date}" />일
-                                            </span> 지났습니다.<br>
-                                            <span style="font-size: 13px;">시작 날짜 : ${manager.start_date}</span>
+                                        <c:choose>
 
-                                        </div>
-                                        <div class="manager_endBox">
-                                            종료까지 <span style="font-size: 20px;">
-                                                <c:out value="${e_n_date}" />일
-                                            </span> 남았습니다.<br>
-                                            <span style="font-size: 13px;">종료 날짜 : ${manager.end_date}</span>
-                                        </div>
+                                            <c:when test="${not empty manager.title}">
+                                                <div class="manager_titleBox">${manager.title}</div>
+
+                                                <jsp:useBean id="now" class="java.util.Date" />
+                                                <fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+                                                    integerOnly="true" var="nowfmtTime" scope="request" />
+                                                <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+                                                    integerOnly="true" var="start_date" scope="request" />
+                                                <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+                                                    integerOnly="true" var="end_date" scope="request" />
+                                                <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+                                                    integerOnly="true" var="startDate" scope="request" />
+                                                <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+                                                    integerOnly="true" var="endDate" scope="request" />
+
+                                                <c:set value="${nowfmtTime - start_date}" var="n_s_date" />
+                                                <c:set value="${end_date - nowfmtTime}" var="e_n_date" />
+
+                                                <div class="manager_startBox">
+                                                    🏋️‍♀️시작한지 <span style="font-size: 20px;">
+                                                        <c:out value="${n_s_date}" />일
+                                                    </span> 지났습니다 😊<br> <span style="font-size: 13px;">시작 날짜
+                                                        : ${manager.start_date}</span>
+
+                                                </div>
+                                                <div class="manager_endBox">
+                                                    🏋️‍♂️종료까지 <span style="font-size: 20px;">
+                                                        <c:out value="${e_n_date}" />일
+                                                    </span> 남았습니다 😂<br> <span style="font-size: 13px;">종료 날짜
+                                                        : ${manager.end_date}</span>
+                                                </div>
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <br>" 입력된 정보가 없습니다. "
+                                            </c:otherwise>
+
+                                        </c:choose>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -81,102 +95,112 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="text_title col-12" id="result_title"
-                                                    style="padding-bottom:10px"></div>
+                                                    style="padding-bottom: 10px"></div>
                                                 <div class="text_normal row justify-content-evenly"
-                                                    id="result_contents">
-                                                </div>
+                                                    id="result_contents"></div>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
                                     <div class="col-12 boundary" id="record">
-                                        <div class="row">
-                                            <div class="col-7"
-                                                style="padding-bottom:0px; border-right:1px solid #C8C8C8">
-                                                <div class="row" style="border:none; padding-bottom:0px">
-                                                    <div class="text_title_600 col-12 mb-3">
-                                                        Record
-                                                    </div>
+                                        <div class="row" style="position: relative">
+                                            <div class="col-6" style="padding-bottom: 0px">
+                                                <div class="row" style="border: none; padding-bottom: 0px">
+                                                    <div class="text_title_600 col-12 mb-3">Record</div>
                                                     <div class="col-5 text-end">
-                                                        <p>등록 일자<sup style="color:white">*</sup></p>
+                                                        <p>
+                                                            등록 일자<sup style="color: white">*</sup>
+                                                        </p>
                                                     </div>
                                                     <div class="col-7 text-start">
                                                         <input type="text" class="text-center" id="reg_date"
-                                                            style="width:120px" readonly>
+                                                            style="width: 120px" readonly>
                                                     </div>
-                                                    <div class="col-5 text-end">
-                                                        <p>운동 시간<sup>*</sup></p>
+                                                    <div class="col-5 text-end" style="margin-top: 30px">
+                                                        <p>
+                                                            운동 시간<sup>*</sup>
+                                                        </p>
                                                     </div>
-                                                    <div class="col-7 text-start">
+                                                    <div class="col-7 text-start" style="margin-top: 30px">
                                                         <input type="text" class="text-center" id="reg_hour"
-                                                            style="width:30px;" value="0"
-                                                            oninput="validNaturalNumRange(24)">시간&nbsp
-                                                        <input type="text" class="text-center" id="reg_minute"
-                                                            style="width:30px;" value="0"
+                                                            style="width: 30px;" value="0"
+                                                            oninput="validNaturalNumRange(24)">시간&nbsp <input
+                                                            type="text" class="text-center" id="reg_minute"
+                                                            style="width: 30px;" value="0"
                                                             oninput="validNaturalNumRange(60)">분
                                                     </div>
-                                                    <div class="col-5 text-end">
-                                                        <p>운동 강도<sup style="color:white">*</sup></p>
+                                                    <div class="col-5 text-end"
+                                                        style="padding-bottom: 0px; margin-top: 30px">
+                                                        <p>
+                                                            운동 강도<sup style="color: white">*</sup>
+                                                        </p>
                                                     </div>
-                                                    <div class="col-7 text-start">
+                                                    <div class="col-7 text-start"
+                                                        style="padding-bottom: 0px; margin-top: 30px">
                                                         <form>
                                                             <input type="range" class="form-range" id="reg_range"
-                                                                min="1" max="5" style="width:160px; height:24px">
+                                                                min="1" max="5" style="width: 160px; height: 24px">
                                                             <label id="reg_range_label"
                                                                 onforminput="value = foo.valueAsNumber;"></label>
                                                         </form>
                                                     </div>
-                                                    <div class="col-5 text-end" style="padding-bottom:0px">
-                                                        <p>메모 내용<sup>*</sup></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6" id="wrap_memo" style="padding-bottom: 0px;">
+                                                <div class="row" style="border: none; padding-bottom: 0px">
+                                                    <div class="text_title_600 col-12">
+                                                        <p>
+                                                            Memo<sup>*</sup>
+                                                        </p>
                                                     </div>
-                                                    <div class="col-7 text-start" style="padding-bottom:0px">
-                                                        <input type="text" id="reg_memo" style="width:180px"
-                                                            placeholder="20자 이내로 입력하세요." maxlength="20">
+                                                    <div class="col-12" style="padding-bottom: 0px">
+                                                        <textarea name="" id="reg_memo" cols="30" rows="8"
+                                                            style="padding: 5px; resize: none"
+                                                            maxlength="300"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-5" style="padding-bottom:0px;">
-                                                <div class="row" style="border:none; padding-bottom:0px">
-                                                    <div class="text_title_600 col-12 mb-3">
-                                                        InBody
-                                                    </div>
-                                                    <div class="col-5 text-end">
-                                                        <p>몸무게</p>
-                                                    </div>
-                                                    <div class="col-7 text-start">
-                                                        <input type="text" class="text-center" id="reg_weight"
-                                                            style="width:60px" oninput="vaildNumRange(1000)"
-                                                            maxlength="5">&nbspKg
-                                                    </div>
-                                                    <div class="col-5 text-end">
-                                                        <p>체지방량</p>
-                                                    </div>
-                                                    <div class="col-7 text-start">
-                                                        <input type="text" class="text-center" id="reg_fat"
-                                                            style="width:60px" oninput="vaildNumRange(1000)"
-                                                            maxlength="5">&nbspKg
-                                                    </div>
-                                                    <div class="col-5 text-end">
-                                                        <p>골격근량</p>
-                                                    </div>
-                                                    <div class="col-7 text-start">
-                                                        <input type="text" class="text-center" id="reg_muscle"
-                                                            style="width:60px" oninput="vaildNumRange(1000)"
-                                                            maxlength="5">&nbspKg
-                                                    </div>
-                                                    <div class="col-5 text-end" style="padding-bottom:0px">
-                                                        <p>BMI</p>
-                                                    </div>
-                                                    <div class="col-7 text-start" style="padding-bottom:0px">
-                                                        <input type="text" class="text-center" id="reg_bmi"
-                                                            style="width:60px" oninput="vaildNumRange(100)"
-                                                            maxlength="5">
-                                                    </div>
+                                            <div class="col-12 gy-3">
+                                                <button class="btn_outline" id="btn_regRecord"
+                                                    style="height: 40px">작성완료</button>
+                                                <button class="btn_outline" style="height: 40px"
+                                                    onclick="regCancel()">돌아가기</button>
+                                            </div>
+                                            <div class="row boundary" id="reg_inbody">
+                                                <div class="text_title_600 col-12 mb-3">InBody</div>
+                                                <div class="col-5 text-end">
+                                                    <p>몸무게</p>
                                                 </div>
+                                                <div class="col-7 text-start">
+                                                    <input type="text" class="text-center" id="reg_weight"
+                                                        style="width: 60px" oninput="vaildNumRange(1000)"
+                                                        maxlength="5">&nbspKg
+                                                </div>
+                                                <div class="col-5 text-end">
+                                                    <p>체지방량</p>
+                                                </div>
+                                                <div class="col-7 text-start">
+                                                    <input type="text" class="text-center" id="reg_fat"
+                                                        style="width: 60px" oninput="vaildNumRange(1000)"
+                                                        maxlength="5">&nbspKg
+                                                </div>
+                                                <div class="col-5 text-end">
+                                                    <p>골격근량</p>
+                                                </div>
+                                                <div class="col-7 text-start">
+                                                    <input type="text" class="text-center" id="reg_muscle"
+                                                        style="width: 60px" oninput="vaildNumRange(1000)"
+                                                        maxlength="5">&nbspKg
+                                                </div>
+                                                <div class="col-5 text-end" style="padding-bottom: 0px">
+                                                    <p>BMI</p>
+                                                </div>
+                                                <div class="col-7 text-start" style="padding-bottom: 0px">
+                                                    <input type="text" class="text-center" id="reg_bmi"
+                                                        style="width: 60px" oninput="vaildNumRange(100)" maxlength="5">
+                                                </div>
+                                                <button id="btn_inbody">◀</button>
                                             </div>
-                                            <div class="col-12">
-                                                <button class="btn_outline" id="btn_regRecord">작성완료</button>
-                                                <button class="btn_outline" onclick="regCancel()">돌아가기</button>
-                                            </div>
+                                            <div id="reg_filter"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,8 +213,13 @@
                             initCalendar();
                             $(".calendar").datepicker();
                             onSelect();
-
                         });
+                        
+                       // $(() => {
+                       // 	ininInbodyChart();
+                       // 	$("#Inbody_Chart").chart();
+                       // 	onSelect();
+                       // })
 
                         // calendar 초기화
                         function initCalendar() {
@@ -204,7 +233,7 @@
                                 altField: "#reg_date"
                             });
                         }
-
+                    
                         // calendar 날짜 선택 함수
                         function onSelect() {
                             let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
@@ -217,6 +246,7 @@
                                     setMarker(res.recordList);
                                     setNotice(res.recentRecord);
                                     setInbodyChart(res.record);
+                                    
 
                                     if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
                                         $("#result_contents").empty();
@@ -231,8 +261,8 @@
                                         }
                                         let intens = ['최하', '하', '중', '상', '최상'];
                                         let output = "<div class='col-5' style='padding:0px; background-color: #E8E8E8; border-radius:6px'><div class='row' style='padding:0px'><div class='col-12'>"
-                                            + "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' style='height:100px'>"
-                                            + "<p>메모 내용 : " + res.record.exr_memo + "</p></div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
+                                            + "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='record_memo' style='height:100px'>"
+                                            + "메모 내용 : " + res.record.exr_memo + "</div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
                                             + "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
                                         $("#result_contents").html(output);
                                         setRecordChart(res.recentRecord);
@@ -241,8 +271,7 @@
                                         let output = "<div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
                                         $("#result_contents").html(output);
                                     }
-
-
+                                    console.log(res.record.inbody_weight,res.record.inbody_bfm,res.record.inbody_bmi,res.record.inbody_sm);
                                 });
                         }
 
@@ -256,6 +285,7 @@
                                     let calDate = getDateFormat(new Date(year + "-" + month + "-" + $(arrDate[i]).text())).slice(0, 10);
                                     let exrDate = getDateFormat(new Date(resData[j].exr_date)).slice(0, 10);
                                     if (calDate == exrDate) {
+                                        $(arrDate[i]).html("<img src='/resource/img/fire.png'>");
                                         $(arrDate[i]).text("🔥");
                                         break;
                                     }
@@ -298,8 +328,8 @@
                             $("#weight")[0].style.height = "250px";
                             $("#result")[0].style.height = "400px";
                             $("#record")[0].style.height = "400px";
-                            $("#inbody_chart")[0].style.height = "200";
-                            $("#weight_chart")[0].style.height = "200";
+                            $("#inbody_chart")[0].style.height = "200px";
+                            $("#weight_chart")[0].style.height = "200px";
                             $("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
                         }
 
@@ -311,11 +341,27 @@
                                 $("#weight")[0].style.height = "350px";
                                 $("#result")[0].style.height = "300px";
                                 $("#record")[0].style.height = "300px";
-                                $("#inbody_chart")[0].style.height = "300";
-                                $("#weight_chart")[0].style.height = "300";
+                                $("#inbody_chart")[0].style.height = "300px";
+                                $("#weight_chart")[0].style.height = "300px";
                                 $("#reg_hour, #reg_minute").val("0");
                                 $("#reg_memo, #reg_weight, #reg_fat, #reg_muscle, #reg_bmi").val("");
                             });
+                            hideInbody();
+                        }
+
+                        let regInbody = false;
+                        // 인바디 작성 창 열기 애니메이션
+                        function showInbody() {
+                            $("#reg_inbody")[0].style.left = "404px";
+                            $("#btn_inbody").text("▶");
+                            regInbody = true;
+                        }
+
+                        // 인바디 작성 창 닫기 애니메이션
+                        function hideInbody() {
+                            $("#reg_inbody")[0].style.left = "746px";
+                            $("#btn_inbody").text("◀");
+                            regInbody = false;
                         }
 
                         // 기록 등록 함수
@@ -353,7 +399,7 @@
                                     let data = {
                                         "date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))
                                     }
-                                    $.post("/delRecord.personal", data).done(() => { onSelect(); });
+                                    $.post("/delRecord.personal", data).done(() => { location.reload(); });
                                 }
                             });
                         }
@@ -402,22 +448,30 @@
                             $("#reg_range_label").css({ left: (place * 0.9) - 5, }).text(intens[element.val() - 1]);
                         }).trigger("change");
 
-
                         $("#btn_regRecord").on("click", () => {
                             if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") { wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false; }
-                            if (isFilled($("#reg_hour, #reg_minute, #reg_memo"))) {
-                                let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
-                                if (today < $("#calendar").datepicker("getDate")) {
-                                    Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
-                                } else if ($(".ui-state-active").text() == "🔥") {
-                                    Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
-                                } else {
-                                    tryRegist();
-                                }
+                            if (!isFilled($("#reg_hour, #reg_minute, #reg_memo"))) { if (regInbody) { wobble($("#record")[0]); return false; } }
+                            let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
+                            if (today < $("#calendar").datepicker("getDate")) {
+                                Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
+                            } else if ($(".ui-state-active").text() == "🔥") {
+                                Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
+                            } else {
+                                tryRegist();
                             }
-                        });
-                        // inbody chart
 
+                        });
+
+                        $("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
+						
+                        
+                        // inbodyChart 초기화
+                        // var resetInbody = function(){
+                        //	$('#inbody_chart').remove();
+                        //	$('#chart_wrap').append('<canvas id="inbody_chart"><canvas>');
+                        // };
+                        
+                        // inbody chart
                         function setInbodyChart(record) {
                             let inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
                             let arrNum = ["체중", "체지방량", "골격근량", "BMI"];
@@ -451,10 +505,10 @@
                                 data: inbodyData,
                                 options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
                             });
+                            inbody_chart.destroy();
                         }
-
+                        
                         // weight change chart
-
                         let weightCtx = document.getElementById('weight_chart').getContext('2d');
                         let weightChart = new Chart(weightCtx, {
                             type: 'bar',
@@ -463,7 +517,7 @@
                                     '02/01'],
                                 datasets: [{
                                     label: '# weight change',
-                                    data: [54, 52, 49, "80.7", 50, 46],
+                                    data: [54, 52, 49, 51, 50, 46],
                                     backgroundColor: ['rgba(255, 99, 132, 0.2)',
                                         'rgba(54, 162, 235, 0.2)',
                                         'rgba(255, 206, 86, 0.2)',
@@ -488,11 +542,6 @@
                                 }
                             }
                         });
-
-                        $("#btn_weightChange").on("click", () => {
-                            window.open('address', 'window_name', 'width=400,height=400,location=no,status=no,scrollbars=no');
-                        });
-
                     </script>
                 </main>
 

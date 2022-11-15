@@ -28,36 +28,40 @@ public class BsPageController extends ControllerAbs {
 
         try {
             switch (uri) {
+                // 사업자 페이지 열기
                 case "/page.bsPage":
                     this.getPage(request, response);
                     request.getRequestDispatcher("/bs/bs-page.jsp").forward(request, response);
                     break;
-
+                // 프로필 업데이트
                 case "/updateProfile.bsPage":
                     this.updateProfile(request, response);
                     break;
-
+                // 사업증 업데이트
                 case "/updateCtfc.bsPage":
                     this.updateCtfc(request, response);
                     break;
-
+                // 비밀번호 변경
                 case "/updatePw.bsPage":
                     this.updatePw(request, response);
                     break;
-
+                //회원탈퇴
                 case "/signDown.bsPage":
                     this.signDown(request, response);
                     request.getSession().removeAttribute("bsSeq");
                     response.sendRedirect("/");
                     break;
+                // 시설 업데이트 페이지로 이동
                 case "/toUpdateGym.bsPage":
                     this.importGym(request, response);
                     request.getRequestDispatcher("/gym/gym-modify.jsp").forward(request, response);
                     break;
+                // 시설 업데이트
                 case "/updateGym.bsPage":
                     this.updateGymInfo(request, response);
-                    response.sendRedirect("/");
+                    response.sendRedirect("/page.bsPage");
                     break;
+                // 시설 삭제
                 case "/deleteGym.bsPage":
                     this.deleteGym(request, response);
                     response.sendRedirect("/page.bsPage");
