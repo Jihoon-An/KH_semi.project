@@ -165,7 +165,7 @@ public class UserMyPageController extends ControllerAbs {
         // userSeq 받아오기
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
         // 프사지우기
-        String path = "/resource/profile"; //런타임 webapp 폴더를 불러옴.
+        String path = "/resource/profileImg"; //런타임 webapp 폴더를 불러옴.
         String delFileName = UserDAO.getInstance().getPiNameByUserSeq(userSeq);
         new FileControl().delete(request, path, delFileName);
         // 유저 테이블 삭제
