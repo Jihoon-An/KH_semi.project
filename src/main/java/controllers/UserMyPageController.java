@@ -188,7 +188,9 @@ public class UserMyPageController extends ControllerAbs {
         FileControl fileControl = new FileControl();
         String path = "/resource/profileImg";
         String sysName = fileControl.save(request, path, "user_img_in");
-
+        if (sysName == null) {
+            return;
+        }
         int userSeq = (Integer) request.getSession().getAttribute("userSeq");
 
         // 기존 파일 지우기
@@ -197,5 +199,6 @@ public class UserMyPageController extends ControllerAbs {
 
         // 새로 생성한 파일 커밋
         UserDAO.getInstance().updatePi(userSeq, sysName);
+        response.getWriter().append(sysName);
     }
 }
