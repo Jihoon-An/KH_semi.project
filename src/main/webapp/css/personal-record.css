@@ -74,7 +74,9 @@
 }
 
 #personal-record #record {
+	position: relative;
 	display: none;
+	z-index: 10;
 }
 
 #personal-record #record input:not([type="range"]) {
@@ -110,12 +112,49 @@
 	color: red;
 }
 
+#personal-record #record #record_memo {
+	overflow-y: scroll;
+}
+
 #personal-record #record .text-start {
 	padding-left: 15px;
 }
 
 #personal-record #record .text-end {
 	padding-right: 15px;
+}
+
+#personal-record #reg_inbody {
+	position:absolute;
+	top:-11px;
+	left:746px;
+	width:50%;
+	height:310px;
+	transition: 0.5s;
+	background-color: white;
+}
+
+#personal-record #reg_filter {
+	position:absolute;
+	top:-11px;
+	left:775px;
+	width:50%;
+	height:310px;
+	background-color: white;
+	z-index: 5;
+}
+
+
+#personal-record #reg_inbody #btn_inbody {
+	position: absolute;
+	top:0px;
+	left: -1px;
+	width:41px;
+	height:100%;
+	border:0px;
+	border-right: 1px solid #808080;
+	color:#808080;
+	background-color: #FFFFFF00;
 }
 
 #personal-record .chart_wrap {
@@ -163,6 +202,16 @@
 
 #personal-record .ui-datepicker td a {
 	font-size: 20px !important;
+}
+#personal-record .ui-datepicker td a img {
+	position: relative;
+	width: 100%;
+	top:-8px;
+	transition: 0.5s;
+}
+
+#personal-record .ui-datepicker td a img:hover {
+	scale:1.1;
 }
 
 #personal-record .ui-datepicker-week-end:first-of-type a {

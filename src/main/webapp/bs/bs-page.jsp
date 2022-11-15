@@ -120,7 +120,7 @@
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_y">예</button>
                             <button type="button" class="bs_sd_cf_btn mx-3" id="bs_cf_sd_n">아니오</button>
                         </div>
-                        <form action="/signDown.bsPage" id="sign_down_form"></form>
+                        <form action="/signDown.bsPage" id="sign_down_form" method="post"></form>
                     </div>
                 </div>
             </div>
@@ -137,11 +137,18 @@
             <!-- card -->
             <c:forEach var="gym" items="${gymList}" varStatus="status">
                 <div class="row gym_card">
-                    <form class="gym_form">
+                    <form class="gym_form" method="post">
                         <input name="gym_seq" class="gym_seq" type="hidden" value="${gym.gym_seq}">
                     </form>
-                    <div class="col-3 p-0">
-                        <img src="/resource/img/main.jpg" class="gym_img">
+                    <div class="col-3 p-0 gym_img_box">
+                        <c:choose>
+                            <c:when test='${gym.gym_main_sysImg != null}'>
+                                <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">
+                            </c:when>
+                            <c:otherwise>
+                                <img class="gym_img" src="/resource/img/main.jpg">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="col-7 gym_text">
                         <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
@@ -164,7 +171,7 @@
                             <c:otherwise>
                                 <div class="row pt-2">
                                     <div class="col-2 gym_label">오픈시간</div>
-                                    <div class="col-8 gym_content">${gym.gym_open} ~ ${gym.gym_close}</div>
+                                    <div class="col-8 gym_content">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</div>
                                 </div>
                             </c:otherwise>
                         </c:choose>

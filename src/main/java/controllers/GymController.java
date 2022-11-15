@@ -59,7 +59,7 @@ public class GymController extends ControllerAbs {
 
                 // 리뷰쓰기로 페이지 이동
                 case "/reviewWrite.gym":
-                    this.goGymDetail(request, response);
+                    this.moveWrite(request, response);
                     break;
 
                 //리뷰쓰기
@@ -72,14 +72,20 @@ public class GymController extends ControllerAbs {
                     this.write(request, response);
                     break;
 
-                    // 리뷰 수정
-                case "reviewModify.gym":
+                // 리뷰쓰기로 페이지 이동
+                case "/reviewModify.gym":
+                    this.moveModify(request, response);
+                    break;
+
+
+                // 리뷰 수정
+                case "/reviewModifing.gym":
                     // GET 요청 시 에러페이지로 넘김
                     if (request.getMethod().equals("GET")) {
                         response.sendRedirect("/error.jsp");
                         return;
                     }
-//                    this.modify(request, response);
+                    this.modify(request, response);
                     break;
 
             }
@@ -87,7 +93,6 @@ public class GymController extends ControllerAbs {
             e.printStackTrace();
         }
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -110,14 +115,14 @@ public class GymController extends ControllerAbs {
         FavoritesDAO favDao = FavoritesDAO.getInstance();
         //시설 필터 출력
         GymFilterDAO filterDao = GymFilterDAO.getInstance();
- 
-      	
-       	HashMap<String, Object> avg= reviewDao.gymAvg(gym_seq);
+
+
+        HashMap<String, Object> avg = reviewDao.gymAvg(gym_seq);
         System.out.println(avg);
-       	HashMap<String, Object> check =reviewDao.reviewChkCount(gym_seq);
-               
+        HashMap<String, Object> check = reviewDao.reviewChkCount(gym_seq);
+
         // 리뷰
-       	
+
 
         //사진이미지
         GymImgDAO gymImgDao = GymImgDAO.getInstance();
@@ -125,11 +130,11 @@ public class GymController extends ControllerAbs {
         GymImgDTO gymImgDTO = gymImgDao.getByGymSeq(gym_seq);
 
         Gson gson = new Gson();
-        Type listString = new TypeToken<List<String>>(){}.getType();
+        Type listString = new TypeToken<List<String>>() {
+        }.getType();
         List<String> gymImgList = gson.fromJson(gymImgDTO.getGym_sysimg(), listString);
 
 
- 
         List<HashMap<String, Object>> reviewDto = reviewDao.printReivew(gym_seq);
 
 
@@ -217,7 +222,7 @@ public class GymController extends ControllerAbs {
 
 
     // 리뷰 글쓰기 페이지로 이동
-    protected void goGymDetail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected void moveWrite(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));
         request.setAttribute("gym_seq", gym_seq);
         request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
@@ -229,6 +234,29 @@ public class GymController extends ControllerAbs {
     protected void write(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ReviewDTO review = new ReviewDTO(request);
         ReviewDAO.getInstance().writeReview(review);
+        int gymSeq = review.getGym_seq();
+        response.sendRedirect("/detail.gym?gym_seq=" + gymSeq);
+    }
+
+
+    // 리뷰 수정페이지로 가기
+    private void moveModify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        int review_seq = Integer.parseInt(request.getParameter("review_seq"));
+        ReviewDTO review = ReviewDAO.getInstance().getByReviewSeq(review_seq);
+        int gym_seq = ReviewDAO.getInstance().getByReviewSeq(review_seq).getGym_seq();
+
+        request.setAttribute("gym_name", GymDAO.getInstance().printGym(gym_seq).getGym_name());
+        request.setAttribute("gym_seq", gym_seq);
+        request.setAttribute("review", review);
+        request.getRequestDispatcher("/gym/review-modify.jsp").forward(request, response);
+    }
+
+    // 리뷰 글쓰기 후 Gym Detail Page로 다시 가기
+    private void modify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println("확인1");
+        ReviewDTO review = new ReviewDTO(request);
+        System.out.println("확인2");
+        ReviewDAO.getInstance().modifyReview(review);
         int gymSeq = review.getGym_seq();
         response.sendRedirect("/detail.gym?gym_seq=" + gymSeq);
     }
