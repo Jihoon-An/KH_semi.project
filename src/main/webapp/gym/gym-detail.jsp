@@ -185,11 +185,16 @@
 										<span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
 										</div>
 										
-										
-
-									
-
 									<div class="reviewcon">${r.review.review_contents}</div>
+									
+									
+									<c:if test="${r.review.review_check1 == 'Y'}">1번 나온다</c:if>
+									<c:if test="${r.review.review_check2 == 'Y'}">2번 나온다</c:if>
+									<c:if test="${r.review.review_check3 == 'Y'}">3번 나온다</c:if>
+									<c:if test="${r.review.review_check4 == 'Y'}">4번 나온다</c:if>
+									<c:if test="${r.review.review_check5 == 'Y'}">5번 나온다</c:if>
+										
+									
 								</div>
 							</div>
 						</c:forEach>
@@ -282,10 +287,18 @@
 	<script>
 	
                  
-	<c:if test="${userSeq !=null}">
 	
 		$(".relike").on("click", function () {
-			var thumb = $(this);
+			
+			if("${userSeq}" == ""){
+				 Swal.fire({
+		                icon: 'error',
+		                title: 'Oops...',
+		                text: '로그인 사용자만 클릭 가능합니다',
+
+		            })
+			}else{
+				var thumb = $(this);
 	            $.ajax({
 	                url: "/reviewLikeAdd.gym",
 	                data: {
@@ -314,9 +327,12 @@
 	                }
 	
 	            })
+			}
+		   
+			
 	    
 	    })
-	</c:if>
+
     
 
    
