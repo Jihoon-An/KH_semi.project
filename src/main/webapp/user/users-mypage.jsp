@@ -262,11 +262,13 @@
             else{
                 console.log("/resource/profileImg/"+afterPi);
                 let basPi = "${user.pi}";
-                if (basPi != "/resource/profileImg/null") {
-                    $("#user_img").attr("src", basPi);
-                }else if(afterPi != null){
+                if(afterPi != null){
                     $("#user_img").attr("src", "/resource/profileImg/"+afterPi);
-                }else {
+                }
+                else if (basPi != "/resource/profileImg/") {
+                    $("#user_img").attr("src", basPi);
+                }
+                else {
                     $("#user_img").attr("src", "/resource/img/default_profile.png");
                 }
             }

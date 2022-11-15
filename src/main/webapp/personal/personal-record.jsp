@@ -754,7 +754,6 @@
                                     borderWidth: 1
                                 }]
                             };
-                            	// inbodyCtx.destroy();
 
                             inbodyChart = new Chart(inbodyCtx, {
                                 data: inbodyData,
