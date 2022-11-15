@@ -199,9 +199,13 @@
     height: 190px;
     overflow: hidden;
     margin-left: 30px;
-    margin-right: 20px;
+    margin-right: 30px;
     border-radius: 10px;
     cursor: pointer;
+}
+
+#bs-page .gym_card .modify_gym_btn{
+    transform: translate(40px, 0);
 }
 
 #bs-page .gym_text {
