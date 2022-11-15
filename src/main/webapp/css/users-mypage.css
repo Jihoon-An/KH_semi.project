@@ -78,13 +78,14 @@
     height: 260px;
     margin-bottom: 30px;
     transform: rotate(90deg);
-    overflow: visible;
+    overflow: hidden;
     z-index: 1;
 }
 
 #users-mypage .gym_img {
-    width: 260px;
-    height: 260px;
+    /*width: 260px;*/
+    /*height: 260px;*/
+    object-fit: contain;
     cursor: pointer;
 }
 
