@@ -72,6 +72,7 @@ public class UserController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("/");
 		}
 	}
 
