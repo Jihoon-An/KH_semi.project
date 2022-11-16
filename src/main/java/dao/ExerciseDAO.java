@@ -1,7 +1,6 @@
 package dao;
 
 import dto.ExerciseDTO;
-import dto.WeightDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -173,16 +172,5 @@ public class ExerciseDAO extends Dao{
             }
         }
     }
-//    public ExerciseDTO selectInbodyByDate(String userSeq, String date) throws Exception {
-//        String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where user_seq = ? and exr_date = ?";
-//        try (Connection con = getConnection();
-//             PreparedStatement pstat = con.prepareStatement(sql);)
-//        {
-//            pstat.setString(1, userSeq);
-//            pstat.setString(2, date);
-//            try(ResultSet rs = pstat.executeQuery();) {
-//                return rs.next() ? new ExerciseDTO(rs) : null;
-//            }
-//        }
-//    }
+
 }

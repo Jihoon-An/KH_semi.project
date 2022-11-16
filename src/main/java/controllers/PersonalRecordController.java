@@ -19,7 +19,6 @@ import commons.Common;
 import dao.ExerciseDAO;
 import dao.ManagerDAO;
 import dto.ExerciseDTO;
-import dto.WeightDTO;
 import dto.ManagerDTO;
 
 
