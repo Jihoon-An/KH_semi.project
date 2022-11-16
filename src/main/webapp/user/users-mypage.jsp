@@ -115,7 +115,7 @@
                                 <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">
                             </c:when>
                             <c:otherwise>
-                                <img class="gym_img" src="/resource/img/main.jpg">
+                                <img class="gym_img" src="/resource/img/default02.png">
                             </c:otherwise>
                         </c:choose>
                         <span class="gym_text p-2 ellipsis">
