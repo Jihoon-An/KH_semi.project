@@ -21,7 +21,8 @@
 										디데이 매니저
 										<c:choose>
 											<c:when test="${userSeq == null}">
-												" 로그인 후 이용하세요! 😃 "
+												<br><br><br><br>" 로그인 후 이용하세요! 😃 "
+												<script>$("#manager").css("background-color","#18181840");</script>
 											</c:when>
 											<c:otherwise>
 
@@ -443,6 +444,7 @@
 										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
+									console.log(res.record.inbody_weight);
 								});
 						}
 						// 운동한 날짜 Maker 생성 함수
@@ -655,39 +657,42 @@
 						function setInbodyChart(record) {
 							$("#inbody_chart").removeData();
 							inbodyChart.destroy();
-							inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-							arrData = ["체중", "체지방량", "골격근량", "BMI"];
-							arrInbody = [record.inbody_weight,
-							record.inbody_bfm,
-							record.inbody_sm,
-							record.inbody_bmi];
-							inbodyData = {
-								labels: arrData,
-								datasets: [{
-									type: 'bar',
-									label: 'inbody',
-									data: arrInbody,
-									borderColor: ['rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-									],
-									backgroundColor: ['rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-									],
-									borderWidth: 1
-								}]
-							};
-							inbodyChart = new Chart(inbodyCtx, {
-								data: inbodyData,
-								options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
-							});
-						}
+                            inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
 
+                            arrNum = ["체중", "체지방량", "골격근량", "BMI"];
+
+                            arrWeight = [record.inbody_weight,
+                            record.inbody_bfm,
+                            record.inbody_sm,
+                            record.inbody_bmi];
+
+                            inbodyData = {
+                                labels: arrNum,
+                                datasets: [{
+                                    type: 'bar',
+                                    label: 'inbody',
+                                    data: arrWeight,
+                                    borderColor: ['rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                    ],
+                                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            };
+
+                            inbodyChart = new Chart(inbodyCtx, {
+                                data: inbodyData,
+                                options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
+                            });
+                        }
 						
-
+						// weight change chart
 					</script>
 					
 					<c:choose>
