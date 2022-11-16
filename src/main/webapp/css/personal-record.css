@@ -78,10 +78,6 @@
 	padding-right: 20px !important;
 }
 
-#personal-record #result_contents #reg_momo {
-	resize: none;
-}
-
 #personal-record #result .col-5 {
 	overflow-x: hidden;
 	overflow-y: scroll;
@@ -102,13 +98,12 @@
 	background-color: #18181840;
 	border-radius: 6px;
 	line-height: 300px;
-	z-index: 5;
+	z-index: 2;
 }
 
 #personal-record #record {
 	position: relative;
 	display: none;
-	z-index: 10;
 }
 
 #personal-record #record input:not([type="range"]) {
@@ -152,6 +147,11 @@
 	padding-right: 15px;
 }
 
+#personal-record #record #reg_memo:focus {
+	outline: none;
+}
+
+
 #personal-record #reg_inbody {
 	position:absolute;
 	top:-11px;
@@ -170,9 +170,8 @@
 	height:400px;
 	background-color: white;
 	border-left: 1px solid #808080;
-	z-index: 5;
+	z-index: 2;
 }
-
 
 #personal-record #reg_inbody #btn_inbody {
 	position: absolute;
@@ -186,6 +185,11 @@
 	border-top-left-radius: 6px;
 	border-bottom-left-radius: 6px;
 	background-color: #DBE2EF;
+	transition: 0.5s;
+}
+
+#personal-record #reg_inbody #btn_inbody:hover {
+	background-color: #CBD2FF;
 }
 
 #personal-record .chart_wrap {

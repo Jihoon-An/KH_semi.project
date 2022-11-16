@@ -399,6 +399,10 @@
 										setInbodyChart(res.record);
 									}
 
+									if (onRecord && $(".ui-state-active").hasClass("fire")) {
+										regCancel();
+									}
+
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
 										let exrHow = ""
@@ -473,6 +477,7 @@
 							}
 						}
 
+						let onRecord = false;
 						// 기록 작성 창 열기 애니메이션
 						function showRecord() {
 							$("#inbody")[0].style.height = "250px";
@@ -482,6 +487,7 @@
 							$("#inbody_chart")[0].style.height = "200px";
 							$("#weight_chart")[0].style.height = "200px";
 							$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
+							onRecord = true;
 						}
 
 						// 기록 작성 창 닫기 애니메이션
@@ -498,6 +504,7 @@
 								$("#reg_memo, #reg_weight, #reg_fat, #reg_muscle, #reg_bmi").val("");
 							});
 							hideInbody();
+							onRecord = false;
 						}
 
 						let regInbody = false;
@@ -608,8 +615,6 @@
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
 							if (today < $("#calendar").datepicker("getDate")) {
 								Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
-							} else if ($(".ui-state-active").hasClass("fire")) {
-								Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
 							} else {
 								tryRegist();
 							}
