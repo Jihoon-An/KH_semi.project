@@ -136,7 +136,7 @@
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div class="text_title col-12" id="result_title"
+												<div class="text_title col-12 mt-1" id="result_title"
 													style="padding-bottom: 10px"></div>
 												<div class="text_normal row justify-content-evenly"
 													id="result_contents"></div>
