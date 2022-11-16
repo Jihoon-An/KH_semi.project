@@ -89,7 +89,7 @@ public class AddGymController extends ControllerAbs{
         // insert
         GymImgDAO.getInstance().insert(gymSeq, json);
         GymDAO.getInstance().addGym(gymDTO);
-//        GymFilterDAO.getInstance().add(gymFilterDTO);
+        GymFilterDAO.getInstance().add(gymFilterDTO);
     }
 
     @Override

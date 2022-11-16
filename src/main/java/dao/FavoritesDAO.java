@@ -181,7 +181,7 @@ public class FavoritesDAO extends Dao {
      */
     public List<HashMap<String, Object>> selectSortByFavorites() throws Exception {
         List<HashMap<String, Object>> result = new ArrayList<>();
-        String sql = "select * from (select gym_seq, count(*) count from favorites group by gym_seq order by count desc) f left join gym g on f.gym_seq = g.gym_seq where rownum <= 6";
+        String sql = "select * from (select gym_seq, count(*) count, row_number() over(order by count(*) desc) rn from favorites group by gym_seq) f left join gym g on f.gym_seq = g.gym_seq where rn <= 6 order by rn";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery();) {
