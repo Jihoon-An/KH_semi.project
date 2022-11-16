@@ -260,7 +260,6 @@
                 pi_check = true;
             }
             else{ // 취소를 눌렀을 때 행동
-                console.log("/resource/profileImg/"+afterPi);
                 let basPi = "${user.pi}"; // 페이지를 불러왔을 때의 사진 경로
                 if(afterPi != null && afterPi != ""){ // 페이지에서 프사를 한번 바꿨을 때(저장을 한번 된 상태-데이터테이블+이미지저장)
                     $("#user_img").attr("src", "/resource/profileImg/"+afterPi); // 취소를 누르면 원래 값으로 돌아가기
@@ -288,7 +287,6 @@
                 , contentType: false
                 , data: form
                 , success: function (response) {
-                    console.log("프로필 변경에 성공하였습니다.");
                     afterPi = response; // 성공하면 afterPi(이미지이름)를 보내줌
                 }
                 , error: function (jqXHR) {
@@ -447,7 +445,6 @@
             let fix_interests = document.querySelectorAll(".user_interest");
             //let fix_interests = $(".user_interest");
 
-            console.log(fix_phone);
 
             let interest_list = [];
             fix_interests.forEach(item => {
@@ -466,7 +463,6 @@
                 },
                 type: "post",
                 success: function () {
-                    console.log("success!!");
                 }
             });
 
@@ -495,7 +491,6 @@
         $(".heart").on("click", function () {
             var heart = $(this);
             if ($(this).css("color") == "rgb(143, 149, 154)") {
-                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 $.ajax({
                     url: "/addHeart.userMyPage",
                     data: {
@@ -508,7 +503,6 @@
                     }
                 });
             } else {
-                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 //즐겨찾기 취소
                 $.ajax({
                     url: "/delHeart.userMyPage",
@@ -534,7 +528,6 @@
                 data: {review_seq: $(this).closest(".review_card").find(".review_seq").val()},
                 type: "POST",
                 success: function () {
-                    console.log("delete complete");
                     $(del).closest(".review_card").remove();
                 }
             });

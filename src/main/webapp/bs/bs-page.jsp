@@ -283,7 +283,6 @@
             , contentType: false
             , data: form
             , success: function (response) {
-                console.log("사업증 변경에 성공하였습니다.");
             }
             , error: function (jqXHR) {
                 alert(jqXHR.responseText);
@@ -308,7 +307,6 @@
             },
             type: "post",
             success: function () {
-                console.log("success!!");
             }
         });
         // 사업증 저장
@@ -396,7 +394,6 @@
             type: "post",
             success: function () {
                 acc_close();
-                console.log("success!!");
             }
         });
     });

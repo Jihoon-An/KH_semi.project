@@ -297,7 +297,6 @@
     <script>
 
         $("#btn_modify_complete").on("click", function () {
-            console.log(gymSubmitCheck());
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
@@ -607,7 +606,6 @@
             let img_name = $(this).siblings("img").attr("src");
             delImgList.push(img_name);
             $("#del_img_list").val(JSON.stringify(delImgList));
-            console.log($("#del_img_list").val());
             // div초기화
             $(this).siblings("img").attr("src","/resource/img/default04.png");
             $(this).css("display","none");

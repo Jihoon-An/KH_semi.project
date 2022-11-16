@@ -171,15 +171,12 @@
     $("#btn_dell").on("click", function(){
         var userseq = [];
 
-        console.log(document.querySelectorAll(".check:checked")[0].value)
 
         let a = document.querySelectorAll(".check:checked")
         for(let i = 0; i<a.length; i++){
-            console.log(a[i]);
             userseq.push(a[i].value);
 
         }
-        console.log(userseq)
 
         $.ajax({
             url : "/bsUsersDel.host",
