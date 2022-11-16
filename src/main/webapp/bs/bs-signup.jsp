@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="bs_sign">
 	<form id="form_bs_sign" action="/signUp.bs" method="post"
 		  enctype="multipart/form-data">

@@ -5,7 +5,7 @@
 
 <%@ include file="/layout/header.jsp" %>
 
-
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="gym-detail">
 
     <div style="height: 70px;"></div>

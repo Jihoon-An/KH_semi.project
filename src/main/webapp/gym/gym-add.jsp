@@ -5,6 +5,7 @@
 
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="gym-modify">
     <form id="gym-modify-form" action="/add.addGym" method="post" enctype="multipart/form-data">
         <input type="hidden" name="bsSeq" value="${bsSeq}">

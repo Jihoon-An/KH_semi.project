@@ -7,6 +7,7 @@
 
 
 				<!-- Site Main -->
+<div class="main_margin_85" style="height: 85px;"></div>
 				<main id="personal-record" style="margin-top: 57px">
 					<div class="containerbox row" align="center">
 						<div class="col-12" style="padding-bottom: 0px">
