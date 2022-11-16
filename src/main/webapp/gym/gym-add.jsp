@@ -7,7 +7,7 @@
 <!-- Gym-Modify main -->
 <main id="gym-modify">
     <form id="gym-modify-form" action="/add.addGym" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="bsSeq" value="777">
+        <input type="hidden" name="bsSeq" value="${bsSeq}">
         <div class="container" align="center">
             <!-- 사업자 회원가입 폼 -->
 
@@ -33,7 +33,7 @@
                                 <span class="inputTitle">시설이름</span>
                             </div>
                             <input type="text" name="gym_name" id="gym_name" placeholder="시설 이름을 입력하세요"
-                                   value="">
+                                   value="" maxlength="15">
                             <div class="error_msg text_mini text-start" style="width: 350px">
                                 <span class="error_msg_display" id="gym_name_msg"></span>
                             </div>
@@ -58,7 +58,7 @@
                                 <span class="inputTitle">시설가격</span>
                             </div>
                             <input type="text" name="gym_price" id="gym_price" placeholder="시설 가격을 입력하세요"
-                                   value="">
+                                   value="" maxlength="40">
                         </div>
 
 
@@ -67,14 +67,14 @@
                                 <span class="inputTitle">시설 OPEN 시간</span>
                             </div>
                             <input type="text" name="gym_open" id="gym_open" placeholder="시설 OPEN 시간을 입력하세요"
-                                   value="">
+                                   value="" maxlength="20">
 
 
                             <div class="text-start">
                                 <span class="inputTitle">시설 CLOSE 시간</span>
                             </div>
                             <input type="text" name="gym_close" id="gym_close" placeholder="시설 CLOSE 시간을 입력하세요"
-                                   value="">
+                                   value="" maxlength="20">
                         </div>
 
 
