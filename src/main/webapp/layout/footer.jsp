@@ -32,7 +32,7 @@
                     대표 : 조성태<br>
                     사업자번호 : 851-87-00622<br>
                     통신판매번호 : 서울 강남 제2014-01호<br>
-                    admin@fitneeds.co.kr</p>
+                    admin@fitneeds.shop</p>
 
                     <p class="copyright-text">Copyright ⓒ Fitneeds Co., Ltd. All rights reserved.</p>
                 </div>

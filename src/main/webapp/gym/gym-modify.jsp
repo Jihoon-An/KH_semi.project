@@ -296,8 +296,15 @@
 
     <script>
 
+        // filter 초기화
+        $("#open_result").val($("#open").is(":checked"));
+        $("#locker_result").val($("#locker").is(":checked"));
+        $("#shower_result").val($("#shower").is(":checked"));
+        $("#park_result").val($("#park").is(":checked"));
+
+
+
         $("#btn_modify_complete").on("click", function () {
-            console.log(gymSubmitCheck());
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
@@ -607,7 +614,6 @@
             let img_name = $(this).siblings("img").attr("src");
             delImgList.push(img_name);
             $("#del_img_list").val(JSON.stringify(delImgList));
-            console.log($("#del_img_list").val());
             // div초기화
             $(this).siblings("img").attr("src","/resource/img/default04.png");
             $(this).css("display","none");

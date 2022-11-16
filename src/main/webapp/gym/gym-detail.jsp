@@ -395,14 +395,12 @@
                         if (data == 'false') {
 
                             thumb.attr("style", "color:#001A41");
-                            console.log(thumb + "좋아요 추가");
                             location.reload();
 
 
                         } else if (data == 'true') {
                             thumb.attr("style", "color:#8f959a");
 
-                            console.log(thumb + "좋아요 삭제");
                             location.reload();
                         }
 
@@ -419,12 +417,9 @@
         $(document).ready(function () {
             let fav = $("#heart").attr("check") == "true" ? true : false;
 
-            console.log(fav);
             if (fav) {
-                console.log(fav + ": 빨강")
                 $("#heart").css("color", "#CF0C00");
             } else {
-                console.log(fav + ": 회색")
                 $("#heart").css("color", "#C7D3DC")
             }
         });
@@ -434,14 +429,12 @@
 
             if ($("#heart").css("color") == "rgb(199, 211, 220)") {
                 $("#heart").css("color", "#CF0C00");
-                console.log("즐찾추가")
                 $.ajax({
                     url: "/favoriteadd.gym?gym_seq=" +${gymList.gym_seq},
                     type: "get"
                 })
             } else {
                 $("#heart").css("color", "#C7D3DC")
-                console.log("즐찾삭제")
                 $.ajax({
                     url: "/favoriteremove.gym?gym_seq=" +${gymList.gym_seq},
                     type: "get"
@@ -477,7 +470,9 @@
 
         $(function () {
             $(".review2").slice(0, 1).show(); // 초기갯수
-
+            if ($(".review2:hidden").length == 0) {
+                $("#load").css("display", "none")
+            }
 
             $("#load").click(function (e) {
                 // 클릭시 more
