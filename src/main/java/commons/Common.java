@@ -35,54 +35,5 @@ public class Common {
         request.setCharacterEncoding("utf8");
         response.setContentType("text/html;charset=utf8");
     }
-
-
-    public String getNavi(String type, String search, int currentPage, int recordTotalCount) throws Exception {
-        int recordCountPerPage = 10;
-        int naviCountPerPage = 10;
-        int pageTotalCount = 0;
-        if (recordTotalCount % recordCountPerPage > 0) {
-            pageTotalCount = (recordTotalCount / recordCountPerPage) + 1;
-        } else {
-            pageTotalCount = (recordTotalCount / recordCountPerPage);
-        }
-        if (currentPage < 1) {
-            currentPage = 1;
-        }
-        if (currentPage > pageTotalCount) {
-            currentPage = pageTotalCount;
-        }
-        int startNavi = (currentPage - 1) / recordCountPerPage * recordCountPerPage + 1;
-        int endNavi = startNavi + naviCountPerPage - 1;
-        if (endNavi > pageTotalCount) {
-            endNavi = pageTotalCount;
-        }
-        boolean needPrev = true;
-        boolean needNext = true;
-        if (startNavi == 1) {
-            needPrev = false;
-        }
-        if (endNavi == pageTotalCount) {
-            needNext = false;
-        }
-        StringBuilder sb = new StringBuilder();
-        if (needPrev) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewSearch.host?cpage=" + (startNavi - 1)
-                    + "'>Previous</a></li>");
-        }
-        for (int i = startNavi; i <= endNavi; i++) {
-            if (currentPage == i) {
-                sb.append("<li class=\"page-item active\" aria-current=\"page\"><a class=\"page-link\" href=\"/reviewSearch.host?cpage=" + i + "&type=" + type + "&search=" + search + "\">" + i
-                        + "</a></li>");
-            } else {
-                sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"/reviewSearch.host?cpage=" + i + "&type=" + type + "&search=" + search + "\">" + i
-                        + "</a></li>");
-            }
-        }
-        if (needNext) {
-            sb.append("<li class=\"page-item\"><a class=\"page-link\" href='/reviewSearch.host?cpage=" + (endNavi + 1) + "&type=" + type + "&search=" + search
-                    + "'>Next</a></li>");
-        }
-        return sb.toString();
-    }
+    
 }

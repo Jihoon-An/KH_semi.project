@@ -44,7 +44,7 @@
 				<div class="search_sub">
 					<div class="search_sub_input">
 						<input type="text" id="searchInput" name="searchInput" 
-							placeholder="지역명 또는 헬스장명을 검색해보세요." value="${searchInput}">
+							placeholder="지역명 또는 헬스장명을 검색해보세요." value="${searchInput}" maxlength="20">
 					</div>
 					<div class="search_sub_icon">
 						<i id="searchSubBtn" class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
@@ -158,7 +158,7 @@
 						<div class="gym_list_title">
 							<a href="/detail.gym?gym_seq=${gymList.gym_seq}">
 								${gymList.gym_name } 
-								<img src="/resource/gym/go_detail_icon.png" class="go-detail-icon">
+								<img src="/resource/img/go_detail_icon.png" class="go-detail-icon">
 							</a>
 						</div>
 						<div class="gym_list_location">
@@ -202,10 +202,10 @@
 			
 			<script>
 				var imgArray = new Array();
-					imgArray[0] = "/resource/gym/default01.png";
-					imgArray[1] = "/resource/gym/default02.png";
-					imgArray[2] = "/resource/gym/default03.png"
-					imgArray[3] = "/resource/gym/default04.png";
+					imgArray[0] = "/resource/img/default01.png";
+					imgArray[1] = "/resource/img/default02.png";
+					imgArray[2] = "/resource/img/default03.png"
+					imgArray[3] = "/resource/img/default04.png";
 					
 				function showImage(){
 					var imgNum = Math.round(Math.random()*3);
