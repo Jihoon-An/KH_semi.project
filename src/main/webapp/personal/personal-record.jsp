@@ -161,7 +161,7 @@
 																min="1" max="5" style="width: 140px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
-																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-5px; padding:3px">중</label>
+																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-6px; padding:3px">중</label>
 														</form>
 													</div>
 												</div>
