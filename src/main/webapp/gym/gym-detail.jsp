@@ -185,7 +185,7 @@
 										<span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
 										</div>
 										
-									<div class="reviewcon">${r.review.review_contents}</div>
+									<div class="reviewcon">${r.review.review_contents} </div>
 									
 									
 									<c:if test="${r.review.review_check1 == 'Y'}">1번 나온다</c:if>
@@ -262,20 +262,38 @@
 				</c:choose>
 			</div>
 
-			<c:if test="${gymImgList != null}">
-				<c:forEach var="gymImg" items="${gymImgList}">
-					<script>
-                        console.log("${gymImg}");
-                    </script>
-					<div class="infopicture">
-						<figure class="figure">
-							<img src="/resource/gym/${gymImg}"
-								class="figure-img img-fluid rounded" alt="..." />
-							<figcaption class="figure-caption"></figcaption>
-						</figure>
-					</div>
-				</c:forEach>
-			</c:if>
+
+
+			<c:choose>
+
+				<c:when test="${not empty gymImgList}">
+					<!-- 리스트가 비어있지않다면 -->
+					<c:forEach var="gymImg" items="${gymImgList}">
+
+						<div class="infopicture">
+							<figure class="figure">
+								<img src="/resource/gym/${gymImg}"
+									class="figure-img img-fluid rounded" alt="..." />
+
+							</figure>
+						</div>
+
+					</c:forEach>
+					<c:if test="${gymImgList != null}">
+						<div class="newmore">
+							<a href="#" class="btn btn_outline" data-bs-toggle="button"
+								id="imgload">사진 더보기</a>
+						</div>
+					</c:if>
+				</c:when>
+				<c:otherwise>
+					<div class="other">등록된 매장 사진이 없습니다</div>
+				</c:otherwise>
+			</c:choose>
+
+
+
+
 
 
 
@@ -319,7 +337,7 @@
 						
 						}else if(data=='true'){
 							thumb.attr("style", "color:#8f959a");
-						
+							
 							console.log(thumb + "좋아요 삭제");
 							location.reload();
 						}
@@ -416,6 +434,27 @@
                 }
             });
         });  //게시글 더 보기 기능  
+    </script>
+    
+    <script>
+
+
+    $(function () {
+        $(".infopicture").slice(0, 1).show(); // 초기갯수
+        if ($(".infopicture:hidden").length == 0) {
+        	$("#imgload").css("display", "none")
+        }
+
+        $("#imgload").click(function (e) {
+            // 클릭시 more
+            e.preventDefault();
+            $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
+            if ($(".infopicture:hidden").length == 0) {
+                // 컨텐츠 남아있는지 확인
+                $("#imgload").css("display", "none")
+            }
+        });
+    });  //게시글 더 보기 기능  
     </script>
 
 	<script>

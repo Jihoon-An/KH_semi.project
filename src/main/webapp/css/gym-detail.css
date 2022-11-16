@@ -201,6 +201,7 @@
 
 #gym-detail .infopicture {
 	width: 100%;
+		display:none;
 }
 
 #gym-detail dt {
