@@ -76,7 +76,7 @@
 									<div class="boundary" id="inbody">
 										태어나서 처음 해본 인바디 결과
 										<div class="chart_wrap">
-											<canvas id="inbody_chart" width="400" height="300"></canvas>
+											<canvas id="inbody_chart" width="400" height="250"></canvas>
 										</div>
 									</div>
 								</div>
@@ -84,7 +84,7 @@
 									<div class="boundary" id="weight">
 										몸무게 변화
 										<div class="chart_wrap">
-											<canvas id="weight_chart" width="250" height="300"></canvas>
+											<canvas id="weight_chart" width="250" height="250"></canvas>
 										</div>
 									</div>
 								</div>
@@ -166,41 +166,40 @@
 													onclick="regCancel()">돌아가기</button>
 											</div>
 											<div class="row boundary" id="reg_inbody">
-												<div class="text_title_600 col-12 mb-3">
-													InBody
-												</div>
-												<div class="col-5 text-end">
+												<div class="col-12"></div>
+												<div class="col-6 text-end">
 													<p>몸무게</p>
 												</div>
-												<div class="col-7 text-start">
+												<div class="col-6 text-start">
 													<input type="text" class="text-center" id="reg_weight"
 														style="width:60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
-												<div class="col-5 text-end">
+												<div class="col-6 text-end">
 													<p>체지방량</p>
 												</div>
-												<div class="col-7 text-start">
+												<div class="col-6 text-start">
 													<input type="text" class="text-center" id="reg_fat"
 														style="width:60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
-												<div class="col-5 text-end">
+												<div class="col-6 text-end">
 													<p>골격근량</p>
 												</div>
-												<div class="col-7 text-start">
+												<div class="col-6 text-start">
 													<input type="text" class="text-center" id="reg_muscle"
 														style="width:60px" oninput="vaildNumRange(1000)"
 														maxlength="5">&nbspKg
 												</div>
-												<div class="col-5 text-end" style="padding-bottom:0px">
+												<div class="col-6 text-end" style="padding-bottom:0px">
 													<p>BMI</p>
 												</div>
-												<div class="col-7 text-start" style="padding-bottom:0px">
+												<div class="col-6 text-start" style="padding-bottom:0px">
 													<input type="text" class="text-center" id="reg_bmi"
 														style="width:60px" oninput="vaildNumRange(100)" maxlength="5">
 												</div>
-												<button id="btn_inbody">◀</button>
+												<div class="col-12"></div>
+												<button class=text_normal_600 id="btn_inbody">I<br>n<br>b<br>o<br>d<br>y</button>
 											</div>
 											<div id="reg_filter"></div>
 										</div>
@@ -370,7 +369,7 @@
 							$.getJSON("/datepick.personal", data)
 								.done(res => {
 									setMarker(res.recordList);
-									setNotice(res.recentRecord);
+									setNotice(res.recordList);
 
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
@@ -384,15 +383,16 @@
 											exrHow = res.record.exr_how + "분"
 										}
 										let intens = ['최하', '하', '중', '상', '최상'];
-										let output = "<div class='col-5' style='padding:0px; background-color: #E8E8E8; border-radius:6px'><div class='row' style='padding:0px'><div class='col-12'>"
-											+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='record_memo' style='height:100px'>"
-											+ "메모 내용 : " + res.record.exr_memo + "</div></div></div><div class='col-6' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
-											+ "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
+										let output = "<div class='col-5 gy-4' id='summary'><div class='row' style='padding:0px'><div class='col-12' style='padding:5px; background-color:#DBE2EF'>"
+											+ "<p>운동 기록</p></div><div class='col-12'><p>운동 시간 : " + exrHow + "&nbsp&nbsp/&nbsp&nbsp운동 강도 : " + intens[res.record.exr_intensity - 1] + "</p></div><div class='col-12' id='record_memo' style='height:105px'>"
+											+ "</div></div></div><div class='col-6 gy-4' style='padding:0px'><div class='row' style='padding:0px'><div class='col-12' style='padding:0px'><div style='width:90%'>"
+											+ "<canvas id='recordChart' width='400'height='175'></canvas></div></div></div></div><div class='col-12 gy-3'><button class='btn_outline' id='btn_delRecord' style='height:40px' onclick='tryDelRecord()'>기록 삭제</button></div>"
 										$("#result_contents").html(output);
+										$("#record_memo").text("메모 내용 : " + res.record.exr_memo)
 										setRecordChart(res.recentRecord);
 									} else {
 										$("#result_contents").empty();
-										let output = "<div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
+										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
 								});
@@ -420,7 +420,6 @@
 						function setNotice(recordList) {
 							if (recordList.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
-							console.log(today)
 							let gap = (today.getTime() - new Date(recordList[recordList.length - 1].exr_date).getTime()) / 86400000;
 							let context;
 							if (gap >= 30) { context = "마지막 기록이 " + gap + "일 전? 운동 접었네 이 사람 😡" }
@@ -461,12 +460,12 @@
 						function regCancel() {
 							$("#record").fadeOut(0, () => {
 								$("#result").fadeIn(500)
-								$("#inbody")[0].style.height = "350px";
-								$("#weight")[0].style.height = "350px";
-								$("#result")[0].style.height = "300px";
-								$("#record")[0].style.height = "300px";
-								$("#inbody_chart")[0].style.height = "300px";
-								$("#weight_chart")[0].style.height = "300px";
+								$("#inbody")[0].style.height = "300px";
+								$("#weight")[0].style.height = "300px";
+								$("#result")[0].style.height = "350px";
+								$("#record")[0].style.height = "350px";
+								$("#inbody_chart")[0].style.height = "250px";
+								$("#weight_chart")[0].style.height = "250px";
 								$("#reg_hour, #reg_minute").val("0");
 								$("#reg_memo, #reg_weight, #reg_fat, #reg_muscle, #reg_bmi").val("");
 							});
@@ -477,14 +476,12 @@
 						// 인바디 작성 창 열기 애니메이션
 						function showInbody() {
 							$("#reg_inbody")[0].style.left = "404px";
-							$("#btn_inbody").text("▶");
 							regInbody = true;
 						}
 
 						// 인바디 작성 창 닫기 애니메이션
 						function hideInbody() {
 							$("#reg_inbody")[0].style.left = "746px";
-							$("#btn_inbody").text("◀");
 							regInbody = false;
 						}
 
