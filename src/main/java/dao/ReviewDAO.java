@@ -198,7 +198,7 @@ public class ReviewDAO extends Dao {
      */
     public List<HashMap<String, Object>> selectSortByLikes() throws Exception {
         List<HashMap<String, Object>> result = new ArrayList<>();
-        String sql = "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
+        String sql = "select * from (select review.*, row_number() over(order by review_like desc) rn from review) r left join gym g on r.gym_seq = g.gym_seq where rn <= 10";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery();
