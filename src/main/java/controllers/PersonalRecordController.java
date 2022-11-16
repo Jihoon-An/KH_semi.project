@@ -153,6 +153,7 @@ public class PersonalRecordController extends ControllerAbs {
         data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
         data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
+
         return data;
     }
 

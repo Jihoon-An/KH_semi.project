@@ -71,17 +71,18 @@ public class ExerciseDAO extends Dao{
     }
     
     public List<WeightDTO> selectWeightAll(int user_seq) throws Exception{
-    	String sql = "selcet weight,weight_date from weight where user_seq = ?";
+    	String sql = "selcet * from weight where user_seq = ?";
+    	
+    	List<WeightDTO> result = new ArrayList<>();
     	
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
     			){
     		pstat.setInt(1, user_seq);
     		
-    		List<WeightDTO> result = new ArrayList<>();
     		try(ResultSet rs = pstat.executeQuery();){
     			while(rs.next()) {
-    				ExerciseDTO dto = new ExerciseDTO();
+    				result.add(new WeightDTO(rs));
     				
     			}
     		}
@@ -156,6 +157,7 @@ public class ExerciseDAO extends Dao{
         }
     }
 
+
     public List<ExerciseDTO> selectRecentByDate(String userSeq, String date) throws Exception {
         List<ExerciseDTO> result = new ArrayList<>();
         String sql = "select * from (select * from exercise order by exr_date desc) where rownum <= 7 and user_seq = ? and exr_date <= ? order by exr_date";
@@ -185,4 +187,16 @@ public class ExerciseDAO extends Dao{
             }
         }
     }
+//    public ExerciseDTO selectInbodyByDate(String userSeq, String date) throws Exception {
+//        String sql = "select inbody_weight, inbody_bfm, inbody_bmi, inbody_sm from exercise where user_seq = ? and exr_date = ?";
+//        try (Connection con = getConnection();
+//             PreparedStatement pstat = con.prepareStatement(sql);)
+//        {
+//            pstat.setString(1, userSeq);
+//            pstat.setString(2, date);
+//            try(ResultSet rs = pstat.executeQuery();) {
+//                return rs.next() ? new ExerciseDTO(rs) : null;
+//            }
+//        }
+//    }
 }

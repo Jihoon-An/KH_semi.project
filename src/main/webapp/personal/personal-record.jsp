@@ -18,56 +18,63 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="boundary" id="manager">
-                              디데이 매니저
-                              <c:choose>
-                                 <c:when test="${not empty manager.title}">
-                                    <div class="manager_btnBox  m_md_box">
-                                       <span id="manager_update"><i class="fa-solid fa-pen-to-square"></i></span>
-                                       <span id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
-                                    </div>
-                                    <div class="manager_titleBox">
-                                       ${manager.title}
-                                    </div>
-                                    
-                                    <jsp:useBean id="now" class="java.util.Date"/>
-                                    <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-                                    
-                                    <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
-                                    <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
-                                    
-                                    <div class="manager_startBox">
-                                       🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
-                                       <span style="font-size: 12px;">
-                                          시작 날짜 : <fmt:formatDate value="${manager.start_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-         
-                                    </div>
-                                    <div class="manager_endBox">
-                                       🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
-                                       <span  style="font-size: 12px;">
-                                          종료 날짜 : <fmt:formatDate value="${manager.end_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-                                    </div>
-                                 </c:when>
-   
-                                 <c:otherwise>
-                                    <div class="manager_nullBox">
-                                       <div class="manager_btnBox m_a_box">
-                                          <span id="manager_add"><i class="fa-solid fa-plus"></i></span>
-                                       </div>
-                                       " 입력된 정보가 없습니다 😢 "<br>
-                                       <span style="font-size: 13px;">
-                                          " 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
-                                       </span>
-                                    </div>
-                                 </c:otherwise>
-   
-                              </c:choose>
-                           </div>
+										시설 이용 매니저
+										<c:choose>
+											<c:when test="${not empty manager.title}">
+												<div class="manager_btnBox  m_md_box">
+													<span id="manager_update"><i
+															class="fa-solid fa-pen-to-square"></i></span> <span
+														id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
+												</div>
+												<div class="manager_titleBox">${manager.title}</div>
+
+												<jsp:useBean id="now" class="java.util.Date" />
+												<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+													integerOnly="true" var="nowfmtTime" scope="request" />
+												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="start_date" scope="request" />
+												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="end_date" scope="request" />
+												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="startDate" scope="request" />
+												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
+													integerOnly="true" var="endDate" scope="request" />
+
+												<c:set value="${nowfmtTime - start_date}" var="n_s_date" />
+												<c:set value="${end_date - nowfmtTime}" var="e_n_date" />
+
+												<div class="manager_startBox">
+													🏋️‍♀️시작한지 <span style="font-size: 20px;">
+														<c:out value="${n_s_date}" />일
+													</span> 지났습니다 😊<br> <span style="font-size: 12px;"> 시작 날짜
+														:
+														<fmt:formatDate value="${manager.start_date}"
+															pattern="yyyy년 MM월 dd일" />
+													</span>
+
+												</div>
+												<div class="manager_endBox">
+													🏋️‍♂️종료까지 <span style="font-size: 20px;">
+														<c:out value="${e_n_date}" />일
+													</span> 남았습니다 😂<br> <span style="font-size: 12px;"> 종료 날짜
+														:
+														<fmt:formatDate value="${manager.end_date}"
+															pattern="yyyy년 MM월 dd일" />
+													</span>
+												</div>
+											</c:when>
+
+											<c:otherwise>
+												<div class="manager_nullBox">
+													<div class="manager_btnBox">
+														<span id="manager_add"><i class="fa-solid fa-plus"></i></span>
+													</div>
+													" 입력된 정보가 없습니다 😢 "
+												</div>
+											</c:otherwise>
+
+										</c:choose>
+									</div>
 								</div>
 								<div class="col-12">
 									<div class="calendar" id="calendar"></div>
@@ -217,60 +224,58 @@
 						</div>
 					</div>
 
-               <!-- Add Manager Form -->
-            <form id="m_add_form" action="/add_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>디데이 매니저</strong>
-                  </div>
+					<!-- Add Manager Form -->
+					<form id="m_add_form" action="/add_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>시설 이용 매니저</strong>
+							</div>
 
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <input type="date" id="m_start_input" name="m_start_input">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <input type="date" id="m_end_input" name="m_end_input">
-                  </div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목 : </span> <input type="text" id="m_title_input" name="m_title_input"
+									placeholder="제목">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작 : </span> <input type="date" id="m_start_input" name="m_start_input">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료 : </span> <input type="date" id="m_end_input" name="m_end_input">
+							</div>
 
-                  <div class="col-12 text-center m_btnBox">
-                     <button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_add_backBtn" class="m_table_btn" type="button">취소</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_add_backBtn" class="m_table_btn" type="button">빠꾸</button>
+							</div>
+						</div>
+					</form>
 
-            <!-- Update Manager Form -->
-            <form id="m_update_form" action="/update_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>디데이 매니저</strong>
-                  </div>
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate"/>
-                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate"/>
-                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
-                  </div>
+					<!-- Update Manager Form -->
+					<form id="m_update_form" action="/update_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>시설 이용 매니저</strong>
+							</div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목 : </span> <input type="text" id="mu_title_input" name="mu_title_input"
+									placeholder="제목" value="${manager.title}">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작 : </span>
+								<fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate" />
+								<input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료 : </span>
+								<fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate" />
+								<input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
+							</div>
 
-                  <div class="col-12 text-center m_btnBox">
-                     <button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_update_backBtn" class="m_table_btn" type="button">취소</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_update_backBtn" class="m_table_btn" type="button">빠꾸</button>
+							</div>
+						</div>
+					</form>
 
 					<!-- Delete Manager Form -->
 					<form id="m_delete_form" action="/del_manager.personal" method="post">
@@ -278,43 +283,41 @@
 					</form>
 
 
-            <script>
-               //Update Manager
-               $("#manager_update").on("click", () => {
-                  $("#m_update_form").show();
-               });
-               $("#m_update_backBtn").on("click", () => {
-                  $("#m_update_form").hide();
-                  $("#mu_title_input").css("background-color", "white");
-                  $("#mu_start_input").css("background-color", "white");
-                  $("#mu_end_input").css("background-color", "white");
-               });
-               $("#m_update_saveBtn").on("click", () => {
-                  if ($("#mu_title_input").val() == "") {
-                     $("#mu_title_input").css("background-color", "#faed77");
-                     $("#mu_title_input").css("transition", "1s");
-                     $("#mu_title_input").focus();
-                  }else if($("#mu_start_input").val() == "") {
-                     $("#mu_start_input").css("background-color", "#faed77");
-                     $("#mu_start_input").css("transition", "1s");
-                     $("#mu_start_input").focus();
-                  }else if($("#mu_end_input").val() == "") {
-                     $("#mu_end_input").css("background-color", "#faed77");
-                     $("#mu_end_input").css("transition", "1s");
-                     $("#mu_end_input").focus();
-                  }else {
-                     $("#mu_title_input").css("background-color", "white");
-                     $("#mu_start_input").css("background-color", "white");
-                     $("#mu_end_input").css("background-color", "white");
-                     $("#m_update_form").submit();
-                  }
-               });
-
+					<script>
+						//Update Manager
+						$("#manager_update").on("click", () => {
+							$("#m_update_form").show();
+						});
+						$("#m_update_backBtn").on("click", () => {
+							$("#m_update_form").hide();
+							$("#mu_title_input").css("background-color", "white");
+							$("#mu_start_input").css("background-color", "white");
+							$("#mu_end_input").css("background-color", "white");
+						});
+						$("#m_update_saveBtn").on("click", () => {
+							if ($("#mu_title_input").val() == "") {
+								$("#mu_title_input").css("background-color", "#faed77");
+								$("#mu_title_input").css("transition", "2s");
+								$("#mu_title_input").focus();
+							} else if ($("#mu_start_input").val() == "") {
+								$("#mu_start_input").css("background-color", "#faed77");
+								$("#mu_start_input").css("transition", "2s");
+								$("#mu_start_input").focus();
+							} else if ($("#mu_end_input").val() == "") {
+								$("#mu_end_input").css("background-color", "#faed77");
+								$("#mu_end_input").css("transition", "2s");
+								$("#mu_end_input").focus();
+							} else {
+								$("#mu_title_input").css("background-color", "white");
+								$("#mu_start_input").css("background-color", "white");
+								$("#mu_end_input").css("background-color", "white");
+								$("#m_update_form").submit();
+							}
+						});
 						// Delete Manager
 						$("#manager_delete").on("click", () => {
 							$("#m_delete_form").submit();
 						})
-
 						// Add Manager
 						$("#manager_add").on("click", () => {
 							$("#m_add_form").show();
@@ -353,7 +356,6 @@
 							$(".calendar").datepicker();
 							onSelect();
 						});
-
 						// calendar 초기화
 						function initCalendar() {
 							$.datepicker.setDefaults({
@@ -366,14 +368,11 @@
 								altField: "#reg_date"
 							});
 						}
-
 						// calendar 날짜 선택 함수
 						function onSelect() {
 							let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
 							$("#result_title").text(date);
-
 							let data = { "date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate")) }
-
 							$.getJSON("/datepick.personal", data)
 								.done(res => {
 									setMarker(res.recordList);
@@ -403,9 +402,9 @@
 										let output = "<div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
+									console.log(res.record.inbody_weight);
 								});
 						}
-
 						// 운동한 날짜 Maker 생성 함수
 						function setMarker(resData) {
 							let arrDate = document.querySelectorAll(".calendar .ui-state-default");
@@ -423,7 +422,6 @@
 								}
 							}
 						}
-
 						// Notice Text 생성 함수
 						function setNotice(recentRecord) {
 							if (recentRecord.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
@@ -436,7 +434,6 @@
 							else if (gap == 0) { context = "오늘 열심히 운동하셨군요. 앞으로도 화이팅!! 😊" }
 							$("#notice>p").text(context);
 						}
-
 						// 숫자 유효성 검사 (자연수)
 						function validNaturalNumRange(max) {
 							event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
@@ -444,7 +441,6 @@
 								event.target.value = max - 1;
 							}
 						}
-
 						// 숫자 유효성 검사
 						function vaildNumRange(max) {
 							event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -452,7 +448,6 @@
 								event.target.value = max - 1;
 							}
 						}
-
 						// 기록 작성 창 열기 애니메이션
 						function showRecord() {
 							$("#inbody")[0].style.height = "250px";
@@ -463,7 +458,6 @@
 							$("#weight_chart")[0].style.height = "200px";
 							$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 						}
-
 						// 기록 작성 창 닫기 애니메이션
 						function regCancel() {
 							$("#record").fadeOut(0, () => {
@@ -479,7 +473,6 @@
 							});
 							hideInbody();
 						}
-
 						let regInbody = false;
 						// 인바디 작성 창 열기 애니메이션
 						function showInbody() {
@@ -487,14 +480,12 @@
 							$("#btn_inbody").text("▶");
 							regInbody = true;
 						}
-
 						// 인바디 작성 창 닫기 애니메이션
 						function hideInbody() {
 							$("#reg_inbody")[0].style.left = "746px";
 							$("#btn_inbody").text("◀");
 							regInbody = false;
 						}
-
 						// 기록 등록 함수
 						function tryRegist() {
 							data = {
@@ -513,7 +504,6 @@
 									onSelect();
 								});
 						}
-
 						// 기록 삭제 함수
 						function tryDelRecord() {
 							Swal.fire({
@@ -534,7 +524,6 @@
 								}
 							});
 						}
-
 						// 기록 차트 작성 함수 
 						function setRecordChart(recentRecord) {
 							let recordCtx = document.getElementById('recordChart').getContext('2d');
@@ -554,31 +543,25 @@
 									backgroundColor: 'rgba(255, 99, 132, 0.2)'
 								}]
 							};
-
 							let recordChart = new Chart(recordCtx, {
 								data: recordData,
 								options: { responsive: false, scales: { y: { beginAtZero: true } } }
 							});
 						}
-
 						$("#reg_intens").on("input", e => {
 							$("#reg_intens_label").text(e.target.value);
 						});
-
 						$("#reg_range").on("change", e => {
 							let element, width, point, place;
 							let intens = ["😰", "🙁", "🤔", "😊", "😆"];
 							element = $(e.target);
 							width = element.width();
 							point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
-
 							if (point < 0) { place = 0; }
 							else if (point > 1) { place = width; }
 							else { place = width * point }
-
 							$("#reg_range_label").css({ left: (place * 0.9) - 5, }).text(intens[element.val() - 1]);
 						}).trigger("change");
-
 						$("#btn_regRecord").on("click", () => {
 							if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") {
 								wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false;
@@ -596,17 +579,11 @@
 								tryRegist();
 							}
 						});
-
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
-
 						// 차트 초기화
-
 						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-
 						var arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-
 						var arrWeight = [0,0,0,0];
-
 						var inbodyData = {
 							labels: arrNum,
 							datasets: [{
@@ -626,26 +603,20 @@
 								borderWidth: 1
 							}]
 						};
-
 						var inbodyChart = new Chart(inbodyCtx, {
 							data: inbodyData,
 							options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
 						});
-
-
 						// inbody chart
 						function setInbodyChart(record) {
 							$("#inbody_chart").removeData();
 							inbodyChart.destroy();
                             inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-
                             arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-
                             arrWeight = [record.inbody_weight,
                             record.inbody_bfm,
                             record.inbody_sm,
                             record.inbody_bmi];
-
                             inbodyData = {
                                 labels: arrNum,
                                 datasets: [{
@@ -665,12 +636,11 @@
                                     borderWidth: 1
                                 }]
                             };
-
+                            	// inbodyCtx.destroy();
                             inbodyChart = new Chart(inbodyCtx, {
                                 data: inbodyData,
                                 options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
                             });
-
                         }
 						
 						// weight change chart
@@ -711,4 +681,4 @@
 					</script>
 				</main>
 
-				<%@ include file="/layout/footer.jsp" %>
+				<%@ include file="/layout/footer.jsp" %>t

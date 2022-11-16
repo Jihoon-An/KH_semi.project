@@ -1,5 +1,6 @@
 package dto;
 
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 public class WeightDTO {
@@ -11,6 +12,11 @@ public class WeightDTO {
 	
 	public WeightDTO() {
 		super();
+	}
+	public WeightDTO(ResultSet resultSet) throws Exception{
+		this.user_seq = resultSet.getInt("user_seq");
+		this.weight = resultSet.getString("weight");
+		this.weight_date = resultSet.getTimestamp("weight_date");
 	}
 	public WeightDTO(int user_seq, String weight, Timestamp weight_date) {
 		super();
