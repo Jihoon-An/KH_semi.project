@@ -194,9 +194,16 @@
 
 
 
-    $(function(){
-        $('.i_review_contents').text($('.i_review_contents').html());
-    })
+    // $(function(){
+    //     $('.i_review_contents').text($('.i_review_contents').html());
+    // })
+
+
+    let contents = document.querySelectorAll('.i_review_contents');
+    for (i = 0; i < contents.length; i++) {
+        contents[i].innerText = contents[i].innerHTML;
+    }
+
 
 
 

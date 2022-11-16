@@ -18,56 +18,66 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="boundary" id="manager">
-                              디데이 매니저
-                              <c:choose>
-                                 <c:when test="${not empty manager.title}">
-                                    <div class="manager_btnBox  m_md_box">
-                                       <span id="manager_update"><i class="fa-solid fa-pen-to-square"></i></span>
-                                       <span id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
-                                    </div>
-                                    <div class="manager_titleBox">
-                                       ${manager.title}
-                                    </div>
-                                    
-                                    <jsp:useBean id="now" class="java.util.Date"/>
-                                    <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
-                                    <fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
-                                    <fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-                                    
-                                    <c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
-                                    <c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
-                                    
-                                    <div class="manager_startBox">
-                                       🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
-                                       <span style="font-size: 12px;">
-                                          시작 날짜 : <fmt:formatDate value="${manager.start_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-         
-                                    </div>
-                                    <div class="manager_endBox">
-                                       🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
-                                       <span  style="font-size: 12px;">
-                                          종료 날짜 : <fmt:formatDate value="${manager.end_date}" pattern="yyyy년 MM월 dd일"/>
-                                       </span>
-                                    </div>
-                                 </c:when>
-   
-                                 <c:otherwise>
-                                    <div class="manager_nullBox">
-                                       <div class="manager_btnBox m_a_box">
-                                          <span id="manager_add"><i class="fa-solid fa-plus"></i></span>
-                                       </div>
-                                       " 입력된 정보가 없습니다 😢 "<br>
-                                       <span style="font-size: 13px;">
-                                          " 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
-                                       </span>
-                                    </div>
-                                 </c:otherwise>
-   
-                              </c:choose>
-                           </div>
+										디데이 매니저
+										<c:choose>
+											<c:when test="${userSeq == null}">
+												" 로그인 후 이용하세요! 😃 "
+											</c:when>
+											<c:otherwise>
+												
+												<c:choose>
+													<c:when test="${not empty manager.title}">
+														<div class="manager_btnBox  m_md_box">
+														<span id="manager_update"><i class="fa-solid fa-pen-to-square"></i></span>
+														<span id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
+														</div>
+														<div class="manager_titleBox">
+														${manager.title}
+														</div>
+														
+														<jsp:useBean id="now" class="java.util.Date"/>
+														<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
+														<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
+														<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
+														<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
+														<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
+														
+														<c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
+														<c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
+														
+														<div class="manager_startBox">
+														🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
+														<span style="font-size: 12px;">
+															시작 날짜 : <fmt:formatDate value="${manager.start_date}" pattern="yyyy년 MM월 dd일"/>
+														</span>
+							
+														</div>
+														<div class="manager_endBox">
+														🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
+														<span  style="font-size: 12px;">
+															종료 날짜 : <fmt:formatDate value="${manager.end_date}" pattern="yyyy년 MM월 dd일"/>
+														</span>
+														</div>
+													</c:when>
+					
+													<c:otherwise>
+														<div class="manager_nullBox">
+														<div class="manager_btnBox m_a_box">
+															<span id="manager_add"><i class="fa-solid fa-plus"></i></span>
+														</div>
+														" 입력된 정보가 없습니다 😢 "<br>
+														<span style="font-size: 13px;">
+															" 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
+														</span>
+														</div>
+													</c:otherwise>
+					
+												</c:choose>
+												
+											</c:otherwise>
+										</c:choose>
+										
+									</div>
 								</div>
 								<div class="col-12">
 									<div class="calendar" id="calendar"></div>
