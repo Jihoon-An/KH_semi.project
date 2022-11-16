@@ -255,11 +255,13 @@
 	left: 140px;
 	bottom: 15px;
 }
+#personal-record .m_a_box{bottom: 20px;}
 #personal-record .manager_btnBox > span{
 	padding-left: 7px;
 	cursor: pointer;
 	color: #606060;
 }
+#personal-record .manager_btnBox > span:hover{color: black;}
 #personal-record .manager_titleBox{
 	width: fit-content;
 	font-weight: bold;
@@ -267,6 +269,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	border: 2px solid rgb(255, 238, 0);
+	border-radius: 6px;
 	background-color: rgba(242, 250, 127, 0.3);
 }
 
@@ -283,23 +286,48 @@
 	font-size: 1.2em;
 }
 
-/* Manager Add Form CSS */
+/* Manager Form CSS */
 #personal-record .m_table{
 	width: 300px;
-	background-color: #C7D3DC;
+	background-color: #8f959a;
 	border: 1px solid #808080;
-	box-shadow: 2px 2px 2px 2px #d1d1d1;
+	box-shadow: 1px 1px 1px 1px #b9b9b9;
 	opacity: 0.97;
 	border-radius: 6px;
-	padding-top: 10px;
-	position: absolute;
-	left: 745px;
-	top: 237px;
+	padding-top: 20px;
+	position: relative;
+	left: 750px;
+	bottom: 701px;
 }
-#personal-record .m_head{margin-bottom: 7px;}
-#personal-record .m_inputDiv{margin-bottom: 5px;}
+#personal-record .m_head{margin-bottom: 13px;}
+#personal-record .m_inputDiv{margin-bottom: 12px;}
+#personal-record .m_table strong{font-size: 1.1em;}
+#personal-record .m_table_btn{
+	margin-bottom: 16px;
+	border: 1px solid #808080;
+	border-radius: 6px;
+	font-size: 14px;
+}
+#personal-record .m_table_btn:hover{
+	color: #fff;
+	background-color: black;
+	text-decoration: none;
+	transition: 0.5s;
+}
+#personal-record .m_table_btn:active{
+	transform: scale(0.95);
+	color: #fff;
+	background-color: black;
+	text-decoration: none;
+	transition: 0s;
+}
 #personal-record .m_table input{
 	width: 150px;
+	margin-left: 25px;
+	padding: 3px;
+	padding-left: 10px;
+	font-size: 13px;
+	border: 1px solid #808080;
 }
 
 

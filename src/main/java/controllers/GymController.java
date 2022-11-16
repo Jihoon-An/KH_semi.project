@@ -92,6 +92,7 @@ public class GymController extends ControllerAbs {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("/");
         }
     }
 
