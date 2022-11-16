@@ -787,4 +787,4 @@
 					
 				</main>
 
-				<%@ include file="/layout/footer.jsp" %>t
+				<%@ include file="/layout/footer.jsp" %>
