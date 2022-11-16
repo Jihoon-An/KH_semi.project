@@ -198,7 +198,7 @@ public class ReviewDAO extends Dao {
      */
     public List<HashMap<String, Object>> selectSortByLikes() throws Exception {
         List<HashMap<String, Object>> result = new ArrayList<>();
-        String sql = "select * from (select * from review order by review_like desc) r left join gym g on r.gym_seq = g.gym_seq where rownum <= 10";
+        String sql = "select * from (select review.*, row_number() over(order by review_like desc) rn from review) r left join gym g on r.gym_seq = g.gym_seq where rn <= 10";
         try (Connection con = getConnection();
              PreparedStatement pstat = con.prepareStatement(sql);
              ResultSet rs = pstat.executeQuery();
@@ -812,6 +812,25 @@ public class ReviewDAO extends Dao {
                     return new ReviewDTO();
                 }
             }
+        }
+    }
+
+
+    // 리뷰 인증 등록된 사진 파일 지울 때 seq로 name 얻어옴
+    public String getFileNameByReviewSeq(int review_seq) throws Exception {
+        String sql = "select review_photo from review where review_seq = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, review_seq);
+            try (ResultSet resultSet = statement.executeQuery();) {
+
+                if (resultSet.next()) {
+                    return resultSet.getString("review_photo");
+                }
+            }
+            return "";
         }
     }
 

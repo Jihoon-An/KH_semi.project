@@ -14,6 +14,7 @@
             <form action="" id="write_review_frm" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="gym_seq" value="${gym_seq}">
                 <input type="hidden" name="gym_name" value="${gym_name}">
+                <input type="hidden" name="review_seq" value="0">
 
                 <div class="d-flex flex-row mb-3">
                     <div class="p-2 reviw_title">
@@ -359,39 +360,87 @@
 
     //이미지 미리보기
 
-    $(document).ready(function () {
-        $("#review_photo").on("change", handleImgFileSelect);
-    });
+    // $(document).ready(function () {
+    //     $("#review_photo").on("change", handleImgFileSelect);
+    // });
+    //
+    // function handleImgFileSelect(e) {
+    //     var files = e.target.files;
+    //     var filesArr = Array.prototype.slice.call(files);
+    //
+    //     var reg = /(.*?)\/(jpg|jpeg|png|bmp|gif|pdf)$/;
+    //
+    //     filesArr.forEach(function (f) {
+    //         if (!f.type.match(reg)) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: '이미지 업로드 불가',
+    //                 text: '이미지 파일만 업로드 가능합니다.',
+    //                 confirmButtonText: '확인'
+    //             })
+    //             return;
+    //         }
+    //
+    //         sel_file = f;
+    //
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             $("#review_photo_view").attr("src", e.target.result);
+    //         }
+    //         reader.readAsDataURL(f);
+    //     });
+    //
+    //     pi_check = true;
+    // }
 
 
+
+    var afterPi = ""; // 미리보기 전에 미리 선언 됨
+    var pi_check = false;
+    var sel_file;
+
+    $("#review_photo").on("change", handleImgFileSelect);
+
+    //이미지 미리보기
     function handleImgFileSelect(e) {
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
 
-        var reg = /(.*?)\/(jpg|jpeg|png|bmp|gif|pdf)$/;
+        if(files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
 
-        filesArr.forEach(function (f) {
-            if (!f.type.match(reg)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '이미지 업로드 불가',
-                    text: '이미지 파일만 업로드 가능합니다.',
-                    confirmButtonText: '확인'
-                })
-                return;
-            }
+            var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
 
-            sel_file = f;
+            filesArr.forEach(function (f) {
+                if (!f.type.match(reg)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미지 업로드 불가',
+                        text: '이미지 파일만 업로드 가능합니다.',
+                        confirmButtonText: '확인'
+                    })
+                    return;
+                }
 
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#review_photo_view").attr("src", e.target.result);
-            }
-            reader.readAsDataURL(f);
-        });
+                sel_file = f;
 
-        pi_check = true;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#review_photo_view").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(f);
+            });
+
+            pi_check = true;
+        }
+        else{ // 취소를 눌렀을 때 행동
+            $("#review_photo_view").attr("src", "");
+        }
     }
+
+
+
+
+
 
 </script>
 

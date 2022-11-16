@@ -92,6 +92,7 @@ public class GymController extends ControllerAbs {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("/");
         }
     }
 
@@ -119,7 +120,7 @@ public class GymController extends ControllerAbs {
 
 
         HashMap<String, Object> avg = reviewDao.gymAvg(gym_seq);
-        System.out.println(avg);
+ 
         HashMap<String, Object> check = reviewDao.reviewChkCount(gym_seq);
 
         // 리뷰
@@ -199,28 +200,21 @@ public class GymController extends ControllerAbs {
         JsonObject total = new JsonObject();
         JsonObject obj = new JsonObject();
         boolean exist = likesDao.isLikeExist(review_seq, userSeq, gym_seq);
-        
-        if(!(exist)){
-            int addlikes= likesDao.add(new LikesDTO(review_seq, userSeq, gym_seq));
-            int addrelikes= reviewDAO.addReviewLike(review_seq);
-       
-            System.out.println("좋아요 추가");
 
-        response.getWriter().append("false");
-        }else {
-        	 int delReLikes= reviewDAO.delReviewLike(review_seq);
-        	 int delLikes = likesDao.remove(review_seq, gym_seq, userSeq);
-             System.out.println("좋아요 삭제");
-
-           response.getWriter().append("true");
-        }
-
-   
-       
+        if (!(exist)) {
+            int addlikes = likesDao.add(new LikesDTO(review_seq, userSeq, gym_seq));
+            int addrelikes = reviewDAO.addReviewLike(review_seq);
     
+            response.getWriter().append("false");
+        } else {
+            int delReLikes = reviewDAO.delReviewLike(review_seq);
+            int delLikes = likesDao.remove(review_seq, gym_seq, userSeq);
+ 
+            response.getWriter().append("true");
+        }
     }
 
- 
+
     // 리뷰 글쓰기 페이지로 이동
     protected void moveWrite(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int gym_seq = Integer.parseInt(request.getParameter("gym_seq"));

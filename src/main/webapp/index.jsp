@@ -169,13 +169,17 @@
 							let review = reviewBuilder(res.reviewList[i]);
 							item_list[i].innerHTML = review;
 							item_list[i + 10].innerHTML = review;
+							$(item_list[i]).find(".item_title>a")[0].innerText = res.reviewList[i].gym.gym_name;
+							$(item_list[i+ 10]).find(".item_title>a")[0].innerText = res.reviewList[i].gym.gym_name;
+							$(item_list[i]).find(".item_contents")[0].innerText = res.reviewList[i].review.review_contents;
+							$(item_list[i+ 10]).find(".item_contents")[0].innerText = res.reviewList[i].review.review_contents;
 						}
 					});
 				}
 
 				// Review 폼 구성 함수
 				function reviewBuilder(data) {
-					let gymName = "<div class='col-12 text_title_600 text-truncate item_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'>" + data.gym.gym_name + "</a></div>";
+					let gymName = "<div class='col-12 text_title_600 text-truncate item_title'><a href='/detail.gym?gym_seq=" + data.gym.gym_seq + "'></a></div>";
 					let star = "";
 					for (j = 1; j < 6; j++) {star += j <= data.review.review_star ? "<label class='item_filledStar'>★</label>" : "<label class='item_emptyStar'>★</label>";}
 					let score = "<div class='col-12 gy-2' align=center>" + star + "</div>";
@@ -184,7 +188,7 @@
 					let writer = "<div class='col-6 text-start text-truncate item_writer' style='padding-left:15px'>" + certified + data.review.review_writer + "</div>";
 					let writeDate = "<div class='col-6 text_mini text-end text item_date' style='color:#808080; padding-right:15px'>" + getDateFormat(new Date(data.review.review_writer_date)).slice(0, -3) + "</div>";
 					let likes = "<div class='col-6'></div><div class='col-6 text_mini text-end item_likes' style='color:#808080; padding-right:15px'>추천수 : " + data.review.review_like + "</div>";
-					let contents = "<div class='col-12 gy-3 item_contents'>" + data.review.review_contents + "</div>";
+					let contents = "<div class='col-12 gy-3 item_contents'></div>";
 					let medal = "<img src='resource/img/medal.png' class='item_medal'>"
 					let result = "<div class='row'>" + gymName + score + space + writer + writeDate + likes + contents + "</div>" + medal;
 					return result;

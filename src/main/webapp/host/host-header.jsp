@@ -59,8 +59,8 @@
     <div id="headerMarginBox"></div>
     <header id="nav">
             <div class="logoDiv">
-                <a class="a_tag" href="/admin.host"><h2 class="logo">Fitneeds</h2>
-                    <h2 class="logo" id="adminText">ADMIN</h2></a>
+                <a class="a_tag" href="/"><h2 class="logo">Fitneeds</h2></a>
+                    <a class="a_tag" href="/admin.host"><h2 class="logo" id="adminText">ADMIN</h2></a>
             </div>
             <nav>
                 <ul>

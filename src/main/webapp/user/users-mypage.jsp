@@ -222,7 +222,7 @@
     <script>
         ///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 
-
+        var afterPi = ""; // 미리보기 전에 미리 선언 됨
         var pi_check = false;
         var sel_file;
 
@@ -233,29 +233,46 @@
             var files = e.target.files;
             var filesArr = Array.prototype.slice.call(files);
 
-            var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
+            if(files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
 
-            filesArr.forEach(function (f) {
-                if (!f.type.match(reg)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '이미지 업로드 불가',
-                        text: '이미지 파일만 업로드 가능합니다.',
-                        confirmButtonText: '확인'
-                    })
-                    return;
+                var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
+
+                filesArr.forEach(function (f) {
+                    if (!f.type.match(reg)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '이미지 업로드 불가',
+                            text: '이미지 파일만 업로드 가능합니다.',
+                            confirmButtonText: '확인'
+                        })
+                        return;
+                    }
+
+                    sel_file = f;
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#user_img").attr("src", e.target.result);
+                    }
+                    reader.readAsDataURL(f);
+                });
+
+                pi_check = true;
+            }
+            else{ // 취소를 눌렀을 때 행동
+                console.log("/resource/profileImg/"+afterPi);
+                let basPi = "${user.pi}"; // 페이지를 불러왔을 때의 사진 경로
+                if(afterPi != null && afterPi != ""){ // 페이지에서 프사를 한번 바꿨을 때(저장을 한번 된 상태-데이터테이블+이미지저장)
+                    $("#user_img").attr("src", "/resource/profileImg/"+afterPi); // 취소를 누르면 원래 값으로 돌아가기
                 }
-
-                sel_file = f;
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $("#user_img").attr("src", e.target.result);
+                else if (basPi != "/resource/profileImg/") { // 파일 비어 있으면 이렇게 옴
+                    $("#user_img").attr("src", basPi); // 취소를 눌러서 파일이 없으면 처음 저장된 아이 가져옴.
                 }
-                reader.readAsDataURL(f);
-            });
-
-            pi_check = true;
+                else { // 둘다 아니라면 기본 이미지 보내기 - 원래 프사가 없던 애
+                    $("#user_img").attr("src", "/resource/img/default_profile.png");
+                }
+                pi_check = false; // 취소하기 누르면 null 들어가고 기본 이미
+            }
         }
 
         //이미지 저장
@@ -272,6 +289,7 @@
                 , data: form
                 , success: function (response) {
                     console.log("프로필 변경에 성공하였습니다.");
+                    afterPi = response; // 성공하면 afterPi(이미지이름)를 보내줌
                 }
                 , error: function (jqXHR) {
                     alert(jqXHR.responseText);

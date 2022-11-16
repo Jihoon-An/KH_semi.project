@@ -101,7 +101,7 @@
                     <!--<li class="float-start"><a class="header_a_tag" href="#">실시간리뷰</a></li>-->
                     <c:choose>
                         <c:when test="${!admin}">
-                            <li class="float-start"><a class="header_a_tag" onclick="toRecord()">운동기록</a></li>
+                            <li class="float-start"><a class="header_a_tag" href="/main.personal">운동기록</a></li>
                         </c:when>
                     </c:choose>
                 </ul>
@@ -125,7 +125,7 @@
                                 <a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
                             </li>
                         </c:when>
-                        <c:when test="${admin}">
+                        <c:when test="${admin || userSeq=='1044' || bsSeq=='273'}">
                             <li class="float-end">
                                 <a class="header_a_tag"
                                    onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>
@@ -168,9 +168,6 @@
         }
     }
 
-    function toRecord() {
-        $("header").attr("seq") == "" ? Swal.fire({ title: "Error", icon: "error", text: "로그인 후 이용하세요." }) : location.href = "/main.personal"
-    }
 
     function getDateFormat(date) {
         let month = date.getMonth() + 1;
