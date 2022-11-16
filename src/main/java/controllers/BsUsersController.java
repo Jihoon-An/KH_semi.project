@@ -1,24 +1,22 @@
 package controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import commons.Common;
+import dao.*;
+import dto.BsCtfcDTO;
+import dto.BsUsersDTO;
+import dto.GymDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import commons.Common;
-import dao.*;
-import dto.BsCtfcDTO;
-import dto.BsUsersDTO;
-import dto.GymDTO;
+import java.io.File;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Servlet implementation class BsController
@@ -93,6 +91,7 @@ public class BsUsersController extends HttpServlet {
 		if (!list.isEmpty()) {
 			if (Common.getSHA512(req_pw).equals(list.get(0).getBs_pw())) {
 				// 로그인 성공
+				request.getSession().invalidate();
 				request.getSession().setAttribute("bsSeq", list.get(0).getBs_seq());
 				return true;
 			} else {
