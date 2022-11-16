@@ -51,6 +51,7 @@
     width: 100%;
     height: 50px;
     float: left;
+    overflow: hidden;
 }
 
 #gym-detail .placemap {
@@ -159,6 +160,7 @@
     padding-top: 2px;
     padding-left: 15px;
     overflow: hidden;
+    overflow: hidden;
 }
 
 #gym-detail .gym_info_location {
@@ -180,8 +182,9 @@
     margin-top: 15px;
     margin-bottom: 15px;
     overflow: hidden;
-    padding: 0px 20px;
+    padding: 30px 20px;
     text-align: center;
+    overflow: hidden;
 }
 
 #gym-detail .gym_info_tagBox > .gym_info_tag {
@@ -238,7 +241,7 @@
 
 
 #gym-detail .fa-heart {
-    color: #8f959a;
+    color: #C7D3DC;
 
 }
 
