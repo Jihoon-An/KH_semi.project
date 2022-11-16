@@ -222,7 +222,7 @@
     <script>
         ///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 
-        var afterPi = "";
+        var afterPi = ""; // 미리보기 전에 미리 선언 됨
         var pi_check = false;
         var sel_file;
 
@@ -233,7 +233,7 @@
             var files = e.target.files;
             var filesArr = Array.prototype.slice.call(files);
 
-            if(files.length > 0) {
+            if(files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
 
                 var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
 
@@ -259,18 +259,19 @@
 
                 pi_check = true;
             }
-            else{
+            else{ // 취소를 눌렀을 때 행동
                 console.log("/resource/profileImg/"+afterPi);
-                let basPi = "${user.pi}";
-                if(afterPi != null){
-                    $("#user_img").attr("src", "/resource/profileImg/"+afterPi);
+                let basPi = "${user.pi}"; // 페이지를 불러왔을 때의 사진 경로
+                if(afterPi != null && afterPi != ""){ // 페이지에서 프사를 한번 바꿨을 때(저장을 한번 된 상태-데이터테이블+이미지저장)
+                    $("#user_img").attr("src", "/resource/profileImg/"+afterPi); // 취소를 누르면 원래 값으로 돌아가기
                 }
-                else if (basPi != "/resource/profileImg/") {
-                    $("#user_img").attr("src", basPi);
+                else if (basPi != "/resource/profileImg/") { // 파일 비어 있으면 이렇게 옴
+                    $("#user_img").attr("src", basPi); // 취소를 눌러서 파일이 없으면 처음 저장된 아이 가져옴.
                 }
-                else {
+                else { // 둘다 아니라면 기본 이미지 보내기 - 원래 프사가 없던 애
                     $("#user_img").attr("src", "/resource/img/default_profile.png");
                 }
+                pi_check = false; // 취소하기 누르면 null 들어가고 기본 이미
             }
         }
 
@@ -288,7 +289,7 @@
                 , data: form
                 , success: function (response) {
                     console.log("프로필 변경에 성공하였습니다.");
-                    afterPi = response;
+                    afterPi = response; // 성공하면 afterPi(이미지이름)를 보내줌
                 }
                 , error: function (jqXHR) {
                     alert(jqXHR.responseText);
@@ -416,7 +417,7 @@
         $("sex_btn").css("cursor", "default");
         // 프로필 이미지 초기 세팅
         let root = "${user.pi}";
-        if (root != "/resource/profileImg/null") {
+        if (root != "/resource/profileImg/null" && root != "/resource/profileImg/") {
             $("#user_img").attr("src", root);
         }
         // 프로필 수정하기 버튼 클릭 이벤트

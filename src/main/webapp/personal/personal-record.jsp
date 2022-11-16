@@ -159,9 +159,10 @@
 														style="padding-bottom: 0px; margin-top: 30px">
 														<form>
 															<input type="range" class="form-range" id="reg_range"
-																min="1" max="5" style="width: 160px; height: 24px">
+																min="1" max="5" style="width: 140px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
+																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-6px; padding:3px">중</label>
 														</form>
 													</div>
 												</div>
@@ -400,6 +401,10 @@
 										setInbodyChart(res.record);
 									}
 
+									if (onRecord && $(".ui-state-active").hasClass("fire")) {
+										regCancel();
+									}
+
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
 										let exrHow = ""
@@ -424,6 +429,7 @@
 										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
+									console.log(res.record.inbody_weight);
 								});
 						}
 
@@ -474,6 +480,7 @@
 							}
 						}
 
+						let onRecord = false;
 						// 기록 작성 창 열기 애니메이션
 						function showRecord() {
 							$("#inbody")[0].style.height = "250px";
@@ -483,6 +490,7 @@
 							$("#inbody_chart")[0].style.height = "200px";
 							$("#weight_chart")[0].style.height = "200px";
 							$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
+							onRecord = true;
 						}
 
 						// 기록 작성 창 닫기 애니메이션
@@ -499,6 +507,7 @@
 								$("#reg_memo, #reg_weight, #reg_fat, #reg_muscle, #reg_bmi").val("");
 							});
 							hideInbody();
+							onRecord = false;
 						}
 
 						let regInbody = false;
@@ -580,13 +589,14 @@
 							});
 						}
 
-						$("#reg_intens").on("input", e => {
-							$("#reg_intens_label").text(e.target.value);
+						$("#reg_range").on("input", e => {
+							let intens = ['최하', '하', '중', '상', '최상'];
+							$("#reg_intens_label").text(intens[e.target.value - 1]);
 						});
 
 						$("#reg_range").on("change", e => {
 							let element, width, point, place;
-							let intens = ["😰", "🙁", "🤔", "😊", "😆"];
+							let intens = ["😰", "🙁", "😶", "😊", "😆"];
 							element = $(e.target);
 							width = element.width();
 							point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
@@ -609,8 +619,6 @@
 							let today = new Date(getDateFormat(new Date()).slice(0, 10) + " 00:00:00");
 							if (today < $("#calendar").datepicker("getDate")) {
 								Swal.fire({ icon: 'error', title: 'Error!', html: '미래에서 오셨나요?<br>선택한 날짜가 오늘보다 뒤입니다.' });
-							} else if ($(".ui-state-active").hasClass("fire")) {
-								Swal.fire({ icon: 'error', title: 'Error!', html: '기록이 이미 등록 되어있습니다.<br>날짜를 다시 선택하세요.' });
 							} else {
 								tryRegist();
 							}
@@ -689,7 +697,6 @@
                                 data: inbodyData,
                                 options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
                             });
-
                         }
 						
 						// weight change chart

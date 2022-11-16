@@ -8,7 +8,7 @@
 <main id="gym-modify">
     <form id="gym-modify-form" action="/updateGym.bsPage" method="post" enctype="multipart/form-data">
         <input type="hidden" name="gymSeq" value="${gym.gym_seq}">
-        <input type="hidden" name="bsSeq" value="777">
+        <input type="hidden" name="bsSeq" value="${bsSeq}">
         <div class="container" align="center">
             <!-- 사업자 회원가입 폼 -->
 
@@ -34,7 +34,7 @@
                                 <span class="inputTitle">시설이름</span>
                             </div>
                             <input type="text" name="gym_name" id="gym_name" placeholder="시설 이름을 입력하세요"
-                                   value="${gym.gym_name}">
+                                   value="${gym.gym_name}" maxlength="15">
                             <div class="error_msg text_mini text-start" style="width: 350px">
                                 <span class="error_msg_display" id="gym_name_msg"></span>
                             </div>
@@ -59,7 +59,7 @@
                                 <span class="inputTitle">시설가격</span>
                             </div>
                             <input type="text" name="gym_price" id="gym_price" placeholder="시설 가격을 입력하세요"
-                                   value="${gym.gym_price}">
+                                   value="${gym.gym_price}" maxlength="40">
                         </div>
 
 
@@ -68,14 +68,14 @@
                                 <span class="inputTitle">시설 OPEN 시간</span>
                             </div>
                             <input type="text" name="gym_open" id="gym_open" placeholder="시설 OPEN 시간을 입력하세요"
-                                   value="${gym.gym_open}">
+                                   value="${gym.gym_open}" maxlength="20">
 
 
                             <div class="text-start">
                                 <span class="inputTitle">시설 CLOSE 시간</span>
                             </div>
                             <input type="text" name="gym_close" id="gym_close" placeholder="시설 CLOSE 시간을 입력하세요"
-                                   value="${gym.gym_close}">
+                                   value="${gym.gym_close}" maxlength="20">
                         </div>
 
 
@@ -212,14 +212,14 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img1" id="gym_img1_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img2"  id="gym_img2_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
@@ -229,14 +229,14 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img3" id="gym_img3_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img3" id="gym_img3" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img4" id="gym_img4_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
@@ -246,14 +246,14 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img5" id="gym_img5_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img6" id="gym_img6_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                         <button type="button" class="del_img_btn">지우기</button>
                                     </label>
                                     <input name="gym_img6" id="gym_img6" type="file" class="gym_imgFile">
@@ -609,7 +609,7 @@
             $("#del_img_list").val(JSON.stringify(delImgList));
             console.log($("#del_img_list").val());
             // div초기화
-            $(this).siblings("img").attr("src","/resource/gym/default04.png");
+            $(this).siblings("img").attr("src","/resource/img/default04.png");
             $(this).css("display","none");
         });
 

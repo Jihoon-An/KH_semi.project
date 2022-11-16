@@ -287,7 +287,8 @@ public class BsPageController extends ControllerAbs {
                 if (delImg.endsWith(mainImg)) {
                     checkChangMainImg = true;
                 }
-                File delFile = new File(delImg);
+                String savePath = request.getServletContext().getRealPath(delImg);
+                File delFile = new File(savePath);
                 delFile.delete();
                 String rm = delImg.replaceAll(".*/", "");
                 beforeImgList.remove(rm);

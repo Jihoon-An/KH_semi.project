@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -169,13 +170,20 @@ public class HostUserController extends ControllerAbs {
     }
 
     private void reviewDel(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        FileControl fileControl = new FileControl();
         String jsonstr = request.getParameter("review_seq");
+        String path = "/resource/review";
+
         Gson gson = new Gson();
-        java.lang.reflect.Type type = new TypeToken<List<Integer>>() {}.getType();
+        Type type = new TypeToken<List<Integer>>() {}.getType();
         List<Integer> seqList = gson.fromJson(jsonstr, type);
         for(int i = 0; i < seqList.size(); i++) {
+            String beforePhotoName = ReviewDAO.getInstance().getFileNameByReviewSeq((seqList.get(i)));
+            fileControl.delete(request, path, beforePhotoName);
             ReviewDAO.getInstance().deleteByReviewSeq((seqList.get(i)));
         }
+
+
     }
 
     private void reviewCertify(HttpServletRequest request, HttpServletResponse response) throws Exception {
