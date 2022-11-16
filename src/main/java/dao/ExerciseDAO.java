@@ -55,26 +55,11 @@ public class ExerciseDAO extends Dao{
     		}
     	}
     }
-    
-    public void insertWeight(WeightDTO wet) throws Exception{
-    	String sql = "insert into weight values(user_seq.nextval,?,?)";
+
+    public List<ExerciseDTO> selectWeightAll(int user_seq) throws Exception{
+    	String sql = "select * from exercise where user_seq = ? and inbody_weight is not null order by 2 desc";
     	
-    	try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-    			){
-    		pstat.setString(1, wet.getWeight());
-    		pstat.setTimestamp(2, wet.getWeight_date());
-    		
-    		int result = pstat.executeUpdate();
-    		con.commit();
-    	}
-    	
-    }
-    
-    public List<WeightDTO> selectWeightAll(int user_seq) throws Exception{
-    	String sql = "selcet * from weight where user_seq = ?";
-    	
-    	List<WeightDTO> result = new ArrayList<>();
+    	List<ExerciseDTO> result = new ArrayList<>();
     	
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
@@ -83,7 +68,7 @@ public class ExerciseDAO extends Dao{
     		
     		try(ResultSet rs = pstat.executeQuery();){
     			while(rs.next()) {
-    				result.add(new WeightDTO(rs));
+    				result.add(new ExerciseDTO(rs));
     				
     			}
     		}

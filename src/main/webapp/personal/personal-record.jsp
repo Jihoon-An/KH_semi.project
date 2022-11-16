@@ -18,62 +18,85 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="boundary" id="manager">
-										시설 이용 매니저
+										디데이 매니저
 										<c:choose>
-											<c:when test="${not empty manager.title}">
-												<div class="manager_btnBox  m_md_box">
-													<span id="manager_update"><i
-															class="fa-solid fa-pen-to-square"></i></span> <span
-														id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
-												</div>
-												<div class="manager_titleBox">${manager.title}</div>
-
-												<jsp:useBean id="now" class="java.util.Date" />
-												<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
-													integerOnly="true" var="nowfmtTime" scope="request" />
-												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
-													integerOnly="true" var="start_date" scope="request" />
-												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
-													integerOnly="true" var="end_date" scope="request" />
-												<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}"
-													integerOnly="true" var="startDate" scope="request" />
-												<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}"
-													integerOnly="true" var="endDate" scope="request" />
-
-												<c:set value="${nowfmtTime - start_date}" var="n_s_date" />
-												<c:set value="${end_date - nowfmtTime}" var="e_n_date" />
-
-												<div class="manager_startBox">
-													🏋️‍♀️시작한지 <span style="font-size: 20px;">
-														<c:out value="${n_s_date}" />일
-													</span> 지났습니다 😊<br> <span style="font-size: 12px;"> 시작 날짜
-														:
-														<fmt:formatDate value="${manager.start_date}"
-															pattern="yyyy년 MM월 dd일" />
-													</span>
-
-												</div>
-												<div class="manager_endBox">
-													🏋️‍♂️종료까지 <span style="font-size: 20px;">
-														<c:out value="${e_n_date}" />일
-													</span> 남았습니다 😂<br> <span style="font-size: 12px;"> 종료 날짜
-														:
-														<fmt:formatDate value="${manager.end_date}"
-															pattern="yyyy년 MM월 dd일" />
-													</span>
-												</div>
+											<c:when test="${userSeq == null}">
+												" 로그인 후 이용하세요! 😃 "
 											</c:when>
-
 											<c:otherwise>
-												<div class="manager_nullBox">
-													<div class="manager_btnBox">
-														<span id="manager_add"><i class="fa-solid fa-plus"></i></span>
-													</div>
-													" 입력된 정보가 없습니다 😢 "
-												</div>
-											</c:otherwise>
 
+												<c:choose>
+													<c:when test="${not empty manager.title}">
+														<div class="manager_btnBox  m_md_box">
+															<span id="manager_update"><i
+																	class="fa-solid fa-pen-to-square"></i></span>
+															<span id="manager_delete"><i
+																	class="fa-solid fa-trash-can"></i></span>
+														</div>
+														<div class="manager_titleBox">
+															${manager.title}
+														</div>
+
+														<jsp:useBean id="now" class="java.util.Date" />
+														<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+															integerOnly="true" var="nowfmtTime" scope="request" />
+														<fmt:parseNumber
+															value="${manager.start_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="start_date" scope="request" />
+														<fmt:parseNumber
+															value="${manager.end_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="end_date" scope="request" />
+														<fmt:parseNumber
+															value="${manager.start_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="startDate" scope="request" />
+														<fmt:parseNumber
+															value="${manager.end_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="endDate" scope="request" />
+
+														<c:set value="${nowfmtTime - start_date}" var="n_s_date" />
+														<c:set value="${end_date - nowfmtTime}" var="e_n_date" />
+
+														<div class="manager_startBox">
+															🏋️‍♀️시작한지 <span style="font-size: 20px;">
+																<c:out value="${n_s_date}" />일
+															</span> 지났습니다 😊<br>
+															<span style="font-size: 12px;">
+																시작 날짜 :
+																<fmt:formatDate value="${manager.start_date}"
+																	pattern="yyyy년 MM월 dd일" />
+															</span>
+
+														</div>
+														<div class="manager_endBox">
+															🏋️‍♂️종료까지 <span style="font-size: 20px;">
+																<c:out value="${e_n_date}" />일
+															</span> 남았습니다 😂<br>
+															<span style="font-size: 12px;">
+																종료 날짜 :
+																<fmt:formatDate value="${manager.end_date}"
+																	pattern="yyyy년 MM월 dd일" />
+															</span>
+														</div>
+													</c:when>
+
+													<c:otherwise>
+														<div class="manager_nullBox">
+															<div class="manager_btnBox m_a_box">
+																<span id="manager_add"><i
+																		class="fa-solid fa-plus"></i></span>
+															</div>
+															" 입력된 정보가 없습니다 😢 "<br>
+															<span style="font-size: 13px;">
+																" 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
+															</span>
+														</div>
+													</c:otherwise>
+
+												</c:choose>
+
+											</c:otherwise>
 										</c:choose>
+
 									</div>
 								</div>
 								<div class="col-12">
@@ -215,7 +238,8 @@
 														style="width: 60px" oninput="vaildNumRange(100)" maxlength="5">
 												</div>
 												<div class="col-12"></div>
-												<button class=text_normal_600 id="btn_inbody">I<br>n<br>b<br>o<br>d<br>y</button>
+												<button class=text_normal_600
+													id="btn_inbody">I<br>n<br>b<br>o<br>d<br>y</button>
 											</div>
 											<div id="reg_filter"></div>
 										</div>
@@ -232,21 +256,20 @@
 								<strong>시설 이용 매니저</strong>
 							</div>
 
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목" 
-					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <input type="date" id="m_start_input" name="m_start_input"
-					 min="1950-1-1" max="9999-12-31">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <input type="date" id="m_end_input" name="m_end_input"
-					 max="9999-12-31">
-                  </div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목</span>
+								<input type="text" id="m_title_input" name="m_title_input" placeholder="제목"
+									maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작</span>
+								<input type="date" id="m_start_input" name="m_start_input" min="1950-1-1"
+									max="9999-12-31">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료</span>
+								<input type="date" id="m_end_input" name="m_end_input" max="9999-12-31">
+							</div>
 
 							<div class="col-12 text-center">
 								<button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
@@ -255,29 +278,30 @@
 						</div>
 					</form>
 
-            <!-- Update Manager Form -->
-            <form id="m_update_form" action="/update_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>디데이 매니저</strong>
-                  </div>
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}"
-					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate"/>
-                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}" 
-					 min="1950-1-1" max="9999-12-31">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate"/>
-                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}" 
-					 max="9999-12-31">
-                  </div>
+					<!-- Update Manager Form -->
+					<form id="m_update_form" action="/update_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>디데이 매니저</strong>
+							</div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목</span>
+								<input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목"
+									value="${manager.title}" maxlength="15"
+									oninput="this.value = this.value.replace(/[<>]/g, '');">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작</span>
+								<fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate" />
+								<input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}"
+									min="1950-1-1" max="9999-12-31">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료</span>
+								<fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate" />
+								<input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}"
+									max="9999-12-31">
+							</div>
 
 							<div class="col-12 text-center">
 								<button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
@@ -389,7 +413,6 @@
 									if (res.record != undefined) {
 										setInbodyChart(res.record);
 									}
-									console.log(res.record);
 
 									if (res.record != null && getDateFormat(new Date(res.record.exr_date)) == $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate"))) {
 										$("#result_contents").empty();
@@ -415,7 +438,6 @@
 										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
-									console.log(res.record.inbody_weight);
 								});
 						}
 						// 운동한 날짜 Maker 생성 함수
@@ -591,16 +613,17 @@
 							}
 						});
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
+
 						// 차트 초기화
 						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-						var arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-						var arrWeight = [0,0,0,0];
+						var arrData = ["체중", "체지방량", "골격근량", "BMI"];
+						var arrInbody = [0, 0, 0, 0];
 						var inbodyData = {
-							labels: arrNum,
+							labels: arrData,
 							datasets: [{
 								type: 'bar',
 								label: 'inbody',
-								data: arrWeight,
+								data: arrInbody,
 								borderColor: ['rgba(255, 99, 132, 1)',
 									'rgba(54, 162, 235, 1)',
 									'rgba(255, 206, 86, 1)',
@@ -618,78 +641,136 @@
 							data: inbodyData,
 							options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
 						});
+
 						// inbody chart
 						function setInbodyChart(record) {
 							$("#inbody_chart").removeData();
 							inbodyChart.destroy();
-                            inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-                            arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-                            arrWeight = [record.inbody_weight,
-                            record.inbody_bfm,
-                            record.inbody_sm,
-                            record.inbody_bmi];
-                            inbodyData = {
-                                labels: arrNum,
-                                datasets: [{
-                                    type: 'bar',
-                                    label: 'inbody',
-                                    data: arrWeight,
-                                    borderColor: ['rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                    ],
-                                    backgroundColor: ['rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            };
-                            	// inbodyCtx.destroy();
-                            inbodyChart = new Chart(inbodyCtx, {
-                                data: inbodyData,
-                                options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
-                            });
-                        }
-						
-						// weight change chart
-						let weightCtx = document.getElementById('weight_chart').getContext('2d');
-						let weightChart = new Chart(weightCtx, {
-							type: 'bar',
-							data: {
-								labels: ['09/01', '10/01', '11/01', '12/01', '01/01',
-									'02/01'],
+							inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
+							arrData = ["체중", "체지방량", "골격근량", "BMI"];
+							arrInbody = [record.inbody_weight,
+							record.inbody_bfm,
+							record.inbody_sm,
+							record.inbody_bmi];
+							inbodyData = {
+								labels: arrData,
 								datasets: [{
-									label: '# weight change',
-									data: [54, 52, 49, 51, 50, 46],
-									backgroundColor: ['rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)'],
+									type: 'bar',
+									label: 'inbody',
+									data: arrInbody,
 									borderColor: ['rgba(255, 99, 132, 1)',
 										'rgba(54, 162, 235, 1)',
 										'rgba(255, 206, 86, 1)',
 										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'],
+									],
+									backgroundColor: ['rgba(255, 99, 132, 0.2)',
+										'rgba(54, 162, 235, 0.2)',
+										'rgba(255, 206, 86, 0.2)',
+										'rgba(75, 192, 192, 0.2)',
+									],
 									borderWidth: 1
 								}]
-							},
-							options: {
-								responsive: false,
-								scales: {
-									y: {
-										beginAtZero: true
-									}
-								}
-							}
-						});
-					
+							};
+							inbodyChart = new Chart(inbodyCtx, {
+								data: inbodyData,
+								options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
+							});
+						}
+
+						
+
 					</script>
+					
+					<c:choose>
+						<c:when test="${empty newWeight}">
+							<script>
+								let weightCtx = document.getElementById('weight_chart').getContext('2d');
+								let weightChart = new Chart(weightCtx, {
+									type: 'bar',
+									data: {
+										labels: ['1/1','1/1','1/1','1/1','1/1','1/1'], 
+										datasets: [{
+											label: '# weight change',
+											data: [0,0,0,0,0,0],
+											backgroundColor: ['rgba(255, 99, 132, 0.2)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(255, 206, 86, 0.2)',
+												'rgba(75, 192, 192, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(255, 159, 64, 0.2)'],
+											borderColor: ['rgba(255, 99, 132, 1)',
+												'rgba(54, 162, 235, 1)',
+												'rgba(255, 206, 86, 1)',
+												'rgba(75, 192, 192, 1)',
+												'rgba(153, 102, 255, 1)',
+												'rgba(255, 159, 64, 1)'],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: false,
+										scales: {
+											y: {
+												beginAtZero: true
+											}
+										}
+									}
+								});
+							</script>
+						</c:when>
+						<c:otherwise>
+							<script>
+								// weight change chart
+								let weightCtx = document.getElementById('weight_chart').getContext('2d');
+								let weightChart = new Chart(weightCtx, {
+									type: 'bar',
+									data: {
+										labels: [
+											'<fmt:formatDate value="${newWeight[5].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[4].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[3].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[2].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[1].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[0].exr_date}" pattern="MM/dd" />'], 
+										datasets: [{
+											label: '# weight change',
+											data: [
+												${newWeight[5].inbody_weight}, 
+												${newWeight[4].inbody_weight}, 
+												${newWeight[3].inbody_weight}, 
+												${newWeight[2].inbody_weight}, 
+												${newWeight[1].inbody_weight}, 
+												${newWeight[0].inbody_weight}
+												],
+											backgroundColor: ['rgba(255, 99, 132, 0.2)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(255, 206, 86, 0.2)',
+												'rgba(75, 192, 192, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(255, 159, 64, 0.2)'],
+											borderColor: ['rgba(255, 99, 132, 1)',
+												'rgba(54, 162, 235, 1)',
+												'rgba(255, 206, 86, 1)',
+												'rgba(75, 192, 192, 1)',
+												'rgba(153, 102, 255, 1)',
+												'rgba(255, 159, 64, 1)'],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: false,
+										scales: {
+											y: {
+												beginAtZero: true
+											}
+										}
+									}
+								});
+							</script>
+						</c:otherwise>
+					</c:choose>
+					
+					
 				</main>
 
 				<%@ include file="/layout/footer.jsp" %>t
