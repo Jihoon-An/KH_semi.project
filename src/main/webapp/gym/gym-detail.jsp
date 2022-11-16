@@ -454,7 +454,7 @@
                 $("#imgload").css("display", "none")
             }
         });
-    });  //게시글 더 보기 기능  
+    });  //사진  더 보기 기능  
     </script>
 
 	<script>
