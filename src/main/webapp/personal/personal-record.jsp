@@ -158,9 +158,10 @@
 														style="padding-bottom: 0px; margin-top: 30px">
 														<form>
 															<input type="range" class="form-range" id="reg_range"
-																min="1" max="5" style="width: 160px; height: 24px">
+																min="1" max="5" style="width: 140px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
+																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-5px; padding:3px">중</label>
 														</form>
 													</div>
 												</div>
@@ -586,13 +587,14 @@
 							});
 						}
 
-						$("#reg_intens").on("input", e => {
-							$("#reg_intens_label").text(e.target.value);
+						$("#reg_range").on("input", e => {
+							let intens = ['최하', '하', '중', '상', '최상'];
+							$("#reg_intens_label").text(intens[e.target.value - 1]);
 						});
 
 						$("#reg_range").on("change", e => {
 							let element, width, point, place;
-							let intens = ["😰", "🙁", "🤔", "😊", "😆"];
+							let intens = ["😰", "🙁", "😶", "😊", "😆"];
 							element = $(e.target);
 							width = element.width();
 							point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
