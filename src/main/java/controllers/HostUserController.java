@@ -129,9 +129,9 @@ public class HostUserController extends ControllerAbs {
         int cpage = Integer.parseInt(request.getParameter("cpage"));
         String typeSearch = request.getParameter("type");
         String searchStr = request.getParameter("search");
-        String searchCrtf = request.getParameter("searchCrtf");
-
+        String searchCrtf = null;
         String reviewSearchNavi = null;
+
         if (typeSearch.equals("email")) {
             List<HashMap<String, Object>> emailList = ReviewDAO.getInstance().selectByUserEmailByRange(searchStr, cpage * 10 - 9, cpage * 10);
             request.setAttribute("list", emailList);
@@ -141,6 +141,8 @@ public class HostUserController extends ControllerAbs {
             request.setAttribute("list", contentsList);
             reviewSearchNavi = ReviewDAO.getInstance().getSearchPageNavi(typeSearch, searchStr, cpage, ReviewDAO.getInstance().getRecordCountByContents(searchStr));
         } else if (typeSearch.equals("certify")) {
+
+            searchCrtf = request.getParameter("searchCrtf");
             if (searchCrtf.equals("인증완료") || searchCrtf.equals("인증실패")) {
                 // 인증완료로 텍스트 있으면 인증완료로 서치한 결과물만 보여주기
                 List<ReviewDTO> contentsList = ReviewDAO.getInstance().selectByCertifyByRange(searchCrtf, cpage * 10 - 9, cpage * 10);

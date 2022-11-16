@@ -14,7 +14,7 @@ body {
 /*}*/
 
 #wrap_host{
-    height: 100%;
+    height: 100vh;
     z-index: 2;
 }
 
@@ -22,6 +22,7 @@ header {
     min-height: 100vh;
     background: #001A41;
     z-index: 3;
+    min-height: 900px;
 }
 
 .logoDiv {
@@ -333,6 +334,7 @@ a:hover{
     text-align: center;
     margin: auto;
     border-bottom: 1px solid #C7D3DC;
+    background-color: #FFFFFF;
 }
 
 #host .articleBox > .listBox > .list_title{

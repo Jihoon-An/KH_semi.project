@@ -268,22 +268,22 @@
                 <canvas id="myChart"></canvas>
             </div>
 
-            <div class="place shadow-none p-3 rounded text_title">
-                <dt class="dt"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open Time </dt>
-                <dd>
+            <div class="time shadow-none p-3 rounded" style="margin-top: 20px">
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open </div>
+                <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_open == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_open != null}">${gymList.gym_open}</c:if>
-                </dd>
+                </div>
             </div>
-            <div class="place shadow-none p-3 rounded text_title">
-                <dt class="dt"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close Time </dt>
-                <dd>
+            <div class="time shadow-none p-3 rounded">
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close </div>
+                <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_close == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_close != null}">${gymList.gym_close}</c:if>
-                </dd>
+                </div>
             </div>
 
-            <div class="gym_info_tagBox" style="margin-top: 30px">
+            <div class="gym_info_tagBox p-3" style="margin-top: 40px; margin-bottom: 30px">
 
                 <c:choose>
                     <c:when test="${gymFilter.open == 'true'}">

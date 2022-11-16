@@ -11,42 +11,23 @@
         <input type="hidden" value="1" name="cpage">
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
-                <!-- 검색분류 -->
 
-                <c:if test="${type != 'email'&& type !='certify'}">
+                <!-- 검색분류 -->
+                <c:if test="${type != 'certify'}">
                     <select name="type" id="select">
-                        <option value="contents" selected>리뷰내용</option>
-                        <option value="email">작성자이메일</option>
-                        <option value="certify">인증여부</option>
+                        <option value="contents" <c:if test="${type == 'contents'}">selected</c:if>>리뷰내용</option>
+                        <option value="email" <c:if test="${type == 'email'}">selected</c:if>>작성자이메일</option>
+                        <option value="certify" <c:if test="${type == 'certify'}">selected</c:if>>인증여부</option>
                     </select>
                     <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
                                                     value="${search}"></span>
-
                     <span id="selcetChange2" style="display: none">
                     <select name="searchCrtf" class="search">
-                        <option value="미인증" selected>미인증</option>
-                        <option value="인증완료">인증완료</option>
-                        <option value="인증실패">인증실패</option>
+                        <option value="미인증" <c:if test="${searchCrtf=='미인증'}">selected</c:if>>미인증</option>
+                        <option value="인증완료" <c:if test="${searchCrtf=='인증완료'}">selected</c:if>>인증완료</option>
+                        <option value="인증실패" <c:if test="${searchCrtf=='인증실패'}">selected</c:if>>인증실패</option>
                     </select>
-                    </span>
-                </c:if>
-
-                <c:if test="${type == 'email'}">
-                <select name="type" id="select">
-                    <option value="contents">리뷰내용</option>
-                    <option value="email" selected>작성자이메일</option>
-                    <option value="certify">인증여부</option>
-                </select>
-                <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
-                                                value="${search}"></span>
-
-                <span id="selcetChange2" style="display: none">
-                    <select name="searchCrtf" class="search">
-                        <option value="미인증" selected>미인증</option>
-                        <option value="인증완료">인증완료</option>
-                        <option value="인증실패">인증실패</option>
-                    </select>
-                    </span>
+                </span>
                 </c:if>
 
                 <c:if test="${type == 'certify'}">
@@ -56,15 +37,18 @@
                         <option value="certify" selected>인증여부</option>
                     </select>
                     <span id="selcetChange1" style="display: none"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
-                                                    value="${search}"></span>
+                                                                          value="${search}"></span>
                     <span id="selcetChange2">
                     <select name="searchCrtf" class="search">
                         <option value="미인증" <c:if test="${searchCrtf=='미인증'}">selected</c:if>>미인증</option>
                         <option value="인증완료" <c:if test="${searchCrtf=='인증완료'}">selected</c:if>>인증완료</option>
                         <option value="인증실패" <c:if test="${searchCrtf=='인증실패'}">selected</c:if>>인증실패</option>
                     </select>
-                    </span>
+                </span>
                 </c:if>
+
+
+
 
                 <button class="btn_search" role="button" type="button" class="searchBtn" id="searchBtn">검색</button>
 
@@ -124,7 +108,7 @@
                                                      integerOnly="true"
                                                      var="dbDtParse" scope="request"/>
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
-                                    <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
+                                    <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; right: -40px"
                                           class="translate-middle badge rounded-pill bg-danger animate__animated animate__flash animate__infinite">
                                         <span style="position: absolute; top: 2px; left: 4px">NEW</span>
                                     </span>

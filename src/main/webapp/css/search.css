@@ -190,8 +190,8 @@
 
 #search .search_sub_filter > .search_tag:hover,
 #search .search_sub_filter > .search_tag:focus {
-	border-color: #013d98 (0, 0, 0, 0.15);
-	box-shadow: #013d98 (0, 0, 0, 0.1) 0 4px 12px;
+	border-color: rgb(0, 0, 0, 0.15);
+	box-shadow: rgb(0, 0, 0, 0.1) 0 4px 12px;
 }
 
 #search .search_sub_filter > .search_tag:hover {
@@ -246,7 +246,7 @@
 /* --------- 네비 리스트 --------- */
 #search .searchListNav > .gym_list{
     width: 430px;
-    height: 170px;
+    height: 180px;
     border-radius: 5px;
     margin: auto;
     margin-top: 20px;
@@ -333,7 +333,7 @@
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox{
     width: 100%;
-    margin-top: 7px;
+    margin-top: 3px;
 }
 #search .gym_list > .gym_list_article > .gym_list_tagBox > .gym_list_tag:nth-child(1){
 	margin-left: 25px;

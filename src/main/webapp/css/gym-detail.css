@@ -51,7 +51,18 @@
     width: 100%;
     height: 50px;
     float: left;
-    overflow: hidden;
+}
+
+#gym-detail .time {
+    width: 100%;
+    margin-bottom: 10px;
+    height: 51px;
+}
+
+#gym-detail .dt {
+    width: 90px;
+    height: 51px;
+    float: left;
 }
 
 #gym-detail .placemap {
@@ -179,10 +190,10 @@
 
 #gym-detail .gym_info_tagBox {
     width: 95%;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     overflow: hidden;
-    padding: 30px 20px;
+    padding: 20px 20px;
     text-align: center;
     overflow: hidden;
 }
@@ -214,10 +225,6 @@
 }
 
 
-#gym-detail .dt {
-    width: 150px;
-    float: left;
-}
 
 
 #gym-detail .newmore {

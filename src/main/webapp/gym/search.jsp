@@ -170,8 +170,8 @@
 						<div class="gym_list_open">
 							<c:choose>
 								<c:when test="${not empty gymList.gym_open}">
-									<span>OPEN : ${gymList.gym_open } &nbsp &nbsp</span>
-									<span>CLOSE : ${gymList.gym_close }</span>
+									<span style="padding:0 7px 0 0">OPEN &nbsp</span><span> ${gymList.gym_open }</span><br>
+									<span style="padding:0 7px 0 0">CLOSE</span><span> ${gymList.gym_close }</span>
 								</c:when>
 								<c:otherwise>
 									<span>시설 운영시간에 대한 정보가 없습니다</span>
