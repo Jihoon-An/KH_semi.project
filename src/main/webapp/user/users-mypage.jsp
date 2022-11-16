@@ -260,9 +260,10 @@
                 pi_check = true;
             }
             else{
-                console.log("/resource/profileImg/"+afterPi);
+                console.log(afterPi);
                 let basPi = "${user.pi}";
-                if(afterPi != null){
+                if(afterPi != null && afterPi != ""){
+                    console.log("tesetest");
                     $("#user_img").attr("src", "/resource/profileImg/"+afterPi);
                 }
                 else if (basPi != "/resource/profileImg/") {
@@ -271,6 +272,7 @@
                 else {
                     $("#user_img").attr("src", "/resource/img/default_profile.png");
                 }
+                pi_check = false;
             }
         }
 

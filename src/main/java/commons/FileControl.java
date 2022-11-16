@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.nio.channels.MulticastChannel;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -135,6 +136,7 @@ public class FileControl {
                 this.sysNameList.add(sysName);
             }
         }
+        Collections.reverse(this.sysNameList);
         return this.sysNameList;
     }
 
