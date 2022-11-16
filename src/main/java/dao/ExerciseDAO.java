@@ -1,7 +1,6 @@
 package dao;
 
 import dto.ExerciseDTO;
-import dto.WeightDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -55,34 +54,20 @@ public class ExerciseDAO extends Dao{
     		}
     	}
     }
-    
-    public void insertWeight(WeightDTO wet) throws Exception{
-    	String sql = "insert into weight values(user_seq.nextval,?,?)";
+
+    public List<ExerciseDTO> selectWeightAll(int user_seq) throws Exception{
+    	String sql = "select * from exercise where user_seq = ? and inbody_weight is not null order by 2 desc";
     	
-    	try (Connection con = this.getConnection();
-				PreparedStatement pstat = con.prepareStatement(sql);
-    			){
-    		pstat.setString(1, wet.getWeight());
-    		pstat.setTimestamp(2, wet.getWeight_date());
-    		
-    		int result = pstat.executeUpdate();
-    		con.commit();
-    	}
-    	
-    }
-    
-    public List<WeightDTO> selectWeightAll(int user_seq) throws Exception{
-    	String sql = "selcet weight,weight_date from weight where user_seq = ?";
+    	List<ExerciseDTO> result = new ArrayList<>();
     	
     	try (Connection con = this.getConnection();
 				PreparedStatement pstat = con.prepareStatement(sql);
     			){
     		pstat.setInt(1, user_seq);
     		
-    		List<WeightDTO> result = new ArrayList<>();
     		try(ResultSet rs = pstat.executeQuery();){
     			while(rs.next()) {
-    				ExerciseDTO dto = new ExerciseDTO();
+    				result.add(new ExerciseDTO(rs));
     				
     			}
     		}
@@ -157,6 +142,7 @@ public class ExerciseDAO extends Dao{
         }
     }
 
+
     public List<ExerciseDTO> selectRecentByDate(String userSeq, String date) throws Exception {
         List<ExerciseDTO> result = new ArrayList<>();
         String sql = "select * from (select * from exercise order by exr_date desc) where rownum <= 7 and user_seq = ? and exr_date <= ? order by exr_date";
@@ -186,4 +172,5 @@ public class ExerciseDAO extends Dao{
             }
         }
     }
+
 }

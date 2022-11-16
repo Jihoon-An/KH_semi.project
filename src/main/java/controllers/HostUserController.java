@@ -293,8 +293,6 @@ public class HostUserController extends ControllerAbs {
             FavoritesDAO.getInstance().deleteByUserSeq(userSeq);
             // 헬스장 회원 테이블 삭제
             ManagerDAO.getInstance().deleteByUserSeq(userSeq);
-            // 캘린더 테이블 삭제
-            CalendarDAO.getInstance().deleteByUserSeq(userSeq);
             // 운동기록 테이블 삭제
             ExerciseDAO.getInstance().deleteByUserSeq(userSeq);
             // 유저 테이블 삭제
