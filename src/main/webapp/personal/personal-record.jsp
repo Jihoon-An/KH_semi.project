@@ -428,6 +428,7 @@
 										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
+									console.log(res.record.inbody_weight);
 								});
 						}
 
@@ -695,7 +696,6 @@
                                 data: inbodyData,
                                 options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
                             });
-
                         }
 						
 						// weight change chart
