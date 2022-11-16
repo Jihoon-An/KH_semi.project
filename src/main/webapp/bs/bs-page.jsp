@@ -154,14 +154,14 @@
                         </c:choose>
                     </div>
                     <div class="col-7 gym_text">
-                        <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
+                        <div class="row"><h4 class="gym_name gym_content htmlToText">${gym.gym_name}</h4></div>
                         <div class="row pt-2">
                             <div class="col-2 gym_label">주소</div>
-                            <div class="col-8 gym_content">${gym.gym_location}</div>
+                            <div class="col-8 gym_content htmlToText">${gym.gym_location}</div>
                         </div>
                         <div class="row pt-2">
                             <div class="col-2 gym_label">연락처</div>
-                            <div class="col-8 gym_content">${gym.gym_phone}</div>
+                            <div class="col-8 gym_content htmlToText">${gym.gym_phone}</div>
                         </div>
                         <c:choose>
                             <c:when test='${gym.gym_open == null && gym.gym_close == null}'>
@@ -174,7 +174,7 @@
                             <c:otherwise>
                                 <div class="row pt-2">
                                     <div class="col-2 gym_label">오픈시간</div>
-                                    <div class="col-8 gym_content">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</div>
+                                    <div class="col-8 gym_content htmlToText">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</div>
                                 </div>
                             </c:otherwise>
                         </c:choose>
@@ -225,6 +225,11 @@
 
 
 <script>
+
+    var htmlToText = document.getElementsByClassName("htmlToText");
+    for (var i = 0; i < htmlToText.length; i++) {
+        htmlToText[i].innerText = htmlToText[i].innerHTML;
+    }
     ////////////////////////            프로필                   ///////////////////////////////////////////////////////////
 
     /**

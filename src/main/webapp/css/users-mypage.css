@@ -133,6 +133,7 @@
 #users-mypage .review_cards_area {
     margin: 0 auto;
     width: 1200px;
+    min-height: 250px;
 }
 
 #users-mypage .modify_review_btn {

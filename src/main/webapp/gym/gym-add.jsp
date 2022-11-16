@@ -252,6 +252,11 @@
 
     <script>
 
+        var htmlToText = document.getElementsByClassName("htmlToText");
+        for (var i = 0; i < htmlToText.length; i++) {
+            htmlToText[i].innerText = htmlToText[i].innerHTML;
+        }
+
         $("#btn_modify_complete").on("click", function () {
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
