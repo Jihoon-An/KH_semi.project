@@ -21,7 +21,8 @@
 										디데이 매니저
 										<c:choose>
 											<c:when test="${userSeq == null}">
-												" 로그인 후 이용하세요! 😃 "
+												<br><br><br><br>" 로그인 후 이용하세요! 😃 "
+												<script>$("#manager").css("background-color","#18181840");</script>
 											</c:when>
 											<c:otherwise>
 												
@@ -73,7 +74,7 @@
 													</c:otherwise>
 					
 												</c:choose>
-												
+
 											</c:otherwise>
 										</c:choose>
 										
