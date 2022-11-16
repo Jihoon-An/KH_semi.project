@@ -27,7 +27,7 @@
 									</div>
 									<div class="search_main_input">
 										<input type="text" placeholder="지역명 또는 헬스장명을 검색해보세요." style="padding-left: 20px"
-											name="searchInput">
+											name="searchInput" maxlength="20">
 										<input type="hidden" value="false" name="open_result">
 										<input type="hidden" value="false" name="locker_result">
 										<input type="hidden" value="false" name="shower_result">

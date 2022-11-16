@@ -190,13 +190,13 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img1" id="gym_img1_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img1" id="gym_img1" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img2" id="gym_img2_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img2" id="gym_img2" type="file" class="gym_imgFile">
                                 </div>
@@ -205,13 +205,13 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img3" id="gym_img3_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img3" id="gym_img3" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img4" id="gym_img4_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img4" id="gym_img4" type="file" class="gym_imgFile">
                                 </div>
@@ -220,13 +220,13 @@
                             <div class="row px-2 justify-content-center">
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img5" id="gym_img5_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img5" id="gym_img5" type="file" class="gym_imgFile">
                                 </div>
                                 <div class="col-5 p-1 text-center">
                                     <label class="gym_img" for="gym_img6" id="gym_img6_label">
-                                        <img src="/resource/gym/default04.png">
+                                        <img src="/resource/img/default04.png">
                                     </label>
                                     <input name="gym_img6" id="gym_img6" type="file" class="gym_imgFile">
                                 </div>
