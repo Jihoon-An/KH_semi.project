@@ -361,6 +361,7 @@
 
     $(document).ready(function () {
         $("#review_photo").on("change", handleImgFileSelect);
+        $("#review_photo").on("click", handleImgFileSelect);
     });
 
 

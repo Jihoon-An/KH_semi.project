@@ -40,6 +40,7 @@ public class IndexController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendRedirect("/");
         }
     }
 
