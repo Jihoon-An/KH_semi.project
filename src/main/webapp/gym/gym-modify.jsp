@@ -296,6 +296,14 @@
 
     <script>
 
+        // filter 초기화
+        $("#open_result").val($("#open").is(":checked"));
+        $("#locker_result").val($("#locker").is(":checked"));
+        $("#shower_result").val($("#shower").is(":checked"));
+        $("#park_result").val($("#park").is(":checked"));
+
+
+
         $("#btn_modify_complete").on("click", function () {
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();

@@ -391,7 +391,7 @@
 		let bsEmailRegex = /^[a-zA-Z0-9+-\_.]{1,20}@[a-zA-Z0-9-]{1,15}\.[a-zA-Z-.]{1,12}$/;
 		let bsPwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 		let bsPhoneRegex = /^0[\d]{8,10}$/;
-		let bsNumberRegex = /^[1-6][\d]{7}[1-9][\d]$/;
+		let bsNumberRegex = /^[1-9][\d]{7}[1-9][\d]$/;
 
 		// 이메일(아이디) - 아이디 중복검사 & 값 입력 유효성 검사 display
 
