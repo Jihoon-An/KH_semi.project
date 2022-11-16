@@ -226,15 +226,18 @@
 
                   <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
                      <span>제목</span>
-                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목">
+                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목" 
+					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
                   </div>
                   <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
                      <span>시작</span>
-                     <input type="date" id="m_start_input" name="m_start_input">
+                     <input type="date" id="m_start_input" name="m_start_input"
+					 min="1950-1-1" max="9999-12-31">
                   </div>
                   <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
                      <span>종료</span>
-                     <input type="date" id="m_end_input" name="m_end_input">
+                     <input type="date" id="m_end_input" name="m_end_input"
+					 max="9999-12-31">
                   </div>
 
                   <div class="col-12 text-center m_btnBox">
@@ -252,17 +255,20 @@
                   </div>
                   <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
                      <span>제목</span>
-                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}">
+                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}"
+					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
                   </div>
                   <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
                      <span>시작</span>
                      <fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate"/>
-                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}">
+                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}" 
+					 min="1950-1-1" max="9999-12-31">
                   </div>
                   <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
                      <span>종료</span>
                      <fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate"/>
-                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}">
+                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}" 
+					 max="9999-12-31">
                   </div>
 
                   <div class="col-12 text-center m_btnBox">
