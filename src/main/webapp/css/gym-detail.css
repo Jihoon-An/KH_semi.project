@@ -86,6 +86,7 @@
 
 #gym-detail .review2 {
 	width: 100%;
+	margin-top: 50px;
 	display:none;
 	overflow: hidden;
 }
@@ -98,29 +99,25 @@
 }
 
 #gym-detail .ranwriter {
-	width: 30%;
+	width: 40%;
 	height: 50px;
 	float: left;
-	font-size:20px;
 }
 
 #gym-detail .writerd {
 	width: 30%;
 	height: 50px;
-	font-size:20px;
 	float: left;
 }
 
 #gym-detail .starc {
 	width: 20%;
 	height: 50px;
-	font-size:20px;
 	float: left;
 }
 #gym-detail .reviewlike{
 	width:10%;
 	height:50px;
-	font-size:20px;
 	float: left;
 }
 
@@ -129,7 +126,6 @@
 #gym-detail .reviewcon{
 	margin-top:20px;
 	width:80%;
-	font-size:20px;
 	overflow:hidden;
 
 }
@@ -137,7 +133,6 @@
 #gym-detail .recontents {
 	width: 100%;
 	height: 60%;
-
 	float: left;
 }
 
@@ -145,6 +140,7 @@
 	width: 100%;
 	height: 30%;
 }
+
 #gym-detail .gymscore{
 	width: 100%;
 	height: 40px;
@@ -275,4 +271,53 @@
     color: #001A41;
     white-space: nowrap;
     font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+#gym-detail .detail_fillter {
+	width: 230px;
+	text-align: left;
+	background-color: #FFFFFF;
+	border: 1px solid rgb(209, 213, 219, 0.5);
+	border-radius: 6px;
+	box-sizing: border-box;
+	color: #111827;
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 1.5rem;
+	text-decoration: none #D1D5DB solid;
+	text-decoration-thickness: auto;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+#gym-detail .checkIcon {
+	width: 23px;
+	height: 23px;
+	margin: 0px 15px 2px 10px;
+}
+
+#gym-detail .filledStar {
+	-webkit-text-fill-color: red;
+	text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: rgb(236, 0, 0);
+	font-size: x-large;
+	padding: 1px;
+}
+
+#gym-detail .emptyStar {
+	-webkit-text-fill-color: #ddd;
+	text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: rgb(209, 213, 219);
+	font-size: x-large;
+	padding: 1px;
 }

@@ -133,7 +133,7 @@
                             </div>
                             <div class="gym_name p-1">${i.gym_name}</div>
                             <div class="user_email p-1">${i.users_email}</div>
-                            <div class="review_contents p-1">${i.review_contents}</div>
+                            <div class="review_contents i_review_contents p-1">${i.review_contents}</div>
                             <div class="review_star p-1" style="font-size: 10px;">
                                 <c:if test="${i.review_star == 1}">★</c:if>
                                 <c:if test="${i.review_star == 2}">★★</c:if>
@@ -184,6 +184,22 @@
 
 
 <script>
+
+    // 태그 사용 못하게 출력 치환
+<%--    <c:forEach var="i" items="${list}" varStatus="status">--%>
+<%--    $(function(){--%>
+<%--        $($('.review_contents')[${status.index}]).text(${i.review_contents});--%>
+<%--    })--%>
+<%--    </c:forEach>--%>
+
+
+
+    $(function(){
+        $('.i_review_contents').text($('.i_review_contents').html());
+    })
+
+
+
     // 텍스트 클릭하면 이미지 보기 창 새로 뜨기 닫기
     <c:forEach var="i" items="${list}" varStatus="status">
     $($(".imgLayer")[${status.index}]).on("click", () => {
