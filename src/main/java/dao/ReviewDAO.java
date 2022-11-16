@@ -816,6 +816,25 @@ public class ReviewDAO extends Dao {
     }
 
 
+    // 리뷰 인증 등록된 사진 파일 지울 때 seq로 name 얻어옴
+    public String getFileNameByReviewSeq(int review_seq) throws Exception {
+        String sql = "select review_photo from review where review_seq = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setInt(1, review_seq);
+            try (ResultSet resultSet = statement.executeQuery();) {
+
+                if (resultSet.next()) {
+                    return resultSet.getString("review_photo");
+                }
+            }
+            return "";
+        }
+    }
+
+
 }
 
 

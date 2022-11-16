@@ -1,196 +1,198 @@
 @charset "utf-8";
 
 #gym-detail * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
-
 
 
 #gym-detail div {
-	/* border: 1px solid black; */
-	/* padding :5px; */
-	
+    /* border: 1px solid black; */
+    /* padding :5px; */
+
 }
 
 #gym-detail .lcontents {
-	width: 830px;
-	margin-right: 50px;
-	float: left;
+    width: 830px;
+    margin-right: 50px;
+    float: left;
 }
 
 #gym-detail .rcontents {
-	width: 320px;
-	float: left;
+    width: 320px;
+    float: left;
 }
 
 
 #gym-detail .placename {
-	width: 70%;
-	height: 50px;
-	float: left;
+    width: 70%;
+    height: 50px;
+    float: left;
 }
-#gym-detail .bs_modify{
-	position:relative;
-	width:20%;
-	float:left;
-	left : 50px;
-	display:none;
-	
+
+#gym-detail .bs_modify {
+    position: relative;
+    width: 20%;
+    float: left;
+    left: 50px;
+    display: none;
+
 }
+
 #gym-detail .icon1 {
-	width: 10%;
-	height: 50px;
-	float: right;
-	font-size: 30px;
-	text-align: right;
+    width: 10%;
+    height: 50px;
+    float: right;
+    font-size: 30px;
+    text-align: right;
+    margin-right: 5px;
 }
 
 #gym-detail .place {
-	width: 100%;
-	height: 50px;
-	float: left;
+    width: 100%;
+    height: 50px;
+    float: left;
 }
 
 #gym-detail .placemap {
-	width: 100%;
-	height: 400px;
-	float: left;
+    width: 100%;
+    height: 400px;
+    float: left;
 }
 
 
 #gym-detail .placeprice {
-	margin-top : 20px;
-	width: 100%;
-	float: left;
+    margin-top: 20px;
+    width: 100%;
+    float: left;
 }
 
 .placebox1 {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .reviewbox {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 #gym-detail .reviewn {
-	width: 80%;
-	height: 70px;
-	float: left;
+    width: 80%;
+    height: 70px;
+    float: left;
 }
 
 #gym-detail .reviewr {
-	width: 20%;
-	height: 70px;
-	float: left;
+    width: 20%;
+    height: 70px;
+    float: left;
 }
 
 #gym-detail .review2 {
-	width: 100%;
-	display:none;
-	overflow: hidden;
+    width: 100%;
+    margin-top: 50px;
+    display: none;
+    overflow: hidden;
 }
 
 #gym-detail .authmark {
-	width: 10%;
-	height: 50px;
-	float: left;
-	font-size:25px;
+    width: 10%;
+    height: 50px;
+    float: left;
+    font-size: 25px;
 }
 
 #gym-detail .ranwriter {
-	width: 30%;
-	height: 50px;
-	float: left;
-	font-size:20px;
+    width: 50%;
+    height: 50px;
+    float: left;
 }
 
 #gym-detail .writerd {
-	width: 30%;
-	height: 50px;
-	font-size:20px;
-	float: left;
+    width: 20%;
+    height: 50px;
+    float: left;
 }
 
 #gym-detail .starc {
-	width: 20%;
-	height: 50px;
-	font-size:20px;
-	float: left;
-}
-#gym-detail .reviewlike{
-	width:10%;
-	height:50px;
-	font-size:20px;
-	float: left;
+    width: 20%;
+    height: 50px;
+    float: left;
 }
 
+#gym-detail .reviewlike {
+    width: 10%;
+    height: 50px;
+    float: left;
+}
 
 
-#gym-detail .reviewcon{
-	margin-top:20px;
-	width:80%;
-	font-size:20px;
-	overflow:hidden;
+#gym-detail .reviewcon {
+    margin-top: 20px;
+    width: 100%;
+    overflow: hidden;
 
 }
 
 #gym-detail .recontents {
-	width: 100%;
-	height: 60%;
-
-	float: left;
+    width: 100%;
+    height: 60%;
+    float: left;
 }
 
 #gym-detail .chart1 {
-	width: 100%;
-	height: 30%;
+    width: 100%;
+    height: 30%;
 }
-#gym-detail .gymscore{
-	width: 100%;
-	height: 40px;
-	font-size:30px;	
-	text-align:center;
+
+#gym-detail .gymscore {
+    width: 100%;
+    height: 40px;
+    font-size: 23px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 50px;
 }
 
 #gym-detail .gym_info_open {
     width: 95%;
+    margin-top: 10px;
+    margin-bottom: 30px;
     padding-top: 2px;
     padding-left: 15px;
-    font-size: 12px;
-    
+    overflow: hidden;
 }
 
 #gym-detail .gym_info_location {
-
-	
-	   width: 95%;
+    width: 95%;
     height: 15%;
     font-size: 12px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-/*     display: -webkit-box;
-  	-webkit-line-clamp: 2;
-  	-webkit-box-orient: vertical; */
-  	padding-top: 5px;
-  	padding-left: 15px;
+    /*     display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical; */
+    padding-top: 5px;
+    padding-left: 15px;
 }
 
 #gym-detail .gym_info_tagBox {
-	 width: 95%;
-    margin-top: 5px;
-     margin-bottom: 5px;
-    overflow:hidden
+    width: 95%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding: 0px 20px;
+    text-align: center;
 }
 
-#gym-detail .gym_info_tagBox>.gym_info_tag {
-	 border: 1px dashed black;
+#gym-detail .gym_info_tagBox > .gym_info_tag {
+    border: 1px dashed black;
     border-radius: 100px;
     width: fit-content;
-    padding: 3px;
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 12px;
+    margin: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 16px;
     float: left;
     margin-top: 2px;
     margin-right: 4px;
@@ -200,50 +202,54 @@
 }
 
 #gym-detail .infopicture {
-	width: 100%;
+    width: 100%;
 }
 
 #gym-detail dt {
-	width: 80px;
-	float: left;
+    width: 80px;
+    float: left;
 }
 
+
+#gym-detail .dt {
+    width: 150px;
+    float: left;
+}
+
+
 #gym-detail .newmore {
-	text-align: center;
+    text-align: center;
 }
 
 /*아이콘 색상*/
 #gym-detail .fa-share-nodes {
-	color: #8f959a;
+    color: #C7D3DC;
 }
 
 /*아이콘hover */
 #gym-detail .fa-share-nodes:hover {
-	color:  #001A41;
-	 margin-top: -2px;
-  margin-left: 0px;
-  transform: scale(1.1,1.1);
-  -ms-transform: scale(1.1,1.1);
-  -webkit-transform: scale(1.1,1.1);
-	
-
+    color: #003584;
+    margin-top: -2px;
+    margin-left: 0px;
+    transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    -webkit-transform: scale(1.1, 1.1);
 }
 
 
-#gym-detail .fa-heart{
-	color: #8f959a; 
+#gym-detail .fa-heart {
+    color: #8f959a;
 
 }
 
-#gym-detail .fa-heart:hover{
-	cursor: pointer;
-	 margin-top: -2px;
-  margin-left: 0px;
-  transform: scale(1.1,1.1);
-  -ms-transform: scale(1.1,1.1);
-  -webkit-transform: scale(1.1,1.1);
+#gym-detail .fa-heart:hover {
+    cursor: pointer;
+    margin-top: -2px;
+    margin-left: 0px;
+    transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    -webkit-transform: scale(1.1, 1.1);
 }
-
 
 
 /*
@@ -258,16 +264,16 @@
 
 
 #gym-detail .fa-thumbs-up {
-	color: #8f959a;
+    color: #8f959a;
 }
 
 
-#gym-detail .fa-thumbs-up:hover{
-		cursor:pointer;
+#gym-detail .fa-thumbs-up:hover {
+    cursor: pointer;
 }
 
 /* 마커 인포윈도우 css */
-#gym-detail .info{
+#gym-detail .info {
     width: 200px;
     height: 50px;
     line-height: 50px;
@@ -275,4 +281,45 @@
     color: #001A41;
     white-space: nowrap;
     font-weight: bold;
+}
+
+
+#gym-detail .detail_fillter {
+    width: 230px;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid rgb(209, 213, 219, 0.5);
+    border-radius: 6px;
+    box-sizing: border-box;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5rem;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+#gym-detail .checkIcon {
+    width: 23px;
+    height: 23px;
+    margin: 0px 15px 2px 10px;
+}
+
+#gym-detail .filledStar {
+    -webkit-text-fill-color: red;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(236, 0, 0);
+    font-size: x-large;
+    padding: 1px;
+}
+
+#gym-detail .emptyStar {
+    -webkit-text-fill-color: #ddd;
+    text-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(209, 213, 219);
+    font-size: x-large;
+    padding: 1px;
 }

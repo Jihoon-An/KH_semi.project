@@ -509,34 +509,43 @@
     });
 
 
+
+    //이미지 미리보기
     function handleImgFileSelect(e) {
         var files = e.target.files;
         var filesArr = Array.prototype.slice.call(files);
 
-        var reg = /(.*?)\/(jpg|jpeg|png|bmp|gif|pdf)$/;
+        if(files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
 
-        filesArr.forEach(function (f) {
-            if (!f.type.match(reg)) {
-                Swal.fire({
-                    icon: 'error',
-                    title: '이미지 업로드 불가',
-                    text: '이미지 파일만 업로드 가능합니다.',
-                    confirmButtonText: '확인'
-                })
-                return;
-            }
+            var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
 
-            sel_file = f;
+            filesArr.forEach(function (f) {
+                if (!f.type.match(reg)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '이미지 업로드 불가',
+                        text: '이미지 파일만 업로드 가능합니다.',
+                        confirmButtonText: '확인'
+                    })
+                    return;
+                }
 
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("#review_photo_view").attr("src", e.target.result);
-            }
-            reader.readAsDataURL(f);
-        });
+                sel_file = f;
 
-        pi_check = true;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#review_photo_view").attr("src", e.target.result);
+                }
+                reader.readAsDataURL(f);
+            });
+
+            pi_check = true;
+        }
+        else{ // 취소를 눌렀을 때 행동
+            $("#review_photo_view").attr("src", "");
+        }
     }
+
 
 </script>
 
