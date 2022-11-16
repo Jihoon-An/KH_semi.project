@@ -19,7 +19,6 @@ import commons.Common;
 import dao.ExerciseDAO;
 import dao.ManagerDAO;
 import dto.ExerciseDTO;
-import dto.WeightDTO;
 import dto.ManagerDTO;
 
 
@@ -102,13 +101,6 @@ public class PersonalRecordController extends ControllerAbs {
         this.doGet(request, response);
     }
     
-    protected void sendWeight (HttpServletRequest request, HttpServletResponse response) throws Exception{
-    	WeightDTO wet = new WeightDTO();
-    	wet.setUser_seq((Integer)request.getSession().getAttribute("user_seq"));
-    	wet.setWeight(request.getParameter("weight"));
-    	wet.setWeight_date(Timestamp.valueOf(request.getParameter("date")));
-    	ExerciseDAO.getInstance().insertWeight(wet);
-    }
     
     protected void getWeightData (HttpServletRequest request, HttpServletResponse response) throws Exception{
     	String userSeq = (String) request.getSession().getAttribute("userSeq");
@@ -143,6 +135,7 @@ public class PersonalRecordController extends ControllerAbs {
         if(!userSeq.equals("-1")) {
             int user_seq = (int) request.getSession().getAttribute("userSeq");
             request.setAttribute("manager", ManagerDAO.getInstance().selectByUserSeq(user_seq));
+            request.setAttribute("newWeight", ExerciseDAO.getInstance().selectWeightAll(user_seq));
         };
         request.getRequestDispatcher("/personal/personal-record.jsp").forward(request, response);
     }
@@ -154,6 +147,7 @@ public class PersonalRecordController extends ControllerAbs {
         data.put("recordList", ExerciseDAO.getInstance().selectByOption("user_seq", userSeq));
         data.put("record", ExerciseDAO.getInstance().selectByDate(userSeq, request.getParameter("date")));
         data.put("recentRecord", ExerciseDAO.getInstance().selectRecentByDate(userSeq, request.getParameter("date")));
+
         return data;
     }
 
