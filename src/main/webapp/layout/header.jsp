@@ -125,7 +125,7 @@
                                 <a class="header_a_tag" href="/page.bsPage">사업자페이지</a>
                             </li>
                         </c:when>
-                        <c:when test="${admin || userSeq=='1044' || bsSeq=='273'}">
+                        <c:when test="${admin || userSeq=='99999' || bsSeq=='99999'}">
                             <li class="float-end">
                                 <a class="header_a_tag"
                                    onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>

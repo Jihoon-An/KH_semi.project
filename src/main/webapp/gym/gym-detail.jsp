@@ -267,21 +267,23 @@
             <div class="chart1">
                 <canvas id="myChart"></canvas>
             </div>
-            <div class="gym_info_open text_title">
-                <div class="place shadow-none p-3 rounded text_title">
-                    <dt class="dt"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open Time </dt>
-                    <dd>${gymList.gym_open}</dd>
-                </div>
 
-                <div class="place shadow-none p-3 rounded text_title">
-                    <dt class="dt"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close Time </dt>
-                    <dd>${gymList.gym_close}</dd>
-                </div>
-
+            <div class="place shadow-none p-3 rounded text_title">
+                <dt class="dt"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open Time </dt>
+                <dd>
+                    <c:if test="${gymList.gym_open == null}">시간미등록</c:if>
+                    <c:if test="${gymList.gym_open != null}">${gymList.gym_open}</c:if>
+                </dd>
+            </div>
+            <div class="place shadow-none p-3 rounded text_title">
+                <dt class="dt"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close Time </dt>
+                <dd>
+                    <c:if test="${gymList.gym_close == null}">시간미등록</c:if>
+                    <c:if test="${gymList.gym_close != null}">${gymList.gym_close}</c:if>
+                </dd>
             </div>
 
-
-            <div class="gym_info_tagBox" style="margin-top: 20px">
+            <div class="gym_info_tagBox" style="margin-top: 30px">
 
                 <c:choose>
                     <c:when test="${gymFilter.open == 'true'}">
@@ -305,27 +307,62 @@
                 </c:choose>
             </div>
 
-            <c:if test="${gymImgList != null}">
-                <c:forEach var="gymImg" items="${gymImgList}">
-                    <script>
-                        console.log("${gymImg}");
-                    </script>
-                    <div class="infopicture">
-                        <figure class="figure">
-                            <img src="/resource/gym/${gymImg}"
-                                 class="figure-img img-fluid rounded" alt="..."/>
-                            <figcaption class="figure-caption"></figcaption>
-                        </figure>
-                    </div>
-                </c:forEach>
-            </c:if>
+            <c:choose>
+
+                <c:when test="${not empty gymImgList}">
+                    <!-- 리스트가 비어있지않다면 -->
+                    <c:forEach var="gymImg" items="${gymImgList}">
+
+                        <div class="infopicture">
+                            <figure class="figure">
+                                <img src="/resource/gym/${gymImg}"
+                                     class="figure-img img-fluid rounded" alt="..." />
+
+                            </figure>
+                        </div>
+
+                    </c:forEach>
+                    <c:if test="${gymImgList != null}">
+                        <div class="newmore">
+                            <a href="#" class="btn btn_outline" data-bs-toggle="button"
+                               id="imgload">사진 더보기</a>
+                        </div>
+                    </c:if>
+                </c:when>
+                <c:otherwise>
+                    <div class="other">등록된 매장 사진이 없습니다</div>
+                </c:otherwise>
+            </c:choose>
+
+
 
 
         </div>
     </div>
 
 
+
+
     <script>
+        $(function () {
+            $(".infopicture").slice(0, 1).show(); // 초기갯수
+            if ($(".infopicture:hidden").length == 0) {
+                $("#imgload").css("display", "none")
+            }
+
+            $("#imgload").click(function (e) {
+                // 클릭시 more
+                e.preventDefault();
+                $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
+                if ($(".infopicture:hidden").length == 0) {
+                    // 컨텐츠 남아있는지 확인
+                    $("#imgload").css("display", "none")
+                }
+            });
+        });  //사진  더 보기 기능
+
+
+
 
         // 태그 사용 못하게 출력 치환
         $(function () {
@@ -380,7 +417,6 @@
 
         // 즐겨찾기 아이콘 트루면 빨강, 아니면 회색
         $(document).ready(function () {
-
             let fav = $("#heart").attr("check") == "true" ? true : false;
 
             console.log(fav);
@@ -391,14 +427,12 @@
                 console.log(fav + ": 회색")
                 $("#heart").css("color", "#C7D3DC")
             }
-
-
         });
 
 
         $("#heart").on("click", function () {
 
-            if ($("#heart").css("color") == "rgb(199,211,220)") {
+            if ($("#heart").css("color") == "rgb(199, 211, 220)") {
                 $("#heart").css("color", "#CF0C00");
                 console.log("즐찾추가")
                 $.ajax({
