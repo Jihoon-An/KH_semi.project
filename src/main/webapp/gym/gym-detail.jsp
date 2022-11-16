@@ -13,7 +13,7 @@
         <div class="lcontents">
             <div class="placebox1">
                 <div>
-                    <div class="placename">
+                    <div class="placename" style="margin-bottom: 30px">
                         <h1>${gymList.gym_name}</h1>
                     </div>
 
@@ -24,30 +24,30 @@
                     </c:if>
                     <!-- 사업자 회원 로그인시 수정하기 버튼 jstl 추후 추가 예정 -->
 
-                    <div class="icon1">
+                    <div class="icon1" style="margin-top: 5px">
                         <c:if test="${userSeq !=null}">
                             <!-- list사용자 로그인만 보이게끔 -->
                             <i class="fa-solid fa-heart" check="${favresult }" id="heart"></i>
-
                         </c:if>
 
-                        <span class="button gray medium "> <a
-                                onclick="clip(); return false;" class="shareicon"> <i
-                                class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
-                                style="cursor: pointer;" aria-hidden="true"></i></a></span>
+                        <span class="button gray medium" style="margin-left: 5px">
+                            <a onclick="clip(); return false;" class="shareicon"> <i
+                                    class="fa-sharp fa-solid fa-share-nodes" title="클릭시 URL 복사"
+                                    style="cursor: pointer;" aria-hidden="true"></i></a></span>
                     </div>
                 </div>
-                <div class="place">
-                    <dt class="text_normal">위치</dt>
+
+                <div class="place shadow-none p-3 rounded text_title">
+                    <dt><p class="text_title_600">위치</p></dt>
                     <dd>${gymList.gym_location}</dd>
                 </div>
 
-                <div class="place">
-                    <dt class="text_normal">연락처</dt>
+                <div class="place shadow-none p-3 rounded text_title" style="margin-bottom: 10px">
+                    <dt><p class="text_title_600">연락처</p></dt>
                     <dd>${gymList.gym_phone}</dd>
                 </div>
 
-                <div class="placemap" id="map"></div>
+                <div class="placemap mt-3" id="map"></div>
 
                 <script>
                     let gym_x = "${gymList.gym_x}";
@@ -113,22 +113,20 @@
                 </script>
 
 
-                <div class="placeprice shadow-none p-3 mb-3 bg-light rounded">
-                    <dt>
-                        <p class="text_normal">이용료</p>
-                    </dt>
+                <div class="placeprice shadow-none p-1 p-3 rounded bg-light text_title">
+                    <dt><p class="text_title_600">이용료</p></dt>
                     <dd>${gymList.gym_price }</dd>
                 </div>
+
             </div>
 
-            <div class="reviewbox">
+            <div class="reviewbox" style="margin-top: 80px">
                 <div class="reviewn">
-                    <p class="text_title">리뷰</p>
+                    <h2 style="line-height: 50px">리뷰보기</h2>
                 </div>
 
-                <div class="reviewr">
-                    <button type="button" class="btn_base" id="reviewbtn" type="button">리뷰작성
-                    </button>
+                <div class="reviewr" style="position: relative; top:-10px; right: -40px; margin-bottom: 30px">
+                    <button type="button" class="btn_base" id="reviewbtn" type="button">리뷰작성</button>
                 </div>
 
 
@@ -141,14 +139,15 @@
                                 <div class="recontents shadow p-2 mb-5 bg-body rounded text_normal">
 
 
-                                    <div class="ranwriter text_title">
-										<c:if test="${r.review.review_photo == '인증완료'}">
-											<!-- i class="fa-solid fa-user-shield auth"></i -->
+                                    <div class="ranwriter text_title" style="margin-bottom: 10px">
+                                        <c:if test="${r.review.review_photo == '인증완료'}">
                                             <img src="/resource/img/medal.png" style="width: 40px; height: 40px">
-                                            <span class="text_mini">인증리뷰어</span>
-										</c:if>
-											${r.review.review_writer}</div>
-                                    <div class="writerd">${r.review.formDate}</div>
+                                            <span class="text_mini"
+                                                  style="border: 1px solid #999999; padding: 3px; border-radius: 6px">인증리뷰어</span>
+                                        </c:if>
+                                        <span style="margin-left: 30px"
+                                              class="text_title_600">${r.review.review_writer}</span></div>
+                                    <div class="writerd" style="line-height: 35px">${r.review.formDate}</div>
                                     <div class="starc">
                                         <c:if test="${r.review.review_star == 1}">
                                             <span class="filledStar">★</span><span class="emptyStar">★★★★</span>
@@ -168,7 +167,7 @@
                                     </div>
 
 
-                                    <div class="reviewlike">
+                                    <div class="reviewlike" style="line-height: 35px; position: relative; left: 35px">
                                         <input type="hidden" name="review_seq" class="rseq"
                                                value="${r.review.review_seq}"> <input type="hidden"
                                                                                       name="gym_seq" class="gym"
@@ -178,18 +177,18 @@
 
                                         <c:if test="${r.liked == null}">
                                             <i class="relike fa-solid fa-thumbs-up"
-                                               style="color:#8f959a"></i> <!-- 선택안했을 때 -->
+                                               style="color:#8f959a;"></i> <!-- 선택안했을 때 -->
                                         </c:if>
 
                                         <c:if test="${r.liked != null}">
                                             <i class="relike fa-solid fa-thumbs-up"
-                                               style="color:#001A41"></i> <!-- 선택했을 때 색상 찐한블루 -->
+                                               style="color:#001A41;"></i> <!-- 선택했을 때 색상 찐한블루 -->
                                         </c:if>
 
                                         <span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
                                     </div>
 
-                                    <div class="reviewcon">
+                                    <div class="reviewcon p-3">
                                             ${r.review.review_contents}
                                     </div>
 
@@ -234,12 +233,12 @@
                         <c:if test="${reviewList !=null}">
                             <div class="newmore">
                                 <a href="#" class="btn btn_outline" data-bs-toggle="button"
-                                   id="load">NEW MORE</a>
+                                   id="load">리뷰 더보기</a>
                             </div>
                         </c:if>
                     </c:when>
                     <c:otherwise>
-                        <div class="other">작성된 리뷰가 없습니다</div>
+                        <div class="other" style="margin-bottom: 100px">작성된 리뷰가 없습니다</div>
                     </c:otherwise>
                 </c:choose>
 
@@ -252,7 +251,12 @@
             <c:choose>
 
                 <c:when test="${gymAvg.gymAvg != null &&  gymAvg.gymAvg != '' }">
-                    <div class="gymscore text_normal" id="gscore">${gymAvg.gymAvg }점</div>
+
+                    <div class="gymscore text_normal" id="gscore" style="line-height: 60px;">
+                        <img src="/resource/img/images.png" style="width: 30px; height: 30px; margin-right: 10px">
+                        <span style="position: relative; top:5px; color: #f29c2b; font-size: 28px; font-weight: 600;"> ${gymAvg.gymAvg }점</span>
+                    </div>
+
 
                 </c:when>
                 <c:otherwise>
@@ -263,13 +267,21 @@
             <div class="chart1">
                 <canvas id="myChart"></canvas>
             </div>
-            <div class="gym_info_open">
-                <span>OPEN : ${gymList.gym_open}</span><br/> <span>CLOSE :
-                ${gymList.gym_close}</span>
+            <div class="gym_info_open text_title">
+                <div class="place shadow-none p-3 rounded text_title">
+                    <dt class="dt"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open Time </dt>
+                    <dd>${gymList.gym_open}</dd>
+                </div>
+
+                <div class="place shadow-none p-3 rounded text_title">
+                    <dt class="dt"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close Time </dt>
+                    <dd>${gymList.gym_close}</dd>
+                </div>
+
             </div>
 
 
-            <div class="gym_info_tagBox">
+            <div class="gym_info_tagBox" style="margin-top: 20px">
 
                 <c:choose>
                     <c:when test="${gymFilter.open == 'true'}">
@@ -316,10 +328,9 @@
     <script>
 
         // 태그 사용 못하게 출력 치환
-        $(function(){
+        $(function () {
             $('.reviewcon').text($('.reviewcon').html());
         })
-
 
 
         $(".relike").on("click", function () {
@@ -378,7 +389,7 @@
                 $("#heart").css("color", "#CF0C00");
             } else {
                 console.log(fav + ": 회색")
-                $("#heart").css("color", "#8f959a")
+                $("#heart").css("color", "#C7D3DC")
             }
 
 
@@ -387,7 +398,7 @@
 
         $("#heart").on("click", function () {
 
-            if ($("#heart").css("color") == "rgb(143, 149, 154)") {
+            if ($("#heart").css("color") == "rgb(199,211,220)") {
                 $("#heart").css("color", "#CF0C00");
                 console.log("즐찾추가")
                 $.ajax({
@@ -395,7 +406,7 @@
                     type: "get"
                 })
             } else {
-                $("#heart").css("color", "#8f959a")
+                $("#heart").css("color", "#C7D3DC")
                 console.log("즐찾삭제")
                 $.ajax({
                     url: "/favoriteremove.gym?gym_seq=" +${gymList.gym_seq},

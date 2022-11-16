@@ -186,19 +186,6 @@
 <script>
 
     // 태그 사용 못하게 출력 치환
-<%--    <c:forEach var="i" items="${list}" varStatus="status">--%>
-<%--    $(function(){--%>
-<%--        $($('.review_contents')[${status.index}]).text(${i.review_contents});--%>
-<%--    })--%>
-<%--    </c:forEach>--%>
-
-
-
-    // $(function(){
-    //     $('.i_review_contents').text($('.i_review_contents').html());
-    // })
-
-
     let contents = document.querySelectorAll('.i_review_contents');
     for (i = 0; i < contents.length; i++) {
         contents[i].innerText = contents[i].innerHTML;

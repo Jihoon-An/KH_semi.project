@@ -299,7 +299,7 @@
 #gym-modify .gym_img {
     width: 160px;
     height: 160px;
-    background-color: #2C3E50;
+    background-color: #FFFFFF;
     position: relative;
     cursor: pointer;
 }
@@ -310,7 +310,8 @@
 }
 
 #gym-modify #gym_img1_label {
-    border: 5px solid rgba(208, 212, 215, 0.24);
+    border: 1px solid #003584;
+    padding: 2px;
 }
 
 #gym-modify #gym_img_box {
@@ -329,7 +330,7 @@
     background-color: rgba(60, 64, 67, 0);
 }
 #gym-modify .del_img_btn:hover {
-    background-color: rgba(149, 175, 190, 0.64);
+    background-color: #FFFFFF;
     color: rgba(0, 0, 0, 0.99);
     font-weight: bolder;
 }
