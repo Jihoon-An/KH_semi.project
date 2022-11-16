@@ -231,9 +231,27 @@
 			<div class="chart1">
 				<canvas id="myChart"></canvas>
 			</div>
+			
+			
 			<div class="gym_info_open">
-				<span>OPEN : ${gymList.gym_open}</span><br /> <span>CLOSE :
-					${gymList.gym_close}</span>
+			<c:choose>
+
+				<c:when test="${gymList.gym_open != null &&  gymList.gym_open != '' }">
+				<span>OPEN :  ${gymList.gym_open}</span><br /> 
+				</c:when>
+				<c:otherwise>
+				<span>오픈 시간 미등록</span><br>
+				</c:otherwise>
+				</c:choose>
+				<c:choose>	
+				<c:when test="${gymList.gym_close != null &&  gymList.gym_close != '' }">
+				<span>OPEN :  ${gymList.gym_close}</span><br /> 
+				</c:when>
+				<c:otherwise>
+				<span>마감 시간 미등록</span>
+				</c:otherwise>
+			</c:choose>
+		
 			</div>
 
 
