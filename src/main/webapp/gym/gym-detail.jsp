@@ -344,22 +344,7 @@
 
 
     <script>
-        $(function () {
-            $(".infopicture").slice(0, 1).show(); // 초기갯수
-            if ($(".infopicture:hidden").length == 0) {
-                $("#imgload").css("display", "none")
-            }
-
-            $("#imgload").click(function (e) {
-                // 클릭시 more
-                e.preventDefault();
-                $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
-                if ($(".infopicture:hidden").length == 0) {
-                    // 컨텐츠 남아있는지 확인
-                    $("#imgload").css("display", "none")
-                }
-            });
-        });  //사진  더 보기 기능
+   
 
 
 
@@ -484,6 +469,25 @@
                 }
             });
         });  //게시글 더 보기 기능
+        
+        
+        
+        $(function () {
+            $(".infopicture").slice(0, 1).show(); // 초기갯수
+            if ($(".infopicture:hidden").length == 0) {
+                $("#imgload").css("display", "none")
+            }
+
+            $("#imgload").click(function (e) {
+                // 클릭시 more
+                e.preventDefault();
+                $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
+                if ($(".infopicture:hidden").length == 0) {
+                    // 컨텐츠 남아있는지 확인
+                    $("#imgload").css("display", "none")
+                }
+            });
+        });  //사진  더 보기 기능
     </script>
 
     <script>
