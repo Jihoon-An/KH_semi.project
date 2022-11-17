@@ -136,7 +136,7 @@
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div class="text_title col-12" id="result_title"
+												<div class="text_title col-12 mt-1" id="result_title"
 													style="padding-bottom: 10px"></div>
 												<div class="text_normal row justify-content-evenly"
 													id="result_contents"></div>
@@ -164,10 +164,10 @@
 													</div>
 													<div class="col-7 text-start" style="margin-top: 30px">
 														<input type="text" class="text-center" id="reg_hour"
-															style="width: 30px;" value="0"
+															style="width: 36px;" value="0"
 															oninput="validNaturalNumRange(24)">시간&nbsp <input
 															type="text" class="text-center" id="reg_minute"
-															style="width: 30px;" value="0"
+															style="width: 36px;" value="0"
 															oninput="validNaturalNumRange(60)">분
 													</div>
 													<div class="col-5 text-end"
@@ -180,7 +180,7 @@
 														style="padding-bottom: 0px; margin-top: 30px">
 														<form>
 															<input type="range" class="form-range" id="reg_range"
-																min="1" max="5" style="width: 140px; height: 24px">
+																min="1" max="5" style="width: 120px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
 																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-6px; padding:3px">중</label>
@@ -396,6 +396,7 @@
 						function initCalendar() {
 							$.datepicker.setDefaults({
 								onSelect: onSelect,
+								onChangeMonthYear: onSelect,
 								dateFormat: 'yy / mm / dd',
 								monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
 								dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
@@ -606,7 +607,7 @@
 							if (point < 0) { place = 0; }
 							else if (point > 1) { place = width; }
 							else { place = width * point }
-							$("#reg_range_label").css({ left: (place * 0.9) - 5, }).text(intens[element.val() - 1]);
+							$("#reg_range_label").css({ left: (place * 0.88) - 6, }).text(intens[element.val() - 1]);
 						}).trigger("change");
 						$("#btn_regRecord").on("click", () => {
 							if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") {

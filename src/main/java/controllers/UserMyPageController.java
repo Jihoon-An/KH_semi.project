@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -64,8 +65,7 @@ public class UserMyPageController extends ControllerAbs {
                     break;
                 //리뷰 삭제
                 case "/delReview.userMyPage":
-                    int reviewSeq = Integer.parseInt(request.getParameter("review_seq"));
-                    ReviewDAO.getInstance().deleteByReviewSeq(reviewSeq);
+                    this.delReview(request, response);
                     break;
                 //프로필 이미지(PI) 수정
                 case "/modifyPI.userMyPage":
@@ -198,5 +198,14 @@ public class UserMyPageController extends ControllerAbs {
         // 새로 생성한 파일 커밋
         UserDAO.getInstance().updatePi(userSeq, sysName);
         response.getWriter().append(sysName);
+    }
+    public void delReview(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        int reviewSeq = Integer.parseInt(request.getParameter("review_seq"));
+
+        String sysName = ReviewDAO.getInstance().getByReviewSeq(reviewSeq).getReview_photo();
+        FileControl file = new FileControl();
+        file.delete(request, "/resource/review", sysName);
+
+        ReviewDAO.getInstance().deleteByReviewSeq(reviewSeq);
     }
 }

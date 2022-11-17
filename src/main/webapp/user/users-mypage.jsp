@@ -99,13 +99,15 @@
     </div>
 
     <hr style="margin: 0; padding: 0; width: 100%">
-
     <!-- 즐겨찾기 시설 -->
     <div class="row pt-4 pb-3">
         <span class="text_title">내 즐겨찾기</span>
     </div>
     <!-- 시설 카드 -->
     <div class="gym_area mb-5">
+            <c:if test="${gyms == [] || gyms == null}">
+                <div class="row pt-5 mt-3" style="font-size: large;"><div class="text-center" style="transform: translate(-10px, 0);">즐겨찾기한 시설이 없습니다.</div></div>
+            </c:if>
         <div class="gym_cards_box" id="gym_cards_box">
             <c:forEach var="gym" items="${gyms}" varStatus="status">
                 <div class="gym_card">
@@ -143,6 +145,11 @@
     <!-- 리뷰 카드 영역 -->
     <div class="row review_cards_area" id="review_cards_area">
         <!-- review card -->
+
+
+        <c:if test="${reviews == [] || reviews == null}">
+            <div class="row pt-5 mt-3" style="font-size: large;"><div class="col text-center"  style="transform: translate(7px, 0);" >작성된 리뷰가 없습니다.</div></div>
+        </c:if>
         <c:forEach var="review" items="${reviews}">
             <div class="col-6 review_card p-1">
                 <form action="/detail.gym" class="review_detail">
@@ -170,6 +177,8 @@
                 </div>
             </div>
         </c:forEach>
+
+
         <script>
             var reviewText = document.getElementsByClassName("review_text");
             for (var i = 0; i < reviewText.length; i++) {

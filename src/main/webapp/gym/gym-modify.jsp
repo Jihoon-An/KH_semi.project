@@ -297,6 +297,11 @@
 
     <script>
 
+        var htmlToText = document.getElementsByClassName("htmlToText");
+        for (var i = 0; i < htmlToText.length; i++) {
+            htmlToText[i].innerText = htmlToText[i].innerHTML;
+        }
+
         // filter 초기화
         $("#open_result").val($("#open").is(":checked"));
         $("#locker_result").val($("#locker").is(":checked"));

@@ -133,6 +133,7 @@
 #users-mypage .review_cards_area {
     margin: 0 auto;
     width: 1200px;
+    min-height: 250px;
 }
 
 #users-mypage .modify_review_btn {
@@ -167,7 +168,9 @@
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 15px;
     width: 95%;
-    height: 63px;
+    height: 56px;
+    margin-top: 4px;
+    margin-bottom: 8px;
     padding-left: 25px;
     padding-top: 10px;
     padding-bottom: 10px;

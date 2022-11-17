@@ -1,17 +1,16 @@
 package controllers;
 
-import java.io.IOException;
-import java.util.List;
+import commons.Common;
+import dao.UserDAO;
+import dto.UserDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import commons.Common;
-import dao.UserDAO;
-import dto.UserDTO;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class HeaderController
@@ -87,6 +86,7 @@ public class UserController extends HttpServlet {
 		if (!list.isEmpty()) {
 			if (Common.getSHA512(req_pw).equals(list.get(0).getPw())) {
 				// 로그인 성공
+				request.getSession().invalidate();
 				request.getSession().setAttribute("userSeq", list.get(0).getSeq());
 				return true;
 			} else {
