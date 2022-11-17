@@ -344,22 +344,7 @@
 
 
     <script>
-        $(function () {
-            $(".infopicture").slice(0, 1).show(); // 초기갯수
-            if ($(".infopicture:hidden").length == 0) {
-                $("#imgload").css("display", "none")
-            }
-
-            $("#imgload").click(function (e) {
-                // 클릭시 more
-                e.preventDefault();
-                $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
-                if ($(".infopicture:hidden").length == 0) {
-                    // 컨텐츠 남아있는지 확인
-                    $("#imgload").css("display", "none")
-                }
-            });
-        });  //사진  더 보기 기능
+   
 
 
 
@@ -484,6 +469,25 @@
                 }
             });
         });  //게시글 더 보기 기능
+        
+        
+        
+        $(function () {
+            $(".infopicture").slice(0, 1).show(); // 초기갯수
+            if ($(".infopicture:hidden").length == 0) {
+                $("#imgload").css("display", "none")
+            }
+
+            $("#imgload").click(function (e) {
+                // 클릭시 more
+                e.preventDefault();
+                $(".infopicture:hidden").slice(0, 2).show(); // 클릭시 추가 갯수 지정
+                if ($(".infopicture:hidden").length == 0) {
+                    // 컨텐츠 남아있는지 확인
+                    $("#imgload").css("display", "none")
+                }
+            });
+        });  //사진  더 보기 기능
     </script>
 
     <script>
@@ -492,7 +496,8 @@
             datasets: [
                 {
                     label: "My Second Dataset",
-                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3}, ${checkList.check4}, ${checkList.check5}],
+                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3}, 
+                    	${checkList.check4}, ${checkList.check5}],
                     fill: true,
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     borderColor: "rgb(54, 162, 235)",
@@ -503,7 +508,6 @@
                 },
             ],
         };
-
         const config = {
             type: "radar",
             data: data,
@@ -516,16 +520,11 @@
                 scales: {
                     r: {
                         suggestedMin: 0,
-
-
                         stepSize: 1
                     },
                 },
             },
-
         };
-
-
         //chart.js
     </script>
 
