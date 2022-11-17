@@ -40,6 +40,7 @@
 		</div>
 		<!-- 검색 리스트 네비 -->
 		<div class="searchListNav">
+			<div style="margin-top: 115px"></div>
 			<form action="/gym.search" id="subForm">
 				<div class="search_sub">
 					<div class="search_sub_input">
@@ -170,8 +171,8 @@
 						<div class="gym_list_open">
 							<c:choose>
 								<c:when test="${not empty gymList.gym_open}">
-									<span>OPEN : ${gymList.gym_open } &nbsp &nbsp</span>
-									<span>CLOSE : ${gymList.gym_close }</span>
+									<span style="padding:0 7px 0 0">OPEN &nbsp</span><span> ${gymList.gym_open }</span><br>
+									<span style="padding:0 7px 0 0">CLOSE</span><span> ${gymList.gym_close }</span>
 								</c:when>
 								<c:otherwise>
 									<span>시설 운영시간에 대한 정보가 없습니다</span>
@@ -243,10 +244,10 @@
         var mapTypeControl = new kakao.maps.MapTypeControl();
         // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
         var zoomControl = new kakao.maps.ZoomControl();
-        map.addControl(zoomControl, kakao.maps.ControlPosition.TOPLEFT);
+        map.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMLEFT);
         // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
         // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMLEFT);
         
 		
 

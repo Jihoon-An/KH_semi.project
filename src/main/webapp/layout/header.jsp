@@ -107,7 +107,7 @@
                 </ul>
                 <ul id="header_nav_person">
                     <c:choose>
-                        <c:when test="${userSeq != null}">
+                        <c:when test="${userSeq != null && userSeq!='99999'}">
                             <li class="float-end">
                                 <a class="header_a_tag"
                                    onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>
@@ -116,7 +116,7 @@
                                 <a class="header_a_tag" href="/page.userMyPage">마이페이지</a>
                             </li>
                         </c:when>
-                        <c:when test="${bsSeq != null}">
+                        <c:when test="${bsSeq != null && bsSeq!='99999'}">
                             <li class="float-end">
                                 <a class="header_a_tag"
                                    onclick="$.get('/logout.user').done(() => { location.href='/' });">로그아웃</a>

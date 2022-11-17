@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="bs_sign">
 	<form id="form_bs_sign" action="/signUp.bs" method="post"
 		  enctype="multipart/form-data">
@@ -391,7 +392,7 @@
 		let bsEmailRegex = /^[a-zA-Z0-9+-\_.]{1,20}@[a-zA-Z0-9-]{1,15}\.[a-zA-Z-.]{1,12}$/;
 		let bsPwRegex = /^(?=.*[A-Za-z\d])(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 		let bsPhoneRegex = /^0[\d]{8,10}$/;
-		let bsNumberRegex = /^[1-6][\d]{7}[1-9][\d]$/;
+		let bsNumberRegex = /^[1-9][\d]{7}[1-9][\d]$/;
 
 		// 이메일(아이디) - 아이디 중복검사 & 값 입력 유효성 검사 display
 

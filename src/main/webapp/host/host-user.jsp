@@ -57,7 +57,7 @@
                                     <fmt:parseNumber value="${u.signup.time / (1000*60*60*24)}" integerOnly="true"
                                                      var="dbDtParse" scope="request"/>
                                     <c:if test="${(dbDtParse - nowfmtTime)==0}">
-                                    <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; left: 40px"
+                                    <span style="font-size:8px; font-weight: 300; width:30px; height: 15px; position: absolute; top: -3px; right: -40px"
                                           class="translate-middle badge rounded-pill bg-danger animate__animated animate__flash animate__infinite">
                                         <span style="position: absolute; top: 2px; left: 4px">NEW</span>
                                     </span>
@@ -151,15 +151,12 @@
     $("#btn_dell").on("click", function () {
         var userseq = [];
 
-        console.log(document.querySelectorAll(".check:checked")[0].value)
 
         let a = document.querySelectorAll(".check:checked")
         for (let i = 0; i < a.length; i++) {
-            console.log(a[i]);
             userseq.push(a[i].value);
 
         }
-        console.log(userseq)
 
         $.ajax({
             url: "/usersDel.host",
@@ -177,7 +174,6 @@
     //검색기능
     $("#btn_searchh").on("click", function click () {
         let input = $("#inputText").val();
-        console.log(input);
         if (input == "") {
             Swal.fire({
                 icon: 'error',

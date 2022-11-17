@@ -5,6 +5,7 @@
 
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="gym-modify">
     <form id="gym-modify-form" action="/add.addGym" method="post" enctype="multipart/form-data">
         <input type="hidden" name="bsSeq" value="${bsSeq}">
@@ -251,6 +252,11 @@
 
     <script>
 
+        var htmlToText = document.getElementsByClassName("htmlToText");
+        for (var i = 0; i < htmlToText.length; i++) {
+            htmlToText[i].innerText = htmlToText[i].innerHTML;
+        }
+
         $("#btn_modify_complete").on("click", function () {
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
@@ -261,37 +267,30 @@
         // 비어있는지
         function gymSubmitCheck() {
             if ($("#gym_name").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_name"));
                 $("#gym_name").focus();
             }
             else if ($("#gym_phone").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_phone"));
                 $("#gym_phone").focus();
             }
             else if ($("#gym_price").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_price"));
                 $("#gym_price").focus();
             }
             else if ($("#gym_open").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_open"));
                 $("#gym_open").focus();
             }
             else if ($("#gym_close").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_close"));
                 $("#gym_close").focus();
             }
             else if ($("#gym_address1").val() == "") {
-                console.log("힝 속았지!")
                 wobble($(".lb_gym_address1"));
                 $(".lb_gym_address1").focus();
             }
             else if ($("#gym_address2").val() == "") {
-                console.log("힝 속았지!")
                 wobble($("#gym_address2"));
                 $("#gym_address2").focus();
             }

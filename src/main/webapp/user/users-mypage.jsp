@@ -4,6 +4,7 @@
 
 
 <div class="main_margin_155 containerbox" style="height: 80px;"></div>
+<div class="main_margin_85" style="height: 85px;"></div>
 <!-- Site Main -->
 <main class="containerbox" id="users-mypage">
     <div class="row text-center">
@@ -49,7 +50,8 @@
             <!-- birthday -->
             <div class="profile_input_group py-2">
                 <div class="profile_title">생년월일</div>
-                <div style="display:inline-table;"><input class="form-control modify_input" type="date" min="1920-01-01" max="${nowDate}"
+                <div style="display:inline-table;"><input class="form-control modify_input" type="date" min="1920-01-01"
+                                                          max="${nowDate}"
                                                           id="user_birthday" name="user_birthday"
                                                           value="${user.birthday}">
                 </div>
@@ -97,13 +99,15 @@
     </div>
 
     <hr style="margin: 0; padding: 0; width: 100%">
-
     <!-- 즐겨찾기 시설 -->
     <div class="row pt-4 pb-3">
         <span class="text_title">내 즐겨찾기</span>
     </div>
     <!-- 시설 카드 -->
     <div class="gym_area mb-5">
+            <c:if test="${gyms == [] || gyms == null}">
+                <div class="row pt-5 mt-3" style="font-size: large;"><div class="text-center" style="transform: translate(-10px, 0);">즐겨찾기한 시설이 없습니다.</div></div>
+            </c:if>
         <div class="gym_cards_box" id="gym_cards_box">
             <c:forEach var="gym" items="${gyms}" varStatus="status">
                 <div class="gym_card">
@@ -115,14 +119,14 @@
                                 <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">
                             </c:when>
                             <c:otherwise>
-                                <img class="gym_img" src="/resource/img/main.jpg">
+                                <img class="gym_img" src="/resource/img/default02.png">
                             </c:otherwise>
                         </c:choose>
                         <span class="gym_text p-2 ellipsis">
-										<span class="pb-2 ellipsis">${gym.gym_name}</span><br>
-										<span class="ellipsis">${gym.gym_phone}</span><br>
-										<span class="ellipsis">${gym.gym_location}</span><br>
-										<span class="ellipsis">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</span>
+										<span class="pb-2 ellipsis htmlToText">${gym.gym_name}</span><br>
+										<span class="ellipsis htmlToText">${gym.gym_phone}</span><br>
+										<span class="ellipsis htmlToText">${gym.gym_location}</span><br>
+										<span class="ellipsis htmlToText">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</span>
 									</span>
                     </a>
                     <i class="fa-solid fa-heart fa-xl heart" style="color:rgb(207,12,0);"></i>
@@ -141,10 +145,16 @@
     <!-- 리뷰 카드 영역 -->
     <div class="row review_cards_area" id="review_cards_area">
         <!-- review card -->
+
+
+        <c:if test="${review == null}">
+            <div class="row pt-5 mt-3" style="font-size: large;"><div class="col text-center"  style="transform: translate(7px, 0);" >작성된 리뷰가 없습니다.</div></div>
+        </c:if>
         <c:forEach var="review" items="${reviews}">
             <div class="col-6 review_card p-1">
                 <form action="/detail.gym" class="review_detail">
-                    <input type="hidden" name="gym_seq" class="review_seq" value="${review.gym_seq}">
+                    <input type="hidden" name="gym_seq" class="gym_seq" value="${review.gym_seq}">
+                    <input type="hidden" name="review_seq" class="review_seq" value="${review.review_seq}">
                     <!-- review_seq 저장 -->
                 </form>
 
@@ -167,6 +177,14 @@
                 </div>
             </div>
         </c:forEach>
+
+
+        <script>
+            var reviewText = document.getElementsByClassName("review_text");
+            for (var i = 0; i < reviewText.length; i++) {
+                reviewText[i].innerText = reviewText[i].innerHTML;
+            }
+        </script>
     </div>
 
 
@@ -220,6 +238,13 @@
 
 
     <script>
+
+
+        var htmlToText = document.getElementsByClassName("htmlToText");
+        for (var i = 0; i < htmlToText.length; i++) {
+            htmlToText[i].innerText = htmlToText[i].innerHTML;
+        }
+
         ///////////////////////////////////////////// 프로필 //////////////////////////////////////////////////////////////////
 
         var afterPi = ""; // 미리보기 전에 미리 선언 됨
@@ -233,7 +258,7 @@
             var files = e.target.files;
             var filesArr = Array.prototype.slice.call(files);
 
-            if(files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
+            if (files.length > 0) { // 취소 누르면 files 길이가 0이 됨. 파일이 있으면 원래대로 처리
 
                 var reg = /(.*?)\/(jpg|jpeg|png|bmp|pdf|gif)$/;
 
@@ -258,17 +283,13 @@
                 });
 
                 pi_check = true;
-            }
-            else{ // 취소를 눌렀을 때 행동
-                console.log("/resource/profileImg/"+afterPi);
+            } else { // 취소를 눌렀을 때 행동
                 let basPi = "${user.pi}"; // 페이지를 불러왔을 때의 사진 경로
-                if(afterPi != null && afterPi != ""){ // 페이지에서 프사를 한번 바꿨을 때(저장을 한번 된 상태-데이터테이블+이미지저장)
-                    $("#user_img").attr("src", "/resource/profileImg/"+afterPi); // 취소를 누르면 원래 값으로 돌아가기
-                }
-                else if (basPi != "/resource/profileImg/") { // 파일 비어 있으면 이렇게 옴
+                if (afterPi != null && afterPi != "") { // 페이지에서 프사를 한번 바꿨을 때(저장을 한번 된 상태-데이터테이블+이미지저장)
+                    $("#user_img").attr("src", "/resource/profileImg/" + afterPi); // 취소를 누르면 원래 값으로 돌아가기
+                } else if (basPi != "/resource/profileImg/") { // 파일 비어 있으면 이렇게 옴
                     $("#user_img").attr("src", basPi); // 취소를 눌러서 파일이 없으면 처음 저장된 아이 가져옴.
-                }
-                else { // 둘다 아니라면 기본 이미지 보내기 - 원래 프사가 없던 애
+                } else { // 둘다 아니라면 기본 이미지 보내기 - 원래 프사가 없던 애
                     $("#user_img").attr("src", "/resource/img/default_profile.png");
                 }
                 pi_check = false; // 취소하기 누르면 null 들어가고 기본 이미
@@ -288,7 +309,6 @@
                 , contentType: false
                 , data: form
                 , success: function (response) {
-                    console.log("프로필 변경에 성공하였습니다.");
                     afterPi = response; // 성공하면 afterPi(이미지이름)를 보내줌
                 }
                 , error: function (jqXHR) {
@@ -348,7 +368,7 @@
 
                 let interesting = $("<div>");
                 interesting.addClass("interesting");
-                interesting.html($("<span>").addClass("user_interest").html(interest_input));
+                interesting.html($("<span>").addClass("user_interest").text(interest_input));
 
                 let del_interest = $("<a>").on("click", function () {
                     $(this).parent().remove();
@@ -383,7 +403,7 @@
 
                 let interesting = $("<div>");
                 interesting.addClass("interesting");
-                interesting.html($("<span>").addClass("user_interest").html(interest_input));
+                interesting.html($("<span>").addClass("user_interest").text(interest_input));
 
                 let del_interest = $("<a>").on("click", function () {
                     $(this).parent().remove();
@@ -447,7 +467,6 @@
             let fix_interests = document.querySelectorAll(".user_interest");
             //let fix_interests = $(".user_interest");
 
-            console.log(fix_phone);
 
             let interest_list = [];
             fix_interests.forEach(item => {
@@ -466,7 +485,6 @@
                 },
                 type: "post",
                 success: function () {
-                    console.log("success!!");
                 }
             });
 
@@ -495,7 +513,6 @@
         $(".heart").on("click", function () {
             var heart = $(this);
             if ($(this).css("color") == "rgb(143, 149, 154)") {
-                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 $.ajax({
                     url: "/addHeart.userMyPage",
                     data: {
@@ -508,7 +525,6 @@
                     }
                 });
             } else {
-                console.log($(heart).closest(".gym_card").find(".fav_seq").val());
                 //즐겨찾기 취소
                 $.ajax({
                     url: "/delHeart.userMyPage",
@@ -534,7 +550,6 @@
                 data: {review_seq: $(this).closest(".review_card").find(".review_seq").val()},
                 type: "POST",
                 success: function () {
-                    console.log("delete complete");
                     $(del).closest(".review_card").remove();
                 }
             });

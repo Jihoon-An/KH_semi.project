@@ -7,6 +7,7 @@
 
 
 				<!-- Site Main -->
+<div class="main_margin_85" style="height: 85px;"></div>
 				<main id="personal-record" style="margin-top: 57px">
 					<div class="containerbox row" align="center">
 						<div class="col-12" style="padding-bottom: 0px">
@@ -25,59 +26,79 @@
 												<script>$("#manager").css("background-color","#18181840");</script>
 											</c:when>
 											<c:otherwise>
-												
+
 												<c:choose>
 													<c:when test="${not empty manager.title}">
 														<div class="manager_btnBox  m_md_box">
-														<span id="manager_update"><i class="fa-solid fa-pen-to-square"></i></span>
-														<span id="manager_delete"><i class="fa-solid fa-trash-can"></i></span>
+															<span id="manager_update"><i
+																	class="fa-solid fa-pen-to-square"></i></span>
+															<span id="manager_delete"><i
+																	class="fa-solid fa-trash-can"></i></span>
 														</div>
 														<div class="manager_titleBox">
-														${manager.title}
+															${manager.title}
 														</div>
-														
-														<jsp:useBean id="now" class="java.util.Date"/>
-														<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="nowfmtTime" scope="request"/>
-														<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="start_date" scope="request"/>
-														<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="end_date" scope="request"/>
-														<fmt:parseNumber value="${manager.start_date.time / (1000*60*60*24)}" integerOnly="true" var="startDate" scope="request"/>
-														<fmt:parseNumber value="${manager.end_date.time / (1000*60*60*24)}" integerOnly="true" var="endDate" scope="request"/>
-														
-														<c:set value="${nowfmtTime - start_date}" var="n_s_date"/>
-														<c:set value="${end_date - nowfmtTime}" var="e_n_date"/>
-														
+
+														<jsp:useBean id="now" class="java.util.Date" />
+														<fmt:parseNumber value="${now.time / (1000*60*60*24)}"
+															integerOnly="true" var="nowfmtTime" scope="request" />
+														<fmt:parseNumber
+															value="${manager.start_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="start_date" scope="request" />
+														<fmt:parseNumber
+															value="${manager.end_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="end_date" scope="request" />
+														<fmt:parseNumber
+															value="${manager.start_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="startDate" scope="request" />
+														<fmt:parseNumber
+															value="${manager.end_date.time / (1000*60*60*24)}"
+															integerOnly="true" var="endDate" scope="request" />
+
+														<c:set value="${nowfmtTime - start_date}" var="n_s_date" />
+														<c:set value="${end_date - nowfmtTime}" var="e_n_date" />
+
 														<div class="manager_startBox">
-														🏋️‍♀️시작한지 <span style="font-size: 20px;"><c:out value="${n_s_date}" />일</span> 지났습니다 😊<br>
-														<span style="font-size: 12px;">
-															시작 날짜 : <fmt:formatDate value="${manager.start_date}" pattern="yyyy년 MM월 dd일"/>
-														</span>
-							
+															🏋️‍♀️시작한지 <span style="font-size: 20px;">
+																<c:out value="${n_s_date}" />일
+															</span> 지났습니다 😊<br>
+															<span style="font-size: 12px;">
+																시작 날짜 :
+																<fmt:formatDate value="${manager.start_date}"
+																	pattern="yyyy년 MM월 dd일" />
+															</span>
+
 														</div>
 														<div class="manager_endBox">
-														🏋️‍♂️종료까지 <span style="font-size: 20px;"><c:out value="${e_n_date}" />일</span> 남았습니다 😂<br>
-														<span  style="font-size: 12px;">
-															종료 날짜 : <fmt:formatDate value="${manager.end_date}" pattern="yyyy년 MM월 dd일"/>
-														</span>
+															🏋️‍♂️종료까지 <span style="font-size: 20px;">
+																<c:out value="${e_n_date}" />일
+															</span> 남았습니다 😂<br>
+															<span style="font-size: 12px;">
+																종료 날짜 :
+																<fmt:formatDate value="${manager.end_date}"
+																	pattern="yyyy년 MM월 dd일" />
+															</span>
 														</div>
 													</c:when>
-					
+
 													<c:otherwise>
 														<div class="manager_nullBox">
-														<div class="manager_btnBox m_a_box">
-															<span id="manager_add"><i class="fa-solid fa-plus"></i></span>
-														</div>
-														" 입력된 정보가 없습니다 😢 "<br>
-														<span style="font-size: 13px;">
-															" 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
-														</span>
+															<div class="manager_btnBox m_a_box">
+																<span id="manager_add"><i
+																		class="fa-solid fa-plus"></i></span>
+															</div>
+															" 입력된 정보가 없습니다 😢 "<br>
+															<span style="font-size: 13px;">
+																" 목표 일정이나 회원권 기간을 등록하기 좋아요! 😁"
+															</span>
 														</div>
 													</c:otherwise>
-					
+
 												</c:choose>
 
 											</c:otherwise>
 										</c:choose>
-										
+
 									</div>
 								</div>
 								<div class="col-12">
@@ -115,7 +136,7 @@
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div class="text_title col-12" id="result_title"
+												<div class="text_title col-12 mt-1" id="result_title"
 													style="padding-bottom: 10px"></div>
 												<div class="text_normal row justify-content-evenly"
 													id="result_contents"></div>
@@ -143,10 +164,10 @@
 													</div>
 													<div class="col-7 text-start" style="margin-top: 30px">
 														<input type="text" class="text-center" id="reg_hour"
-															style="width: 30px;" value="0"
+															style="width: 36px;" value="0"
 															oninput="validNaturalNumRange(24)">시간&nbsp <input
 															type="text" class="text-center" id="reg_minute"
-															style="width: 30px;" value="0"
+															style="width: 36px;" value="0"
 															oninput="validNaturalNumRange(60)">분
 													</div>
 													<div class="col-5 text-end"
@@ -159,7 +180,7 @@
 														style="padding-bottom: 0px; margin-top: 30px">
 														<form>
 															<input type="range" class="form-range" id="reg_range"
-																min="1" max="5" style="width: 140px; height: 24px">
+																min="1" max="5" style="width: 120px; height: 24px">
 															<label id="reg_range_label"
 																onforminput="value = foo.valueAsNumber;"></label>
 																<label for="reg_range" id="reg_intens_label" style="position:relative; top:-6px; padding:3px">중</label>
@@ -220,7 +241,8 @@
 														style="width: 60px" oninput="vaildNumRange(100)" maxlength="5">
 												</div>
 												<div class="col-12"></div>
-												<button class=text_normal_600 id="btn_inbody">I<br>n<br>b<br>o<br>d<br>y</button>
+												<button class=text_normal_600
+													id="btn_inbody">I<br>n<br>b<br>o<br>d<br>y</button>
 											</div>
 											<div id="reg_filter"></div>
 										</div>
@@ -230,66 +252,66 @@
 						</div>
 					</div>
 
-               <!-- Add Manager Form -->
-            <form id="m_add_form" action="/add_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>디데이 매니저</strong>
-                  </div>
+					<!-- Add Manager Form -->
+					<form id="m_add_form" action="/add_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>시설 이용 매니저</strong>
+							</div>
 
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="m_title_input" name="m_title_input" placeholder="제목" 
-					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <input type="date" id="m_start_input" name="m_start_input"
-					 min="1950-1-1" max="9999-12-31">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <input type="date" id="m_end_input" name="m_end_input"
-					 max="9999-12-31">
-                  </div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목</span>
+								<input type="text" id="m_title_input" name="m_title_input" placeholder="제목"
+									maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작</span>
+								<input type="date" id="m_start_input" name="m_start_input" min="1950-1-1"
+									max="9999-12-31">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료</span>
+								<input type="date" id="m_end_input" name="m_end_input" max="9999-12-31">
+							</div>
 
-                  <div class="col-12 text-center m_btnBox">
-                     <button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_add_backBtn" class="m_table_btn" type="button">취소</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_add_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_add_backBtn" class="m_table_btn" type="button">닫기</button>
+							</div>
+						</div>
+					</form>
 
-            <!-- Update Manager Form -->
-            <form id="m_update_form" action="/update_manager.personal" method="post">
-               <div class="m_table">
-                  <div class="m_head col-12 text-center">
-                     <strong>디데이 매니저</strong>
-                  </div>
-                  <div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>제목</span>
-                     <input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목" value="${manager.title}"
-					 maxlength="15" oninput="this.value = this.value.replace(/[<>]/g, '');">
-                  </div>
-                  <div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>시작</span>
-                     <fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate"/>
-                     <input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}" 
-					 min="1950-1-1" max="9999-12-31">
-                  </div>
-                  <div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
-                     <span>종료</span>
-                     <fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate"/>
-                     <input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}" 
-					 max="9999-12-31">
-                  </div>
+					<!-- Update Manager Form -->
+					<form id="m_update_form" action="/update_manager.personal" method="post">
+						<div class="m_table">
+							<div class="m_head col-12 text-center">
+								<strong>디데이 매니저</strong>
+							</div>
+							<div class="m_title m_inputDiv col-12" style="margin-left: 45px;">
+								<span>제목</span>
+								<input type="text" id="mu_title_input" name="mu_title_input" placeholder="제목"
+									value="${manager.title}" maxlength="15"
+									oninput="this.value = this.value.replace(/[<>]/g, '');">
+							</div>
+							<div class="m_start m_inputDiv col-12" style="margin-left: 45px;">
+								<span>시작</span>
+								<fmt:formatDate value="${manager.start_date}" pattern="yyyy-MM-dd" var="startdate" />
+								<input type="date" id="mu_start_input" name="mu_start_input" value="${startdate}"
+									min="1950-1-1" max="9999-12-31">
+							</div>
+							<div class="m_end m_inputDiv col-12" style="margin-left: 45px;">
+								<span>종료</span>
+								<fmt:formatDate value="${manager.end_date}" pattern="yyyy-MM-dd" var="enddate" />
+								<input type="date" id="mu_end_input" name="mu_end_input" value="${enddate}"
+									max="9999-12-31">
+							</div>
 
-                  <div class="col-12 text-center m_btnBox">
-                     <button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
-                     <button id="m_update_backBtn" class="m_table_btn" type="button">취소</button>
-                  </div>
-               </div>
-            </form>
+							<div class="col-12 text-center">
+								<button id="m_update_saveBtn" class="m_table_btn" type="button">완료</button>
+								<button id="m_update_backBtn" class="m_table_btn" type="button">닫기</button>
+							</div>
+						</div>
+					</form>
 
 					<!-- Delete Manager Form -->
 					<form id="m_delete_form" action="/del_manager.personal" method="post">
@@ -297,43 +319,41 @@
 					</form>
 
 
-            <script>
-               //Update Manager
-               $("#manager_update").on("click", () => {
-                  $("#m_update_form").show();
-               });
-               $("#m_update_backBtn").on("click", () => {
-                  $("#m_update_form").hide();
-                  $("#mu_title_input").css("background-color", "white");
-                  $("#mu_start_input").css("background-color", "white");
-                  $("#mu_end_input").css("background-color", "white");
-               });
-               $("#m_update_saveBtn").on("click", () => {
-                  if ($("#mu_title_input").val() == "") {
-                     $("#mu_title_input").css("background-color", "#faed77");
-                     $("#mu_title_input").css("transition", "1s");
-                     $("#mu_title_input").focus();
-                  }else if($("#mu_start_input").val() == "") {
-                     $("#mu_start_input").css("background-color", "#faed77");
-                     $("#mu_start_input").css("transition", "1s");
-                     $("#mu_start_input").focus();
-                  }else if($("#mu_end_input").val() == "") {
-                     $("#mu_end_input").css("background-color", "#faed77");
-                     $("#mu_end_input").css("transition", "1s");
-                     $("#mu_end_input").focus();
-                  }else {
-                     $("#mu_title_input").css("background-color", "white");
-                     $("#mu_start_input").css("background-color", "white");
-                     $("#mu_end_input").css("background-color", "white");
-                     $("#m_update_form").submit();
-                  }
-               });
-
+					<script>
+						//Update Manager
+						$("#manager_update").on("click", () => {
+							$("#m_update_form").show();
+						});
+						$("#m_update_backBtn").on("click", () => {
+							$("#m_update_form").hide();
+							$("#mu_title_input").css("background-color", "white");
+							$("#mu_start_input").css("background-color", "white");
+							$("#mu_end_input").css("background-color", "white");
+						});
+						$("#m_update_saveBtn").on("click", () => {
+							if ($("#mu_title_input").val() == "") {
+								$("#mu_title_input").css("background-color", "#faed77");
+								$("#mu_title_input").css("transition", "2s");
+								$("#mu_title_input").focus();
+							} else if ($("#mu_start_input").val() == "") {
+								$("#mu_start_input").css("background-color", "#faed77");
+								$("#mu_start_input").css("transition", "2s");
+								$("#mu_start_input").focus();
+							} else if ($("#mu_end_input").val() == "") {
+								$("#mu_end_input").css("background-color", "#faed77");
+								$("#mu_end_input").css("transition", "2s");
+								$("#mu_end_input").focus();
+							} else {
+								$("#mu_title_input").css("background-color", "white");
+								$("#mu_start_input").css("background-color", "white");
+								$("#mu_end_input").css("background-color", "white");
+								$("#m_update_form").submit();
+							}
+						});
 						// Delete Manager
 						$("#manager_delete").on("click", () => {
 							$("#m_delete_form").submit();
 						})
-
 						// Add Manager
 						$("#manager_add").on("click", () => {
 							$("#m_add_form").show();
@@ -372,7 +392,6 @@
 							$(".calendar").datepicker();
 							onSelect();
 						});
-
 						// calendar 초기화
 						function initCalendar() {
 							$.datepicker.setDefaults({
@@ -385,14 +404,11 @@
 								altField: "#reg_date"
 							});
 						}
-
 						// calendar 날짜 선택 함수
 						function onSelect() {
 							let date = $.datepicker.formatDate("yy년 mm월 dd일", $("#calendar").datepicker("getDate"));
 							$("#result_title").text(date);
-
 							let data = { "date": $.datepicker.formatDate("yy-mm-dd 00:00:00", $("#calendar").datepicker("getDate")) }
-
 							$.getJSON("/datepick.personal", data)
 								.done(res => {
 									setMarker(res.recordList);
@@ -429,10 +445,8 @@
 										let output = "<div class='gy-5'></div><div class='col-12 gy-5'><label>데이터가 존재하지 않습니다.</label><br><button class='btn_outline' id='btn_showRecord'onclick='showRecord()''>등록하기</button></div>"
 										$("#result_contents").html(output);
 									}
-									console.log(res.record.inbody_weight);
 								});
 						}
-
 						// 운동한 날짜 Maker 생성 함수
 						function setMarker(recordList) {
 							let arrDate = document.querySelectorAll(".calendar .ui-state-default");
@@ -450,7 +464,6 @@
 								}
 							}
 						}
-
 						// Notice Text 생성 함수
 						function setNotice(recordList) {
 							if (recordList.length == 0) { $("#notice>p").text("아직 등록 된 데이터가 없어요. 😢"); return false; }
@@ -463,7 +476,6 @@
 							else if (gap == 0) { context = "오늘 열심히 운동하셨군요. 앞으로도 화이팅!! 😊" }
 							$("#notice>p").text(context);
 						}
-
 						// 숫자 유효성 검사 (자연수)
 						function validNaturalNumRange(max) {
 							event.target.value = event.target.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
@@ -471,7 +483,6 @@
 								event.target.value = max - 1;
 							}
 						}
-
 						// 숫자 유효성 검사
 						function vaildNumRange(max) {
 							event.target.value = event.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -492,7 +503,6 @@
 							$("#result").fadeOut(500, () => { $("#record").fadeIn(0) });
 							onRecord = true;
 						}
-
 						// 기록 작성 창 닫기 애니메이션
 						function regCancel() {
 							$("#record").fadeOut(0, () => {
@@ -509,20 +519,17 @@
 							hideInbody();
 							onRecord = false;
 						}
-
 						let regInbody = false;
 						// 인바디 작성 창 열기 애니메이션
 						function showInbody() {
 							$("#reg_inbody")[0].style.left = "404px";
 							regInbody = true;
 						}
-
 						// 인바디 작성 창 닫기 애니메이션
 						function hideInbody() {
 							$("#reg_inbody")[0].style.left = "746px";
 							regInbody = false;
 						}
-
 						// 기록 등록 함수
 						function tryRegist() {
 							data = {
@@ -541,7 +548,6 @@
 									onSelect();
 								});
 						}
-
 						// 기록 삭제 함수
 						function tryDelRecord() {
 							Swal.fire({
@@ -562,7 +568,6 @@
 								}
 							});
 						}
-
 						// 기록 차트 작성 함수 
 						function setRecordChart(recentRecord) {
 							let recordCtx = document.getElementById('recordChart').getContext('2d');
@@ -582,7 +587,6 @@
 									backgroundColor: 'rgba(255, 99, 132, 0.2)'
 								}]
 							};
-
 							let recordChart = new Chart(recordCtx, {
 								data: recordData,
 								options: { responsive: false, scales: { y: { beginAtZero: true } } }
@@ -593,21 +597,17 @@
 							let intens = ['최하', '하', '중', '상', '최상'];
 							$("#reg_intens_label").text(intens[e.target.value - 1]);
 						});
-
 						$("#reg_range").on("change", e => {
 							let element, width, point, place;
 							let intens = ["😰", "🙁", "😶", "😊", "😆"];
 							element = $(e.target);
 							width = element.width();
 							point = (element.val() - element.attr("min")) / (element.attr("max") - element.attr("min"));
-
 							if (point < 0) { place = 0; }
 							else if (point > 1) { place = width; }
 							else { place = width * point }
-
-							$("#reg_range_label").css({ left: (place * 0.9) - 5, }).text(intens[element.val() - 1]);
+							$("#reg_range_label").css({ left: (place * 0.88) - 6, }).text(intens[element.val() - 1]);
 						}).trigger("change");
-
 						$("#btn_regRecord").on("click", () => {
 							if ($("#reg_hour").val() == "0" && $("#reg_minute").val() == "0") {
 								wobble($("#reg_hour")[0]); wobble($("#reg_minute")[0]); return false;
@@ -623,23 +623,18 @@
 								tryRegist();
 							}
 						});
-
 						$("#btn_inbody").on("click", () => { !regInbody ? showInbody() : hideInbody() })
 
 						// 차트 초기화
-
 						var inbodyCtx = document.getElementById('inbody_chart').getContext('2d');
-
-						var arrNum = ["체중", "체지방량", "골격근량", "BMI"];
-
-						var arrWeight = [0,0,0,0];
-
+						var arrData = ["체중", "체지방량", "골격근량", "BMI"];
+						var arrInbody = [0, 0, 0, 0];
 						var inbodyData = {
-							labels: arrNum,
+							labels: arrData,
 							datasets: [{
 								type: 'bar',
 								label: 'inbody',
-								data: arrWeight,
+								data: arrInbody,
 								borderColor: ['rgba(255, 99, 132, 1)',
 									'rgba(54, 162, 235, 1)',
 									'rgba(255, 206, 86, 1)',
@@ -653,12 +648,10 @@
 								borderWidth: 1
 							}]
 						};
-
 						var inbodyChart = new Chart(inbodyCtx, {
 							data: inbodyData,
 							options: { responsive: false, indexAxis: 'y', scales: { y: { beginAtZero: true } } }
 						});
-
 
 						// inbody chart
 						function setInbodyChart(record) {
@@ -700,41 +693,98 @@
                         }
 						
 						// weight change chart
-						let weightCtx = document.getElementById('weight_chart').getContext('2d');
-						let weightChart = new Chart(weightCtx, {
-							type: 'bar',
-							data: {
-								labels: ['09/01', '10/01', '11/01', '12/01', '01/01',
-									'02/01'],
-								datasets: [{
-									label: '# weight change',
-									data: [54, 52, 49, 51, 50, 46],
-									backgroundColor: ['rgba(255, 99, 132, 0.2)',
-										'rgba(54, 162, 235, 0.2)',
-										'rgba(255, 206, 86, 0.2)',
-										'rgba(75, 192, 192, 0.2)',
-										'rgba(153, 102, 255, 0.2)',
-										'rgba(255, 159, 64, 0.2)'],
-									borderColor: ['rgba(255, 99, 132, 1)',
-										'rgba(54, 162, 235, 1)',
-										'rgba(255, 206, 86, 1)',
-										'rgba(75, 192, 192, 1)',
-										'rgba(153, 102, 255, 1)',
-										'rgba(255, 159, 64, 1)'],
-									borderWidth: 1
-								}]
-							},
-							options: {
-								responsive: false,
-								scales: {
-									y: {
-										beginAtZero: true
-									}
-								}
-							}
-						});
-					
 					</script>
+					
+					<c:choose>
+						<c:when test="${empty newWeight}">
+							<script>
+								let weightCtx = document.getElementById('weight_chart').getContext('2d');
+								let weightChart = new Chart(weightCtx, {
+									type: 'bar',
+									data: {
+										labels: ['1/1','1/1','1/1','1/1','1/1','1/1'], 
+										datasets: [{
+											label: '# weight change',
+											data: [0,0,0,0,0,0],
+											backgroundColor: ['rgba(255, 99, 132, 0.2)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(255, 206, 86, 0.2)',
+												'rgba(75, 192, 192, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(255, 159, 64, 0.2)'],
+											borderColor: ['rgba(255, 99, 132, 1)',
+												'rgba(54, 162, 235, 1)',
+												'rgba(255, 206, 86, 1)',
+												'rgba(75, 192, 192, 1)',
+												'rgba(153, 102, 255, 1)',
+												'rgba(255, 159, 64, 1)'],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: false,
+										scales: {
+											y: {
+												beginAtZero: true
+											}
+										}
+									}
+								});
+							</script>
+						</c:when>
+						<c:otherwise>
+							<script>
+								// weight change chart
+								let weightCtx = document.getElementById('weight_chart').getContext('2d');
+								let weightChart = new Chart(weightCtx, {
+									type: 'bar',
+									data: {
+										labels: [
+											'<fmt:formatDate value="${newWeight[5].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[4].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[3].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[2].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[1].exr_date}" pattern="MM/dd" />', 
+											'<fmt:formatDate value="${newWeight[0].exr_date}" pattern="MM/dd" />'], 
+										datasets: [{
+											label: '# weight change',
+											data: [
+												${newWeight[5].inbody_weight}, 
+												${newWeight[4].inbody_weight}, 
+												${newWeight[3].inbody_weight}, 
+												${newWeight[2].inbody_weight}, 
+												${newWeight[1].inbody_weight}, 
+												${newWeight[0].inbody_weight}
+												],
+											backgroundColor: ['rgba(255, 99, 132, 0.2)',
+												'rgba(54, 162, 235, 0.2)',
+												'rgba(255, 206, 86, 0.2)',
+												'rgba(75, 192, 192, 0.2)',
+												'rgba(153, 102, 255, 0.2)',
+												'rgba(255, 159, 64, 0.2)'],
+											borderColor: ['rgba(255, 99, 132, 1)',
+												'rgba(54, 162, 235, 1)',
+												'rgba(255, 206, 86, 1)',
+												'rgba(75, 192, 192, 1)',
+												'rgba(153, 102, 255, 1)',
+												'rgba(255, 159, 64, 1)'],
+											borderWidth: 1
+										}]
+									},
+									options: {
+										responsive: false,
+										scales: {
+											y: {
+												beginAtZero: true
+											}
+										}
+									}
+								});
+							</script>
+						</c:otherwise>
+					</c:choose>
+					
+					
 				</main>
 
 				<%@ include file="/layout/footer.jsp" %>

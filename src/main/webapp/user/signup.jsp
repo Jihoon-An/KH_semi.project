@@ -149,7 +149,6 @@
                 else if ($("#users_pw_re_msg").html() == "동일한 비밀번호를 입력해주세요") { wobble($("#users_pw_re")[0]); $("#users_pw_re").focus(); }
             }
             else if ($("#users_phone_msg").css("color") == "rgb(255, 0, 0)") { 
-            	console.log($("#users_phone_msg").css("color"));
             	wobble($("#users_phone")[0]); $("#users_phone").focus();
             	
             } else {
@@ -188,7 +187,6 @@
                     data: { "users_email": email }
                 }).done(function (resp) {
                 	
-                    console.log(resp);
                     if (resp == "true") { // 아이디가 이미 존재하므로 사용할 수 없는 경우
                         $("#users_email_msg").css("display", "block");
                         $("#users_email_msg").css("color", "red");

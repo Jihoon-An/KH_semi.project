@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/layout/header.jsp" %>
 <div class="main_margin_155" style="height: 85px;"></div>
+
+<div class="main_margin_85" style="height: 85px;"></div>
+
 <main id="bs-page" class="containerbox" style="overflow: visible;">
     <div class="containerbox">
         <div id="bs_info" class="text-center">
@@ -146,19 +149,19 @@
                                 <img class="gym_img" src="/resource/gym/${gym.gym_main_sysImg}">
                             </c:when>
                             <c:otherwise>
-                                <img class="gym_img" src="/resource/img/main.jpg">
+                                <img class="gym_img" src="/resource/img/default02.png">
                             </c:otherwise>
                         </c:choose>
                     </div>
                     <div class="col-7 gym_text">
-                        <div class="row"><h4 class="gym_name gym_content">${gym.gym_name}</h4></div>
+                        <div class="row"><h4 class="gym_name gym_content htmlToText">${gym.gym_name}</h4></div>
                         <div class="row pt-2">
                             <div class="col-2 gym_label">주소</div>
-                            <div class="col-8 gym_content">${gym.gym_location}</div>
+                            <div class="col-8 gym_content htmlToText">${gym.gym_location}</div>
                         </div>
                         <div class="row pt-2">
                             <div class="col-2 gym_label">연락처</div>
-                            <div class="col-8 gym_content">${gym.gym_phone}</div>
+                            <div class="col-8 gym_content htmlToText">${gym.gym_phone}</div>
                         </div>
                         <c:choose>
                             <c:when test='${gym.gym_open == null && gym.gym_close == null}'>
@@ -171,7 +174,7 @@
                             <c:otherwise>
                                 <div class="row pt-2">
                                     <div class="col-2 gym_label">오픈시간</div>
-                                    <div class="col-8 gym_content">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</div>
+                                    <div class="col-8 gym_content htmlToText">OPEN:${gym.gym_open} CLOSE:${gym.gym_close}</div>
                                 </div>
                             </c:otherwise>
                         </c:choose>
@@ -222,6 +225,11 @@
 
 
 <script>
+
+    var htmlToText = document.getElementsByClassName("htmlToText");
+    for (var i = 0; i < htmlToText.length; i++) {
+        htmlToText[i].innerText = htmlToText[i].innerHTML;
+    }
     ////////////////////////            프로필                   ///////////////////////////////////////////////////////////
 
     /**
@@ -283,7 +291,6 @@
             , contentType: false
             , data: form
             , success: function (response) {
-                console.log("사업증 변경에 성공하였습니다.");
             }
             , error: function (jqXHR) {
                 alert(jqXHR.responseText);
@@ -308,7 +315,6 @@
             },
             type: "post",
             success: function () {
-                console.log("success!!");
             }
         });
         // 사업증 저장
@@ -396,7 +402,6 @@
             type: "post",
             success: function () {
                 acc_close();
-                console.log("success!!");
             }
         });
     });

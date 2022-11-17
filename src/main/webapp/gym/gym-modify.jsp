@@ -5,6 +5,7 @@
 
 <%@ include file="/layout/header.jsp" %>
 <!-- Gym-Modify main -->
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="gym-modify">
     <form id="gym-modify-form" action="/updateGym.bsPage" method="post" enctype="multipart/form-data">
         <input type="hidden" name="gymSeq" value="${gym.gym_seq}">
@@ -296,8 +297,20 @@
 
     <script>
 
+        var htmlToText = document.getElementsByClassName("htmlToText");
+        for (var i = 0; i < htmlToText.length; i++) {
+            htmlToText[i].innerText = htmlToText[i].innerHTML;
+        }
+
+        // filter 초기화
+        $("#open_result").val($("#open").is(":checked"));
+        $("#locker_result").val($("#locker").is(":checked"));
+        $("#shower_result").val($("#shower").is(":checked"));
+        $("#park_result").val($("#park").is(":checked"));
+
+
+
         $("#btn_modify_complete").on("click", function () {
-            console.log(gymSubmitCheck());
             if (gymSubmitCheck()) {
                 $("#gym-modify-form").submit();
             }
@@ -607,7 +620,6 @@
             let img_name = $(this).siblings("img").attr("src");
             delImgList.push(img_name);
             $("#del_img_list").val(JSON.stringify(delImgList));
-            console.log($("#del_img_list").val());
             // div초기화
             $(this).siblings("img").attr("src","/resource/img/default04.png");
             $(this).css("display","none");

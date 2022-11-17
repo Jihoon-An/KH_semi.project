@@ -5,7 +5,7 @@
 
 <%@ include file="/layout/header.jsp" %>
 
-
+<div class="main_margin_85" style="height: 85px;"></div>
 <main id="gym-detail">
 
     <div style="height: 70px;"></div>
@@ -268,22 +268,22 @@
                 <canvas id="myChart"></canvas>
             </div>
 
-            <div class="place shadow-none p-3 rounded text_title">
-                <dt class="dt"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open Time </dt>
-                <dd>
+            <div class="time shadow-none p-3 rounded" style="margin-top: 20px">
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open </div>
+                <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_open == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_open != null}">${gymList.gym_open}</c:if>
-                </dd>
+                </div>
             </div>
-            <div class="place shadow-none p-3 rounded text_title">
-                <dt class="dt"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close Time </dt>
-                <dd>
+            <div class="time shadow-none p-3 rounded">
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close </div>
+                <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_close == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_close != null}">${gymList.gym_close}</c:if>
-                </dd>
+                </div>
             </div>
 
-            <div class="gym_info_tagBox" style="margin-top: 30px">
+            <div class="gym_info_tagBox p-3" style="margin-top: 40px; margin-bottom: 30px">
 
                 <c:choose>
                     <c:when test="${gymFilter.open == 'true'}">
@@ -395,14 +395,12 @@
                         if (data == 'false') {
 
                             thumb.attr("style", "color:#001A41");
-                            console.log(thumb + "좋아요 추가");
                             location.reload();
 
 
                         } else if (data == 'true') {
                             thumb.attr("style", "color:#8f959a");
 
-                            console.log(thumb + "좋아요 삭제");
                             location.reload();
                         }
 
@@ -419,12 +417,9 @@
         $(document).ready(function () {
             let fav = $("#heart").attr("check") == "true" ? true : false;
 
-            console.log(fav);
             if (fav) {
-                console.log(fav + ": 빨강")
                 $("#heart").css("color", "#CF0C00");
             } else {
-                console.log(fav + ": 회색")
                 $("#heart").css("color", "#C7D3DC")
             }
         });
@@ -434,14 +429,12 @@
 
             if ($("#heart").css("color") == "rgb(199, 211, 220)") {
                 $("#heart").css("color", "#CF0C00");
-                console.log("즐찾추가")
                 $.ajax({
                     url: "/favoriteadd.gym?gym_seq=" +${gymList.gym_seq},
                     type: "get"
                 })
             } else {
                 $("#heart").css("color", "#C7D3DC")
-                console.log("즐찾삭제")
                 $.ajax({
                     url: "/favoriteremove.gym?gym_seq=" +${gymList.gym_seq},
                     type: "get"
