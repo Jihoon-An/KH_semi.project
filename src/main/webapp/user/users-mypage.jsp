@@ -147,7 +147,7 @@
         <!-- review card -->
 
 
-        <c:if test="${review == null}">
+        <c:if test="${reviews == [] || reviews == null}">
             <div class="row pt-5 mt-3" style="font-size: large;"><div class="col text-center"  style="transform: translate(7px, 0);" >작성된 리뷰가 없습니다.</div></div>
         </c:if>
         <c:forEach var="review" items="${reviews}">
