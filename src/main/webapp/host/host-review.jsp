@@ -9,6 +9,7 @@
 
     <form action="" id="frm">
         <input type="hidden" value="1" name="cpage">
+        <!-- input type="text" style="display: none" -->
         <div id="search_box">
             <div style="margin: auto; width: 1010px; position: relative; left: 6px">
 
@@ -19,7 +20,7 @@
                         <option value="email" <c:if test="${type == 'email'}">selected</c:if>>작성자이메일</option>
                         <option value="certify" <c:if test="${type == 'certify'}">selected</c:if>>인증여부</option>
                     </select>
-                    <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
+                    <span id="selcetChange1"><input type="text" placeholder="검색어를 입력해주세요" id="search" name="search" class="search"
                                                     value="${search}"></span>
                     <span id="selcetChange2" style="display: none">
                     <select name="searchCrtf" class="search">
@@ -36,7 +37,7 @@
                         <option value="email">작성자이메일</option>
                         <option value="certify" selected>인증여부</option>
                     </select>
-                    <span id="selcetChange1" style="display: none"><input type="text" placeholder="검색어를 입력해주세요" name="search" class="search"
+                    <span id="selcetChange1" style="display: none"><input type="text" placeholder="검색어를 입력해주세요" id="search" name="search" class="search"
                                                                           value="${search}"></span>
                     <span id="selcetChange2">
                     <select name="searchCrtf" class="search">
@@ -201,13 +202,6 @@
         $("#li_review").css("color", "#ffe92d")
     });
 
-    // 엔터 = 버튼 클릭
-    $("#search").on("keydown", function (e) {
-        if (e.keyCode == 13) {
-            $("#searchBtn").trigger("click");
-            return false;
-        }
-    });
 
     // 전체 선택, 해제
     function checkAll() {
@@ -234,6 +228,15 @@
             $("#allcheck").prop("checked", true);
         } else {
             $("#allcheck").prop("checked", false);
+        }
+    });
+
+
+    // 엔터 = 버튼 클릭
+    $("#search").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            $("#searchBtn").trigger("click");
+            return false;
         }
     });
 
