@@ -499,7 +499,8 @@
             datasets: [
                 {
                     label: "My Second Dataset",
-                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3}, ${checkList.check4}, ${checkList.check5}],
+                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3}, 
+                    	${checkList.check4}, ${checkList.check5}],
                     fill: true,
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     borderColor: "rgb(54, 162, 235)",
@@ -510,7 +511,6 @@
                 },
             ],
         };
-
         const config = {
             type: "radar",
             data: data,
@@ -523,16 +523,11 @@
                 scales: {
                     r: {
                         suggestedMin: 0,
-
-
                         stepSize: 1
                     },
                 },
             },
-
         };
-
-
         //chart.js
     </script>
 
