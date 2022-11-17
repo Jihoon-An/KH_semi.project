@@ -187,10 +187,8 @@
 
                                         <span class="reviewcnt" id="recnt"> ${r.review.review_like}</span>
                                     </div>
+                                    <div class="p-3 reviewcon">${r.review.review_contents} </div>
 
-                                    <div class="reviewcon p-3">
-                                            ${r.review.review_contents}
-                                    </div>
 
 
                                     <div class="d-flex align-content-start flex-wrap" style="margin:40px 0px 10px 0px">
@@ -225,8 +223,6 @@
                                             </div>
                                         </c:if>
                                     </div>
-
-
                                 </div>
                             </div>
                         </c:forEach>
@@ -269,14 +265,18 @@
             </div>
 
             <div class="time shadow-none p-3 rounded" style="margin-top: 20px">
-                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-square-check" style="margin-right: 10px"></i> Open </div>
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-square-check"
+                                                                           style="margin-right: 10px"></i> Open
+                </div>
                 <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_open == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_open != null}">${gymList.gym_open}</c:if>
                 </div>
             </div>
             <div class="time shadow-none p-3 rounded">
-                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-rectangle-xmark" style="margin-right: 10px"></i> Close </div>
+                <div class="dt text_title_600" style="font-size: 17px;"><i class="fa-regular fa-rectangle-xmark"
+                                                                           style="margin-right: 10px"></i> Close
+                </div>
                 <div class="text_title" style="font-size: 17px;">
                     <c:if test="${gymList.gym_close == null}">시간미등록</c:if>
                     <c:if test="${gymList.gym_close != null}">${gymList.gym_close}</c:if>
@@ -316,7 +316,7 @@
                         <div class="infopicture">
                             <figure class="figure">
                                 <img src="/resource/gym/${gymImg}"
-                                     class="figure-img img-fluid rounded" alt="..." />
+                                     class="figure-img img-fluid rounded" alt="..."/>
 
                             </figure>
                         </div>
@@ -335,24 +335,19 @@
             </c:choose>
 
 
-
-
         </div>
     </div>
 
 
-
-
     <script>
-   
-
-
-
 
         // 태그 사용 못하게 출력 치환
-        $(function () {
-            $('.reviewcon').text($('.reviewcon').html());
-        })
+        let contents = document.querySelectorAll('.reviewcon');
+        for (i = 0; i < contents.length; i++) {
+            contents[i].innerText = contents[i].innerHTML;
+        }
+
+
 
 
         $(".relike").on("click", function () {
@@ -469,9 +464,8 @@
                 }
             });
         });  //게시글 더 보기 기능
-        
-        
-        
+
+
         $(function () {
             $(".infopicture").slice(0, 1).show(); // 초기갯수
             if ($(".infopicture:hidden").length == 0) {
@@ -496,8 +490,8 @@
             datasets: [
                 {
                     label: "My Second Dataset",
-                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3}, 
-                    	${checkList.check4}, ${checkList.check5}],
+                    data: [${checkList.check1}, ${checkList.check2}, ${checkList.check3},
+                        ${checkList.check4}, ${checkList.check5}],
                     fill: true,
                     backgroundColor: "rgba(54, 162, 235, 0.2)",
                     borderColor: "rgb(54, 162, 235)",
