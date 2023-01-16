@@ -2,14 +2,14 @@
 
 ## 목차
 1. [간략소개](https://github.com/Jihoon-An/KH_semi.project#1-%EA%B0%84%EB%9E%B5%EC%86%8C%EA%B0%9C)
-2. [기획, 관리](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#2-%EA%B8%B0%ED%9A%8D-%EA%B4%80%EB%A6%AC)
+2. [기획, 관리](https://github.com/Jihoon-An/KH_semi.project#2-%EA%B8%B0%ED%9A%8D-%EA%B4%80%EB%A6%AC)
 3. 담당자별 기능 소개
-    - [주혜인](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EC%A3%BC%ED%98%9C%EC%9D%B8)
-    - [김일중](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EA%B9%80%EC%9D%BC%EC%A4%91)
-    - [유경민](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EC%9C%A0%EA%B2%BD%EB%AF%BC)
-    - [김민섭](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EA%B9%80%EB%AF%BC%EC%84%AD)
-    - [안지훈](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EC%95%88%EC%A7%80%ED%9B%88)
-    - [허재영](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%ED%97%88%EC%9E%AC%EC%98%81)
+    - [주혜인](https://github.com/Jihoon-An/KH_semi.project#%EC%A3%BC%ED%98%9C%EC%9D%B8)
+    - [김일중](https://github.com/Jihoon-An/KH_semi.project#%EA%B9%80%EC%9D%BC%EC%A4%91)
+    - [유경민](https://github.com/Jihoon-An/KH_semi.project#%EC%9C%A0%EA%B2%BD%EB%AF%BC)
+    - [김민섭](https://github.com/Jihoon-An/KH_semi.project#%EA%B9%80%EB%AF%BC%EC%84%AD)
+    - [안지훈](https://github.com/Jihoon-An/KH_semi.project#%EC%95%88%EC%A7%80%ED%9B%88)
+    - [허재영](https://github.com/Jihoon-An/KH_semi.project#%ED%97%88%EC%9E%AC%EC%98%81)
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcK4Drc%2FbtrWqDOPlNh%2FHpQkHRu3grH1kHF1bSdds0%2Fimg.png">
 
