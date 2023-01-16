@@ -1,7 +1,7 @@
 # 프로젝트 명: Fitneeds
 
 ## 목차
-1. [간략소개](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#1-%EA%B0%84%EB%9E%B5%EC%86%8C%EA%B0%9C)
+1. [간략소개](https://github.com/Jihoon-An/KH_semi.project#1-%EA%B0%84%EB%9E%B5%EC%86%8C%EA%B0%9C)
 2. [기획, 관리](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#2-%EA%B8%B0%ED%9A%8D-%EA%B4%80%EB%A6%AC)
 3. 담당자별 기능 소개
     - [주혜인](https://github.com/Jihoon-An/KH_semi.project/edit/main/README.md#%EC%A3%BC%ED%98%9C%EC%9D%B8)
