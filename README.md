@@ -1,4 +1,5 @@
 # 프로젝트 명: Fitneeds
+>신뢰성 있는 헬스장 리뷰를 공유하는 웹 서비스 제공하는 WebApp.
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcK4Drc%2FbtrWqDOPlNh%2FHpQkHRu3grH1kHF1bSdds0%2Fimg.png">
 
 ## 목차
