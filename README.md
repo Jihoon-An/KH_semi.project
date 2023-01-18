@@ -14,9 +14,9 @@
 
 
 # 1. 간략소개
-- **개발기간:** 2022.10.16. ~ 2022.11.16.
-- **플랫폼:** WebApp
-- **개발인원:** 6명
+- 개발기간: 2022.10.16. ~ 2022.11.16.
+- 플랫폼: WebApp
+- 개발인원: 6명
 - 개발환경
   - **Back-End** - JDK11, JDBC, OracleDB(ojdbc8)
   - **Front-End** - HTML5, CSS, JavaScript, jQuery, Ajax, Jsp
