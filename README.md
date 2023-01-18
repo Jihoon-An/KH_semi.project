@@ -29,64 +29,64 @@
 # 2. 기획, 관리
 
 ## Wire frame
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpKz3j%2FbtrWsjBQIZZ%2FlBeYqNYUFYIrkDkTPn5Gb0%2Fimg.png">  
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpKz3j%2FbtrWsjBQIZZ%2FlBeYqNYUFYIrkDkTPn5Gb0%2Fimg.png">  
 
 ## ERD
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F8nib4%2FbtrWsjPlSGM%2FHOiHQpvKGzNxAIgJujoBk0%2Fimg.png"> 
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F8nib4%2FbtrWsjPlSGM%2FHOiHQpvKGzNxAIgJujoBk0%2Fimg.png"> 
 
 ## 일정 관리   
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtbFJt%2FbtrWlmG8zY5%2FwfLc1ykruGv2PMDUiMHNnk%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb1fn8g%2FbtrWpZq9fS2%2FHIxQR2P0vQg0doiZMKCmn1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FtbFJt%2FbtrWlmG8zY5%2FwfLc1ykruGv2PMDUiMHNnk%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb1fn8g%2FbtrWpZq9fS2%2FHIxQR2P0vQg0doiZMKCmn1%2Fimg.png">
 
 # 3. 담당자별 기능 소개
 
 ## 안지훈
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAnPLe%2FbtrWqD2nCvp%2FlMq8shsKREztQLN9dXYQ11%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAnPLe%2FbtrWqD2nCvp%2FlMq8shsKREztQLN9dXYQ11%2Fimg.png">
 
 - [DTO 예시1](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/ExerciseDTO.java#:~:text=public%20ExerciseDTO(-,ResultSet,-resultSet)%20throws)
 - [DTO 예시2](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/GymDTO.java#:~:text=public%20GymDTO(-,FileControl,-file)%20%7B)
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo2Rcz%2FbtrWlluN5Td%2FvYk70NKMH32HEK5KKGGVG0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo2Rcz%2FbtrWlluN5Td%2FvYk70NKMH32HEK5KKGGVG0%2Fimg.png">
 
 - [FileControl](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/commons/FileControl.java#:~:text=public%20class%20FileControl%20%7B)
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FothfO%2FbtrWll2zGXT%2FO0kxRwLvk8My3YxihZPmB1%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcofgiX%2FbtrWno5MwlF%2FrAjSGScZkhok1erOB2hpfK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbmm2ii%2FbtrWq9zFQKW%2FLEZIODB8UM2hza05qFsEbK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fce3UMM%2FbtrWnoEFyHC%2FxiQKVbk46tpwF5LcwDrV00%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FothfO%2FbtrWll2zGXT%2FO0kxRwLvk8My3YxihZPmB1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcofgiX%2FbtrWno5MwlF%2FrAjSGScZkhok1erOB2hpfK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbmm2ii%2FbtrWq9zFQKW%2FLEZIODB8UM2hza05qFsEbK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fce3UMM%2FbtrWnoEFyHC%2FxiQKVbk46tpwF5LcwDrV00%2Fimg.png">
 
 ## 주혜인
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBlhZH%2FbtrWqpC6ZtU%2Ftwd4khD9EPpAdmSaijEyD0%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fl8cEg%2FbtrWkvEkAzZ%2FRtGpwbqzDKLtsQtD6lekAK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcvkP9E%2FbtrWpn6CLxQ%2FVmY3jNJUGr4s4i9BPMGSA1%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb8q4n0%2FbtrWnpcBdlJ%2FcGJI5uySRROIwfRnCBkcD0%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0l6Ye%2FbtrWrIu4EUX%2FQH9epBcIXaid5XtL8wqUqK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiiRnK%2FbtrWlmf8JdM%2FQmvdz45itktrMLFb7YJkh1%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbSp1Fd%2FbtrWr7Bs85i%2FRDjFd7L7R4FyqOjj3hkHr1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBlhZH%2FbtrWqpC6ZtU%2Ftwd4khD9EPpAdmSaijEyD0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fl8cEg%2FbtrWkvEkAzZ%2FRtGpwbqzDKLtsQtD6lekAK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcvkP9E%2FbtrWpn6CLxQ%2FVmY3jNJUGr4s4i9BPMGSA1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb8q4n0%2FbtrWnpcBdlJ%2FcGJI5uySRROIwfRnCBkcD0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb0l6Ye%2FbtrWrIu4EUX%2FQH9epBcIXaid5XtL8wqUqK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbiiRnK%2FbtrWlmf8JdM%2FQmvdz45itktrMLFb7YJkh1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbSp1Fd%2FbtrWr7Bs85i%2FRDjFd7L7R4FyqOjj3hkHr1%2Fimg.png">
 
 ## 김일중
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPPeK3%2FbtrWllIfprY%2FCuxgQzZEVH5lh69TkS3kDk%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuaAaA%2FbtrWnnZ56WI%2FNGk7vNk0wikz5526mMDGdk%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FQAUcF%2FbtrWsj9EwZP%2FN066w6erVDKWpXXakoUpK1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FPPeK3%2FbtrWllIfprY%2FCuxgQzZEVH5lh69TkS3kDk%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuaAaA%2FbtrWnnZ56WI%2FNGk7vNk0wikz5526mMDGdk%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FQAUcF%2FbtrWsj9EwZP%2FN066w6erVDKWpXXakoUpK1%2Fimg.png">
 
 ## 유경민
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAcXeH%2FbtrWqGLnMLh%2FYJN4Nka8Qk9kw6q5Qcqul1%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1RN0r%2FbtrWq3zwbU1%2F5TPeOfHPkgQBsmQmFWtoe0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAcXeH%2FbtrWqGLnMLh%2FYJN4Nka8Qk9kw6q5Qcqul1%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1RN0r%2FbtrWq3zwbU1%2F5TPeOfHPkgQBsmQmFWtoe0%2Fimg.png">
 
 ## 김민섭
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBRvbu%2FbtrWqoYuhcC%2F2wXvZRLvTrkbX3Ux8sWcO0%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeeUSIC%2FbtrWqHXNcTm%2FIMaHoBq3AdRr2I4arVnXA0%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fk0bha%2FbtrWllaozwP%2Furozw7Ykr3CoAhvXnf8slK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbN9hQs%2FbtrWir9YEdd%2FDKQJ0PWQlqKKTOAbPGaqfK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbXEwbc%2FbtrWno5Mwi5%2FtWBLyBkCWkgSAfgWGYbYP0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBRvbu%2FbtrWqoYuhcC%2F2wXvZRLvTrkbX3Ux8sWcO0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FeeUSIC%2FbtrWqHXNcTm%2FIMaHoBq3AdRr2I4arVnXA0%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fk0bha%2FbtrWllaozwP%2Furozw7Ykr3CoAhvXnf8slK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbN9hQs%2FbtrWir9YEdd%2FDKQJ0PWQlqKKTOAbPGaqfK%2Fimg.png">
+<img width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbXEwbc%2FbtrWno5Mwi5%2FtWBLyBkCWkgSAfgWGYbYP0%2Fimg.png">
 
 ## 허재영
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FCSckw%2FbtrWrqBg1JG%2FYFZFmHd4Fi0KQJyu7oyX6K%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbooWWi%2FbtrWqqWjs5w%2FTxPZx9HMOxiPon8vmhOinK%2Fimg.png">    
+<img width="70%" width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FCSckw%2FbtrWrqBg1JG%2FYFZFmHd4Fi0KQJyu7oyX6K%2Fimg.png">
+<img width="70%" width="70%" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbooWWi%2FbtrWqqWjs5w%2FTxPZx9HMOxiPon8vmhOinK%2Fimg.png">    
 
 ***
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFe6Wo%2FbtrWrslywkk%2FSl5mu7NVrbbkxrKu39CLK0%2Fimg.png">
