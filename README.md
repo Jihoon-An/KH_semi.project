@@ -5,11 +5,11 @@
 1. [간략소개](https://github.com/Jihoon-An/KH_semi.project#1-%EA%B0%84%EB%9E%B5%EC%86%8C%EA%B0%9C)
 2. [기획, 관리](https://github.com/Jihoon-An/KH_semi.project#2-%EA%B8%B0%ED%9A%8D-%EA%B4%80%EB%A6%AC)
 3. 담당자별 기능 소개
+    - [안지훈](https://github.com/Jihoon-An/KH_semi.project#%EC%95%88%EC%A7%80%ED%9B%88)
     - [주혜인](https://github.com/Jihoon-An/KH_semi.project#%EC%A3%BC%ED%98%9C%EC%9D%B8)
     - [김일중](https://github.com/Jihoon-An/KH_semi.project#%EA%B9%80%EC%9D%BC%EC%A4%91)
     - [유경민](https://github.com/Jihoon-An/KH_semi.project#%EC%9C%A0%EA%B2%BD%EB%AF%BC)
     - [김민섭](https://github.com/Jihoon-An/KH_semi.project#%EA%B9%80%EB%AF%BC%EC%84%AD)
-    - [안지훈](https://github.com/Jihoon-An/KH_semi.project#%EC%95%88%EC%A7%80%ED%9B%88)
     - [허재영](https://github.com/Jihoon-An/KH_semi.project#%ED%97%88%EC%9E%AC%EC%98%81)
 
 
@@ -39,6 +39,20 @@
 
 # 3. 담당자별 기능 소개
 
+## 안지훈
+
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAnPLe%2FbtrWqD2nCvp%2FlMq8shsKREztQLN9dXYQ11%2Fimg.png">
+
+- [DTO 1](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/ExerciseDTO.java#:~:text=public%20ExerciseDTO(-,ResultSet%20resultSet,-)%20throws%20Exception)
+- [DTO 2](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/GymDTO.java#:~:text=public%20GymDTO(-,FileControl%20file,-)%20%7B)
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo2Rcz%2FbtrWlluN5Td%2FvYk70NKMH32HEK5KKGGVG0%2Fimg.png">
+
+- [FileControl](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/commons/FileControl.java#:~:text=public%20class%20FileControl%20%7B)
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FothfO%2FbtrWll2zGXT%2FO0kxRwLvk8My3YxihZPmB1%2Fimg.png">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcofgiX%2FbtrWno5MwlF%2FrAjSGScZkhok1erOB2hpfK%2Fimg.png">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbmm2ii%2FbtrWq9zFQKW%2FLEZIODB8UM2hza05qFsEbK%2Fimg.png">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fce3UMM%2FbtrWnoEFyHC%2FxiQKVbk46tpwF5LcwDrV00%2Fimg.png">
+
 ## 주혜인
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbBlhZH%2FbtrWqpC6ZtU%2Ftwd4khD9EPpAdmSaijEyD0%2Fimg.png">
@@ -67,20 +81,6 @@
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fk0bha%2FbtrWllaozwP%2Furozw7Ykr3CoAhvXnf8slK%2Fimg.png">
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbN9hQs%2FbtrWir9YEdd%2FDKQJ0PWQlqKKTOAbPGaqfK%2Fimg.png">
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbXEwbc%2FbtrWno5Mwi5%2FtWBLyBkCWkgSAfgWGYbYP0%2Fimg.png">
-
-## 안지훈
-
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAnPLe%2FbtrWqD2nCvp%2FlMq8shsKREztQLN9dXYQ11%2Fimg.png">
-
-- [DTO 1](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/ExerciseDTO.java#:~:text=public%20ExerciseDTO(-,ResultSet%20resultSet,-)%20throws%20Exception)
-- [DTO 2](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/GymDTO.java#:~:text=public%20GymDTO(-,FileControl%20file,-)%20%7B)
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo2Rcz%2FbtrWlluN5Td%2FvYk70NKMH32HEK5KKGGVG0%2Fimg.png">
-
-- [FileControl](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/commons/FileControl.java#:~:text=public%20class%20FileControl%20%7B)
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FothfO%2FbtrWll2zGXT%2FO0kxRwLvk8My3YxihZPmB1%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcofgiX%2FbtrWno5MwlF%2FrAjSGScZkhok1erOB2hpfK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbmm2ii%2FbtrWq9zFQKW%2FLEZIODB8UM2hza05qFsEbK%2Fimg.png">
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fce3UMM%2FbtrWnoEFyHC%2FxiQKVbk46tpwF5LcwDrV00%2Fimg.png">
 
 ## 허재영
 
