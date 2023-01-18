@@ -1,4 +1,5 @@
 # 프로젝트 명: Fitneeds
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcK4Drc%2FbtrWqDOPlNh%2FHpQkHRu3grH1kHF1bSdds0%2Fimg.png">
 
 ## 목차
 1. [간략소개](https://github.com/Jihoon-An/KH_semi.project#1-%EA%B0%84%EB%9E%B5%EC%86%8C%EA%B0%9C)
@@ -11,7 +12,6 @@
     - [안지훈](https://github.com/Jihoon-An/KH_semi.project#%EC%95%88%EC%A7%80%ED%9B%88)
     - [허재영](https://github.com/Jihoon-An/KH_semi.project#%ED%97%88%EC%9E%AC%EC%98%81)
 
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcK4Drc%2FbtrWqDOPlNh%2FHpQkHRu3grH1kHF1bSdds0%2Fimg.png">
 
 # 1. 간략소개
 - **개발기간:** 2022.10.16. ~ 2022.11.16.
