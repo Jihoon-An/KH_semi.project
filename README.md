@@ -43,8 +43,8 @@
 
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAnPLe%2FbtrWqD2nCvp%2FlMq8shsKREztQLN9dXYQ11%2Fimg.png">
 
-- [DTO 1](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/ExerciseDTO.java#:~:text=public%20ExerciseDTO(-,ResultSet%20resultSet,-)%20throws%20Exception)
-- [DTO 2](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/GymDTO.java#:~:text=public%20GymDTO(-,FileControl%20file,-)%20%7B)
+- [DTO 예시1](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/ExerciseDTO.java#:~:text=public%20ExerciseDTO(-,ResultSet,-resultSet)%20throws)
+- [DTO 예시2](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/dto/GymDTO.java#:~:text=public%20GymDTO(-,FileControl,-file)%20%7B)
 <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo2Rcz%2FbtrWlluN5Td%2FvYk70NKMH32HEK5KKGGVG0%2Fimg.png">
 
 - [FileControl](https://github.com/Jihoon-An/KH_semi.project/blob/main/src/main/java/commons/FileControl.java#:~:text=public%20class%20FileControl%20%7B)
